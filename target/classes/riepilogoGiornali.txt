@@ -1,0 +1,33 @@
+Id :	1titolo :	La Republica1ricavo totale :	2.0
+Id :	2titolo :	La Republica2ricavo totale :	0.0
+Id :	3titolo :	La Republica3ricavo totale :	20.0
+Id :	4titolo :	La Republica4ricavo totale :	28.0
+Id :	5titolo :	titolo giornale aggiornatoricavo totale :	1325.0
+Id :	6titolo :	La Republica6ricavo totale :	30.0
+Id :	7titolo :	Il Fatto Quotidiano1ricavo totale :	0.0
+Id :	8titolo :	Il Fatto Quotidiano2ricavo totale :	0.0
+Id :	9titolo :	Il Fatto Quotidiano3ricavo totale :	0.0
+Id :	10titolo :	Il Fatto Quotidiano4ricavo totale :	30.0
+Id :	11titolo :	Il Fatto Quotidiano5ricavo totale :	32.0
+Id :	12titolo :	La gazzetta del profetaricavo totale :	-4.25
+Id :	14titolo :	giornale provaricavo totale :	225.0
+Id :	15titolo :	giornale provaricavo totale :	225.0
+Id :	16titolo :	giornale provaricavo totale :	225.0
+Id :	22titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
+Id :	23titolo :	giornale provaricavo totale :	225.0
+Id :	24titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
+Id :	26titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
+Id :	27titolo :	giornale provaricavo totale :	225.0
+Id :	28titolo :	giornale provaricavo totale :	225.0
+Id :	29titolo :	giornale provaricavo totale :	225.0
+Id :	30titolo :	giornale provaricavo totale :	225.0
+Id :	31titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
+Id :	34titolo :	giornale provaricavo totale :	225.0
+Id :	35titolo :	giornale provaricavo totale :	225.0
+Id :	36titolo :	giornale provaricavo totale :	225.0
+Id :	37titolo :	giornale provaricavo totale :	225.0
+Id :	38titolo :	giornale provaricavo totale :	225.0
+Id :	39titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
+Id :	40titolo :	giornale provaricavo totale :	225.0
+Id :	41titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
+Id :	42titolo :	giornale provaricavo totale :	225.0

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryScegliNegozio">
+   <children>
+      <Label fx:id="labelL" layoutX="35.0" layoutY="32.0" prefHeight="41.0" prefWidth="285.0" text="Scegli uno dei negozi in cui effetuare il ritiro:" />
+      <RadioButton fx:id="radio1" layoutX="35.0" layoutY="130.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radio3" layoutX="35.0" layoutY="192.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radio2" layoutX="213.0" layoutY="130.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radio4" layoutX="213.0" layoutY="192.0" mnemonicParsing="false" />
+      <Button fx:id="buttonV" layoutX="403.0" layoutY="155.0" mnemonicParsing="false" onAction="#verifica" text="verifca e conferma ritiro" />
+   </children>
+</Pane>
