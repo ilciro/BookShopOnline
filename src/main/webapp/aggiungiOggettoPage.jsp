@@ -32,7 +32,9 @@
 <div>
 titolo:
 <label for="titoloL"></label>
+<label>
 <input type="text" id="titoloL" name="titoloL">
+</label>
 <br>
 <br>
 numero pagine

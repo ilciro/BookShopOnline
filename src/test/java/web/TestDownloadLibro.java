@@ -17,6 +17,7 @@ import web.bean.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -31,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
 
 
+
     }
     private final Libro l=new Libro();
     private final LibroBean lB=new LibroBean();
@@ -39,6 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     @Test
     void testLoginUserLibro() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         driver=new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+
 
         driver.get("http://localhost:8080/original-BookShopOnline/index.jsp");
         driver.findElement(By.id("buttonLogin")).click();
@@ -49,6 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         driver.findElement(By.id("loginB")).click();
         //schermata utente: libro , giornale , rivista , logout,ricerca
         driver.findElement(By.id("buttonL")).click();
+
 
 
         PropertyUtils.setProperty(lB,"elencoLibriB", lD.getLibri());
