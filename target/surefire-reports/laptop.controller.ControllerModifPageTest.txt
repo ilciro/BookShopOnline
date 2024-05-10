@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: laptop.controller.ControllerModifPageTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.31 s - in laptop.controller.ControllerModifPageTest
