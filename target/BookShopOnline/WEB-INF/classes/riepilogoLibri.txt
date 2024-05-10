@@ -29,7 +29,6 @@ Id :	35titolo :	libro provaricavo totale :	197.44
 Id :	36titolo :	libro provaricavo totale :	197.44
 Id :	37titolo :	libro provaricavo totale :	197.44
 Id :	38titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	41titolo :	libro provaricavo totale :	197.44
 Id :	42titolo :	libro provaricavo totale :	197.44
 Id :	43titolo :	libro provaricavo totale :	197.44
 Id :	44titolo :	libro provaricavo totale :	197.44
@@ -38,3 +37,7 @@ Id :	46titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
 Id :	47titolo :	libro provaricavo totale :	197.44
 Id :	48titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
 Id :	49titolo :	libro provaricavo totale :	197.44
+Id :	50titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
+Id :	51titolo :	libro provaricavo totale :	197.44
+Id :	52titolo :	libro provaricavo totale :	197.44
+Id :	53titolo :	libro provaricavo totale :	197.44
