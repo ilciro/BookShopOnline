@@ -47,3 +47,4 @@ Id :	56titolo :	libro provaricavo totale :	197.44
 Id :	57titolo :	libro provaricavo totale :	197.44
 Id :	58titolo :	libro provaricavo totale :	197.44
 Id :	59titolo :	libro provaricavo totale :	197.44
+Id :	60titolo :	libro provaricavo totale :	197.44

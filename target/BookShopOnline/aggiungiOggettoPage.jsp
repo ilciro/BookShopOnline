@@ -31,15 +31,11 @@
 <c:when test="${tipo=='libro'}">
 <div>
 titolo :
-<label>
 <input type="text" id="titoloL" name="titoloL"/>
-</label>
 <br>
 <br>
 numero pagine :
-<label>
 <input type="text" id="nrPagL" name="nrPagL"/>
-</label>
 <br>
 <br>
 codice isbn :
