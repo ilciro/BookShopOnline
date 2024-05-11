@@ -33,6 +33,8 @@ public class CsvDao implements DaoInterface {
     private static final int GETINDEXEMAIL=4;
     private static final int GETINDEXDESCRIZIONE=5;
     private static final int GETINDEXDATA=6;
+    private static final String query=" select idUser,idRuolo,nome,cognome,email,pwd,descrizione,dataNascita from USERS";
+
 
 
 
@@ -71,7 +73,6 @@ public class CsvDao implements DaoInterface {
                     Logger.getLogger("report users").log(Level.SEVERE, "\n making file");
 
 
-                    String query=   "SELECT * from USERS";
 
 
                     try (Connection conn= ConnToDb.connectionToDB();
