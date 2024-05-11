@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: laptop.controller.ControllerDownloadTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.024 s - in laptop.controller.ControllerDownloadTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.421 s - in laptop.controller.ControllerDownloadTest

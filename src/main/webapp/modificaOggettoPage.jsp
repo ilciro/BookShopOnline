@@ -26,61 +26,59 @@
 
 
 <div class="column">
-titolo:
-<input type="text" id="titoloL" name="titoloL" value="${beanL.getTitoloB() }">
+titolo :
+<input type="text" id="titoloL" name="titoloL" value="${beanL.getTitoloB() }"/>
 <br>
 <br>
-numero pagine:
-<input type="text" id="pagineL" name="pagineL" value="${beanL.getNumeroPagineB()}">
+numero pagine :
+<input type="text" id="pagineL" name="pagineL" value="${beanL.getNumeroPagineB()}"/>
 <br>
 <br>
-codice isbn:
-<input type="text" id="codiceL" name="codiceL" value="${beanL.getCodIsbnB() }">
+codice isbn :
+<input type="text" id="codiceL" name="codiceL" value="${beanL.getCodIsbnB() }"/>
 <br>
 <br>
-editore:
-<input type="text" id="editoreL" name="editoreL" value="${beanL.getEditoreB() }">
+editore :
+<input type="text" id="editoreL" name="editoreL" value="${beanL.getEditoreB() }"/>
 <br>
 <br>
-autore:
-<input type="text" id="autoreL" name="autoreL" value="${beanL.getAutoreB() }">
+autore :
+<input type="text" id="autoreL" name="autoreL" value="${beanL.getAutoreB() }"/>
 <br>
 <br>
-lingua:
-<input type="text" id="linguaL" name="linguaL" value="${beanL.getLinguaB() }">
+lingua :
+<input type="text" id="linguaL" name="linguaL" value="${beanL.getLinguaB() }"/>
 <br>
 <br>
-categoria:
-<input type="text" id="categoriaL" name="categoriaL" value="${beanL.getCategoriaB() }">
+categoria :
+<input type="text" id="categoriaL" name="categoriaL" value="${beanL.getCategoriaB() }"/>
 <br>
 <br>
-data pubblicazione
-<input type="text" id="dataL" name="dataL" value="${beanL.getDateB()}">
+data pubblicazione :
+<input type="text" id="dataL" name="dataL" value="${beanL.getDateB()}"/>
 <br>
 <br>
-recensione:
-<label for="recL"></label>
-<textarea rows="10" cols="50" id="recL" name="recL">
+recensione :
+<textarea rows="10" cols="50" id="recL" name="recL"/>
 ${beanL.getRecensioneB() }
 </textarea>
 <br>
 <br>
-nr copie rimanenti:
-<input type="text" id="copieL" name="copieL" value="${beanL.getNrCopieB() }">
+nr copie rimanenti :
+<input type="text" id="copieL" name="copieL" value="${beanL.getNrCopieB() }"/>
 <br>
 <br>
 descrizione :
-<label for="descL"></label>
-<textarea rows="10" cols="50" name="descL" id="descL">
+<textarea rows="10" cols="50" name="descL" id="descL"/>
 ${beanL.getDescB() }</textarea>
 <br>
 <br>
 disponibilita:
-<input type="text" id="dispL" name="dispL" value="${beanL.getDisponibilitaB() }">
+<input type="text" id="dispL" name="dispL" value="${beanL.getDisponibilitaB() }"/>
 <br>
 <br>
 prezzo:
-<input type="text" id="prezzoL" name="prezzoL" value="${beanL.getPrezzoB() }">
+<input type="text" id="prezzoL" name="prezzoL" value="${beanL.getPrezzoB() }"/>
 <br>
 <br>
 
@@ -90,7 +88,6 @@ prezzo:
 </div>
 <div class="column">
 elenco categorie possibili:
-<label for="categoriePossibili"></label>
 <textarea rows="10" cols="50" id="categoriePossibili" name="categoriePossibili" >
 ADOLESCENTI_RAGAZZI
 ARTE
@@ -126,197 +123,186 @@ NON_VALIDO
 
 </div>
 <div class="column">
- titolo da aggiornare:
- <input type="text" id="titoloNL" name="titoloNL">
- <br>
-<br>
-numero pagine da aggiornare:
-<input type="text" id="pagineNL" name="pagineNL" >
+titolo da aggiornare :
+<input type="text" id="titoloNL" name="titoloNL"/>
 <br>
 <br>
-codice isbn da aggiornare:
-<input type="text" id="codiceNL" name="codiceNL" >
+numero pagine da aggiornare :
+<input type="text" id="pagineNL" name="pagineNL" />
+<br>
+<br>
+codice isbn da aggiornare :
+<input type="text" id="codiceNL" name="codiceNL" />
 <br>
 <br>
 editore da aggiornare:
-<input type="text" id="editoreNL" name="editoreNL" >
+<input type="text" id="editoreNL" name="editoreNL"/ >
 <br>
 <br>
-autore da aggiornare:
-<input type="text" id="autoreNL" name="autoreNL" >
+autore da aggiornare :
+<input type="text" id="autoreNL" name="autoreNL"/ >
 <br>
 <br>
-lingua da aggiornare:
-<input type="text" id="linguaNL" name="linguaNL">
+lingua da aggiornare :
+<input type="text" id="linguaNL" name="linguaNL"/>
 <br>
 <br>
-categoria da aggiornare:
-<input type="text" id="categoriaNL" name="categoriaNL" >
+categoria da aggiornare :
+<input type="text" id="categoriaNL" name="categoriaNL" />
 <br>
 <br>
 data pubblicazione da aggiornare (usare il '/');
 <br>
 usare il formato ('mm/dd/yyyy')
-<input type="text" id="dataNL" name="dataNL">
+<input type="text" id="dataNL" name="dataNL" />
 <br>
 <br>
-recensione da aggiornare:
-<label for="recNL"></label>
-<textarea rows="10" cols="50" id="recNL" name="recNL">
+recensione da aggiornare :
+<textarea rows="10" cols="50" id="recNL" name="recNL"/>
 </textarea>
 <br>
 <br>
 nr copie rimanenti da aggiornare:
-<input type="text" id="copieNL" name="copieNL" >
+<input type="text" id="copieNL" name="copieNL"/ >
 <br>
 <br>
 descrizione da aggiornare:
-<label for="descNL"></label>
-<textarea rows="10" cols="50" name="descNL" id="descNL">
+<textarea rows="10" cols="50" name="descNL" id="descNL"/>
 </textarea>
 <br>
 <br>
 disponibilita da aggiornare:
-<input type="text" id="dispNL" name="dispNL" >
+<input type="text" id="dispNL" name="dispNL" />
 <br>
 <br>
 prezzo da aggiornare:
-<input type="text" id="prezzoNL" name="prezzoNL" >
+<input type="text" id="prezzoNL" name="prezzoNL" />
 <br>
 <br>
 </c:when>
 
 <c:when test="${tipo=='giornale'}">
 <div class="columnG">
-titolo:
-<input type="text" id="titoloG" name="titoloG" value="${beanG.getTitoloB()}">
+titolo :
+<input type="text" id="titoloG" name="titoloG" value="${beanG.getTitoloB()}"/>
 <br>
 <br>
-tipologia:
-<input type="text" id="tipoG" name="tipoG" value="QUOTIDIANO">
+tipologia :
+<input type="text" id="tipoG" name="tipoG" value="QUOTIDIANO"/>
 <br>
 <br>
-lingua:
-<input type="text" id="linguaG" name="linguaG" value="${beanG.getLinguaB() }">
+lingua :
+<input type="text" id="linguaG" name="linguaG" value="${beanG.getLinguaB() }"/>
 <br>
 <br>
-editore:
-<input type="text" id="editoreG" name="editoreG" value="${beanG.getEditoreB() }">
+editore :
+<input type="text" id="editoreG" name="editoreG" value="${beanG.getEditoreB() }"/>
 <br>
 <br>
 data pubb (yyyy/mm/dd) :
-<input type="text" id="dataG" name="dataG" value="${beanG.getDataB() }">
+<input type="text" id="dataG" name="dataG" value="${beanG.getDataB() }"/>
 <br>
 <br>
-copie rimanenti:
-<input type="text" id="copieG" name="copieG" value="${beanG.getCopieRimanentiB() }">
+copie rimanenti :
+<input type="text" id="copieG" name="copieG" value="${beanG.getCopieRimanentiB() }"/>
 <br>
 <br>
-disponibilita (0->no 1->si):
-<input type="text" id="dispG" name="dispG" value="${beanG.getDisponibilitaB() }">
+disponibilita (0->no 1->si) :
+<input type="text" id="dispG" name="dispG" value="${beanG.getDisponibilitaB() }"/>
 <br>
 <br>
-prezzo:
-<input type="text" id="prezzoG" name="prezzoG" value="${beanG.getPrezzoB() }">
+prezzo :
+<input type="text" id="prezzoG" name="prezzoG" value="${beanG.getPrezzoB() }"/>
 <br>
 <br>
-<input type="submit" id="listaB" name="listaB" value="prendi dati" class="genera">
-
+<input type="submit" id="listaB" name="listaB" value="prendi dati" class="genera" />
 </div>
 <div class="columnG">
-
-titolo da modificare:
-<input type="text" id="titoloNG" name="titoloNG">
+titolo da modificare :
+<input type="text" id="titoloNG" name="titoloNG"/>
 <br>
 <br>
-tipologia da modificare:
-<input type="text" id="tipoG" name="tipoG" value="QUOTIDIANO" disabled>
+tipologia da modificare :
+<input type="text" id="tipoG" name="tipoG" value="QUOTIDIANO" disabled/>
 <br>
 <br>
-lingua da modificare:
-<input type="text" id="linguaNG" name="linguaNG">
+lingua da modificare :
+<input type="text" id="linguaNG" name="linguaNG"/>
 <br>
 <br>
-editore da modificare:
-<input type="text" id="editoreNG" name="editoreNG" >
+editore da modificare :
+<input type="text" id="editoreNG" name="editoreNG"/>
 <br>
 <br>
 data pubb (yyyy/mm/dd) da modificare :
-<input type="text" id="dataNG" name="dataNG" >
+<input type="text" id="dataNG" name="dataNG" />
 <br>
 <br>
-copie rimanenti da modificare:
-<input type="text" id="copieNG" name="copieNG" >
+copie rimanenti da modificare :
+<input type="text" id="copieNG" name="copieNG" />
 <br>
 <br>
-disponibilita (0->no 1->si) da modificare:
-<input type="text" id="dispNG" name="dispNG" >
+disponibilita (0->no 1->si) da modificare :
+<input type="text" id="dispNG" name="dispNG" />
 <br>
 <br>
-prezzo da modificare:
-<input type="text" id="prezzoNG" name="prezzoNG">
+prezzo da modificare :
+<input type="text" id="prezzoNG" name="prezzoNG"/>
 <br>
 <br>
 <br>
 <br>
-
 </div>
-
 </c:when>
 
 <c:when test="${tipo=='rivista'}">
 <div class="column">
-titolo:
-<input type="text" id="titoloR" name="titoloR" value="${beanR.getTitoloB() }">
+titolo :
+<input type="text" id="titoloR" name="titoloR" value="${beanR.getTitoloB() }"/>
 <br>
 <br>
-categoria:
-<input type="text" id="categoriaR" name="categoriaR" value="${beanR.getTipologiaB() }">
+categoria :
+<input type="text" id="categoriaR" name="categoriaR" value="${beanR.getTipologiaB() }"/>
 <br>
 <br>
-autore:
-<input type="text" id="autoreR" name="autoreR" value="${beanR.getAutoreB() }">
+autore :
+<input type="text" id="autoreR" name="autoreR" value="${beanR.getAutoreB() }"/>
 <br>
 <br>
-lingua:
-<input type="text" id="linguaR" name="linguaR" value="${beanR.getLinguaB() }">
+lingua :
+<input type="text" id="linguaR" name="linguaR" value="${beanR.getLinguaB() }"/>
 <br>
 <br>
-editore:
-<input type="text" id="editoreR" name="editoreR" value="${beanR.getEditoreB() }">
+editore :
+<input type="text" id="editoreR" name="editoreR" value="${beanR.getEditoreB() }"/>
 <br>
 <br>
-descrizione:
-<label for="descR"></label>
+descrizione :
 <textarea rows="10" cols="50">
 ${beanR.getDescrizioneB() }
 </textarea>
 <br>
 <br>
-data pubblicazione:
-<input type="text" id="dataR" name="dataR" value="${beanR.getDataB() }">
+data pubblicazione :
+<input type="text" id="dataR" name="dataR" value="${beanR.getDataB() }"/>
 <br>
 <br>
-disponibilita:
-<input type="text" id="dispL" name="dispL" value="${beanR.getDispB() }">
+disponibilita :
+<input type="text" id="dispL" name="dispL" value="${beanR.getDispB() }"/>
 <br>
 <br>
-prezzo:
-<input type="text" id="prezzoL" name="prezzoL" value="${beanR.getPrezzoB() }">
+prezzo :
+<input type="text" id="prezzoL" name="prezzoL" value="${beanR.getPrezzoB() }"/>
 <br>
 <br>
 copieRimanenti :
-<input type="text" id="copieR" name="copieR" value="${beanR.getCopieRimB() }">
+<input type="text" id="copieR" name="copieR" value="${beanR.getCopieRimB() }"/>
 <br>
 <br>
-
-<input type="submit" id="listaB" name="listaB" value="prendi dati" class="genera">
-
-
+<input type="submit" id="listaB" name="listaB" value="prendi dati" class="genera"/>
 </div>
 <div class="column">
-elenco categorie possibili:
-<label for="categoriePossibili"></label>
+elenco categorie possibili :
 <textarea rows="10" cols="50" id="categoriePossibili" name="categoriePossibili" >
 SETTIMANALE
 BISETTIMANALE
@@ -336,49 +322,47 @@ NON_VALIDO
 </textarea>
 </div>
 <div class="column">
-
-titolo da aggiornare:
-<input type="text" id="titoloNR" name="titoloNR">
+titolo da aggiornare :
+<input type="text" id="titoloNR" name="titoloNR"/>
 <br>
 <br>
-categoria  da aggiornare:
-<input type="text" id="categoriaNR" name="categoriaNR" >
+categoria  da aggiornare :
+<input type="text" id="categoriaNR" name="categoriaNR"/>
 <br>
 <br>
-autore da aggiornare:
-<input type="text" id="autoreNR" name="autoreNR" >
+autore da aggiornare :
+<input type="text" id="autoreNR" name="autoreNR" />
 <br>
 <br>
-lingua da aggiornare:
-<input type="text" id="linguaNR" name="linguaNR" >
+lingua da aggiornare :
+<input type="text" id="linguaNR" name="linguaNR" />
 <br>
 <br>
-editore da aggiornare:
-<input type="text" id="editoreNR" name="editoreNR" >
+editore da aggiornare :
+<input type="text" id="editoreNR" name="editoreNR" />
 <br>
 <br>
-descrizione da aggiornare:
-<label for="descNR"></label>
-<textarea rows="10" cols="50" id="descNR" name="descNR">
+descrizione da aggiornare :
+<textarea rows="10" cols="50" id="descNR" name="descNR"/>
 </textarea>
 <br>
 <br>
 data pubblicazione da aggiornare (usare il '/');
 <br>
 usare il formato ('mm/dd/yyyy')
-<input type="text" id="dataNR" name="dataNR" >
+<input type="text" id="dataNR" name="dataNR" />
 <br>
 <br>
-disponibilita da aggiornare:
-<input type="text" id="dispNR" name="dispNR">
+disponibilita da aggiornare :
+<input type="text" id="dispNR" name="dispNR"/>
 <br>
 <br>
-prezzo da aggiornare:
-<input type="text" id="prezzoNR" name="prezzoNR" >
+prezzo da aggiornare :
+<input type="text" id="prezzoNR" name="prezzoNR"/ >
 <br>
 <br>
 copieRimanenti da aggiornare :
-<input type="text" id="copieNR" name="copieNR" >
+<input type="text" id="copieNR" name="copieNR"/ >
 <br>
 <br>
 
