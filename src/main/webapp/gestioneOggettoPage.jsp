@@ -15,11 +15,6 @@
 
 <h2> Scegliere cosa fare... Per modificare/eliminare inserire id oggetto corrispondente</h2>
 
-<p> id del libro :${beanL.getIdB()}</p>
-<p> id del libro sysBean :${beanS.getIdB()}</p>
-
-
-
 <c:set var="tipo" scope="session" value="${beanS.getTypeB()}"/>
 
 

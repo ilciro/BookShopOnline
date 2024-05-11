@@ -13,11 +13,6 @@
 
 <h2> Scegliere i campi da modificare</h2>
 
-<p> paramteri: </p>
-<p> id da sysrtem : ${beanS.getIdB()}</p>
-<p> id da libro bean : ${beanL.getIdB()}</p>
-
-
 <form action="ModificaOggettoServlet" method="post">
 <c:set var="tipo" scope="session" value="${beanS.getTypeB()}"/>
 

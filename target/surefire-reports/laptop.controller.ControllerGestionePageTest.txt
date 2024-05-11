@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: laptop.controller.ControllerGestionePageTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.959 s - in laptop.controller.ControllerGestionePageTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.513 s - in laptop.controller.ControllerGestionePageTest

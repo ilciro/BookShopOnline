@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CsvDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.database</a> &gt; <span class="el_source">CsvDao.java</span></div><h1>CsvDao.java</h1><pre class="source lang-java linenums">package laptop.database;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import laptop.exception.IdException;
+import laptop.model.User;
+import laptop.utilities.ConnToDb;
+import org.apache.commons.lang.SystemUtils;
+
+import java.io.*;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.nio.file.StandardCopyOption.*;
+public class CsvDao implements DaoInterface {
+    private static final String CSVFILENAME=&quot;localDBFile.csv&quot;;
+
+    private static final int GETINDEXID=0;
+    private static final int GETINDEXRUOLO=1;
+    private static final int GETINDEXNOME=2;
+    private static final int GETINDEXCOGNOME=3;
+    private static final int GETINDEXEMAIL=4;
+    private static final int GETINDEXDESCRIZIONE=5;
+    private static final int GETINDEXDATA=6;
+    private static final String QUERY=&quot; select idUser,idRuolo,nome,cognome,email,pwd,descrizione,dataNascita from USERS&quot;;
+
+
+
+
+
+
+    private final File fd;
+
+
+
+<span class="fc" id="L47">    public CsvDao()  {</span>
+<span class="fc" id="L48">        this.fd = new File(CSVFILENAME);</span>
+
+
+
+<span class="fc" id="L52">    }</span>
+
+
+
+    @Override
+    public void generaReport() throws IOException {
+
+        try {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            if (!fd.exists()) {</span>
+<span class="nc" id="L61">                throw new IOException();</span>
+            }
+<span class="nc" id="L63">        }catch (IOException e)</span>
+        {
+<span class="nc" id="L65">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n file not ecists&quot;);</span>
+
+
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                if (fd.createNewFile())</span>
+                {
+
+
+<span class="nc" id="L73">                    Logger.getLogger(&quot;report users&quot;).log(Level.SEVERE, &quot;\n making file&quot;);</span>
+
+
+
+
+<span class="nc" id="L78">                    try (Connection conn= ConnToDb.connectionToDB();</span>
+<span class="nc" id="L79">                         PreparedStatement prepQ=conn.prepareStatement(QUERY)){</span>
+
+<span class="nc" id="L81">                        ResultSet rs = prepQ.executeQuery(QUERY);</span>
+<span class="nc" id="L82">                        CSVWriter writer = new CSVWriter(new FileWriter(CSVFILENAME));</span>
+<span class="nc" id="L83">                        rs.getMetaData();</span>
+
+
+<span class="nc" id="L86">                        String[] data =new String[7];</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                        while (rs.next())</span>
+                        {
+<span class="nc" id="L89">                            data[0]= String.valueOf((rs.getInt(1)));</span>
+<span class="nc" id="L90">                            data[1]=rs.getString(2);</span>
+<span class="nc" id="L91">                            data[2]=rs.getString(3);</span>
+<span class="nc" id="L92">                            data[3]=rs.getString(4);</span>
+<span class="nc" id="L93">                            data[4]=rs.getString(5);</span>
+<span class="nc" id="L94">                            data[5]=rs.getString(7);</span>
+<span class="nc" id="L95">                            data[6]= String.valueOf(rs.getDate(8));</span>
+<span class="nc" id="L96">                            writer.writeNext(data);</span>
+                        }
+<span class="nc" id="L98">                        writer.flush();</span>
+<span class="nc" id="L99">                        writer.close();</span>
+
+
+<span class="nc" id="L102">                    } catch (SQLException ex) {</span>
+<span class="nc" id="L103">                        Logger.getLogger(&quot;report libro&quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta .&quot;, ex);</span>
+
+<span class="nc" id="L105">                    }</span>
+
+
+                }
+
+<span class="fc" id="L110">        }</span>
+
+<span class="fc" id="L112">    }</span>
+    public static synchronized void saveUser(File fd, User instance) throws Exception {
+<span class="nc" id="L114">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));</span>
+<span class="nc" id="L115">        String[] userVector = new String[8];</span>
+
+<span class="nc" id="L117">        userVector[GETINDEXID] = String.valueOf(instance.getId());</span>
+<span class="nc" id="L118">        userVector[GETINDEXRUOLO] = instance.getIdRuolo().substring(0,1);</span>
+<span class="nc" id="L119">        userVector[GETINDEXNOME] = instance.getNome();</span>
+<span class="nc" id="L120">        userVector[GETINDEXCOGNOME] = String.valueOf(instance.getCognome());</span>
+<span class="nc" id="L121">        userVector[GETINDEXEMAIL] = String.valueOf(instance.getEmail());</span>
+<span class="nc" id="L122">        userVector[GETINDEXDESCRIZIONE] = String.valueOf(instance.getDescrizione());</span>
+<span class="nc" id="L123">        userVector[GETINDEXDATA] = String.valueOf(instance.getDataDiNascita());</span>
+
+<span class="nc" id="L125">        csvWriter.writeNext(userVector);</span>
+<span class="nc" id="L126">        csvWriter.flush();</span>
+<span class="nc" id="L127">        csvWriter.close();</span>
+
+
+<span class="nc" id="L130">    }</span>
+    public static synchronized List&lt;User&gt; retreiveByNomeEmail(File fd, String nome,String email) throws Exception {
+        // create csvReader object passing file reader as a parameter
+<span class="fc" id="L133">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] userVector;
+
+<span class="fc" id="L136">        List&lt;User&gt; userList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        while ((userVector = csvReader.readNext()) != null) {</span>
+
+<span class="pc bpc" id="L140" title="1 of 4 branches missed.">            boolean userVectorFound = (userVector[GETINDEXNOME].equals(nome))||(userVector[GETINDEXEMAIL].equals(email));</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            if (userVectorFound) {</span>
+<span class="fc" id="L142">                int id = Integer.parseInt(userVector[GETINDEXID]);</span>
+<span class="fc" id="L143">                String nomeA = userVector[GETINDEXNOME];</span>
+<span class="fc" id="L144">                String emailA = userVector[GETINDEXEMAIL];</span>
+
+
+<span class="fc" id="L147">                User.getInstance().setId(id);</span>
+<span class="fc" id="L148">                User.getInstance().setNome(nomeA);</span>
+<span class="fc" id="L149">                User.getInstance().setEmail(emailA);</span>
+<span class="fc" id="L150">                userList.add(User.getInstance());</span>
+            }
+<span class="fc" id="L152">        }</span>
+
+<span class="fc" id="L154">        csvReader.close();</span>
+
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">        if (userList.isEmpty()) {</span>
+<span class="nc" id="L157">            throw new NullPointerException(&quot; user not found&quot;);</span>
+        }
+
+<span class="fc" id="L160">        return userList;</span>
+    }
+    private static synchronized void removeUserById(File fd, User instance) throws Exception {
+<span class="nc" id="L163">        File tmpFD = File.createTempFile(&quot;dao&quot;, &quot;tmp&quot;,new File(CSVFILENAME));</span>
+
+
+<span class="nc bnc" id="L166" title="All 2 branches missed.">if(SystemUtils.IS_OS_UNIX) {</span>
+<span class="nc" id="L167">  FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
+<span class="nc" id="L168">  Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
+}
+
+
+<span class="nc" id="L172">        boolean found = false;</span>
+
+        // create csvReader object passing file reader as a parameter
+<span class="nc" id="L175">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] userVector;
+
+<span class="nc" id="L178">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
+
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        while ((userVector = csvReader.readNext()) != null) {</span>
+
+<span class="nc bnc" id="L182" title="All 4 branches missed.">            boolean userVectorFound = (userVector[GETINDEXID].equals(String.valueOf(instance.getId()))||(userVector[GETINDEXEMAIL].equals(String.valueOf(instance.getEmail()))));</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            if (!userVectorFound) {</span>
+<span class="nc" id="L184">                csvWriter.writeNext(userVector);</span>
+            } else {
+<span class="nc" id="L186">                found = true;</span>
+            }
+<span class="nc" id="L188">        }</span>
+<span class="nc" id="L189">        csvWriter.flush();</span>
+
+<span class="nc" id="L191">        csvReader.close();</span>
+<span class="nc" id="L192">        csvWriter.close();</span>
+
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        if (found) {</span>
+<span class="nc" id="L195">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
+        } else {
+<span class="nc" id="L197">            cleanUp(Path.of(tmpFD.toURI()));</span>
+        }
+<span class="nc" id="L199">    }</span>
+    public static synchronized void modifPassUser(File fd, User instance,User instanceA) throws Exception {
+        //modified only email because pass not showed
+
+        //instance for delete
+        // instance agg fro insert
+
+<span class="nc" id="L206">        removeUserById(fd,instance);</span>
+<span class="nc" id="L207">        saveUser(fd,instanceA);</span>
+
+
+<span class="nc" id="L210">    }</span>
+    public static synchronized List&lt;User&gt; retreiveAllDataUser(File fd,String email) throws Exception {
+        // create csvReader object passing file reader as a parameter
+<span class="fc" id="L213">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] userVector;
+
+<span class="fc" id="L216">        List&lt;User&gt; userList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L218" title="All 2 branches covered.">        while ((userVector = csvReader.readNext()) != null) {</span>
+
+<span class="fc" id="L220">            boolean userVectorFound = userVector[GETINDEXEMAIL].equals(email);</span>
+<span class="fc bfc" id="L221" title="All 2 branches covered.">            if (userVectorFound) {</span>
+<span class="fc" id="L222">                int id = Integer.parseInt(userVector[GETINDEXID]);</span>
+<span class="fc" id="L223">                String ruolo=userVector[GETINDEXRUOLO];</span>
+<span class="fc" id="L224">                String nome = userVector[GETINDEXNOME];</span>
+<span class="fc" id="L225">                String cognome=userVector[GETINDEXCOGNOME];</span>
+<span class="fc" id="L226">                String emailA = userVector[GETINDEXEMAIL];</span>
+<span class="fc" id="L227">                String desc=userVector[GETINDEXDESCRIZIONE];</span>
+<span class="fc" id="L228">                String data=userVector[GETINDEXDATA];</span>
+
+
+<span class="fc" id="L231">                User.getInstance().setId(id);</span>
+<span class="fc" id="L232">                User.getInstance().setIdRuolo(ruolo);</span>
+<span class="fc" id="L233">                User.getInstance().setNome(nome);</span>
+<span class="fc" id="L234">                User.getInstance().setCognome(cognome);</span>
+<span class="fc" id="L235">                User.getInstance().setEmail(emailA);</span>
+<span class="fc" id="L236">                User.getInstance().setDescrizione(desc);</span>
+<span class="fc" id="L237">                User.getInstance().setDataDiNascita(LocalDate.parse(data));</span>
+<span class="fc" id="L238">                userList.add(User.getInstance());</span>
+            }
+<span class="fc" id="L240">        }</span>
+
+<span class="fc" id="L242">        csvReader.close();</span>
+
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">        if (userList.isEmpty()) {</span>
+<span class="nc" id="L245">            throw new IdException(&quot; user not found -&gt; id null&quot;);</span>
+        }
+
+<span class="fc" id="L248">        return userList;</span>
+    }
+
+
+
+
+    public static void cleanUp(Path path) throws IOException {
+<span class="nc" id="L255">        Files.delete(path);</span>
+<span class="nc" id="L256">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

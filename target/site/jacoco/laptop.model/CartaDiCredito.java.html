@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartaDiCredito.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.model</a> &gt; <span class="el_source">CartaDiCredito.java</span></div><h1>CartaDiCredito.java</h1><pre class="source lang-java linenums">package laptop.model;
+
+
+
+import java.sql.Date;
+
+public class CartaDiCredito {
+
+	private int tipo;
+	private String numeroCC;
+	private double limite;
+	private double ammontare;
+	private java.util.Date scadenza;
+	private String nomeUser; 
+	private float prezzoTransazine;
+	private String cognomeUser; 
+	private String civ;
+
+<span class="fc" id="L19">	private static final String[] types = {&quot;No Card:Cash Only&quot;,&quot;DINER'S&quot;,&quot;JCB&quot;,&quot;MASTER&quot;,&quot;VISA&quot;};</span>
+
+<span class="fc" id="L21">	public CartaDiCredito() {</span>
+<span class="fc" id="L22">	}</span>
+	
+	public CartaDiCredito(int tipo, String numeroCC, double limite, double ammontare, Date scadenza, String nomeUser,
+			float prezzoTransazine) {
+<span class="nc" id="L26">		super();</span>
+<span class="nc" id="L27">		this.tipo = tipo;</span>
+<span class="nc" id="L28">		this.numeroCC = numeroCC;</span>
+<span class="nc" id="L29">		this.limite = limite;</span>
+<span class="nc" id="L30">		this.ammontare = ammontare;</span>
+<span class="nc" id="L31">		this.scadenza = scadenza;</span>
+<span class="nc" id="L32">		this.nomeUser = nomeUser;</span>
+<span class="nc" id="L33">		this.prezzoTransazine = prezzoTransazine;</span>
+<span class="nc" id="L34">	}</span>
+	
+
+	public CartaDiCredito(String n,String c,String cod,java.util.Date date,String civ,float prezzo)
+<span class="fc" id="L38">	{</span>
+		
+<span class="fc" id="L40">		this.nomeUser=n;</span>
+<span class="fc" id="L41">		this.cognomeUser=c;</span>
+<span class="fc" id="L42">		this.numeroCC=cod;</span>
+<span class="fc" id="L43">		this.ammontare=1000.0;</span>
+<span class="fc" id="L44">		this.scadenza=date;</span>
+<span class="fc" id="L45">		this.civ=civ;</span>
+<span class="fc" id="L46">		this.prezzoTransazine=prezzo;</span>
+<span class="fc" id="L47">	}</span>
+
+	public int getTipo() {
+<span class="nc" id="L50">		return tipo;</span>
+	}
+	public void setTipo(int tipo)  {
+
+<span class="nc" id="L54">		this.tipo = tipo;</span>
+<span class="nc" id="L55">	}</span>
+	public String getNumeroCC() {
+<span class="fc" id="L57">		return numeroCC;</span>
+	}
+	public void setNumeroCC(String numeroCC)  {
+
+<span class="fc" id="L61">		this.numeroCC = numeroCC;</span>
+<span class="fc" id="L62">	}</span>
+	public double getLimite() {
+<span class="nc" id="L64">		return limite;</span>
+	}
+	public void setLimite(double limite)  {
+
+<span class="nc" id="L68">		this.limite = limite;</span>
+<span class="nc" id="L69">	}</span>
+	public double getAmmontare() {
+<span class="nc" id="L71">		return ammontare;</span>
+	}
+	public void setAmmontare(double ammontare)  {
+
+<span class="nc" id="L75">		this.ammontare = ammontare;</span>
+<span class="nc" id="L76">	}</span>
+	public java.util.Date getScadenza() {
+<span class="fc" id="L78">		return scadenza;</span>
+	}
+	public void setScadenza(Date scadenza)  {
+
+<span class="fc" id="L82">		this.scadenza = scadenza;</span>
+<span class="fc" id="L83">	}</span>
+	public String getNomeUser() {
+<span class="fc" id="L85">		return nomeUser;</span>
+	}
+	public void setNomeUser(String nomeUser)  {
+
+<span class="fc" id="L89">		this.nomeUser = nomeUser;</span>
+<span class="fc" id="L90">	}</span>
+	public float getPrezzoTransazine() {
+<span class="fc" id="L92">		return prezzoTransazine;</span>
+	}
+	public void setPrezzoTransazine(float prezzoTransazine)  {
+
+<span class="fc" id="L96">		this.prezzoTransazine = prezzoTransazine;</span>
+<span class="fc" id="L97">	}</span>
+
+	public String getCognomeUser() {
+<span class="fc" id="L100">		return cognomeUser;</span>
+	}
+
+	public void setCognomeUser(String cognomeUser)  {
+
+<span class="fc" id="L105">		this.cognomeUser = cognomeUser;</span>
+<span class="fc" id="L106">	}</span>
+
+	public String getCiv() { 
+<span class="fc" id="L109">		return civ;</span>
+	}
+
+	public void setCiv(String civ) {
+
+<span class="fc" id="L114">		this.civ = civ;</span>
+<span class="fc" id="L115">	}</span>
+
+	public static String[] getTypes() {
+<span class="nc" id="L118">		return types;</span>
+	}
+
+	
+
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

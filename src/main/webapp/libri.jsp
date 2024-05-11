@@ -10,15 +10,6 @@
 </head>
 <body>
 
-<p> ecco i parametri </p>
-<p> systemBean type : ${beanS.getTypeB()}</p>
-<p> systemBena logged : ${beanS.isLoggedB()}</p>
-<p> email : ${beanUb.getEmailB()}
-
-
-
-
-
 <h1> Elenco libri presenti nel db</h1>
 
 <form action="LibriServlet" method="post">

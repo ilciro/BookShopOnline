@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package laptop.model;
+
+import java.time.LocalDate;
+
+
+
+public class User {
+	
+<span class="fc" id="L9"> enum Ruoli {</span>
+<span class="fc" id="L10">		ADMIN,</span>
+<span class="fc" id="L11">		UTENTE,</span>
+<span class="fc" id="L12">		SCRITTORE,</span>
+<span class="fc" id="L13">		EDITORE;</span>
+ }
+	@Override
+	public String toString() {
+<span class="nc" id="L17">		return &quot;User [nome=&quot; + nome + &quot;, Cognome=&quot; + cognome + &quot;, email=&quot; + email + &quot;, idRuolo=&quot; + r + &quot;]&quot;;</span>
+	}
+	
+		
+
+
+	private int id;
+	private String nome;
+	private String cognome;
+	private String email;
+	private String password;
+	private String descrizione;
+	private LocalDate dataDiNascita;
+	private String r;
+	
+<span class="fc" id="L32">	private static User userInstance = null;</span>
+
+    private User() {}
+
+    public static User getInstance() {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (userInstance == null) {</span>
+          
+<span class="fc" id="L39">        	userInstance = new User();</span>
+                }
+       
+<span class="fc" id="L42">        return userInstance;</span>
+    }
+	
+
+	public int getId() {
+<span class="fc" id="L47">		return id;</span>
+	}
+	public void setId(int id) {
+<span class="fc" id="L50">		this.id = id;</span>
+<span class="fc" id="L51">	}</span>
+	public String getNome() {
+<span class="fc" id="L53">		return nome;</span>
+	}
+	public void setNome(String nome) {
+<span class="fc" id="L56">		this.nome = nome;</span>
+<span class="fc" id="L57">	}</span>
+	public String getCognome() {
+<span class="fc" id="L59">		return cognome;</span>
+	}
+	public void setCognome(String cognome) {
+<span class="fc" id="L62">		this.cognome = cognome;</span>
+<span class="fc" id="L63">	}</span>
+	public String getEmail() {
+<span class="fc" id="L65">		return email;</span>
+	}
+	public void setEmail(String email) {
+<span class="fc" id="L68">		this.email = email;</span>
+<span class="fc" id="L69">	}</span>
+	public String getPassword() {
+<span class="fc" id="L71">		return password;</span>
+	}
+	public void setPassword(String password) {
+<span class="fc" id="L74">		this.password = password;</span>
+<span class="fc" id="L75">	}</span>
+	public String getDescrizione() {
+<span class="fc" id="L77">		return descrizione;</span>
+	}
+	public void setDescrizione(String descrizione) {
+<span class="fc" id="L80">		this.descrizione = descrizione;</span>
+<span class="fc" id="L81">	}</span>
+	public LocalDate getDataDiNascita() {
+<span class="fc" id="L83">		return dataDiNascita;</span>
+	}
+	public void setDataDiNascita(LocalDate dataDiNascita) {
+<span class="fc" id="L86">		this.dataDiNascita = dataDiNascita;</span>
+<span class="fc" id="L87">	}</span>
+	
+	public String getIdRuolo()  {
+		
+<span class="fc" id="L91">		return r;</span>
+	}
+
+
+
+	public void setIdRuolo(String ruolo) {
+
+<span class="pc bpc" id="L98" title="1 of 4 branches missed.">		 switch (ruolo){</span>
+<span class="fc" id="L99">			case &quot;ADMIN&quot;, &quot;A&quot;-&gt; r = Ruoli.ADMIN.toString();</span>
+<span class="nc" id="L100">			case &quot;EDITORE&quot;, &quot;E&quot;-&gt;r = Ruoli.EDITORE.toString();</span>
+<span class="fc" id="L101">			case &quot;SCRITTORE&quot;, &quot;W&quot;-&gt;r = Ruoli.SCRITTORE.toString();</span>
+<span class="fc" id="L102">             default-&gt;r= Ruoli.UTENTE.toString();</span>
+
+			}
+		
+
+<span class="fc" id="L107">	}</span>
+
+
+
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

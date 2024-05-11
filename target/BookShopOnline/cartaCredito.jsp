@@ -15,11 +15,6 @@
 
 <h2>Inserire le credenziali</h2>
 
-<p> parametro </p>
-
-<p> isLogged from bean : ${beanS.isLoggedB()}</p>
-
-
 
 <form action="CartaCreditoServlet" method="post">
 <table>

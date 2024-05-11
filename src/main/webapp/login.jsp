@@ -11,11 +11,6 @@
 <body>
 <h1> Benvenuto nella pagina di login</h1>
 
-<p> ecco i parametri <p>
-<p> email : ${beanUb.getEmailB()}</p>
-<p> pass : ${beanUb.getPassB()}</p>
-<p> ruolo : ${beanUb.getRuoloB()}</p>
-
 <h2> Accedere con le credenziali oppure registrarsi</h2>
 
 <form action="LoginServlet" method="post">

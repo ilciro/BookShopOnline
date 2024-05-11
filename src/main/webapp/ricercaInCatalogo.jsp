@@ -14,11 +14,6 @@
 
 <h2> Inserire titolo/autore e selezionare id per visualizzarlo</h2>
 
-<p> parametri </p>
-<p> type sysbena : ${beanS.getTypeB()}</p>
-<p> titolo: ${beanRicerca.getListaB()}</p>
-
-
 <form action="RicercaCatalogoServlet" method="post">
 
 <c:set var = "tipo" scope = "session" value = "${beanS.getTypeB() }"/>
@@ -124,20 +119,7 @@ id oggetto
  </div>
 </div>
 </c:when>
-
-
-
-
-
-
-
-
 </c:choose>
 </form>
-
-
-
-
-
 </body>
 </html>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerDownload.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerDownload.java</span></div><h1>ControllerDownload.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+import com.itextpdf.text.DocumentException;
+import laptop.database.ContrassegnoDao;
+import laptop.database.GiornaleDao;
+import laptop.database.LibroDao;
+import laptop.database.PagamentoDao;
+import laptop.database.RivistaDao;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
+import laptop.model.raccolta.Rivista;
+
+
+
+public class ControllerDownload {
+<span class="fc" id="L24">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+	private final ContrassegnoDao cDao;
+	private final PagamentoDao pDao;
+	private final LibroDao lD;
+	private final Giornale g;
+	private final GiornaleDao gD;
+	private final RivistaDao rD;
+	private final Rivista r;
+	private final Libro l;
+
+	private static final String LIBRO=&quot;libro&quot;;
+	private static final String GIORNALE=&quot;giornale&quot;;
+	private static final String RIVISTA=&quot;rivista&quot;;
+	
+
+	
+	
+	
+
+	public void annullaOrdine() throws SQLException 	{
+		/*
+		 * MEtodo usato per cancellare pafamento e fatture.. ma con una query di ritardo
+		 */
+		boolean statusF;
+		boolean statusP;
+<span class="fc" id="L49">		String typeP=vis.getMetodoP(); //tipo pagamento</span>
+<span class="fc" id="L50">		String typeO=vis.getType(); //tipo oggetto</span>
+		
+<span class="fc" id="L52">		int idF=cDao.retUltimoOrdineF(); //ultimo elemento (preso con count)</span>
+<span class="fc" id="L53">		statusF=cDao.annullaOrdineF(idF);</span>
+		
+<span class="fc" id="L55">		int idP=pDao.retUltimoOrdinePag();</span>
+<span class="fc" id="L56">		statusP=pDao.annullaOrdinePag(idP);</span>
+		
+		
+<span class="pc bpc" id="L59" title="5 of 16 branches missed.">		if(((typeP.equals(&quot;cash&quot;) &amp;&amp;(statusF &amp;&amp; statusP))||(typeP.equals(&quot;cCredito&quot;) &amp;&amp; statusP) )&amp;&amp; (typeO.equals(LIBRO)|| typeO.equals(GIORNALE)|| typeO.equals(RIVISTA  )))</span>
+		{
+<span class="fc" id="L61">			incrementaOggetto(typeO);</span>
+		}
+		// messo su come condizione		
+
+<span class="fc" id="L65">	}</span>
+	public void scarica(String type) throws  IOException, URISyntaxException,  DocumentException {
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">		switch (type)</span>
+		{
+			case LIBRO-&gt;
+			{
+
+<span class="fc" id="L72">				l.setId(vis.getId());</span>
+<span class="fc" id="L73">				l.scarica(vis.getId());</span>
+<span class="fc" id="L74">				l.leggi(vis.getId());</span>
+
+<span class="fc" id="L76">			}</span>
+			case GIORNALE-&gt;
+			{
+<span class="fc" id="L79">				g.setId(vis.getId());</span>
+<span class="fc" id="L80">				g.scarica(vis.getId());</span>
+<span class="fc" id="L81">				g.leggi(vis.getId());</span>
+
+<span class="fc" id="L83">			}</span>
+			case RIVISTA -&gt;
+			{
+<span class="fc" id="L86">				r.setId(vis.getId());</span>
+<span class="fc" id="L87">				r.scarica(vis.getId());</span>
+<span class="fc" id="L88">				r.leggi(vis.getId());</span>
+
+<span class="fc" id="L90">			}</span>
+<span class="nc" id="L91">			default -&gt; 	Logger.getLogger(&quot;Test scarica&quot;).log(Level.SEVERE,&quot;download error&quot;);</span>
+
+		}
+<span class="fc" id="L94">	}</span>
+
+
+<span class="fc" id="L97">	public ControllerDownload() throws IOException {</span>
+
+<span class="fc" id="L99">		l = new Libro();</span>
+<span class="fc" id="L100">		cDao=new ContrassegnoDao();</span>
+<span class="fc" id="L101">		pDao=new PagamentoDao();</span>
+<span class="fc" id="L102">		lD=new LibroDao();</span>
+<span class="fc" id="L103">		g=new Giornale();</span>
+<span class="fc" id="L104">		gD=new GiornaleDao();</span>
+<span class="fc" id="L105">		r=new Rivista();</span>
+<span class="fc" id="L106">		rD=new RivistaDao();</span>
+<span class="fc" id="L107">	}</span>
+
+
+
+
+	private void incrementaOggetto(String type)
+	{
+<span class="pc bpc" id="L114" title="1 of 4 branches missed.">		switch (type)</span>
+		{
+			case LIBRO-&gt;{
+<span class="fc" id="L117">				l.setId(vis.getId());</span>
+<span class="fc" id="L118">				lD.incrementaDisponibilita(l);</span>
+<span class="fc" id="L119">			}</span>
+			case GIORNALE-&gt;{
+<span class="fc" id="L121">				g.setId(vis.getId());</span>
+<span class="fc" id="L122">				gD.incrementaDisponibilita(g);</span>
+<span class="fc" id="L123">			}</span>
+			case RIVISTA-&gt;
+			{
+
+<span class="fc" id="L127">				r.setId(vis.getId());</span>
+<span class="fc" id="L128">				rD.incrementaDisponibilita(r);</span>
+<span class="fc" id="L129">			}</span>
+<span class="nc" id="L130">			default -&gt; 	Logger.getLogger(&quot;Test incrementa&quot;).log(Level.SEVERE,&quot;type not found&quot;);</span>
+
+		}
+<span class="fc" id="L133">	}</span>
+	
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

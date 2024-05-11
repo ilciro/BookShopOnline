@@ -14,15 +14,6 @@
 
 <h2>Scegliere il metodo di pagamento</h2>
 
-
-<p> parametri : </p>
-<p> tipo beanS: ${beanS.getTypeB()}</p>
-<p> id beanS: ${beanS.getIdB()}</p>
-<p> id beanL : ${beanL.getIdB()}</p>
-<p> titolo beanS : ${beanS.getTitoloB()}</p>
-<p> titolo beanA : ${beanA.getTitoloB()}</p>
-<p> prezzo beanA :${beanA.getPrezzoB()}</p>
-
 <form action="AcquistaServlet" method="post">
 <table>
 <caption></caption>

@@ -13,10 +13,6 @@
 <body>
 
 <h1> Benvenuto </h1>
-
-<p> ecco il tipo di oggetto dal bean : ${beanS.getTypeB()}</p>
-
-<p> ecco il tipo di oggetto dal controller : ${visB.getType()}<p>
 <h1> Elenco oggetti prensenti nel db</h1>
 
 <form action="RivisteServlet" method="post">

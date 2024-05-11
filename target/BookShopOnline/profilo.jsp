@@ -15,11 +15,6 @@
 
 <h2> Scegliere cosa fare</h2>
 
-<p> parametri :</p>
-
-<p> email : ${beanUb.getEmailB()}</p>
-<p> ruolo : ${beanUb.getRuoloB()}</p>
-
 <form action="ProfiloServlet" method="post">
 
 <c:set var = "tipo" scope = "session" value = "${beanUb.getRuoloB() }"/>

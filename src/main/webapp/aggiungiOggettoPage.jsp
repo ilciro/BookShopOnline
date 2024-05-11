@@ -15,14 +15,6 @@
 
 <h2> compilare il form</h2>
 
-
-<p> id oggetto </p>
-<p>libro bean : ${beanL.getIdB()}</p>
-<p> sysbean :${beanS.getIdB()}</p>
-<p> type: ${beanS.getTypeB() }</p>
-
-
-
 <form action ="InserisciOggettoServlet" method="post">
 
 <c:set var="tipo" scope="session" value="${beanS.getTypeB()}"/>

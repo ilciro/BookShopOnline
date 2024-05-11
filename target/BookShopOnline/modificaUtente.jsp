@@ -13,9 +13,6 @@
 
 <h2>Scegliere quali campi modificare</h2>
 
-<p> parametri :</p>
-<p> id dal bean : ${beanUb.getIdB()}</p>
-
 
 <p> ruolo : ${beanUb.getRuoloB()}</p>
 <p>  nome: ${beanUb.getNomeB()} </p>

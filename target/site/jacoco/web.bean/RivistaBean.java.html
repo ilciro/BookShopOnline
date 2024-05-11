@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RivistaBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">web.bean</a> &gt; <span class="el_source">RivistaBean.java</span></div><h1>RivistaBean.java</h1><pre class="source lang-java linenums">package web.bean;
+
+import javafx.collections.ObservableList;
+import laptop.exception.IdException;
+import laptop.model.raccolta.CategorieRivista;
+import laptop.model.raccolta.Raccolta;
+
+import java.sql.Date;
+import java.util.logging.Level;
+
+<span class="fc" id="L11">public class RivistaBean {</span>
+    private ObservableList&lt;Raccolta&gt; listaRivisteB;
+    private int idB;
+    private String titoloB;
+    private Exception mexB;
+
+    private String tipologiaB;
+    private String autoreB;
+    private String linguaB;
+    private String editoreB;
+    private String descrizioneB;
+    private Date dataB;
+    private float prezzoB;
+    private int copieRimB;
+    private int dispB;
+
+    public String getTipologiaB() {
+<span class="nc" id="L28">        return tipologiaB;</span>
+    }
+
+    public void setTipologiaB(String tipologiaB) {
+<span class="fc bfc" id="L32" title="All 15 branches covered.">        switch (tipologiaB) {</span>
+<span class="fc" id="L33">            case &quot;SETTIMANALE&quot;-&gt;this.tipologiaB = CategorieRivista.SETTIMANALE.toString();</span>
+<span class="fc" id="L34">            case &quot;BISETTIMANALE&quot; -&gt;this.tipologiaB = CategorieRivista.BISETTIMANALE.toString();</span>
+<span class="fc" id="L35">            case &quot;MENSILE&quot;-&gt;  this.tipologiaB = CategorieRivista.MENSILE.toString();</span>
+<span class="fc" id="L36">            case &quot;BIMESTRALE&quot;-&gt; this.tipologiaB = CategorieRivista.BIMESTRALE.toString();</span>
+<span class="fc" id="L37">            case &quot;TRIMESTRALE&quot;-&gt; this.tipologiaB = CategorieRivista.TRIMESTRALE.toString();</span>
+<span class="fc" id="L38">            case &quot;ANNUALE&quot;-&gt; this.tipologiaB = CategorieRivista.ANNUALE.toString();</span>
+<span class="fc" id="L39">            case &quot;ESTIVO&quot;-&gt; this.tipologiaB = CategorieRivista.ESTIVO.toString();</span>
+<span class="fc" id="L40">            case &quot;INVERNALE&quot;-&gt; this.tipologiaB = CategorieRivista.INVERNALE.toString();</span>
+<span class="fc" id="L41">            case &quot;SPORTIVO&quot;-&gt;    this.tipologiaB = CategorieRivista.SPORTIVO.toString();</span>
+<span class="fc" id="L42">            case &quot;CINEMATOGRAFICA&quot;-&gt;    this.tipologiaB = CategorieRivista.CINEMATOGRAFICA.toString();</span>
+<span class="fc" id="L43">            case &quot;GOSSIP&quot;-&gt;    this.tipologiaB = CategorieRivista.GOSSIP.toString();</span>
+<span class="fc" id="L44">            case &quot;TELEVISIVO&quot;-&gt;    this.tipologiaB = CategorieRivista.TELEVISIVO.toString();</span>
+<span class="fc" id="L45">            case &quot;MILITARE&quot;-&gt;    this.tipologiaB = CategorieRivista.MILITARE.toString();</span>
+<span class="fc" id="L46">            case &quot;INFORMATICA&quot;-&gt;    this.tipologiaB = CategorieRivista.INFORMATICA.toString();</span>
+<span class="fc" id="L47">            default -&gt; this.tipologiaB=null;</span>
+
+
+
+        }
+
+<span class="fc" id="L53">    }</span>
+
+    public String getAutoreB() {
+<span class="fc" id="L56">        return autoreB;</span>
+    }
+
+    public void setAutoreB(String autoreB) {
+<span class="fc" id="L60">        this.autoreB = autoreB;</span>
+<span class="fc" id="L61">    }</span>
+
+    public String getLinguaB() {
+<span class="nc" id="L64">        return linguaB;</span>
+    }
+
+    public void setLinguaB(String linguaB) {
+<span class="fc" id="L68">        this.linguaB = linguaB;</span>
+<span class="fc" id="L69">    }</span>
+
+    public String getEditoreB() {
+<span class="fc" id="L72">        return editoreB;</span>
+    }
+
+    public void setEditoreB(String editoreB) {
+<span class="fc" id="L76">        this.editoreB = editoreB;</span>
+<span class="fc" id="L77">    }</span>
+
+    public String getDescrizioneB() {
+<span class="nc" id="L80">        return descrizioneB;</span>
+    }
+
+    public void setDescrizioneB(String descrizioneB) {
+<span class="fc" id="L84">        this.descrizioneB = descrizioneB;</span>
+<span class="fc" id="L85">    }</span>
+
+    public Date getDataB() {
+<span class="nc" id="L88">        return dataB;</span>
+    }
+
+    public void setDataB(Date dataB) {
+<span class="fc" id="L92">        this.dataB = dataB;</span>
+<span class="fc" id="L93">    }</span>
+
+    public float getPrezzoB() {
+<span class="nc" id="L96">        return prezzoB;</span>
+    }
+
+    public void setPrezzoB(float prezzoB) {
+<span class="fc" id="L100">        this.prezzoB = prezzoB;</span>
+<span class="fc" id="L101">    }</span>
+
+    public int getCopieRimB() {
+<span class="nc" id="L104">        return copieRimB;</span>
+    }
+
+    public void setCopieRimB(int copieRimB) {
+<span class="fc" id="L108">        this.copieRimB = copieRimB;</span>
+<span class="fc" id="L109">    }</span>
+
+    public ObservableList&lt;Raccolta&gt; getListaRivisteB() {
+<span class="nc" id="L112">        return listaRivisteB;</span>
+    }
+
+    public void setListaRivisteB(ObservableList&lt;Raccolta&gt; listaRivisteB) {
+<span class="fc" id="L116">        this.listaRivisteB = listaRivisteB;</span>
+<span class="fc" id="L117">    }</span>
+
+    public int getIdB() {
+<span class="fc" id="L120">        return idB;</span>
+    }
+
+    public void setIdB(int idB) {
+        try {
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">            if (idB &lt; 1) {</span>
+<span class="nc" id="L126">                throw new IdException(&quot;id incorrect&quot;);</span>
+
+            }
+<span class="nc" id="L129">        }catch (IdException e)</span>
+        {
+<span class="nc" id="L131">            this.idB=0;</span>
+<span class="nc" id="L132">            java.util.logging.Logger.getLogger(&quot;Test set id&quot;).log(Level.INFO,&quot;id &lt;1!!&quot;);</span>
+
+<span class="fc" id="L134">        }</span>
+
+<span class="fc" id="L136">        this.idB = idB;</span>
+<span class="fc" id="L137">    }</span>
+
+    public String getTitoloB() {
+<span class="fc" id="L140">        return titoloB;</span>
+    }
+
+    public void setTitoloB(String titoloB) {
+<span class="fc" id="L144">        this.titoloB = titoloB;</span>
+<span class="fc" id="L145">    }</span>
+
+    public Exception getMexB() {
+<span class="nc" id="L148">        return mexB;</span>
+    }
+
+    public void setMexB(Exception mexB) {
+<span class="nc" id="L152">        this.mexB = mexB;</span>
+<span class="nc" id="L153">    }</span>
+
+    public int getDispB() {
+<span class="nc" id="L156">        return dispB;</span>
+    }
+
+    public void setDispB(int dispB) {
+<span class="fc" id="L160">        this.dispB = dispB;</span>
+<span class="fc" id="L161">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

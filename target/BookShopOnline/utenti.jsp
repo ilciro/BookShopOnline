@@ -14,13 +14,6 @@
 <h1> Loggato come ${beanUb.getRuoloB()}</h1>
 <h2> Scegli cosa vuoi fare</h2>
 
-<p> parametri:</p>
-<p> email : ${beanUb.getEmailB()}</p>
-<p> ruolo : ${beanUb.getRuoloB()}</p>
-<p> pass: ${beanUb.getPassB()}</p>
-<p> loggato : ${beanS.isLoggedB()}</p>
-
-
 <form action="UtentiServlet" method="post">
 
 <c:set var = "tipo" scope = "session" value = "${beanUb.getRuoloB() }"/>

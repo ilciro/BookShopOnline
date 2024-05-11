@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatchParam.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.model.raccolta</a> &gt; <span class="el_source">MatchParam.java</span></div><h1>MatchParam.java</h1><pre class="source lang-java linenums">package laptop.model.raccolta;
+
+
+
+<span class="fc" id="L5">public class MatchParam {</span>
+	
+	public String[] popola1(String titolo,String isbn,String editore,String autore,String lingua,String categoria)
+	{
+		
+<span class="fc" id="L10">		String[] appoggio=new String[7];</span>
+
+		
+<span class="fc" id="L13">			appoggio[0]=titolo;</span>
+<span class="fc" id="L14">			appoggio[1]=isbn;</span>
+<span class="fc" id="L15">			appoggio[2]=editore;</span>
+<span class="fc" id="L16">			appoggio[3]=autore;</span>
+<span class="fc" id="L17">			appoggio[4]=lingua;</span>
+<span class="fc" id="L18">			appoggio[5]=categoria;</span>
+			
+		
+<span class="fc" id="L21">		return appoggio;		</span>
+		
+	}
+	
+	public String[] popola2(int numPag,int nrCopie,int disp,float prezzo,int id)
+	{
+		
+
+<span class="fc" id="L29">		String[] appoggio1=new String[5];</span>
+		
+<span class="fc" id="L31">		 appoggio1[0]=String.valueOf(numPag);</span>
+<span class="fc" id="L32">		 appoggio1[1]=String.valueOf(nrCopie);</span>
+<span class="fc" id="L33">		 appoggio1[2]=String.valueOf(disp);</span>
+<span class="fc" id="L34">		 appoggio1[3]=String.valueOf(prezzo);</span>
+<span class="fc" id="L35">		 appoggio1[4]=String.valueOf(id);</span>
+
+		 
+
+
+<span class="fc" id="L40">		return appoggio1;</span>
+		
+	}
+
+
+	
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

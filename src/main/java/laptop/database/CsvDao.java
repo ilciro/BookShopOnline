@@ -33,7 +33,7 @@ public class CsvDao implements DaoInterface {
     private static final int GETINDEXEMAIL=4;
     private static final int GETINDEXDESCRIZIONE=5;
     private static final int GETINDEXDATA=6;
-    private static final String query=" select idUser,idRuolo,nome,cognome,email,pwd,descrizione,dataNascita from USERS";
+    private static final String QUERY=" select idUser,idRuolo,nome,cognome,email,pwd,descrizione,dataNascita from USERS";
 
 
 
@@ -76,9 +76,9 @@ public class CsvDao implements DaoInterface {
 
 
                     try (Connection conn= ConnToDb.connectionToDB();
-                         PreparedStatement prepQ=conn.prepareStatement(query)){
+                         PreparedStatement prepQ=conn.prepareStatement(QUERY)){
 
-                        ResultSet rs = prepQ.executeQuery(query);
+                        ResultSet rs = prepQ.executeQuery(QUERY);
                         CSVWriter writer = new CSVWriter(new FileWriter(CSVFILENAME));
                         rs.getMetaData();
 

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerPagamentoCC.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerPagamentoCC.java</span></div><h1>ControllerPagamentoCC.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import java.util.logging.Level;
+
+import javafx.collections.ObservableList;
+import laptop.database.CartaCreditoDao;
+
+import laptop.database.PagamentoDao;
+
+import laptop.exception.IdException;
+import laptop.model.CartaDiCredito;
+import laptop.model.Pagamento;
+
+
+public class ControllerPagamentoCC {
+	private final CartaCreditoDao cDao;
+<span class="fc" id="L20">	private String appoggio = &quot;&quot;;</span>
+	private CartaDiCredito cc;
+	private final PagamentoDao pDao;
+<span class="fc" id="L23">	private final ControllerSystemState vis= ControllerSystemState.getInstance();</span>
+	
+<span class="fc" id="L25">	private boolean state=false;</span>
+	
+	
+<span class="fc" id="L28">	private int cont=0;</span>
+	private final ControllerCheckPagamentoData cCPD;
+
+	public boolean controllaPag(String d, String c,String civ) {
+		int x;
+
+		 int anno;
+		 int mese;
+		 int giorno;
+		String[] verifica;
+
+
+<span class="fc" id="L40">		appoggio = appoggio + d;</span>
+<span class="fc" id="L41">		  anno = Integer.parseInt((String) appoggio.subSequence(0, 4));</span>
+<span class="fc" id="L42">		  mese = Integer.parseInt((String) appoggio.subSequence(5, 7));</span>
+<span class="fc" id="L43">		  giorno = Integer.parseInt((String) appoggio.subSequence(8, 10));</span>
+		
+<span class="pc bpc" id="L45" title="7 of 14 branches missed.">		if (anno &gt; 2020 &amp;&amp; (mese &gt;= 1 &amp;&amp; mese &lt;= 12) &amp;&amp; (giorno &gt;= 1 &amp;&amp; giorno &lt;= 31) &amp;&amp; c.length() &lt;= 20 &amp;&amp; civ.length()==3 ) {</span>
+
+
+				
+<span class="fc" id="L49">					 verifica= c.split(&quot;-&quot;);</span>
+					
+<span class="fc bfc" id="L51" title="All 2 branches covered.">					for ( x=0; x&lt;verifica.length; x++) {</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">							if(verifica[x].length()==4)</span>
+							{
+<span class="fc" id="L54">								cont++;</span>
+							}
+					}
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">					if (cont==4)</span>
+					{
+<span class="fc" id="L59">						state=true;</span>
+					}
+					
+				
+
+		} 
+		
+		
+<span class="fc" id="L67">		return state;</span>
+
+	}
+
+<span class="fc" id="L71">	public ControllerPagamentoCC() throws IOException {</span>
+		
+<span class="fc" id="L73">		cDao = new CartaCreditoDao();</span>
+		
+<span class="fc" id="L75">		pDao=new PagamentoDao();</span>
+		
+<span class="fc" id="L77">		cCPD=new ControllerCheckPagamentoData();</span>
+		
+<span class="fc" id="L79">	}</span>
+
+	public void aggiungiCartaDB(String n, String c, String cod, java.sql.Date data, String civ, float prezzo)
+			throws SQLException, IdException {
+		
+		
+		
+<span class="fc" id="L86">			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);</span>
+						
+<span class="fc" id="L88">			cc.setPrezzoTransazine(vis.getSpesaT());</span>
+<span class="fc" id="L89">			cDao.insCC(cc);</span>
+						
+			Pagamento p;
+<span class="fc" id="L92">			 p=new Pagamento(0,&quot;cc&quot;,0,cc.getNomeUser(),vis.getSpesaT(),null);</span>
+<span class="fc" id="L93">				p.setMetodo(&quot;cc&quot;);</span>
+<span class="fc" id="L94">				p.setNomeUtente(cc.getNomeUser());</span>
+<span class="fc" id="L95">				cCPD.checkPagamentoData(n);</span>
+								
+<span class="fc" id="L97">				pDao.inserisciPagamento(p);</span>
+		
+		
+
+<span class="fc" id="L101">	}</span>
+
+	public ObservableList&lt;CartaDiCredito&gt; ritornaElencoCC(String nomeU)  {
+		
+<span class="fc" id="L105">		return cDao.getCarteCredito(nomeU);</span>
+	}
+	
+	public CartaDiCredito tornaDalDb(String codiceCarta)
+	{
+<span class="fc" id="L110">		cc=new CartaDiCredito();</span>
+<span class="fc" id="L111">		cc.setNumeroCC(codiceCarta);</span>
+<span class="fc" id="L112">		return cDao.popolaDati(cc);</span>
+	}
+
+	public void pagamentoCC(String nome) throws SQLException, IdException {
+		Pagamento p;
+<span class="fc" id="L117">		p=new Pagamento(0,&quot;cartaCredito&quot;, 0,nome,0, null);</span>
+			
+		//inserire qui
+<span class="fc" id="L120">		p.setMetodo(&quot;cCredito&quot;);</span>
+<span class="fc" id="L121">		p.setNomeUtente(nome);</span>
+<span class="fc" id="L122">		cCPD.checkPagamentoData(nome);</span>
+		
+		
+		//ammontare,acquisto,idProd
+		//settare in p
+		
+<span class="fc" id="L128">		java.util.logging.Logger.getLogger(&quot;Pagamento effettuato&quot;).log(Level.INFO, &quot;info {0}&quot;,p.getAmmontare()+p.getTipo()+p.getId());</span>
+
+<span class="fc" id="L130">		pDao.inserisciPagamento(p);</span>
+<span class="fc" id="L131">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
