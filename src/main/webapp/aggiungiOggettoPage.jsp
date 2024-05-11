@@ -30,43 +30,46 @@
 <c:choose>
 <c:when test="${tipo=='libro'}">
 <div>
-titolo:
-<label htmlFor="titoloL"></label>
+titolo :
 <label>
-<input type="text" id="titoloL" name="titoloL">
+<input type="text" id="titoloL" name="titoloL"/>
 </label>
 <br>
 <br>
-numero pagine
-<label for="nrPagL"></label>
-<input type="text" id="nrPagL" name="nrPagL">
+numero pagine :
+<label>
+<input type="text" id="nrPagL" name="nrPagL"/>
+</label>
 <br>
 <br>
-codice isbn
-<label for="codL"></label>
-<input type="text" id="codL" name="codL">
+codice isbn :
+<label>
+<input type="text" id="codL" name="codL"/>
+</label>
 <br>
 <br>
-autore
-<label for="autoreL"></label>
-<input type="text" id="autoreL" name="autoreL">
+autore :
+<label>
+<input type="text" id="autoreL" name="autoreL"/>
+</label>
 <br>
 <br>
-editore
-<label for="editoreL"></label>
-<input type="text" id="editoreL" name="editoreL">
+editore :
+<label>
+<input type="text" id="editoreL" name="editoreL"/>
+</label>
 <br>
 <br>
-lingua
-<label for="linguaL"></label>
-<input type="text" id="linguaL" name="linguaL">
+lingua :
+<label>
+<input type="text" id="linguaL" name="linguaL"/>
+</label>
 <br>
 <br>
-
 <p>
 categoria
-<label for="catL"></label>
-<textarea  cols=25 rows=5 id="catL" name="catL" readonly>
+<label>
+<textarea  cols=25 rows=5 id="catL" name="catL" readonly/>
 ADOLESCENTI_RAGAZZI
 ARTE
 CINEMA_FOTOGRAFIA
@@ -98,41 +101,48 @@ SCIENZE
 TECNOLOGIA_MEDICINA
 NON_VALIDO
 </textarea>
+</label>
 
-<label for="catS"></label>
-<input type="text" id="catS" name="catS">
+<label>
+<input type="text" id="catS" name="catS"/>
+</label>
 </p>
 <br>
 <br>
-data pubb (yyyy/mm/dd)
-<label for="dataL"></label>
-<input type="text" id="dataL" name="dataL">
-<br>
-<br>
-recensione
-<label for="recensioneL"></label>
-<input type="text" id="recensioneL" name="recensioneL">
-<br>
-<br>
-descrizione
-<label for="descL"></label>
-<input type="text" id="descL" name="descL">
-<br>
-<br>
-disponibilita (flaggare per renderlo disponibile)
-<label for="checkL">
+data pubb (yyyy/mm/dd) :
+<label>
+<input type="text" id="dataL" name="dataL"/>
 </label>
-<input type="checkbox" id="checkL" name="checkL">
 <br>
 <br>
-prezzo
-<label for="prezzoL"></label>
-<input type="text" id="prezzoL" name="prezzoL">
+recensione :
+<label>
+<input type="text" id="recensioneL" name="recensioneL"/>
+</label>
 <br>
 <br>
-copie rimanenti
-<label for="copieL"></label>
-<input type="text" id="copieL" name="copieL">
+descrizione :
+<label>
+<input type="text" id="descL" name="descL"/>
+</label>
+<br>
+<br>
+disponibilita (flaggare per renderlo disponibile) :
+<label>
+<input type="checkbox" id="checkL" name="checkL"/>
+</label>
+<br>
+<br>
+prezzo :
+<label>
+<input type="text" id="prezzoL" name="prezzoL"/>
+</label>
+<br>
+<br>
+copie rimanenti :
+<label>
+<input type="text" id="copieL" name="copieL"/>
+</label>
 <br>
 <br>
 </div>
@@ -140,61 +150,69 @@ copie rimanenti
 
 <c:when test="${tipo=='giornale'}">
 <div>
-titolo:
-<label for="titoloG"></label>
-<input type="text" id="titoloG" name="titoloG">
+titolo :
+<label>
+<input type="text" id="titoloG" name="titoloG"/>
+</label>
 <br>
 <br>
-tipologia:
-<label for="tipoG"></label>
-<input type="text" id="tipoG" name="tipoG" value="QUOTIDIANO">
+tipologia :
+<label>
+<input type="text" id="tipoG" name="tipoG" value="QUOTIDIANO"/>
+</label>
 <br>
 <br>
-lingua:
-<label for="linguaG"></label>
-<input type="text" id="linguaG" name="linguaG">
+lingua :
+<label>
+<input type="text" id="linguaG" name="linguaG"/>
+</label>
 <br>
 <br>
-editore:
-<label for="editoreG"></label>
-<input type="text" id="editoreG" name="editoreG">
+editore :
+<label>
+<input type="text" id="editoreG" name="editoreG"/>
+</label>
 <br>
 <br>
-data pubb (yyyy/mm/dd)
-<label for="dataG"></label>
-<input type="text" id="dataG" name="dataG">
+data pubb (yyyy/mm/dd) :
+<label>
+<input type="text" id="dataG" name="dataG"/>
+</label>
 <br>
 <br>
 <br>
-copie rimanenti:
-<label for="copieG"></label>
-<input type="text" id="copieG" name="copieG">
+copie rimanenti :
+<label>
+<input type="text" id="copieG" name="copieG"/>
+</label>
 <br>
 <br>
 disponibilita (0->no 1->si):
-<label for="dispG"></label>
-<input type="text" id="dispG" name="dispG">
+<label>
+<input type="text" id="dispG" name="dispG"/>
+</label>
 <br>
 <br>
 prezzo:
-<label for="prezzoG"></label>
-<input type="text" id="prezzoG" name="prezzoG">
+<label>
+<input type="text" id="prezzoG" name="prezzoG"/>
+</label>
 <br>
 <br>
-
 </div>
 </c:when>
 
 <c:when test="${tipo=='rivista'}">
 <div>
 titolo :
-<label for="titoloL"></label>
-<input type="text" id="titoloL" name="titoloL">
+<label>
+<input type="text" id="titoloL" name="titoloL"/>
+</label>
 <br>
 <br>
-tipologia:
-<label for="catR"></label>
-<textarea  cols=25 rows=5 id="catR" name="catR" disabled>
+tipologia :
+<label>
+<textarea  cols=25 rows=5 id="catR" name="catR" disabled/>
 SETTIMANALE
 BISETTIMANALE
 MENSILE
@@ -211,54 +229,61 @@ MILITARE
 INFORMATICA
 NON_VALIDO
 </textarea>
-
-<label for="catS"></label>
-<input type="text" id="catS" name="catS">
-<br>
-<br>
-autore:
-<label for="autL"></label>
-<input type="text" id="autL" name="autL">
-<br>
-<br>
-lingua:
-<label for="linguaL"></label>
-<input type="text" id="linguaL" name="linguaL">
-<br>
-<br>
-editore:
-<label for="editoreL"></label>
-<input type="text" id="editoreL" name="editoreL">
-<br>
-<br>
-descrizione:
-<label for="descL"></label>
-<input type="text" id="descL" name="descL">
-<br>
-<br>
-data pubb (yyyy/mm/dd):
-<label for="dataL"></label>
-<input type="text" id="dataL" name="dataL">
-<br>
-<br>
-disponibilita (flaggare per renderlo disponibile):
-<label for="checkL">
 </label>
-<input type="checkbox" id="checkL" name="checkL">
-<br>
-<br>
-prezzo:
-<label for="prezzoL"></label>
-<input type="text" id="prezzoL" name="prezzoL">
-<br>
-<br>
-copie rimanenti:
-<label for="copieL"></label>
-<input type="text" id="copieL" name="copieL">
-<br>
-<br>
 
-
+<label>
+<input type="text" id="catS" name="catS"/>
+</label>
+<br>
+<br>
+autore :
+<label>
+<input type="text" id="autL" name="autL"/>
+</label>
+<br>
+<br>
+lingua :
+<label>
+<input type="text" id="linguaL" name="linguaL"/>
+</label>
+<br>
+<br>
+editore :
+<label>
+<input type="text" id="editoreL" name="editoreL"/>
+</label>
+<br>
+<br>
+descrizione :
+<label>
+<input type="text" id="descL" name="descL"/>
+</label>
+<br>
+<br>
+data pubb (yyyy/mm/dd) :
+<label>
+<input type="text" id="dataL" name="dataL"/>
+</label>
+<br>
+<br>
+disponibilita (flaggare per renderlo disponibile) :
+<label>
+<input type="checkbox" id="checkL" name="checkL"/>
+</label>
+<br>
+<br>
+prezzo :
+<label>
+<input type="text" id="prezzoL" name="prezzoL"/>
+</label>
+<br>
+<br>
+copie rimanenti :
+<label>
+<input type="text" id="copieL" name="copieL"/>
+</label>
+<br>
+<br>
 </div>
 </c:when>
 </c:choose>

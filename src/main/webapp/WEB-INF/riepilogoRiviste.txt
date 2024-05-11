@@ -32,3 +32,4 @@ Id :	41titolo :	rivista provaricavo totale :	130.0
 Id :	42titolo :	rivista provaricavo totale :	130.0
 Id :	43titolo :	rivista provaricavo totale :	130.0
 Id :	44titolo :	rivista provaricavo totale :	130.0
+Id :	45titolo :	rivista provaricavo totale :	130.0
