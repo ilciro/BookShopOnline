@@ -31,7 +31,7 @@
 <c:when test="${tipo=='libro'}">
 <div>
 titolo:
-<label for="titoloL"></label>
+<label htmlFor="titoloL"></label>
 <label>
 <input type="text" id="titoloL" name="titoloL">
 </label>
