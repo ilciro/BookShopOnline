@@ -39,32 +39,23 @@ numero pagine :
 <br>
 <br>
 codice isbn :
-<label>
 <input type="text" id="codL" name="codL"/>
-</label>
 <br>
 <br>
 autore :
-<label>
 <input type="text" id="autoreL" name="autoreL"/>
-</label>
 <br>
 <br>
 editore :
-<label>
 <input type="text" id="editoreL" name="editoreL"/>
-</label>
 <br>
 <br>
 lingua :
-<label>
 <input type="text" id="linguaL" name="linguaL"/>
-</label>
 <br>
 <br>
 <p>
 categoria
-<label>
 <textarea  cols=25 rows=5 id="catL" name="catL" readonly/>
 ADOLESCENTI_RAGAZZI
 ARTE
@@ -97,48 +88,33 @@ SCIENZE
 TECNOLOGIA_MEDICINA
 NON_VALIDO
 </textarea>
-</label>
 
-<label>
 <input type="text" id="catS" name="catS"/>
-</label>
 </p>
 <br>
 <br>
 data pubb (yyyy/mm/dd) :
-<label>
 <input type="text" id="dataL" name="dataL"/>
-</label>
 <br>
 <br>
 recensione :
-<label>
 <input type="text" id="recensioneL" name="recensioneL"/>
-</label>
 <br>
 <br>
 descrizione :
-<label>
 <input type="text" id="descL" name="descL"/>
-</label>
 <br>
 <br>
 disponibilita (flaggare per renderlo disponibile) :
-<label>
 <input type="checkbox" id="checkL" name="checkL"/>
-</label>
 <br>
 <br>
 prezzo :
-<label>
 <input type="text" id="prezzoL" name="prezzoL"/>
-</label>
 <br>
 <br>
 copie rimanenti :
-<label>
 <input type="text" id="copieL" name="copieL"/>
-</label>
 <br>
 <br>
 </div>
@@ -147,52 +123,36 @@ copie rimanenti :
 <c:when test="${tipo=='giornale'}">
 <div>
 titolo :
-<label>
 <input type="text" id="titoloG" name="titoloG"/>
-</label>
 <br>
 <br>
 tipologia :
-<label>
 <input type="text" id="tipoG" name="tipoG" value="QUOTIDIANO"/>
-</label>
 <br>
 <br>
 lingua :
-<label>
 <input type="text" id="linguaG" name="linguaG"/>
-</label>
 <br>
 <br>
 editore :
-<label>
 <input type="text" id="editoreG" name="editoreG"/>
-</label>
 <br>
 <br>
 data pubb (yyyy/mm/dd) :
-<label>
 <input type="text" id="dataG" name="dataG"/>
-</label>
 <br>
 <br>
 <br>
 copie rimanenti :
-<label>
 <input type="text" id="copieG" name="copieG"/>
-</label>
 <br>
 <br>
 disponibilita (0->no 1->si):
-<label>
 <input type="text" id="dispG" name="dispG"/>
-</label>
 <br>
 <br>
 prezzo:
-<label>
 <input type="text" id="prezzoG" name="prezzoG"/>
-</label>
 <br>
 <br>
 </div>
@@ -201,13 +161,10 @@ prezzo:
 <c:when test="${tipo=='rivista'}">
 <div>
 titolo :
-<label>
 <input type="text" id="titoloL" name="titoloL"/>
-</label>
 <br>
 <br>
 tipologia :
-<label>
 <textarea  cols=25 rows=5 id="catR" name="catR" disabled/>
 SETTIMANALE
 BISETTIMANALE
@@ -225,59 +182,40 @@ MILITARE
 INFORMATICA
 NON_VALIDO
 </textarea>
-</label>
 
-<label>
 <input type="text" id="catS" name="catS"/>
-</label>
 <br>
 <br>
 autore :
-<label>
 <input type="text" id="autL" name="autL"/>
-</label>
 <br>
 <br>
 lingua :
-<label>
 <input type="text" id="linguaL" name="linguaL"/>
-</label>
 <br>
 <br>
 editore :
-<label>
 <input type="text" id="editoreL" name="editoreL"/>
-</label>
 <br>
 <br>
 descrizione :
-<label>
 <input type="text" id="descL" name="descL"/>
-</label>
 <br>
 <br>
 data pubb (yyyy/mm/dd) :
-<label>
 <input type="text" id="dataL" name="dataL"/>
-</label>
 <br>
 <br>
 disponibilita (flaggare per renderlo disponibile) :
-<label>
 <input type="checkbox" id="checkL" name="checkL"/>
-</label>
 <br>
 <br>
 prezzo :
-<label>
 <input type="text" id="prezzoL" name="prezzoL"/>
-</label>
 <br>
 <br>
 copie rimanenti :
-<label>
 <input type="text" id="copieL" name="copieL"/>
-</label>
 <br>
 <br>
 </div>

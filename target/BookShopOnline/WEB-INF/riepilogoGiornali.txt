@@ -41,3 +41,4 @@ Id :	50titolo :	giornale provaricavo totale :	225.0
 Id :	51titolo :	giornale provaricavo totale :	225.0
 Id :	52titolo :	giornale provaricavo totale :	225.0
 Id :	53titolo :	giornale provaricavo totale :	225.0
+Id :	54titolo :	giornale provaricavo totale :	225.0
