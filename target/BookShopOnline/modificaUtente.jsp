@@ -13,16 +13,6 @@
 
 <h2>Scegliere quali campi modificare</h2>
 
-
-<p> ruolo : ${beanUb.getRuoloB()}</p>
-<p>  nome: ${beanUb.getNomeB()} </p>
-<p>  cognome: ${beanUb.getCognomeB()}</p>
-<p>    email: ${beanUb.getEmailB()} </p>
-<p>     pass: ${beanUb.getPassB()}  </p>
-<p>     desc: ${beanUb.getDescrizioneB()}  </p>
-
-<p> id dal bean modifica: ${beanUb.getIdB()}</p>
-
 <form action="ModificaUtenteServlet" method="post">
 <div class="column">
 Ruolo :

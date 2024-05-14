@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
     private static final String LOCATION="localDBFile.csv";
 
     @BeforeAll
-     static void testGeneraReport() throws IOException {
+    static void testGeneraReport() throws IOException {
         csv.generaReport();
     }
 

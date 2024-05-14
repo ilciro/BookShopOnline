@@ -28,7 +28,6 @@ Id :	37titolo :	rivista provaricavo totale :	130.0
 Id :	38titolo :	rivista provaricavo totale :	130.0
 Id :	39titolo :	rivista provaricavo totale :	130.0
 Id :	40titolo :	rivista provaricavo totale :	130.0
-Id :	41titolo :	rivista provaricavo totale :	130.0
 Id :	42titolo :	rivista provaricavo totale :	130.0
 Id :	43titolo :	rivista provaricavo totale :	130.0
 Id :	44titolo :	rivista provaricavo totale :	130.0
@@ -37,3 +36,6 @@ Id :	46titolo :	rivista provaricavo totale :	130.0
 Id :	47titolo :	rivista provaricavo totale :	130.0
 Id :	48titolo :	rivista provaricavo totale :	130.0
 Id :	49titolo :	rivista provaricavo totale :	130.0
+Id :	50titolo :	rivista provaricavo totale :	130.0
+Id :	51titolo :	provo ad inserire un nuovo giornalericavo totale :	263.0
+Id :	52titolo :	rivista provaricavo totale :	130.0

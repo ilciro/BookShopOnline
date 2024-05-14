@@ -11,9 +11,6 @@
 </head>
 <body>
 
-<h1> Loggato come ${beanUb.getRuoloB()}</h1>
-<h2> Scegli cosa vuoi fare</h2>
-
 <form action="UtentiServlet" method="post">
 
 <c:set var = "tipo" scope = "session" value = "${beanUb.getRuoloB() }"/>

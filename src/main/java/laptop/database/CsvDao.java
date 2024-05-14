@@ -46,9 +46,6 @@ public class CsvDao implements DaoInterface {
 
     public CsvDao()  {
         this.fd = new File(CSVFILENAME);
-
-
-
     }
 
 
@@ -57,23 +54,18 @@ public class CsvDao implements DaoInterface {
     public void generaReport() throws IOException {
 
         try {
+
+            cleanUp(Path.of(fd.toURI()));
             if (!fd.exists()) {
-                throw new IOException();
+                throw new IOException("file not exists");
             }
+
         }catch (IOException e)
         {
             Logger.getLogger("genera report").log(Level.SEVERE, "\n file not ecists");
-
-
-
                 if (fd.createNewFile())
                 {
-
-
                     Logger.getLogger("report users").log(Level.SEVERE, "\n making file");
-
-
-
 
                     try (Connection conn= ConnToDb.connectionToDB();
                          PreparedStatement prepQ=conn.prepareStatement(QUERY)){
@@ -108,6 +100,7 @@ public class CsvDao implements DaoInterface {
                 }
 
         }
+
 
     }
     public static synchronized void saveUser(File fd, User instance) throws Exception {
