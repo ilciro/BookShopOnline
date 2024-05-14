@@ -73,6 +73,8 @@ public class DownloadServlet extends HttpServlet{
                 req.setAttribute("beanS",sB);
                 req.setAttribute("beanD",dB);
 
+
+
                 view=getServletContext().getRequestDispatcher("/download.jsp");
                 view.forward(req,resp);
             }

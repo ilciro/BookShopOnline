@@ -36,7 +36,6 @@ Id :	45titolo :	giornale provaricavo totale :	225.0
 Id :	46titolo :	giornale provaricavo totale :	225.0
 Id :	47titolo :	giornale provaricavo totale :	225.0
 Id :	50titolo :	giornale provaricavo totale :	225.0
-Id :	52titolo :	giornale provaricavo totale :	225.0
 Id :	53titolo :	giornale provaricavo totale :	225.0
 Id :	54titolo :	giornale provaricavo totale :	225.0
 Id :	55titolo :	giornale provaricavo totale :	225.0
@@ -49,3 +48,5 @@ Id :	61titolo :	giornale provaricavo totale :	225.0
 Id :	62titolo :	giornale provaricavo totale :	225.0
 Id :	63titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
 Id :	64titolo :	giornale provaricavo totale :	225.0
+Id :	65titolo :	provo ad inserire un nuovo giornalericavo totale :	85.799995
+Id :	66titolo :	giornale provaricavo totale :	225.0
