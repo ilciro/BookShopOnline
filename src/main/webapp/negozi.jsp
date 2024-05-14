@@ -50,6 +50,8 @@ elenco negozi presenti
 </td>
 
 </table>
+<br>
+<br>
 <div> stato del negozio  ${beanN.getMexB()}</div>
 
 </form>

@@ -64,10 +64,6 @@ titolo della rivista da scaricare:
 <br>
 <br>
 
-<p> parametri </p>
-<p> id da systembean :${beanS.getIdB()}</p>
-<p> titolo da susyemBean : ${beanS.getTitoloB()}</p>
-<p> titolo del bean download :${beanD.getTitoloB()}</p>
 <div>
 <a href="${beanD.getTitoloB()}">open pdf</a>
 </div>

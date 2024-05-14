@@ -105,7 +105,7 @@ public class CsvDao implements DaoInterface {
     }
     public static synchronized void saveUser(File fd, User instance) throws Exception {
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
-        String[] userVector = new String[8];
+        String[] userVector = new String[9];
 
         userVector[GETINDEXID] = String.valueOf(instance.getId());
         userVector[GETINDEXRUOLO] = instance.getIdRuolo().substring(0,1);

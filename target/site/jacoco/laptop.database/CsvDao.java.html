@@ -104,23 +104,23 @@ public class CsvDao implements DaoInterface {
 
 <span class="fc" id="L105">    }</span>
     public static synchronized void saveUser(File fd, User instance) throws Exception {
-<span class="nc" id="L107">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));</span>
-<span class="nc" id="L108">        String[] userVector = new String[8];</span>
+<span class="fc" id="L107">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));</span>
+<span class="fc" id="L108">        String[] userVector = new String[9];</span>
 
-<span class="nc" id="L110">        userVector[GETINDEXID] = String.valueOf(instance.getId());</span>
-<span class="nc" id="L111">        userVector[GETINDEXRUOLO] = instance.getIdRuolo().substring(0,1);</span>
-<span class="nc" id="L112">        userVector[GETINDEXNOME] = instance.getNome();</span>
-<span class="nc" id="L113">        userVector[GETINDEXCOGNOME] = String.valueOf(instance.getCognome());</span>
-<span class="nc" id="L114">        userVector[GETINDEXEMAIL] = String.valueOf(instance.getEmail());</span>
-<span class="nc" id="L115">        userVector[GETINDEXDESCRIZIONE] = String.valueOf(instance.getDescrizione());</span>
-<span class="nc" id="L116">        userVector[GETINDEXDATA] = String.valueOf(instance.getDataDiNascita());</span>
+<span class="fc" id="L110">        userVector[GETINDEXID] = String.valueOf(instance.getId());</span>
+<span class="fc" id="L111">        userVector[GETINDEXRUOLO] = instance.getIdRuolo().substring(0,1);</span>
+<span class="fc" id="L112">        userVector[GETINDEXNOME] = instance.getNome();</span>
+<span class="fc" id="L113">        userVector[GETINDEXCOGNOME] = String.valueOf(instance.getCognome());</span>
+<span class="fc" id="L114">        userVector[GETINDEXEMAIL] = String.valueOf(instance.getEmail());</span>
+<span class="fc" id="L115">        userVector[GETINDEXDESCRIZIONE] = String.valueOf(instance.getDescrizione());</span>
+<span class="fc" id="L116">        userVector[GETINDEXDATA] = String.valueOf(instance.getDataDiNascita());</span>
 
-<span class="nc" id="L118">        csvWriter.writeNext(userVector);</span>
-<span class="nc" id="L119">        csvWriter.flush();</span>
-<span class="nc" id="L120">        csvWriter.close();</span>
+<span class="fc" id="L118">        csvWriter.writeNext(userVector);</span>
+<span class="fc" id="L119">        csvWriter.flush();</span>
+<span class="fc" id="L120">        csvWriter.close();</span>
 
 
-<span class="nc" id="L123">    }</span>
+<span class="fc" id="L123">    }</span>
     public static synchronized List&lt;User&gt; retreiveByNomeEmail(File fd, String nome,String email) throws Exception {
         // create csvReader object passing file reader as a parameter
 <span class="fc" id="L126">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
