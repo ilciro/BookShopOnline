@@ -38,7 +38,6 @@ laptop/model/Pagamento.class
 laptop/exception/IdException.class
 laptop/view/BoundaryAdminPage.class
 laptop/controller/ControllerUserPage.class
-web/servlet/DownloadServletR.class
 laptop/database/CartaCreditoDao.class
 web/bean/UserBean$Ruoli.class
 web/servlet/ServletScrittore.class
@@ -71,7 +70,6 @@ web/servlet/InserisciOggettoServlet.class
 laptop/model/TempUser.class
 laptop/view/BoundaryAcquista.class
 laptop/controller/ControllerRicercaPerTipo.class
-web/servlet/DownloadServlet.class
 laptop/controller/ControllerReportRaccolta.class
 web/bean/LibroBean.class
 laptop/view/BoundaryAggiungiPage.class
@@ -96,6 +94,7 @@ web/servlet/CartaCreditoServlet.class
 laptop/view/BoundaryVisualizzaProfilo.class
 laptop/database/LibroDao.class
 laptop/model/raccolta/MatchParam.class
+web/servlet/DownloadServletTotale.class
 web/servlet/ModificaUtenteServlet.class
 laptop/model/raccolta/Rivista.class
 laptop/view/BoundaryReportPage.class
@@ -117,7 +116,6 @@ laptop/view/BoundaryAggiungiUtente.class
 laptop/view/BoundaryModificaUtente.class
 laptop/database/UsersDao.class
 laptop/model/raccolta/Raccolta.class
-web/servlet/DownloadServletG.class
 web/servlet/AcquistaServlet.class
 laptop/controller/ControllerAggiungiPage.class
 laptop/model/raccolta/Libro.class

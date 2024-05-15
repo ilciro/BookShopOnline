@@ -153,9 +153,13 @@
       <artifactId>build-helper-maven-plugin</artifactId>
       <version>3.4.0</version>
     </dependency>
+
+
+
   </dependencies>
   <build>
     <finalName>BookShopOnline</finalName>
+
 
     <plugins>
       <plugin>
@@ -311,6 +315,8 @@
           </execution>
         </executions>
       </plugin>
+
+
 
 
     </plugins>

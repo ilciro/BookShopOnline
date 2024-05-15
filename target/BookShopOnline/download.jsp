@@ -15,12 +15,12 @@
 <br>
 <br>
 
-
+<form action="DownloadServletTotale" method="post">
 <c:set var = "tipo" scope = "session" value = "${beanS.getTypeB() }"/>
 
 <c:choose>
 <c:when test="${ tipo=='libro'}">
-<form action="DownloadServlet" method="post">
+
 <div>
 titolo del libro da scaricare:
 <input type="text" id="titoloL" name="titoloL" value="${beanS.getTitoloB()}">
@@ -30,10 +30,8 @@ titolo del libro da scaricare:
 <input type="submit" class="invia" id="downloadB" name="downloadB" value="scarica e leggi">
 <input type="submit" class="annulla" id="annullaB" name="annullaB" value="annulla">
 </div>
-</form>
 </c:when>
 <c:when test="${ tipo=='giornale'}">
-<form action="DownloadServletG" method="post">
 <div>
 titolo del giornale da scaricare:
 <input type="text" id="titoloL" name="titoloL" value="${beanS.getTitoloB()}">
@@ -43,10 +41,8 @@ titolo del giornale da scaricare:
 <input type="submit" class="invia" id="downloadB" name="downloadB" value="scarica e leggi">
 <input type="submit" class="annulla" id="annullaB" name="annullaB" value="annulla">
 </div>
-</form>
 </c:when>
 <c:when test="${ tipo=='rivista'}">
-<form action="DownloadServletR" method="post">
 <div>
 titolo della rivista da scaricare:
 <input type="text" id="titoloL" name="titoloL" value="${beanS.getTitoloB()}">
@@ -58,14 +54,14 @@ titolo della rivista da scaricare:
 <input type="submit" class="homepage" id="homePage" name="homePage" value="home page">
 
 </div>
-</form>
+
 </c:when>
 </c:choose>
+</form>
 <br>
 <br>
 
-<div>
-<a href="${beanD.getTitoloB()}">open pdf</a>
+
 </div>
 </body>
 </html>

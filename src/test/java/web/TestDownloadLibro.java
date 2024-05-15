@@ -109,7 +109,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         //schermata download
         driver.findElement(By.id("titoloL")).sendKeys(titolo);
         driver.findElement(By.id("downloadB")).click();
-        driver.findElement(By.linkText("open pdf")).click();
+
 
         assertNotEquals(0,PropertyUtils.getProperty(sB,"idB"));
 
