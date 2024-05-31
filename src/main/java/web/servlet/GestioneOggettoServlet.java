@@ -36,7 +36,7 @@ public class GestioneOggettoServlet extends HttpServlet {
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
     private static final String BEANMOB="beanMOB";
-    private static final String MODIFICA="/modificaLibroPage.jsp";
+    private static final String MODIFICA="/modificaOggettoPage.jsp";
     private static final String BEANS="beanS";
     private static final String GESTIONE="/gestioneOggettoPage.jsp";
 
@@ -72,7 +72,7 @@ public class GestioneOggettoServlet extends HttpServlet {
             if(modifica!=null && modifica.equals("modifica"))
             {
                modifica(req);
-                view= getServletContext().getRequestDispatcher("/modificaOggettoPage.jsp");
+                view= getServletContext().getRequestDispatcher(MODIFICA);
                 view.forward(req,resp);
 
 
@@ -161,6 +161,7 @@ public class GestioneOggettoServlet extends HttpServlet {
                 lB.setIdB(sB.getIdB());
                 l.setId(sB.getIdB());
                 if (lD.cancella(l) == 1) {
+                    req.setAttribute(BEANS,sB);
                     view = getServletContext().getRequestDispatcher(GESTIONE);
                     view.forward(req, resp);
                 } else {
@@ -175,6 +176,7 @@ public class GestioneOggettoServlet extends HttpServlet {
                 gB.setIdB(sB.getIdB());
                 g.setId(sB.getIdB());
                 if (gD.cancella(g) == 1) {
+                    req.setAttribute(BEANS,sB);
                     view = getServletContext().getRequestDispatcher(GESTIONE);
                     view.forward(req, resp);
                 } else {
@@ -188,6 +190,7 @@ public class GestioneOggettoServlet extends HttpServlet {
                 rB.setIdB(sB.getIdB());
                 r.setId(sB.getIdB());
                 if (rD.cancella(r) == 1) {
+                    req.setAttribute(BEANS,sB);
                     view = getServletContext().getRequestDispatcher(GESTIONE);
                     view.forward(req, resp);
                 } else {

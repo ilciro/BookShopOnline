@@ -1,4 +1,4 @@
-Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	0.0
+Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	7.99
 Id :	2titolo :	Andrea Baranes : contro i falsi mitiricavo totale :	0.0
 Id :	3titolo :	Il libro dello splendorericavo totale :	7450.0
 Id :	4titolo :	Come i servizi segreti usano i mediaricavo totale :	259.59998
@@ -43,7 +43,6 @@ Id :	52titolo :	libro provaricavo totale :	197.44
 Id :	53titolo :	libro provaricavo totale :	197.44
 Id :	54titolo :	libro provaricavo totale :	197.44
 Id :	57titolo :	libro provaricavo totale :	197.44
-Id :	62titolo :	libro provaricavo totale :	197.44
 Id :	63titolo :	libro provaricavo totale :	197.44
 Id :	64titolo :	libro provaricavo totale :	197.44
 Id :	65titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
@@ -59,3 +58,6 @@ Id :	74titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
 Id :	75titolo :	libro provaricavo totale :	197.44
 Id :	76titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
 Id :	77titolo :	libro provaricavo totale :	197.44
+Id :	78titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
+Id :	79titolo :	libro provaricavo totale :	197.44
+Id :	80titolo :	libro provaricavo totale :	197.44
