@@ -157,7 +157,8 @@ public class GestioneOggettoServlet extends HttpServlet {
         switch (sB.getTypeB())
         {
             case LIBRO-> {
-
+                int idL = Integer.parseInt(id);
+                sB.setIdB(idL);
                 lB.setIdB(sB.getIdB());
                 l.setId(sB.getIdB());
                 if (lD.cancella(l) == 1) {

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: laptop.controller.ControllerCheckPagamentoDataTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.576 s - in laptop.controller.ControllerCheckPagamentoDataTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.65 s - in laptop.controller.ControllerCheckPagamentoDataTest
