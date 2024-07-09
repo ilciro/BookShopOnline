@@ -20,9 +20,10 @@
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>3.13.0</version>
         <configuration>
-          <release>17</release>
+          <source>17</source>
+          <target>17</target>
         </configuration>
       </plugin>
       <plugin>
@@ -181,12 +182,11 @@
     </dependency>
   </dependencies>
   <properties>
-    <maven.compiler.release>${java.version}</maven.compiler.release>
     <maven.clean>3.1.0</maven.clean>
     <junit>5.9.2</junit>
     <sonar.language>java</sonar.language>
     <java.version>17</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.source>17</maven.compiler.source>
     <jacoco.version>0.8.7</jacoco.version>
     <maven.compiler>3.8.1</maven.compiler>
     <maven.shade>3.2.2</maven.shade>
@@ -194,7 +194,7 @@
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
     <maven.install>3.0.0-M1</maven.install>
     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.target>17</maven.compiler.target>
     <maven.resources>3.1.0</maven.resources>
     <maven.war>3.2.0</maven.war>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,5 +1,5 @@
-Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	7.99
-Id :	2titolo :	Andrea Baranes : contro i falsi mitiricavo totale :	0.0
+Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	4794.0
+Id :	2titolo :	Andrea Baranes : contro i falsi mitiricavo totale :	599.0
 Id :	3titolo :	Il libro dello splendorericavo totale :	7450.0
 Id :	4titolo :	Come i servizi segreti usano i mediaricavo totale :	259.59998
 Id :	5titolo :	Sulla veritàricavo totale :	164.0
@@ -17,49 +17,3 @@ Id :	16titolo :	Dodiciricavo totale :	11000.0
 Id :	17titolo :	Tecniche proibite di persuasione, manipolazione e influenza utilizzando schemi di linguaggio e tecniche di PNLricavo totale :	15400.0
 Id :	18titolo :	CiccioGamer89 Presenta Fortnite. Trucchi e Segretiricavo totale :	110.0
 Id :	19titolo :	titolo modificatoricavo totale :	774.0
-Id :	21titolo :	libro provaricavo totale :	197.44
-Id :	22titolo :	libro provaricavo totale :	197.44
-Id :	23titolo :	libro provaricavo totale :	197.44
-Id :	29titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	30titolo :	libro provaricavo totale :	197.44
-Id :	31titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	33titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	34titolo :	libro provaricavo totale :	197.44
-Id :	35titolo :	libro provaricavo totale :	197.44
-Id :	36titolo :	libro provaricavo totale :	197.44
-Id :	37titolo :	libro provaricavo totale :	197.44
-Id :	38titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	42titolo :	libro provaricavo totale :	197.44
-Id :	43titolo :	libro provaricavo totale :	197.44
-Id :	44titolo :	libro provaricavo totale :	197.44
-Id :	45titolo :	libro provaricavo totale :	197.44
-Id :	46titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	47titolo :	libro provaricavo totale :	197.44
-Id :	48titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	49titolo :	libro provaricavo totale :	197.44
-Id :	50titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	51titolo :	libro provaricavo totale :	197.44
-Id :	52titolo :	libro provaricavo totale :	197.44
-Id :	53titolo :	libro provaricavo totale :	197.44
-Id :	54titolo :	libro provaricavo totale :	197.44
-Id :	57titolo :	libro provaricavo totale :	197.44
-Id :	66titolo :	libro provaricavo totale :	197.44
-Id :	67titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	68titolo :	libro provaricavo totale :	197.44
-Id :	69titolo :	libro provaricavo totale :	197.44
-Id :	70titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	71titolo :	libro provaricavo totale :	197.44
-Id :	73titolo :	libro provaricavo totale :	197.44
-Id :	74titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	75titolo :	libro provaricavo totale :	197.44
-Id :	76titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	77titolo :	libro provaricavo totale :	197.44
-Id :	78titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	79titolo :	libro provaricavo totale :	197.44
-Id :	80titolo :	libro provaricavo totale :	197.44
-Id :	81titolo :	libro provaricavo totale :	197.44
-Id :	82titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	83titolo :	libro provaricavo totale :	197.44
-Id :	84titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	85titolo :	provo ad inserire un nuovo libroricavo totale :	80.0
-Id :	86titolo :	libro provaricavo totale :	197.44
