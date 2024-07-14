@@ -152,7 +152,7 @@ public class BoundaryCompravendita implements Initializable {
 	}
 
 	@FXML
-	private void vediLista()  {
+	private void vediLista() throws IOException {
 		//vedere if anche qui
 
 				table.setItems(cCV.getLista(vis.getType()));

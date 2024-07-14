@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import laptop.database.CsvDaoGiornale;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
@@ -30,6 +31,7 @@ public class ControllerCompravendita {
 	private static final String LIBRO = "libro";
 	private static final String RIVISTA = "rivista";
 	private static final String GIORNALE = "giornale";
+	private static final CsvDaoGiornale csvDao=new CsvDaoGiornale();
 
 
 
@@ -50,14 +52,15 @@ public class ControllerCompravendita {
 		}
 	}
 
-	public ObservableList<Raccolta> getLista(String type)  {
+	public ObservableList<Raccolta> getLista(String type) throws IOException {
 		ObservableList<Raccolta> catalogo = FXCollections.observableArrayList();
 		switch (type) {
 			case LIBRO:
 				catalogo.addAll(lD.getLibri());
 				break;
 			case GIORNALE:
-				catalogo.addAll(gD.getGiornaliIdTitoloAutore(new Giornale()));
+				catalogo.addAll(gD.getGiornali());
+				csvDao.generaReport();
 				break;
 			case RIVISTA:
 				catalogo.addAll(rD.getRiviste());

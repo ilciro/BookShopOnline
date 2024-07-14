@@ -34,47 +34,27 @@ public class CsvDao implements DaoInterface {
     private static final int GETINDEXDESCRIZIONE=5;
     private static final int GETINDEXDATA=6;
     private static final String QUERY=" select idUser,idRuolo,nome,cognome,email,pwd,descrizione,dataNascita from USERS";
-
-
-
-
-
-
     private final File fd;
-
-
-
     public CsvDao()  {
         this.fd = new File(CSVFILENAME);
     }
 
-
-
     @Override
     public void generaReport() throws IOException {
-
         try {
-
             cleanUp(Path.of(fd.toURI()));
-            if (!fd.exists()) {
-                throw new IOException("file not exists");
-            }
-
+            if (!fd.exists()) {  throw new IOException("file not exists"); }
         }catch (IOException e)
         {
             Logger.getLogger("genera report").log(Level.SEVERE, "\n file not ecists");
                 if (fd.createNewFile())
                 {
                     Logger.getLogger("report users").log(Level.SEVERE, "\n making file");
-
                     try (Connection conn= ConnToDb.connectionToDB();
                          PreparedStatement prepQ=conn.prepareStatement(QUERY)){
-
                         ResultSet rs = prepQ.executeQuery(QUERY);
                         CSVWriter writer = new CSVWriter(new FileWriter(CSVFILENAME));
                         rs.getMetaData();
-
-
                         String[] data =new String[7];
                         while (rs.next())
                         {
@@ -89,16 +69,9 @@ public class CsvDao implements DaoInterface {
                         }
                         writer.flush();
                         writer.close();
-
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger("report libro").log(Level.SEVERE, "\n eccezione ottenuta .", ex);
-
+                    } catch (SQLException ex) {Logger.getLogger("report libro").log(Level.SEVERE, "\n eccezione ottenuta .", ex);
                     }
-
-
                 }
-
         }
 
 
@@ -125,91 +98,66 @@ public class CsvDao implements DaoInterface {
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] userVector;
-
         List<User> userList = new ArrayList<>();
-
         while ((userVector = csvReader.readNext()) != null) {
-
             boolean userVectorFound = (userVector[GETINDEXNOME].equals(nome))||(userVector[GETINDEXEMAIL].equals(email));
             if (userVectorFound) {
                 int id = Integer.parseInt(userVector[GETINDEXID]);
                 String nomeA = userVector[GETINDEXNOME];
                 String emailA = userVector[GETINDEXEMAIL];
-
-
                 User.getInstance().setId(id);
                 User.getInstance().setNome(nomeA);
                 User.getInstance().setEmail(emailA);
                 userList.add(User.getInstance());
             }
         }
-
         csvReader.close();
-
         if (userList.isEmpty()) {
             throw new NullPointerException(" user not found");
         }
-
         return userList;
     }
     private static synchronized void removeUserById(File fd, User instance) throws Exception {
         File tmpFD = File.createTempFile("dao", "tmp",new File(CSVFILENAME));
-
-
-if(SystemUtils.IS_OS_UNIX) {
-  FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
-  Files.createTempFile("prefix", "suffix", attr); // Compliant
-}
-
-
+        if(SystemUtils.IS_OS_UNIX) {
+          FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
+          Files.createTempFile("prefix", "suffix", attr); // Compliant
+        }
         boolean found = false;
-
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] userVector;
-
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));
-
         while ((userVector = csvReader.readNext()) != null) {
 
             boolean userVectorFound = (userVector[GETINDEXID].equals(String.valueOf(instance.getId()))||(userVector[GETINDEXEMAIL].equals(String.valueOf(instance.getEmail()))));
             if (!userVectorFound) {
                 csvWriter.writeNext(userVector);
-            } else {
-                found = true;
-            }
+            } else {found = true;}
         }
         csvWriter.flush();
-
         csvReader.close();
         csvWriter.close();
-
-        if (found) {
-            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {
-            cleanUp(Path.of(tmpFD.toURI()));
-        }
+        if (found) {Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
+        } else {cleanUp(Path.of(tmpFD.toURI()));}
     }
     public static synchronized void modifPassUser(File fd, User instance,User instanceA) throws Exception {
         //modified only email because pass not showed
-
         //instance for delete
-        // instance agg fro insert
-
+        // instance agg from insert
         removeUserById(fd,instance);
         saveUser(fd,instanceA);
-
-
     }
+    public static void cleanUp(Path path) throws IOException {
+        Files.delete(path);
+    }
+
     public static synchronized List<User> retreiveAllDataUser(File fd,String email) throws Exception {
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] userVector;
-
         List<User> userList = new ArrayList<>();
-
         while ((userVector = csvReader.readNext()) != null) {
-
             boolean userVectorFound = userVector[GETINDEXEMAIL].equals(email);
             if (userVectorFound) {
                 int id = Integer.parseInt(userVector[GETINDEXID]);
@@ -219,8 +167,6 @@ if(SystemUtils.IS_OS_UNIX) {
                 String emailA = userVector[GETINDEXEMAIL];
                 String desc=userVector[GETINDEXDESCRIZIONE];
                 String data=userVector[GETINDEXDATA];
-
-
                 User.getInstance().setId(id);
                 User.getInstance().setIdRuolo(ruolo);
                 User.getInstance().setNome(nome);
@@ -231,22 +177,13 @@ if(SystemUtils.IS_OS_UNIX) {
                 userList.add(User.getInstance());
             }
         }
-
         csvReader.close();
-
-        if (userList.isEmpty()) {
-            throw new IdException(" user not found -> id null");
-        }
-
-        return userList;
-    }
+        if (userList.isEmpty()) { throw new IdException(" user not found -> id null");    }
+        return userList;    }
 
 
 
 
-    public static void cleanUp(Path path) throws IOException {
-        Files.delete(path);
-    }
 
 
 }

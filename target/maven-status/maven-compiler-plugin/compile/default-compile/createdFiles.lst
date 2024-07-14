@@ -116,6 +116,7 @@ laptop/view/BoundaryAggiungiUtente.class
 laptop/view/BoundaryModificaUtente.class
 laptop/database/UsersDao.class
 laptop/model/raccolta/Raccolta.class
+laptop/database/CsvDaoGiornale.class
 web/servlet/AcquistaServlet.class
 laptop/controller/ControllerAggiungiPage.class
 laptop/model/raccolta/Libro.class
