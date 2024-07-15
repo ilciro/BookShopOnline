@@ -41,13 +41,12 @@ public class CsvGiornaleDao implements DaoInterface {
     private static final int GETINDEXPREZZO = 7;
     private static final int GETINDEXID = 8;
     private static final String QUERY = "select titolo,tipologia,lingua,editore,dataPubblicazione,copieRimanenti,disp,prezzo,idGiornale from GIORNALE";
-    private static File fd;
+    private static final File fd = new File(LOCATION);
 
     private final HashMap<String, Giornale> localCache;
 
 
     public CsvGiornaleDao() throws IOException {
-        fd = new File(LOCATION);
         this.localCache = new HashMap<>();
     }
 
@@ -57,18 +56,18 @@ public class CsvGiornaleDao implements DaoInterface {
     }
 
     @Override
-    public List<Giornale> giornaliByIdTitoloEd(File fd, String titolo, String editore) throws Exception {
+    public List<Giornale> giornaliByIdTitoloEd(File fd, String titolo, String editore) throws IOException, CsvValidationException {
         return retrieveByIdTitoloEd(fd, titolo, editore);
     }
 
     @Override
-    public void insertGiornale(File fd, Giornale g) throws Exception {
+    public void insertGiornale(File fd, Giornale g) throws IOException {
         saveGiornale(fd, g);
 
     }
 
     @Override
-    public void removeGiornale(File fd, Giornale g) throws Exception {
+    public void removeGiornale(File fd, Giornale g) throws CsvValidationException, IOException {
         removeGiornaleById(fd, g);
     }
 
@@ -119,7 +118,7 @@ public class CsvGiornaleDao implements DaoInterface {
         }
     }
 
-    private static synchronized List<Giornale> retreiveById(File fd, int id) throws Exception {
+    private static synchronized List<Giornale> retreiveById(File fd, int id) throws IOException, CsvValidationException, IdException {
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVEctor;
@@ -158,7 +157,7 @@ public class CsvGiornaleDao implements DaoInterface {
         return gList;
     }
 
-    private static synchronized List<Giornale> retrieveByIdTitoloEd(File fd, String titolo, String editore) throws Exception {
+    private static synchronized List<Giornale> retrieveByIdTitoloEd(File fd, String titolo, String editore) throws IOException, CsvValidationException {
 
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector;
@@ -183,7 +182,7 @@ public class CsvGiornaleDao implements DaoInterface {
         return giornaleList;
     }
 
-    private static synchronized void saveGiornale(File fd, Giornale g) throws Exception {
+    private static synchronized void saveGiornale(File fd, Giornale g) throws IOException {
 
 
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
@@ -204,7 +203,7 @@ public class CsvGiornaleDao implements DaoInterface {
 
     }
 
-    private static synchronized void removeGiornaleById(File fd, Giornale g) throws Exception {
+    private static synchronized void removeGiornaleById(File fd, Giornale g) throws IOException, CsvValidationException {
 
 
         if (SystemUtils.IS_OS_UNIX) {
@@ -239,7 +238,7 @@ public class CsvGiornaleDao implements DaoInterface {
 
     }
 
-    public synchronized void checkDuplicate(Giornale g) throws Exception {
+    public synchronized void checkDuplicate(Giornale g) throws IdException, CsvValidationException, IOException {
         boolean duplicatedRecordId=false;
 
         synchronized (this.localCache) {
