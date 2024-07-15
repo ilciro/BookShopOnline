@@ -7,7 +7,6 @@ laptop/controller/ControllerModifPageTest.class
 laptop/controller/ControllerHomePageAfterLoginTest.class
 laptop/controller/ControllerVisualizzaOrdineTest.class
 laptop/added/TestTempUser.class
-laptop/added/TestCSVDaoGiornale.class
 laptop/added/TestGiornale.class
 laptop/controller/ControllerRicercaPerTipoTest.class
 laptop/controller/ControllerReportPageTest.class
@@ -20,7 +19,7 @@ laptop/added/TestCartaCredito.class
 laptop/controller/ControllerRicercaPageTest.class
 laptop/controller/ControllerAggiungiUtenteTest.class
 web/TestEditoreRicerca.class
-laptop/added/TestCSVDao.class
+laptop/added/TestCsvGiornale.class
 laptop/added/TestRivista.class
 laptop/controller/ControllerModificaUtenteTest.class
 laptop/controller/ControllerPagamentoCCTest.class

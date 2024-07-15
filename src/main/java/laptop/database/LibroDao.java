@@ -21,7 +21,7 @@ import laptop.utilities.ConnToDb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class LibroDao implements DaoInterface{
+public class LibroDao {
 
 	private final Factory f;
 	private String query;

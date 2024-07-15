@@ -24,7 +24,6 @@ laptop/controller/ControllerVisualizza.class
 laptop/controller/ControllerAcquista.class
 web/servlet/InserisciUtenteServlet.class
 laptop/controller/ControllerCompravendita.class
-laptop/database/CsvDao.class
 laptop/controller/ControllerPassword.class
 laptop/view/BoundaryScegliNegozio.class
 web/servlet/ReportServlet.class
@@ -48,6 +47,7 @@ laptop/view/BoundaryPagamentoCC.class
 laptop/controller/ControllerPagamentoCash.class
 laptop/controller/ControllerAggiungiUtente.class
 laptop/view/BoundaryVisualizza.class
+laptop/database/CsvGiornaleDao.class
 laptop/view/BoundaryModificaPage.class
 laptop/view/BoundaryModificaUtentePage.class
 laptop/view/BoundaryPagamentoCash.class
@@ -116,7 +116,6 @@ laptop/view/BoundaryAggiungiUtente.class
 laptop/view/BoundaryModificaUtente.class
 laptop/database/UsersDao.class
 laptop/model/raccolta/Raccolta.class
-laptop/database/CsvDaoGiornale.class
 web/servlet/AcquistaServlet.class
 laptop/controller/ControllerAggiungiPage.class
 laptop/model/raccolta/Libro.class

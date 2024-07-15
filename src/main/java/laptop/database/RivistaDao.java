@@ -21,7 +21,7 @@ import laptop.utilities.ConnToDb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class 	RivistaDao {
+public class RivistaDao {
 	
 	private final Factory f;
 	

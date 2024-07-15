@@ -1,5 +1,6 @@
 package laptop.controller;
 
+import laptop.database.CsvGiornaleDao;
 import laptop.exception.AcquistaException;
 import laptop.exception.IdException;
 import laptop.utilities.ConnToDb;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,10 +21,11 @@ class ControllerAcquistaTest {
     private final ControllerSystemState vis=ControllerSystemState.getInstance();
 
     ControllerAcquistaTest() throws IOException {
+
     }
 
     @BeforeAll
-    static void init() throws FileNotFoundException {
+    static void init() throws IOException {
         ConnToDb.creaPopolaDb();
     }
 
