@@ -30,7 +30,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class CsvDaoGiornale implements DaoInterface{
 
-    private static final String CSVFILENAMEGIORNALE="localDBFileGiornale.csv";
+    private static final String CSVFILENAMEGIORNALE="report/localDBFileGiornale.csv";
     private static final int GETINDEXTITOLO=0;
     private static final int GETINDEXTIPOLOGIA=1;
     private static final int GETINDEXLINGUA=2;
@@ -130,16 +130,17 @@ public class CsvDaoGiornale implements DaoInterface{
         return giornaleList;
     }
     public static synchronized void removeGiornaleById(File fd, Giornale g) throws Exception {
-        File tmpFD = File.createTempFile("dao", "tmp");
+        //File tmpFD = File.createTempFile("dao", "tmp");
+        File f=null;
         if(SystemUtils.IS_OS_UNIX) {
             FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
-            Files.createTempFile("prefix", "suffix", attr); // Compliant
+           f= Files.createTempFile("prefix", "suffix").toFile(); // Compliant
         }
         boolean found = false;
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] giornaleVector;
-        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(f, true)));
         while ((giornaleVector = csvReader.readNext()) != null) {
 
             boolean userVectorFound = (giornaleVector[GETINDEXID].equals(String.valueOf(g.getId())));
@@ -150,8 +151,8 @@ public class CsvDaoGiornale implements DaoInterface{
         csvWriter.flush();
         csvReader.close();
         csvWriter.close();
-        if (found) {Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {cleanUp(Path.of(tmpFD.toURI()));}
+        if (found) {Files.move(f.toPath(), fd.toPath(), REPLACE_EXISTING);
+        } else {cleanUp(Path.of(f.toURI()));}
     }
 
     public static synchronized List<User> retreiveAllDataGiornali(File fd,int id) throws Exception {

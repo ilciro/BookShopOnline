@@ -15,10 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
  class TestCSVDao {
     private static final CsvDao csv=new CsvDao();
+
      private static final CsvDaoGiornale csvG=new CsvDaoGiornale();
 
-     private static final String LOCATION="localDBFile.csv";
+     private static final String LOCATION="report/localDBFile.csv";
     private static final ResourceBundle CVSBUNDLE=ResourceBundle.getBundle("configurations/users");
+
 
      @BeforeAll
     static void testGeneraReport() throws IOException {
@@ -27,16 +29,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
     }
 
+
     @Test
     void testRetrieveDataUser() throws Exception {
-        File file=new File(LOCATION);
-        assertNotNull(CsvDao.retreiveAllDataUser(file,"admin@admin.com"));
+
+        assertNotNull(CsvDao.retreiveAllDataUser(new File(LOCATION),"admin@admin.com"));
     }
+
+
+
 
     @Test
     void testRetrieveDataUserNomeEmail() throws Exception {
-        File file=new File(LOCATION);
-        assertNotNull(CsvDao.retreiveByNomeEmail(file,"admin","admin@admin.com"));
+        assertNotNull(CsvDao.retreiveByNomeEmail(new File(LOCATION),"admin","admin@admin.com"));
     }
     @Test
      void testSaveUser() throws Exception {
@@ -50,11 +55,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
         User.getInstance().setDescrizione(CVSBUNDLE.getString("desc"));
         CsvDao.saveUser(new File(LOCATION),User.getInstance());
     }
+
     @Test
      void testEliminaUtente() throws Exception {
         User.getInstance().setId(7);
         CsvDao.removeUserById(new File(LOCATION),User.getInstance());
     }
+
+
+
 
 
 }

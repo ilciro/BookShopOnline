@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TestCSVDaoGiornale {
 
-    private static final String LOCATION="localDBFileGiornale.csv";
+    private static final String LOCATION="report/localDBFileGiornale.csv";
     private static final ResourceBundle CVSBUNDLE=ResourceBundle.getBundle("configurations/infoObjects");
 
 
@@ -23,13 +23,11 @@ class TestCSVDaoGiornale {
 
     @Test
     void testRetrieveDataGiornale() throws Exception {
-        File file=new File(LOCATION);
-        assertNotNull(CsvDaoGiornale.retreiveAllDataGiornali(file, Integer.parseInt("5")));
+        assertNotNull(CsvDaoGiornale.retreiveAllDataGiornali(new File(LOCATION), Integer.parseInt("5")));
     }
     @Test
     void testRetrieveGiornaleByIdTitoloEd() throws CsvValidationException, IOException {
-        File file=new File(LOCATION);
-        assertNotNull(CsvDaoGiornale.retrieveByIdTitoloEd(file,CVSBUNDLE.getString("titoloDaPrendere"),CVSBUNDLE.getString("editoreDaPrendere")));
+        assertNotNull(CsvDaoGiornale.retrieveByIdTitoloEd(new File(LOCATION),CVSBUNDLE.getString("titoloDaPrendere"),CVSBUNDLE.getString("editoreDaPrendere")));
     }
     @Test
     void testSaveGiornale() throws IOException {

@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 import static java.nio.file.StandardCopyOption.*;
 public class CsvDao implements DaoInterface {
-    private static final String CSVFILENAME="localDBFile.csv";
+    private static final String CSVFILENAME="report/localDBFile.csv";
 
     private static final int GETINDEXID=0;
     private static final int GETINDEXRUOLO=1;
@@ -121,16 +121,18 @@ public class CsvDao implements DaoInterface {
         return userList;
     }
     public static synchronized void removeUserById(File fd, User instance) throws Exception {
-        File tmpFD = File.createTempFile("dao", "tmp");
+       //modified here
+        File f = null;
+       // File tmpFD = File.createTempFile("dao", "tmp",new File("report/"+CSVFILENAME));
         if(SystemUtils.IS_OS_UNIX) {
           FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
-          Files.createTempFile("prefix", "suffix", attr); // Compliant
+           f=Files.createTempFile("prefix", "suffix").toFile(); // Compliant
         }
         boolean found = false;
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] userVector;
-        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(f, true)));
         while ((userVector = csvReader.readNext()) != null) {
 
             boolean userVectorFound = (userVector[GETINDEXID].equals(String.valueOf(instance.getId()))||(userVector[GETINDEXEMAIL].equals(String.valueOf(instance.getEmail()))));
@@ -141,8 +143,8 @@ public class CsvDao implements DaoInterface {
         csvWriter.flush();
         csvReader.close();
         csvWriter.close();
-        if (found) {Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {cleanUp(Path.of(tmpFD.toURI()));}
+        if (found) {Files.move(f.toPath(), fd.toPath(), REPLACE_EXISTING);
+        } else {cleanUp(Path.of(f.toURI()));}
     }
     public static void cleanUp(Path path) throws IOException {
         Files.delete(path);
