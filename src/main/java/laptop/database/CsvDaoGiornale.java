@@ -42,7 +42,6 @@ public class CsvDaoGiornale implements DaoInterface{
     private static final int GETINDEXID=8;
     private static final String QUERY="select titolo,tipologia,lingua,editore,dataPubblicazione,copieRimanenti,disp,prezzo,idGiornale from GIORNALE";
     private final File fd;
-    private final Giornale g=new Giornale();
 
     public CsvDaoGiornale() {
         this.fd = new File(CSVFILENAMEGIORNALE);

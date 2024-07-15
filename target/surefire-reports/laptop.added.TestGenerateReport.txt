@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: laptop.added.TestGenerateReport
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.238 s - in laptop.added.TestGenerateReport
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.854 s - in laptop.added.TestGenerateReport

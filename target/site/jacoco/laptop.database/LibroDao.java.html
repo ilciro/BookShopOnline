@@ -329,23 +329,23 @@ public class LibroDao implements DaoInterface{
 
 
 	public void incrementaDisponibilita(Libro l){
-<span class="nc" id="L332">			int d = vis.getQuantita();</span>
-<span class="nc" id="L333">			int i = l.getNrCopie();</span>
+<span class="fc" id="L332">			int d = vis.getQuantita();</span>
+<span class="fc" id="L333">			int i = l.getNrCopie();</span>
 
-<span class="nc" id="L335">			int rim = i + d;</span>
-<span class="nc" id="L336">			query = &quot;update LIBRO set copieRimanenti= ? where codIsbn=? or idLibro=?&quot;;</span>
+<span class="fc" id="L335">			int rim = i + d;</span>
+<span class="fc" id="L336">			query = &quot;update LIBRO set copieRimanenti= ? where codIsbn=? or idLibro=?&quot;;</span>
 
 
-<span class="nc" id="L339">			try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L340">				 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
-<span class="nc" id="L341">				prepQ.setInt(1, rim);</span>
-<span class="nc" id="L342">				prepQ.setString(2, l.getCodIsbn());</span>
-<span class="nc" id="L343">				prepQ.setInt(3, l.getId());</span>
-<span class="nc" id="L344">				prepQ.executeUpdate();</span>
+<span class="fc" id="L339">			try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L340">				 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L341">				prepQ.setInt(1, rim);</span>
+<span class="fc" id="L342">				prepQ.setString(2, l.getCodIsbn());</span>
+<span class="fc" id="L343">				prepQ.setInt(3, l.getId());</span>
+<span class="fc" id="L344">				prepQ.executeUpdate();</span>
 <span class="nc" id="L345">			} catch (SQLException e) {</span>
 <span class="nc" id="L346">				java.util.logging.Logger.getLogger(&quot;Test incremeta disp&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L347">			}</span>
-<span class="nc" id="L348">		}</span>
+<span class="fc" id="L347">			}</span>
+<span class="fc" id="L348">		}</span>
 
 
 

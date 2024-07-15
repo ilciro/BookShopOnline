@@ -42,8 +42,8 @@ public class CsvDao implements DaoInterface {
     @Override
     public void generaReport() throws IOException {
         try {
-<span class="nc" id="L45">            cleanUp(Path.of(fd.toURI()));</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">            if (!fd.exists()) {  throw new IOException(&quot;file not exists&quot;); }</span>
+<span class="fc" id="L45">            cleanUp(Path.of(fd.toURI()));</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            if (!fd.exists()) {  throw new IOException(&quot;file not exists&quot;); }</span>
 <span class="fc" id="L47">        }catch (IOException e)</span>
         {
 <span class="fc" id="L49">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n file not ecists&quot;);</span>
@@ -145,8 +145,8 @@ public class CsvDao implements DaoInterface {
 <span class="nc" id="L145">        } else {cleanUp(Path.of(tmpFD.toURI()));}</span>
 <span class="fc" id="L146">    }</span>
     public static void cleanUp(Path path) throws IOException {
-<span class="nc" id="L148">        Files.delete(path);</span>
-<span class="nc" id="L149">    }</span>
+<span class="fc" id="L148">        Files.delete(path);</span>
+<span class="fc" id="L149">    }</span>
 
     public static synchronized List&lt;User&gt; retreiveAllDataUser(File fd,String email) throws Exception {
         // create csvReader object passing file reader as a parameter
