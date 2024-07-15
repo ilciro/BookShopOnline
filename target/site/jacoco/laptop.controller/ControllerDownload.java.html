@@ -56,7 +56,7 @@ public class ControllerDownload {
 <span class="fc" id="L56">		statusP=pDao.annullaOrdinePag(idP);</span>
 		
 		
-<span class="pc bpc" id="L59" title="4 of 16 branches missed.">		if(((typeP.equals(&quot;cash&quot;) &amp;&amp;(statusF &amp;&amp; statusP))||(typeP.equals(&quot;cCredito&quot;) &amp;&amp; statusP) )&amp;&amp; (typeO.equals(LIBRO)|| typeO.equals(GIORNALE)|| typeO.equals(RIVISTA  )))</span>
+<span class="pc bpc" id="L59" title="5 of 16 branches missed.">		if(((typeP.equals(&quot;cash&quot;) &amp;&amp;(statusF &amp;&amp; statusP))||(typeP.equals(&quot;cCredito&quot;) &amp;&amp; statusP) )&amp;&amp; (typeO.equals(LIBRO)|| typeO.equals(GIORNALE)|| typeO.equals(RIVISTA  )))</span>
 		{
 <span class="fc" id="L61">			incrementaOggetto(typeO);</span>
 		}
@@ -111,12 +111,12 @@ public class ControllerDownload {
 
 	private void incrementaOggetto(String type)
 	{
-<span class="pc bpc" id="L114" title="2 of 4 branches missed.">		switch (type)</span>
+<span class="pc bpc" id="L114" title="1 of 4 branches missed.">		switch (type)</span>
 		{
 			case LIBRO-&gt;{
-<span class="nc" id="L117">				l.setId(vis.getId());</span>
-<span class="nc" id="L118">				lD.incrementaDisponibilita(l);</span>
-<span class="nc" id="L119">			}</span>
+<span class="fc" id="L117">				l.setId(vis.getId());</span>
+<span class="fc" id="L118">				lD.incrementaDisponibilita(l);</span>
+<span class="fc" id="L119">			}</span>
 			case GIORNALE-&gt;{
 <span class="fc" id="L121">				g.setId(vis.getId());</span>
 <span class="fc" id="L122">				gD.incrementaDisponibilita(g);</span>

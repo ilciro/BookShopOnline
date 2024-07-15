@@ -1,6 +1,7 @@
 package laptop.added;
 
 import laptop.database.CsvDao;
+import laptop.database.CsvDaoGiornale;
 import laptop.model.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
  class TestCSVDao {
     private static final CsvDao csv=new CsvDao();
-    private static final String LOCATION="localDBFile.csv";
+     private static final CsvDaoGiornale csvG=new CsvDaoGiornale();
+
+     private static final String LOCATION="localDBFile.csv";
     private static final ResourceBundle CVSBUNDLE=ResourceBundle.getBundle("configurations/users");
 
-    @BeforeAll
+     @BeforeAll
     static void testGeneraReport() throws IOException {
         csv.generaReport();
+             csvG.generaReport();
+
     }
 
     @Test

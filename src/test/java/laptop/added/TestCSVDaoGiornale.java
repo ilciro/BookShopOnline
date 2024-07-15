@@ -3,7 +3,6 @@ package laptop.added;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.CsvDaoGiornale;
 import laptop.model.raccolta.Giornale;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,22 +12,21 @@ import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+
 class TestCSVDaoGiornale {
-    private static final CsvDaoGiornale csvG=new CsvDaoGiornale();
     private static final String LOCATION="localDBFileGiornale.csv";
     private static final ResourceBundle CVSBUNDLE=ResourceBundle.getBundle("configurations/infoObjects");
 
-    @BeforeAll
-    static void testGeneraReport() throws IOException {
-        csvG.generaReport();
-     }
+
+
+
     @Test
     void testRetrieveDataGiornale() throws Exception {
         File file=new File(LOCATION);
         assertNotNull(CsvDaoGiornale.retreiveAllDataGiornali(file, Integer.parseInt("5")));
     }
     @Test
-    void testretrieveGiornaleByIdTitoloEd() throws CsvValidationException, IOException {
+    void testRetrieveGiornaleByIdTitoloEd() throws CsvValidationException, IOException {
         File file=new File(LOCATION);
         assertNotNull(CsvDaoGiornale.retrieveByIdTitoloEd(file,CVSBUNDLE.getString("titoloDaPrendere"),CVSBUNDLE.getString("editoreDaPrendere")));
     }
@@ -44,9 +42,9 @@ class TestCSVDaoGiornale {
         g.setCopieRimanenti(Integer.parseInt(CVSBUNDLE.getString("copieG")));
         g.setDisponibilita(Integer.parseInt(CVSBUNDLE.getString("dispG")));
         g.setId(Integer.parseInt(CVSBUNDLE.getString("idG")));
-
-
-
-        CsvDaoGiornale.saveGiornale(new File(LOCATION),g);
+         CsvDaoGiornale.saveGiornale(new File(LOCATION),g);
     }
+
+
+
 }

@@ -10,3 +10,4 @@ Id :	9titolo :	Il Fatto Quotidiano3ricavo totale :	0.0
 Id :	10titolo :	Il Fatto Quotidiano4ricavo totale :	30.0
 Id :	11titolo :	Il Fatto Quotidiano5ricavo totale :	32.0
 Id :	12titolo :	La gazzetta del profetaricavo totale :	-4.25
+Id :	14titolo :	Giornale provaricavo totale :	225.0
