@@ -72,7 +72,7 @@ public class CsvGiornaleDao implements DaoInterface {
     }
 
     @Override
-    public List<Giornale> giornaleById(File fd, int id) throws Exception {
+    public List<Giornale> giornaleById(File fd, int id) throws IdException, CsvValidationException, IOException {
         return retreiveById(fd, id);
     }
 
@@ -210,7 +210,7 @@ public class CsvGiornaleDao implements DaoInterface {
             FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
             Files.createTempFile("prefix", "suffix", attr); // Compliant
         }
-        File tmpFD = Files.createTempFile("prefix", "suffix").toFile();
+        File tmpFD = new File("report/appoggio.csv");
         boolean found = false;
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
