@@ -17,3 +17,4 @@ Id :	16titolo :	Dodiciricavo totale :	11000.0
 Id :	17titolo :	Tecniche proibite di persuasione, manipolazione e influenza utilizzando schemi di linguaggio e tecniche di PNLricavo totale :	15400.0
 Id :	18titolo :	CiccioGamer89 Presenta Fortnite. Trucchi e Segretiricavo totale :	110.0
 Id :	19titolo :	titolo modificatoricavo totale :	774.0
+Id :	21titolo :	libro provaricavo totale :	197.44

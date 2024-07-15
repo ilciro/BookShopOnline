@@ -42,6 +42,7 @@ public class CsvDaoGiornale implements DaoInterface{
     private static final int GETINDEXID=8;
     private static final String QUERY="select titolo,tipologia,lingua,editore,dataPubblicazione,copieRimanenti,disp,prezzo,idGiornale from GIORNALE";
     private final File fd;
+    private final Giornale g=new Giornale();
 
     public CsvDaoGiornale() {
         this.fd = new File(CSVFILENAMEGIORNALE);
@@ -85,6 +86,9 @@ public class CsvDaoGiornale implements DaoInterface{
             }
         }
     }
+
+
+
     public static synchronized void saveGiornale(File fd, Giornale g) throws IOException {
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
         String[] gVector = new String[9];
@@ -126,8 +130,8 @@ public class CsvDaoGiornale implements DaoInterface{
         }
         return giornaleList;
     }
-    private static synchronized void removeGiornaleById(File fd, Giornale g) throws Exception {
-        File tmpFD = File.createTempFile("dao", "tmp",new File(CSVFILENAMEGIORNALE));
+    public static synchronized void removeGiornaleById(File fd, Giornale g) throws Exception {
+        File tmpFD = File.createTempFile("dao", "tmp");
         if(SystemUtils.IS_OS_UNIX) {
             FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
             Files.createTempFile("prefix", "suffix", attr); // Compliant
@@ -150,12 +154,7 @@ public class CsvDaoGiornale implements DaoInterface{
         if (found) {Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
         } else {cleanUp(Path.of(tmpFD.toURI()));}
     }
-    public static synchronized void modifGiornale(File fd,Giornale g1,Giornale g2) throws Exception {
-        //instance for delete
-        // instance agg from insert
-        removeGiornaleById(fd,g1);
-        saveGiornale(fd,g2);
-    }
+
     public static synchronized List<User> retreiveAllDataGiornali(File fd,int id) throws Exception {
         // create csvReader object passing file reader as a parameter
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));

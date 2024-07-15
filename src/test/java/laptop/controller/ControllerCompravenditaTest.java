@@ -18,7 +18,7 @@ class ControllerCompravenditaTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"libro","giornale","rivista"})
-    void getLista(String strings) throws SQLException, IOException {
+    void getLista(String strings) throws  IOException {
         assertNotNull(cC.getLista(strings));
     }
 

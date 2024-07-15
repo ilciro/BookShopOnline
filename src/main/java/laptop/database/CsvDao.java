@@ -76,6 +76,9 @@ public class CsvDao implements DaoInterface {
 
 
     }
+
+
+
     public static synchronized void saveUser(File fd, User instance) throws Exception {
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
         String[] userVector = new String[9];
@@ -117,8 +120,8 @@ public class CsvDao implements DaoInterface {
         }
         return userList;
     }
-    private static synchronized void removeUserById(File fd, User instance) throws Exception {
-        File tmpFD = File.createTempFile("dao", "tmp",new File(CSVFILENAME));
+    public static synchronized void removeUserById(File fd, User instance) throws Exception {
+        File tmpFD = File.createTempFile("dao", "tmp");
         if(SystemUtils.IS_OS_UNIX) {
           FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
           Files.createTempFile("prefix", "suffix", attr); // Compliant
@@ -140,13 +143,6 @@ public class CsvDao implements DaoInterface {
         csvWriter.close();
         if (found) {Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
         } else {cleanUp(Path.of(tmpFD.toURI()));}
-    }
-    public static synchronized void modifPassUser(File fd, User instance,User instanceA) throws Exception {
-        //modified only email because pass not showed
-        //instance for delete
-        // instance agg from insert
-        removeUserById(fd,instance);
-        saveUser(fd,instanceA);
     }
     public static void cleanUp(Path path) throws IOException {
         Files.delete(path);

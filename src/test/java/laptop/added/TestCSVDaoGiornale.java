@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 class TestCSVDaoGiornale {
+
     private static final String LOCATION="localDBFileGiornale.csv";
     private static final ResourceBundle CVSBUNDLE=ResourceBundle.getBundle("configurations/infoObjects");
 
@@ -43,6 +44,23 @@ class TestCSVDaoGiornale {
         g.setDisponibilita(Integer.parseInt(CVSBUNDLE.getString("dispG")));
         g.setId(Integer.parseInt(CVSBUNDLE.getString("idG")));
          CsvDaoGiornale.saveGiornale(new File(LOCATION),g);
+    }
+    @Test
+    void testRemoveGiornaleByid() throws Exception {
+
+
+        Giornale g1=new Giornale();
+
+        g1.setId(5);
+        g1.setTitolo(CVSBUNDLE.getString("titoloG"));
+        g1.setTipologia(CVSBUNDLE.getString("tipoG"));
+        g1.setLingua(CVSBUNDLE.getString("lingua"));
+        g1.setEditore(CVSBUNDLE.getString("editoreG"));
+        LocalDate ld=LocalDate.of(2024,6,15);
+        g1.setDataPubb(ld);
+        g1.setCopieRimanenti(Integer.parseInt(CVSBUNDLE.getString("copieG")));
+        g1.setDisponibilita(Integer.parseInt(CVSBUNDLE.getString("dispG")));
+        CsvDaoGiornale.removeGiornaleById(new File(LOCATION),g1);
     }
 
 

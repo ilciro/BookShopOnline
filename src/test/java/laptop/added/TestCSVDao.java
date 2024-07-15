@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
      @BeforeAll
     static void testGeneraReport() throws IOException {
         csv.generaReport();
-             csvG.generaReport();
+        csvG.generaReport();
 
     }
 
@@ -49,6 +49,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
         User.getInstance().setDataDiNascita(ld);
         User.getInstance().setDescrizione(CVSBUNDLE.getString("desc"));
         CsvDao.saveUser(new File(LOCATION),User.getInstance());
+    }
+    @Test
+     void testEliminaUtente() throws Exception {
+        User.getInstance().setId(7);
+        CsvDao.removeUserById(new File(LOCATION),User.getInstance());
     }
 
 

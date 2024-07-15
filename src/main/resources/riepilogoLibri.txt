@@ -1,4 +1,4 @@
-Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	7.99
+Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	4794.0
 Id :	2titolo :	Andrea Baranes : contro i falsi mitiricavo totale :	599.0
 Id :	3titolo :	Il libro dello splendorericavo totale :	7450.0
 Id :	4titolo :	Come i servizi segreti usano i mediaricavo totale :	259.59998
@@ -17,4 +17,3 @@ Id :	16titolo :	Dodiciricavo totale :	11000.0
 Id :	17titolo :	Tecniche proibite di persuasione, manipolazione e influenza utilizzando schemi di linguaggio e tecniche di PNLricavo totale :	15400.0
 Id :	18titolo :	CiccioGamer89 Presenta Fortnite. Trucchi e Segretiricavo totale :	110.0
 Id :	19titolo :	titolo modificatoricavo totale :	774.0
-Id :	21titolo :	libro provaricavo totale :	197.44

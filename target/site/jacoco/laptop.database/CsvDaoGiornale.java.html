@@ -42,156 +42,155 @@ public class CsvDaoGiornale implements DaoInterface{
     private static final int GETINDEXID=8;
     private static final String QUERY=&quot;select titolo,tipologia,lingua,editore,dataPubblicazione,copieRimanenti,disp,prezzo,idGiornale from GIORNALE&quot;;
     private final File fd;
+<span class="fc" id="L45">    private final Giornale g=new Giornale();</span>
 
-<span class="fc" id="L46">    public CsvDaoGiornale() {</span>
-<span class="fc" id="L47">        this.fd = new File(CSVFILENAMEGIORNALE);</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L47">    public CsvDaoGiornale() {</span>
+<span class="fc" id="L48">        this.fd = new File(CSVFILENAMEGIORNALE);</span>
+<span class="fc" id="L49">    }</span>
     public static void cleanUp(Path path) throws IOException {
-<span class="fc" id="L50">        Files.delete(path);</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L51">        Files.delete(path);</span>
+<span class="fc" id="L52">    }</span>
     @Override
     public void generaReport() throws IOException {
         try {
-<span class="fc" id="L55">            cleanUp(Path.of(fd.toURI()));</span>
-<span class="fc" id="L56">        }catch (IOException e)</span>
+<span class="fc" id="L56">            cleanUp(Path.of(fd.toURI()));</span>
+<span class="fc" id="L57">        }catch (IOException e)</span>
         {
-<span class="fc" id="L58">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n file not ecists&quot;);</span>
-<span class="pc bpc" id="L59" title="1 of 2 branches missed.">            if (fd.createNewFile())</span>
+<span class="fc" id="L59">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n file not ecists&quot;);</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            if (fd.createNewFile())</span>
             {
-<span class="fc" id="L61">                Logger.getLogger(&quot;report giornale&quot;).log(Level.SEVERE, &quot;\n making file&quot;);</span>
-<span class="fc" id="L62">                try (Connection conn= ConnToDb.connectionToDB();</span>
-<span class="fc" id="L63">                     PreparedStatement prepQ=conn.prepareStatement(QUERY)){</span>
-<span class="fc" id="L64">                    ResultSet rs = prepQ.executeQuery(QUERY);</span>
-<span class="fc" id="L65">                    CSVWriter writer = new CSVWriter(new FileWriter(CSVFILENAMEGIORNALE));</span>
-<span class="fc" id="L66">                    rs.getMetaData();</span>
-<span class="fc" id="L67">                    String[] data =new String[9];</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">                    while (rs.next())</span>
+<span class="fc" id="L62">                Logger.getLogger(&quot;report giornale&quot;).log(Level.SEVERE, &quot;\n making file&quot;);</span>
+<span class="fc" id="L63">                try (Connection conn= ConnToDb.connectionToDB();</span>
+<span class="fc" id="L64">                     PreparedStatement prepQ=conn.prepareStatement(QUERY)){</span>
+<span class="fc" id="L65">                    ResultSet rs = prepQ.executeQuery(QUERY);</span>
+<span class="fc" id="L66">                    CSVWriter writer = new CSVWriter(new FileWriter(CSVFILENAMEGIORNALE));</span>
+<span class="fc" id="L67">                    rs.getMetaData();</span>
+<span class="fc" id="L68">                    String[] data =new String[9];</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                    while (rs.next())</span>
                     {
-<span class="fc" id="L70">                        data[0]= rs.getString(1);</span>
-<span class="fc" id="L71">                        data[1]=rs.getString(2);</span>
-<span class="fc" id="L72">                        data[2]=rs.getString(3);</span>
-<span class="fc" id="L73">                        data[3]=rs.getString(4);</span>
-<span class="fc" id="L74">                        data[4]=String.valueOf(rs.getDate(5));</span>
-<span class="fc" id="L75">                        data[5]=String.valueOf(rs.getInt(6));</span>
-<span class="fc" id="L76">                        data[6]= String.valueOf(rs.getInt(7));</span>
-<span class="fc" id="L77">                        data[7]=String.valueOf(rs.getFloat(8));</span>
-<span class="fc" id="L78">                        data[8]=String.valueOf(rs.getInt(9));</span>
-<span class="fc" id="L79">                        writer.writeNext(data);</span>
+<span class="fc" id="L71">                        data[0]= rs.getString(1);</span>
+<span class="fc" id="L72">                        data[1]=rs.getString(2);</span>
+<span class="fc" id="L73">                        data[2]=rs.getString(3);</span>
+<span class="fc" id="L74">                        data[3]=rs.getString(4);</span>
+<span class="fc" id="L75">                        data[4]=String.valueOf(rs.getDate(5));</span>
+<span class="fc" id="L76">                        data[5]=String.valueOf(rs.getInt(6));</span>
+<span class="fc" id="L77">                        data[6]= String.valueOf(rs.getInt(7));</span>
+<span class="fc" id="L78">                        data[7]=String.valueOf(rs.getFloat(8));</span>
+<span class="fc" id="L79">                        data[8]=String.valueOf(rs.getInt(9));</span>
+<span class="fc" id="L80">                        writer.writeNext(data);</span>
                     }
-<span class="fc" id="L81">                    writer.flush();</span>
-<span class="fc" id="L82">                    writer.close();</span>
-<span class="nc" id="L83">                } catch (SQLException ex) {Logger.getLogger(&quot;report giornale&quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta .&quot;, ex);</span>
-<span class="fc" id="L84">                }</span>
+<span class="fc" id="L82">                    writer.flush();</span>
+<span class="fc" id="L83">                    writer.close();</span>
+<span class="nc" id="L84">                } catch (SQLException ex) {Logger.getLogger(&quot;report giornale&quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta .&quot;, ex);</span>
+<span class="fc" id="L85">                }</span>
             }
-<span class="fc" id="L86">        }</span>
-<span class="fc" id="L87">    }</span>
+<span class="fc" id="L87">        }</span>
+<span class="fc" id="L88">    }</span>
+
+
+
     public static synchronized void saveGiornale(File fd, Giornale g) throws IOException {
-<span class="fc" id="L89">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));</span>
-<span class="fc" id="L90">        String[] gVector = new String[9];</span>
+<span class="fc" id="L93">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));</span>
+<span class="fc" id="L94">        String[] gVector = new String[9];</span>
 
-<span class="fc" id="L92">       gVector[GETINDEXTITOLO]=g.getTitolo();</span>
-<span class="fc" id="L93">       gVector[GETINDEXTIPOLOGIA]=g.getTipologia();</span>
-<span class="fc" id="L94">       gVector[GETINDEXLINGUA]=g.getLingua();</span>
-<span class="fc" id="L95">       gVector[GETINDEXEDITORE]=g.getEditore();</span>
-<span class="fc" id="L96">       gVector[GETINDEXDATA]=String.valueOf(g.getDataPubb());</span>
-<span class="fc" id="L97">       gVector[GETINDEXCOPIER]= String.valueOf(g.getCopieRimanenti());</span>
-<span class="fc" id="L98">       gVector[GETINDEXDISP]=String.valueOf(g.getDisponibilita());</span>
-<span class="fc" id="L99">       gVector[GETINDEXPREZZO]=String.valueOf(g.getPrezzo());</span>
-<span class="fc" id="L100">       gVector[GETINDEXID]=String.valueOf(g.getId());</span>
-<span class="fc" id="L101">        csvWriter.writeNext(gVector);</span>
-<span class="fc" id="L102">        csvWriter.flush();</span>
-<span class="fc" id="L103">        csvWriter.close();</span>
+<span class="fc" id="L96">       gVector[GETINDEXTITOLO]=g.getTitolo();</span>
+<span class="fc" id="L97">       gVector[GETINDEXTIPOLOGIA]=g.getTipologia();</span>
+<span class="fc" id="L98">       gVector[GETINDEXLINGUA]=g.getLingua();</span>
+<span class="fc" id="L99">       gVector[GETINDEXEDITORE]=g.getEditore();</span>
+<span class="fc" id="L100">       gVector[GETINDEXDATA]=String.valueOf(g.getDataPubb());</span>
+<span class="fc" id="L101">       gVector[GETINDEXCOPIER]= String.valueOf(g.getCopieRimanenti());</span>
+<span class="fc" id="L102">       gVector[GETINDEXDISP]=String.valueOf(g.getDisponibilita());</span>
+<span class="fc" id="L103">       gVector[GETINDEXPREZZO]=String.valueOf(g.getPrezzo());</span>
+<span class="fc" id="L104">       gVector[GETINDEXID]=String.valueOf(g.getId());</span>
+<span class="fc" id="L105">        csvWriter.writeNext(gVector);</span>
+<span class="fc" id="L106">        csvWriter.flush();</span>
+<span class="fc" id="L107">        csvWriter.close();</span>
 
-<span class="fc" id="L105">    }</span>
+<span class="fc" id="L109">    }</span>
     public static synchronized List&lt;Giornale&gt; retrieveByIdTitoloEd(File fd,String titolo,String editore ) throws CsvValidationException, IOException {
-<span class="fc" id="L107">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="fc" id="L111">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String[] userVector;
-<span class="fc" id="L109">        List&lt;Giornale&gt; giornaleList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        while ((userVector = csvReader.readNext()) != null) {</span>
-<span class="fc bfc" id="L111" title="All 4 branches covered.">            boolean userVectorFound = (userVector[GETINDEXTITOLO].equals(titolo))||(userVector[GETINDEXEDITORE].equals(editore));</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">            if (userVectorFound) {</span>
-<span class="fc" id="L113">                int id = Integer.parseInt(userVector[GETINDEXID]);</span>
-<span class="fc" id="L114">                String titoloG = userVector[GETINDEXTITOLO];</span>
-<span class="fc" id="L115">                String editoreG = userVector[GETINDEXEDITORE];</span>
-<span class="fc" id="L116">                Giornale g=new Giornale();</span>
-<span class="fc" id="L117">                g.setId(id);</span>
-<span class="fc" id="L118">                g.setTitolo(titoloG);</span>
-<span class="fc" id="L119">                g.setEditore(editoreG);</span>
-<span class="fc" id="L120">                giornaleList.add(g);</span>
+<span class="fc" id="L113">        List&lt;Giornale&gt; giornaleList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        while ((userVector = csvReader.readNext()) != null) {</span>
+<span class="fc bfc" id="L115" title="All 4 branches covered.">            boolean userVectorFound = (userVector[GETINDEXTITOLO].equals(titolo))||(userVector[GETINDEXEDITORE].equals(editore));</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">            if (userVectorFound) {</span>
+<span class="fc" id="L117">                int id = Integer.parseInt(userVector[GETINDEXID]);</span>
+<span class="fc" id="L118">                String titoloG = userVector[GETINDEXTITOLO];</span>
+<span class="fc" id="L119">                String editoreG = userVector[GETINDEXEDITORE];</span>
+<span class="fc" id="L120">                Giornale g=new Giornale();</span>
+<span class="fc" id="L121">                g.setId(id);</span>
+<span class="fc" id="L122">                g.setTitolo(titoloG);</span>
+<span class="fc" id="L123">                g.setEditore(editoreG);</span>
+<span class="fc" id="L124">                giornaleList.add(g);</span>
             }
-<span class="fc" id="L122">        }</span>
-<span class="fc" id="L123">        csvReader.close();</span>
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (giornaleList.isEmpty()) {</span>
-<span class="nc" id="L125">            throw new NullPointerException(&quot; user not found&quot;);</span>
+<span class="fc" id="L126">        }</span>
+<span class="fc" id="L127">        csvReader.close();</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (giornaleList.isEmpty()) {</span>
+<span class="nc" id="L129">            throw new NullPointerException(&quot; user not found&quot;);</span>
         }
-<span class="fc" id="L127">        return giornaleList;</span>
+<span class="fc" id="L131">        return giornaleList;</span>
     }
-    private static synchronized void removeGiornaleById(File fd, Giornale g) throws Exception {
-<span class="nc" id="L130">        File tmpFD = File.createTempFile(&quot;dao&quot;, &quot;tmp&quot;,new File(CSVFILENAMEGIORNALE));</span>
-<span class="nc bnc" id="L131" title="All 2 branches missed.">        if(SystemUtils.IS_OS_UNIX) {</span>
-<span class="nc" id="L132">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
-<span class="nc" id="L133">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
+    public static synchronized void removeGiornaleById(File fd, Giornale g) throws Exception {
+<span class="fc" id="L134">        File tmpFD = File.createTempFile(&quot;dao&quot;, &quot;tmp&quot;);</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if(SystemUtils.IS_OS_UNIX) {</span>
+<span class="fc" id="L136">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
+<span class="fc" id="L137">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
         }
-<span class="nc" id="L135">        boolean found = false;</span>
+<span class="fc" id="L139">        boolean found = false;</span>
         // create csvReader object passing file reader as a parameter
-<span class="nc" id="L137">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="fc" id="L141">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String[] giornaleVector;
-<span class="nc" id="L139">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
+<span class="fc" id="L143">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
 
-<span class="nc" id="L142">            boolean userVectorFound = (giornaleVector[GETINDEXID].equals(String.valueOf(g.getId())));</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (!userVectorFound) {</span>
-<span class="nc" id="L144">                csvWriter.writeNext(giornaleVector);</span>
-<span class="nc" id="L145">            } else {found = true;}</span>
-<span class="nc" id="L146">        }</span>
-<span class="nc" id="L147">        csvWriter.flush();</span>
-<span class="nc" id="L148">        csvReader.close();</span>
-<span class="nc" id="L149">        csvWriter.close();</span>
-<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (found) {Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
-<span class="nc" id="L151">        } else {cleanUp(Path.of(tmpFD.toURI()));}</span>
-<span class="nc" id="L152">    }</span>
-    public static synchronized void modifGiornale(File fd,Giornale g1,Giornale g2) throws Exception {
-        //instance for delete
-        // instance agg from insert
-<span class="nc" id="L156">        removeGiornaleById(fd,g1);</span>
-<span class="nc" id="L157">        saveGiornale(fd,g2);</span>
-<span class="nc" id="L158">    }</span>
+<span class="fc" id="L146">            boolean userVectorFound = (giornaleVector[GETINDEXID].equals(String.valueOf(g.getId())));</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">            if (!userVectorFound) {</span>
+<span class="fc" id="L148">                csvWriter.writeNext(giornaleVector);</span>
+<span class="fc" id="L149">            } else {found = true;}</span>
+<span class="fc" id="L150">        }</span>
+<span class="fc" id="L151">        csvWriter.flush();</span>
+<span class="fc" id="L152">        csvReader.close();</span>
+<span class="fc" id="L153">        csvWriter.close();</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        if (found) {Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
+<span class="nc" id="L155">        } else {cleanUp(Path.of(tmpFD.toURI()));}</span>
+<span class="fc" id="L156">    }</span>
+
     public static synchronized List&lt;User&gt; retreiveAllDataGiornali(File fd,int id) throws Exception {
         // create csvReader object passing file reader as a parameter
-<span class="fc" id="L161">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="fc" id="L160">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String[] gVEctor;
-<span class="fc" id="L163">        List&lt;User&gt; gList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L164" title="All 2 branches covered.">        while ((gVEctor = csvReader.readNext()) != null) {</span>
-<span class="fc" id="L165">            boolean userVectorFound = gVEctor[GETINDEXID].equals(String.valueOf(id));</span>
-<span class="fc bfc" id="L166" title="All 2 branches covered.">            if (userVectorFound) {</span>
+<span class="fc" id="L162">        List&lt;User&gt; gList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        while ((gVEctor = csvReader.readNext()) != null) {</span>
+<span class="fc" id="L164">            boolean userVectorFound = gVEctor[GETINDEXID].equals(String.valueOf(id));</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">            if (userVectorFound) {</span>
 
-<span class="fc" id="L168">                String titolo=gVEctor[GETINDEXTITOLO];</span>
-<span class="fc" id="L169">                String tipologia = gVEctor[GETINDEXTIPOLOGIA];</span>
-<span class="fc" id="L170">                String lingua=gVEctor[GETINDEXLINGUA];</span>
-<span class="fc" id="L171">                String editore = gVEctor[GETINDEXEDITORE];</span>
-<span class="fc" id="L172">                String data=gVEctor[GETINDEXDATA];</span>
-<span class="fc" id="L173">                String copie=gVEctor[GETINDEXCOPIER];</span>
-<span class="fc" id="L174">                String disp=gVEctor[GETINDEXID];</span>
-<span class="fc" id="L175">                String prezzo=gVEctor[GETINDEXPREZZO];</span>
-<span class="fc" id="L176">                Giornale g=new Giornale();</span>
-<span class="fc" id="L177">                g.setTitolo(titolo);</span>
-<span class="fc" id="L178">                g.setTipologia(tipologia);</span>
-<span class="fc" id="L179">                g.setLingua(lingua);</span>
-<span class="fc" id="L180">                g.setEditore(editore);</span>
-<span class="fc" id="L181">                g.setDataPubb(LocalDate.parse(data));</span>
-<span class="fc" id="L182">                g.setCopieRimanenti(Integer.parseInt(copie));</span>
-<span class="fc" id="L183">                g.setDisponibilita(Integer.parseInt(disp));</span>
-<span class="fc" id="L184">                g.setPrezzo(Float.parseFloat(prezzo));</span>
-<span class="fc" id="L185">                g.setId(Integer.parseInt(gVEctor[GETINDEXID]));</span>
+<span class="fc" id="L167">                String titolo=gVEctor[GETINDEXTITOLO];</span>
+<span class="fc" id="L168">                String tipologia = gVEctor[GETINDEXTIPOLOGIA];</span>
+<span class="fc" id="L169">                String lingua=gVEctor[GETINDEXLINGUA];</span>
+<span class="fc" id="L170">                String editore = gVEctor[GETINDEXEDITORE];</span>
+<span class="fc" id="L171">                String data=gVEctor[GETINDEXDATA];</span>
+<span class="fc" id="L172">                String copie=gVEctor[GETINDEXCOPIER];</span>
+<span class="fc" id="L173">                String disp=gVEctor[GETINDEXID];</span>
+<span class="fc" id="L174">                String prezzo=gVEctor[GETINDEXPREZZO];</span>
+<span class="fc" id="L175">                Giornale g=new Giornale();</span>
+<span class="fc" id="L176">                g.setTitolo(titolo);</span>
+<span class="fc" id="L177">                g.setTipologia(tipologia);</span>
+<span class="fc" id="L178">                g.setLingua(lingua);</span>
+<span class="fc" id="L179">                g.setEditore(editore);</span>
+<span class="fc" id="L180">                g.setDataPubb(LocalDate.parse(data));</span>
+<span class="fc" id="L181">                g.setCopieRimanenti(Integer.parseInt(copie));</span>
+<span class="fc" id="L182">                g.setDisponibilita(Integer.parseInt(disp));</span>
+<span class="fc" id="L183">                g.setPrezzo(Float.parseFloat(prezzo));</span>
+<span class="fc" id="L184">                g.setId(Integer.parseInt(gVEctor[GETINDEXID]));</span>
 
 
 
-<span class="fc" id="L189">                gList.add(User.getInstance());</span>
+<span class="fc" id="L188">                gList.add(User.getInstance());</span>
             }
-<span class="fc" id="L191">        }</span>
-<span class="fc" id="L192">        csvReader.close();</span>
-<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (gList.isEmpty()) { throw new IdException(&quot; user not found -&gt; id null&quot;);    }</span>
-<span class="fc" id="L194">        return gList;    }</span>
+<span class="fc" id="L190">        }</span>
+<span class="fc" id="L191">        csvReader.close();</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">        if (gList.isEmpty()) { throw new IdException(&quot; user not found -&gt; id null&quot;);    }</span>
+<span class="fc" id="L193">        return gList;    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
