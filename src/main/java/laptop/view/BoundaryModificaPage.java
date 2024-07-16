@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerModifPage;
 import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
 
 public class BoundaryModificaPage implements Initializable {
 	@FXML
@@ -130,8 +132,7 @@ public class BoundaryModificaPage implements Initializable {
 
 
 	@FXML
-	private void aggiorna() throws SQLException, NullPointerException
-	{
+	private void aggiorna() throws SQLException, NullPointerException, CsvValidationException, IOException {
         switch (vis.getType()) {
             case "libro" -> {
                 String t = titoloT.getText();
@@ -351,7 +352,7 @@ public class BoundaryModificaPage implements Initializable {
 
 
 
-		} catch (SQLException |IOException  e)
+		} catch (SQLException | IOException | CsvValidationException | IdException e)
 		{
 			java.util.logging.Logger.getLogger("Test initialize").log(Level.SEVERE,"\n eccezione ottenuta {0}",e.toString());
 

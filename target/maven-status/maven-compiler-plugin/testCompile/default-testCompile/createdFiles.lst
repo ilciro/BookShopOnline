@@ -19,7 +19,6 @@ laptop/added/TestCartaCredito.class
 laptop/controller/ControllerRicercaPageTest.class
 laptop/controller/ControllerAggiungiUtenteTest.class
 web/TestEditoreRicerca.class
-laptop/added/TestCsvGiornale.class
 laptop/added/TestRivista.class
 laptop/controller/ControllerModificaUtenteTest.class
 laptop/controller/ControllerPagamentoCCTest.class

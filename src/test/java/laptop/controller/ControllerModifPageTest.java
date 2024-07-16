@@ -1,5 +1,7 @@
 package laptop.controller;
 
+import com.opencsv.exceptions.CsvValidationException;
+import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
@@ -30,13 +32,13 @@ class ControllerModifPageTest {
     }
 
     @Test
-    void getGiornaliById() throws SQLException {
+    void getGiornaliById() throws SQLException, CsvValidationException, IOException, IdException {
         g.setId(5);
         assertNotNull(cMP.getGiornaliById(g.getId()));
     }
 
     @Test
-    void checkDataG() throws SQLException {
+    void checkDataG() throws SQLException, CsvValidationException, IOException {
         //funziona
         vis.setId(5);
         String []info=new String[4];

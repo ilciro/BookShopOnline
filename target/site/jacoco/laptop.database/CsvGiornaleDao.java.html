@@ -57,7 +57,7 @@ public class CsvGiornaleDao implements DaoInterface {
 
     @Override
     public List&lt;Giornale&gt; giornaliByIdTitoloEd(File fd, String titolo, String editore) throws IOException, CsvValidationException {
-<span class="fc" id="L60">        return retrieveByIdTitoloEd(fd, titolo, editore);</span>
+<span class="nc" id="L60">        return retrieveByIdTitoloEd(fd, titolo, editore);</span>
     }
 
     @Override
@@ -84,9 +84,9 @@ public class CsvGiornaleDao implements DaoInterface {
 
     private static synchronized void report() throws IOException {
         try {
-<span class="fc" id="L87">            cleanUp(Path.of(fd.toURI()));</span>
-<span class="fc" id="L88">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n &quot; + LOCATION + &quot; deleted&quot;);</span>
-<span class="fc" id="L89">            throw new IOException(&quot; file cancellato&quot;);</span>
+<span class="nc" id="L87">            cleanUp(Path.of(fd.toURI()));</span>
+<span class="nc" id="L88">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n &quot; + LOCATION + &quot; deleted&quot;);</span>
+<span class="nc" id="L89">            throw new IOException(&quot; file cancellato&quot;);</span>
 <span class="fc" id="L90">        } catch (IOException e) {</span>
 <span class="fc" id="L91">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n &quot; + LOCATION + &quot; file not exists&quot;);</span>
 <span class="pc bpc" id="L92" title="1 of 2 branches missed.">            if (fd.createNewFile()) {</span>
@@ -151,35 +151,35 @@ public class CsvGiornaleDao implements DaoInterface {
             }
 <span class="fc" id="L152">        }</span>
 <span class="fc" id="L153">        csvReader.close();</span>
-<span class="fc bfc" id="L154" title="All 2 branches covered.">        if (gList.isEmpty()) {</span>
-<span class="fc" id="L155">            throw new IdException(&quot; user not found -&gt; id null&quot;);</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        if (gList.isEmpty()) {</span>
+<span class="nc" id="L155">            throw new IdException(&quot; user not found -&gt; id null&quot;);</span>
         }
 <span class="fc" id="L157">        return gList;</span>
     }
 
     private static synchronized List&lt;Giornale&gt; retrieveByIdTitoloEd(File fd, String titolo, String editore) throws IOException, CsvValidationException {
 
-<span class="fc" id="L162">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="nc" id="L162">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String[] gVector;
-<span class="fc" id="L164">        List&lt;Giornale&gt; giornaleList = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L165" title="All 2 branches covered.">        while ((gVector = csvReader.readNext()) != null) {</span>
-<span class="fc bfc" id="L166" title="All 4 branches covered.">            boolean gVectorFound = (gVector[GETINDEXTITOLO].equals(titolo)) || (gVector[GETINDEXEDITORE].equals(editore));</span>
-<span class="fc bfc" id="L167" title="All 2 branches covered.">            if (gVectorFound) {</span>
-<span class="fc" id="L168">                int id = Integer.parseInt(gVector[GETINDEXID]);</span>
-<span class="fc" id="L169">                String titoloG = gVector[GETINDEXTITOLO];</span>
-<span class="fc" id="L170">                String editoreG = gVector[GETINDEXEDITORE];</span>
-<span class="fc" id="L171">                Giornale g = new Giornale();</span>
-<span class="fc" id="L172">                g.setId(id);</span>
-<span class="fc" id="L173">                g.setTitolo(titoloG);</span>
-<span class="fc" id="L174">                g.setEditore(editoreG);</span>
-<span class="fc" id="L175">                giornaleList.add(g);</span>
+<span class="nc" id="L164">        List&lt;Giornale&gt; giornaleList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        while ((gVector = csvReader.readNext()) != null) {</span>
+<span class="nc bnc" id="L166" title="All 4 branches missed.">            boolean gVectorFound = (gVector[GETINDEXTITOLO].equals(titolo)) || (gVector[GETINDEXEDITORE].equals(editore));</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">            if (gVectorFound) {</span>
+<span class="nc" id="L168">                int id = Integer.parseInt(gVector[GETINDEXID]);</span>
+<span class="nc" id="L169">                String titoloG = gVector[GETINDEXTITOLO];</span>
+<span class="nc" id="L170">                String editoreG = gVector[GETINDEXEDITORE];</span>
+<span class="nc" id="L171">                Giornale g = new Giornale();</span>
+<span class="nc" id="L172">                g.setId(id);</span>
+<span class="nc" id="L173">                g.setTitolo(titoloG);</span>
+<span class="nc" id="L174">                g.setEditore(editoreG);</span>
+<span class="nc" id="L175">                giornaleList.add(g);</span>
             }
-<span class="fc" id="L177">        }</span>
-<span class="fc" id="L178">        csvReader.close();</span>
-<span class="pc bpc" id="L179" title="1 of 2 branches missed.">        if (giornaleList.isEmpty()) {</span>
+<span class="nc" id="L177">        }</span>
+<span class="nc" id="L178">        csvReader.close();</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        if (giornaleList.isEmpty()) {</span>
 <span class="nc" id="L180">            throw new NullPointerException(&quot; giornale not found&quot;);</span>
         }
-<span class="fc" id="L182">        return giornaleList;</span>
+<span class="nc" id="L182">        return giornaleList;</span>
     }
 
     private static synchronized void saveGiornale(File fd, Giornale g) throws IOException {
@@ -220,40 +220,40 @@ public class CsvGiornaleDao implements DaoInterface {
 <span class="fc bfc" id="L220" title="All 2 branches covered.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
 
 <span class="fc" id="L222">            boolean userVectorFound = giornaleVector[GETINDEXID].equals(String.valueOf(g.getId()));</span>
-<span class="fc bfc" id="L223" title="All 2 branches covered.">            if (!userVectorFound) {</span>
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">            if (!userVectorFound) {</span>
 <span class="fc" id="L224">                csvWriter.writeNext(giornaleVector);</span>
             } else {
-<span class="fc" id="L226">                found = true;</span>
+<span class="nc" id="L226">                found = true;</span>
             }
 <span class="fc" id="L228">        }</span>
 <span class="fc" id="L229">        csvWriter.flush();</span>
 <span class="fc" id="L230">        csvReader.close();</span>
 <span class="fc" id="L231">        csvWriter.close();</span>
 <span class="pc bpc" id="L232" title="1 of 2 branches missed.">        if (found) {</span>
-<span class="fc" id="L233">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
+<span class="nc" id="L233">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
         } else {
-<span class="nc" id="L235">            cleanUp(Path.of(tmpFD.toURI()));</span>
+<span class="fc" id="L235">            cleanUp(Path.of(tmpFD.toURI()));</span>
         }
 
 
 <span class="fc" id="L239">    }</span>
 
     public synchronized void checkDuplicate(Giornale g) throws IdException, CsvValidationException, IOException {
-<span class="fc" id="L242">        boolean duplicatedRecordId=false;</span>
+<span class="nc" id="L242">        boolean duplicatedRecordId=false;</span>
 
-<span class="fc" id="L244">        synchronized (this.localCache) {</span>
-<span class="pc bpc" id="L245" title="1 of 2 branches missed.">            duplicatedRecordId = (this.localCache.get(String.valueOf(g.getId())) != null);</span>
-<span class="fc" id="L246">        }</span>
-<span class="pc bpc" id="L247" title="1 of 2 branches missed.">        if (!duplicatedRecordId) {</span>
+<span class="nc" id="L244">        synchronized (this.localCache) {</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">            duplicatedRecordId = (this.localCache.get(String.valueOf(g.getId())) != null);</span>
+<span class="nc" id="L246">        }</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        if (!duplicatedRecordId) {</span>
             try {
 <span class="nc" id="L249">                List&lt;Giornale&gt; albumList = retreiveById(fd, g.getId());</span>
 <span class="nc bnc" id="L250" title="All 2 branches missed.">                duplicatedRecordId = !albumList.isEmpty();</span>
-<span class="fc" id="L251">            } catch (Exception e) {</span>
-<span class="fc" id="L252">                duplicatedRecordId = false;</span>
+<span class="nc" id="L251">            } catch (Exception e) {</span>
+<span class="nc" id="L252">                duplicatedRecordId = false;</span>
 <span class="nc" id="L253">            }</span>
         }
 
-<span class="pc bpc" id="L256" title="1 of 2 branches missed.">        if (duplicatedRecordId) {</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">        if (duplicatedRecordId) {</span>
             try {
 <span class="nc" id="L258">                throw new IdException(</span>
 <span class="nc" id="L259">                        &quot;Duplicated Instance ID. Id &quot; + g.getId() + &quot; was already assigned&quot;);</span>
@@ -262,13 +262,13 @@ public class CsvGiornaleDao implements DaoInterface {
 <span class="nc" id="L262">                removeGiornale(fd,g);</span>
             }
         }
-<span class="fc" id="L265">        insertGiornale(fd,g);</span>
+<span class="nc" id="L265">        insertGiornale(fd,g);</span>
 
 
 
 
 
-<span class="fc" id="L271">    }</span>
+<span class="nc" id="L271">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

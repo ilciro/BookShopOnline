@@ -1,13 +1,17 @@
 package laptop.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
+import laptop.database.CsvGiornaleDao;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
+import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
@@ -20,6 +24,8 @@ public class ControllerModifPage {
 	private final Rivista r;
 	private final RivistaDao rD;
 	private final ControllerBookData cBD;
+	private final CsvGiornaleDao csv=new CsvGiornaleDao();
+	private final static String LOCATION="report/reportGiornali.csv";
 	
 	
 	public ObservableList<Libro> getLibriById(int id) throws SQLException {
@@ -27,14 +33,15 @@ public class ControllerModifPage {
 		return ld.getLibroIdTitoloAutore(l);
 	}
 	
-	public ObservableList<Giornale> getGiornaliById(int id) throws SQLException   {
+	public ObservableList<Giornale> getGiornaliById(int id) throws SQLException, CsvValidationException, IOException, IdException {
 		g.setId(id);
+		csv.giornaleById(new File(LOCATION),g.getId());
 		return gD.getGiornaleIdTitoloAutore(g);
 	}
 	
 		
 		public void checkDataG(String[] info, LocalDate d, int dispo, float prezzo,
-				int copie) throws SQLException  {
+				int copie) throws SQLException, CsvValidationException, IOException {
 			
 
 			g.setTitolo(info[0]);
@@ -46,7 +53,10 @@ public class ControllerModifPage {
 			g.setPrezzo(prezzo);
 			g.setCopieRimanenti(copie);
 			
-						gD.aggiornaGiornale(g);
+			gD.aggiornaGiornale(g);
+
+			csv.removeGiornale(new File(LOCATION),g);
+			csv.insertGiornale(new File(LOCATION),g);
 			
 		}
 		public ObservableList<Rivista> getRivistaById(int id) throws SQLException {
