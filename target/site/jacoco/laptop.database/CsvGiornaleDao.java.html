@@ -57,7 +57,7 @@ public class CsvGiornaleDao implements DaoInterface {
 
     @Override
     public List&lt;Giornale&gt; giornaliByIdTitoloEd(File fd, String titolo, String editore) throws IOException, CsvValidationException {
-<span class="nc" id="L60">        return retrieveByIdTitoloEd(fd, titolo, editore);</span>
+<span class="fc" id="L60">        return retrieveByIdTitoloEd(fd, titolo, editore);</span>
     }
 
     @Override
@@ -84,9 +84,9 @@ public class CsvGiornaleDao implements DaoInterface {
 
     private static synchronized void report() throws IOException {
         try {
-<span class="nc" id="L87">            cleanUp(Path.of(fd.toURI()));</span>
-<span class="nc" id="L88">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n &quot; + LOCATION + &quot; deleted&quot;);</span>
-<span class="nc" id="L89">            throw new IOException(&quot; file cancellato&quot;);</span>
+<span class="fc" id="L87">            cleanUp(Path.of(fd.toURI()));</span>
+<span class="fc" id="L88">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n &quot; + LOCATION + &quot; deleted&quot;);</span>
+<span class="fc" id="L89">            throw new IOException(&quot; file cancellato&quot;);</span>
 <span class="fc" id="L90">        } catch (IOException e) {</span>
 <span class="fc" id="L91">            Logger.getLogger(&quot;genera report&quot;).log(Level.SEVERE, &quot;\n &quot; + LOCATION + &quot; file not exists&quot;);</span>
 <span class="pc bpc" id="L92" title="1 of 2 branches missed.">            if (fd.createNewFile()) {</span>
@@ -159,27 +159,27 @@ public class CsvGiornaleDao implements DaoInterface {
 
     private static synchronized List&lt;Giornale&gt; retrieveByIdTitoloEd(File fd, String titolo, String editore) throws IOException, CsvValidationException {
 
-<span class="nc" id="L162">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="fc" id="L162">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String[] gVector;
-<span class="nc" id="L164">        List&lt;Giornale&gt; giornaleList = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L165" title="All 2 branches missed.">        while ((gVector = csvReader.readNext()) != null) {</span>
-<span class="nc bnc" id="L166" title="All 4 branches missed.">            boolean gVectorFound = (gVector[GETINDEXTITOLO].equals(titolo)) || (gVector[GETINDEXEDITORE].equals(editore));</span>
-<span class="nc bnc" id="L167" title="All 2 branches missed.">            if (gVectorFound) {</span>
-<span class="nc" id="L168">                int id = Integer.parseInt(gVector[GETINDEXID]);</span>
-<span class="nc" id="L169">                String titoloG = gVector[GETINDEXTITOLO];</span>
-<span class="nc" id="L170">                String editoreG = gVector[GETINDEXEDITORE];</span>
-<span class="nc" id="L171">                Giornale g = new Giornale();</span>
-<span class="nc" id="L172">                g.setId(id);</span>
-<span class="nc" id="L173">                g.setTitolo(titoloG);</span>
-<span class="nc" id="L174">                g.setEditore(editoreG);</span>
-<span class="nc" id="L175">                giornaleList.add(g);</span>
+<span class="fc" id="L164">        List&lt;Giornale&gt; giornaleList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        while ((gVector = csvReader.readNext()) != null) {</span>
+<span class="fc bfc" id="L166" title="All 4 branches covered.">            boolean gVectorFound = (gVector[GETINDEXTITOLO].equals(titolo)) || (gVector[GETINDEXEDITORE].equals(editore));</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">            if (gVectorFound) {</span>
+<span class="fc" id="L168">                int id = Integer.parseInt(gVector[GETINDEXID]);</span>
+<span class="fc" id="L169">                String titoloG = gVector[GETINDEXTITOLO];</span>
+<span class="fc" id="L170">                String editoreG = gVector[GETINDEXEDITORE];</span>
+<span class="fc" id="L171">                Giornale g = new Giornale();</span>
+<span class="fc" id="L172">                g.setId(id);</span>
+<span class="fc" id="L173">                g.setTitolo(titoloG);</span>
+<span class="fc" id="L174">                g.setEditore(editoreG);</span>
+<span class="fc" id="L175">                giornaleList.add(g);</span>
             }
-<span class="nc" id="L177">        }</span>
-<span class="nc" id="L178">        csvReader.close();</span>
-<span class="nc bnc" id="L179" title="All 2 branches missed.">        if (giornaleList.isEmpty()) {</span>
+<span class="fc" id="L177">        }</span>
+<span class="fc" id="L178">        csvReader.close();</span>
+<span class="pc bpc" id="L179" title="1 of 2 branches missed.">        if (giornaleList.isEmpty()) {</span>
 <span class="nc" id="L180">            throw new NullPointerException(&quot; giornale not found&quot;);</span>
         }
-<span class="nc" id="L182">        return giornaleList;</span>
+<span class="fc" id="L182">        return giornaleList;</span>
     }
 
     private static synchronized void saveGiornale(File fd, Giornale g) throws IOException {
