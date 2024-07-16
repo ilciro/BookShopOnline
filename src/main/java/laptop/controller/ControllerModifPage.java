@@ -25,7 +25,7 @@ public class ControllerModifPage {
 	private final RivistaDao rD;
 	private final ControllerBookData cBD;
 	private final CsvGiornaleDao csv=new CsvGiornaleDao();
-	private final static String LOCATION="report/reportGiornali.csv";
+	private static final String LOCATION="report/reportGiornali.csv";
 	
 	
 	public ObservableList<Libro> getLibriById(int id) throws SQLException {

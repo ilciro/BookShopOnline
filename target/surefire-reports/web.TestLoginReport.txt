@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: web.TestLoginReport
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.382 s - in web.TestLoginReport
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.947 s - in web.TestLoginReport
