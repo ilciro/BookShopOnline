@@ -1,9 +1,12 @@
 package laptop.added;
 
 import laptop.model.CartaDiCredito;
+import laptop.utilities.ConnToDb;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import web.bean.CartaCreditoBean;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -13,6 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
     private final CartaDiCredito cc=new CartaDiCredito();
     private final CartaCreditoBean cCB=new CartaCreditoBean();
 
+     @BeforeAll
+     static void init() throws IOException {
+         ConnToDb.creaPopolaDb();
+     }
     @Test
     void setters()
     {
