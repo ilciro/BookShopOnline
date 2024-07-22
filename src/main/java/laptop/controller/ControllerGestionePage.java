@@ -47,7 +47,7 @@ public class ControllerGestionePage {
 				catalogo.addAll(lD.getLibri());
 				break;
 			case GIORNALE:
-				catalogo.addAll( gD.getGiornaliIdTitoloAutore(new Giornale()));
+				catalogo.addAll( gD.getGiornali());
 				break;
 			case RIVISTA:
 				catalogo.addAll( rD.getRiviste());

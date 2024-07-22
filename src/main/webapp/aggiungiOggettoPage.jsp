@@ -214,10 +214,10 @@ copie rimanenti :
 </c:when>
 </c:choose>
 
+</div>
+<div>
 <input type="submit" id="confermaB" name="confermaB" value="conferma" class="invia">
 <input type="submit" id="annullaB" name="annullaB" value="indietro" class="annulla">
-
-
 </div>
 </form>
 

@@ -202,9 +202,6 @@ public class GenerateDaoReportClass {
                 throw new IOException("file " + fd.getPath() + " -> deleted not exists -> creating");
             }
 
-
-
-
         } catch (IOException e) {
             Logger.getLogger(ECCEZIONE_METODO).log(Level.INFO, "creating file {0}.", fd1.getPath());
 

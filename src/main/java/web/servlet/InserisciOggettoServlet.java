@@ -60,6 +60,7 @@ public class InserisciOggettoServlet extends HttpServlet {
             if(annulla!=null && annulla.equals("indietro"))
             {
                 RequestDispatcher view= getServletContext().getRequestDispatcher(GESTIONE);
+                req.setAttribute("beanS", sB);
                 view.forward(req,resp);
             }
         }catch (SQLException | ParseException e)

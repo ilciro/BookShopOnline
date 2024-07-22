@@ -67,6 +67,7 @@ public class ModificaOggettoServlet extends HttpServlet {
             }
             if(invia!=null && invia.equals("aggiorna"))
             {
+                req.setAttribute("beanS",sB);
                 aggiorna(req,resp);
             }
             if(annulla!=null && annulla.equals("indietro"))
