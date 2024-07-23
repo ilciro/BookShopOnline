@@ -74,6 +74,13 @@ public class CsvOggettoDao implements DaoInterface{
     private static final String LIBRO="libro";
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
+    private static final String DELETED=" deleted";
+    private static final String GENERAREPORT="genera report";
+    private static final String FILECANCELLATO=" file cancellato";
+    private static final String FILENOTEXISTS=" file not exists";
+    private static final String MAKINGFILE=" making file";
+    private static final String ECCEZIONE="\n eccezione ottenuta .";
+    private static final String USERNOTFOUND=" user not found -> id null";
 
     private static ControllerSystemState vis= ControllerSystemState.getInstance();
 
@@ -95,117 +102,13 @@ public class CsvOggettoDao implements DaoInterface{
         switch (vis.getType())
         {
             case LIBRO:
-                try {
-                    cleanUp(Path.of(fdl.toURI()));
-                    Logger.getLogger("genera report").log(Level.SEVERE, "\n " + LOCATIONL + " deleted");
-                    throw new IOException(" file cancellato");
-                } catch (IOException e) {
-                    Logger.getLogger("genera report").log(Level.SEVERE, "\n " + LOCATIONL + " file not exists");
-                    if (fdl.createNewFile()) {
-                        Logger.getLogger("report libro").log(Level.SEVERE, "\n" + LOCATIONL + " making file");
-                        try (Connection conn = ConnToDb.connectionToDB();
-                             PreparedStatement prepQ = conn.prepareStatement(QUERYL)) {
-                            ResultSet rs = prepQ.executeQuery(QUERYL);
-                            CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONL));
-                            rs.getMetaData();
-                            String[] data = new String[14];
-                            while (rs.next()) {
-                                data[0] = rs.getString(1);
-                                data[1] = String.valueOf(rs.getInt(2));
-                                data[2] = rs.getString(3);
-                                data[3] = rs.getString(4);
-                                data[4] = rs.getString(5);
-                                data[5] = rs.getString(6);
-                                data[6] = rs.getString(7);
-                                data[7] = String.valueOf(rs.getDate(8).toLocalDate());
-                                data[8] = rs.getString(9);
-                                data[9]=String.valueOf(rs.getInt(10));
-                                data[10] = rs.getString(11);
-                                data[11]=String.valueOf(rs.getInt(12));
-                                data[12]=String.valueOf(rs.getFloat(13));
-                                data[13]=String.valueOf(rs.getInt(14));
-
-                                writer.writeNext(data);
-                            }
-                            writer.flush();
-                            writer.close();
-                        } catch (SQLException ex) {
-                            Logger.getLogger("report giornale").log(Level.SEVERE, "\n eccezione ottenuta .", ex);
-                        }
-                    }
-                }
+                reportLibro();
                 break;
             case GIORNALE:
-                try {
-                    cleanUp(Path.of(fdg.toURI()));
-                    Logger.getLogger("genera report").log(Level.SEVERE, "\n " + LOCATIONG + " deleted");
-                    throw new IOException(" file cancellato");
-                } catch (IOException e) {
-                    Logger.getLogger("genera report").log(Level.SEVERE, "\n " + LOCATIONG + " file not exists");
-                    if (fdg.createNewFile()) {
-                        Logger.getLogger("report giornale").log(Level.SEVERE, "\n" + LOCATIONG + " making file");
-                        try (Connection conn = ConnToDb.connectionToDB();
-                             PreparedStatement prepQ = conn.prepareStatement(QUERYG)) {
-                            ResultSet rs = prepQ.executeQuery(QUERYG);
-                            CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONG));
-                            rs.getMetaData();
-                            String[] data = new String[9];
-                            while (rs.next()) {
-                                data[0] = rs.getString(1);
-                                data[1] = rs.getString(2);
-                                data[2] = rs.getString(3);
-                                data[3] = rs.getString(4);
-                                data[4] = String.valueOf(rs.getDate(5));
-                                data[5] = String.valueOf(rs.getInt(6));
-                                data[6] = String.valueOf(rs.getInt(7));
-                                data[7] = String.valueOf(rs.getFloat(8));
-                                data[8] = String.valueOf(rs.getInt(9));
-                                writer.writeNext(data);
-                            }
-                            writer.flush();
-                            writer.close();
-                        } catch (SQLException ex) {
-                            Logger.getLogger("report giornale").log(Level.SEVERE, "\n eccezione ottenuta .", ex);
-                        }
-                    }
-                }
+                reportGiornale();
                 break;
             case RIVISTA:
-                try {
-                    cleanUp(Path.of(fdr.toURI()));
-                    Logger.getLogger("genera report").log(Level.SEVERE, "\n " + LOCATIONR + " deleted");
-                    throw new IOException(" file cancellato");
-                } catch (IOException e) {
-                    Logger.getLogger("genera report").log(Level.SEVERE, "\n " + LOCATIONR + " file not exists");
-                    if (fdr.createNewFile()) {
-                        Logger.getLogger("report rivista").log(Level.SEVERE, "\n" + LOCATIONR + " making file");
-                        try (Connection conn = ConnToDb.connectionToDB();
-                             PreparedStatement prepQ = conn.prepareStatement(QUERYR)) {
-                            ResultSet rs = prepQ.executeQuery(QUERYR);
-                            CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONR));
-                            rs.getMetaData();
-                            String[] data = new String[11];
-                            while (rs.next()) {
-                                data[0] = rs.getString(1);
-                                data[1] = rs.getString(2);
-                                data[2] = rs.getString(3);
-                                data[3] = rs.getString(4);
-                                data[4] = rs.getString(5);
-                                data[5] = rs.getString(6);
-                                data[6] = String.valueOf(rs.getDate(7));
-                                data[7] = String.valueOf(rs.getInt(8));
-                                data[8] = String.valueOf(rs.getFloat(9));
-                                data[9]=String.valueOf(rs.getInt(10));
-                                data[10]=String.valueOf(rs.getInt(11));
-                                writer.writeNext(data);
-                            }
-                            writer.flush();
-                            writer.close();
-                        } catch (SQLException ex) {
-                            Logger.getLogger("report giornale").log(Level.SEVERE, "\n eccezione ottenuta .", ex);
-                        }
-                    }
-                }
+                reportRivista();
                 break;
             default:break;
         }
@@ -258,7 +161,7 @@ public class CsvOggettoDao implements DaoInterface{
                 }
                 csvReader.close();
                 if (gList.isEmpty()) {
-                    throw new IdException(" user not found -> id null");
+                    throw new IdException(USERNOTFOUND);
                 }
                 break;
             case GIORNALE:
@@ -291,7 +194,7 @@ public class CsvOggettoDao implements DaoInterface{
                 }
                 csvReader.close();
                 if (gList.isEmpty()) {
-                    throw new IdException(" user not found -> id null");
+                    throw new IdException(USERNOTFOUND);
                 }
                 break;
             case RIVISTA:
@@ -329,7 +232,7 @@ public class CsvOggettoDao implements DaoInterface{
                 }
                 csvReader.close();
                 if (gList.isEmpty()) {
-                    throw new IdException(" user not found -> id null");
+                    throw new IdException(USERNOTFOUND);
                 }
                 break;
             default:break;
@@ -339,6 +242,119 @@ public class CsvOggettoDao implements DaoInterface{
     }
 
 
+    private  static synchronized void reportLibro() throws IOException {
+        try {
+            cleanUp(Path.of(fdl.toURI()));
+            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONL + DELETED);
+            throw new IOException(FILECANCELLATO);
+        } catch (IOException e) {
+            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONL + FILENOTEXISTS);
+            if (fdl.createNewFile()) {
+                Logger.getLogger("report libro").log(Level.SEVERE, "\n" + LOCATIONL + MAKINGFILE);
+                try (Connection conn = ConnToDb.connectionToDB();
+                     PreparedStatement prepQ = conn.prepareStatement(QUERYL)) {
+                    ResultSet rs = prepQ.executeQuery(QUERYL);
+                    CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONL));
+                    rs.getMetaData();
+                    String[] data = new String[14];
+                    while (rs.next()) {
+                        data[0] = rs.getString(1);
+                        data[1] = String.valueOf(rs.getInt(2));
+                        data[2] = rs.getString(3);
+                        data[3] = rs.getString(4);
+                        data[4] = rs.getString(5);
+                        data[5] = rs.getString(6);
+                        data[6] = rs.getString(7);
+                        data[7] = String.valueOf(rs.getDate(8).toLocalDate());
+                        data[8] = rs.getString(9);
+                        data[9]=String.valueOf(rs.getInt(10));
+                        data[10] = rs.getString(11);
+                        data[11]=String.valueOf(rs.getInt(12));
+                        data[12]=String.valueOf(rs.getFloat(13));
+                        data[13]=String.valueOf(rs.getInt(14));
+
+                        writer.writeNext(data);
+                    }
+                    writer.flush();
+                    writer.close();
+                } catch (SQLException | IOException ex) {
+                    Logger.getLogger("report libro").log(Level.SEVERE, ECCEZIONE, ex);
+                }
+            }
+        }
+    }
+    private static synchronized void reportGiornale() throws IOException {
+        try {
+            cleanUp(Path.of(fdg.toURI()));
+            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONG + DELETED);
+            throw new IOException(FILECANCELLATO);
+        } catch (IOException e) {
+            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONG + FILENOTEXISTS);
+            if (fdg.createNewFile()) {
+                Logger.getLogger("report giornale").log(Level.SEVERE, "\n" + LOCATIONG + MAKINGFILE);
+                try (Connection conn = ConnToDb.connectionToDB();
+                     PreparedStatement prepQ = conn.prepareStatement(QUERYG)) {
+                    ResultSet rs = prepQ.executeQuery(QUERYG);
+                    CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONG));
+                    rs.getMetaData();
+                    String[] data = new String[9];
+                    while (rs.next()) {
+                        data[0] = rs.getString(1);
+                        data[1] = rs.getString(2);
+                        data[2] = rs.getString(3);
+                        data[3] = rs.getString(4);
+                        data[4] = String.valueOf(rs.getDate(5));
+                        data[5] = String.valueOf(rs.getInt(6));
+                        data[6] = String.valueOf(rs.getInt(7));
+                        data[7] = String.valueOf(rs.getFloat(8));
+                        data[8] = String.valueOf(rs.getInt(9));
+                        writer.writeNext(data);
+                    }
+                    writer.flush();
+                    writer.close();
+                } catch (SQLException | IOException ex) {
+                    Logger.getLogger("exception report giornale").log(Level.SEVERE, ECCEZIONE, ex);
+                }
+            }
+        }
+    }
+    private static synchronized void reportRivista() throws IOException {
+        try {
+            cleanUp(Path.of(fdr.toURI()));
+            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONR + DELETED);
+            throw new IOException(FILECANCELLATO);
+        } catch (IOException e) {
+            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONR + FILENOTEXISTS);
+            if (fdr.createNewFile()) {
+                Logger.getLogger("report rivista").log(Level.SEVERE, "\n" + LOCATIONR + MAKINGFILE);
+                try (Connection conn = ConnToDb.connectionToDB();
+                     PreparedStatement prepQ = conn.prepareStatement(QUERYR)) {
+                    ResultSet rs = prepQ.executeQuery(QUERYR);
+                    CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONR));
+                    rs.getMetaData();
+                    String[] data = new String[11];
+                    while (rs.next()) {
+                        data[0] = rs.getString(1);
+                        data[1] = rs.getString(2);
+                        data[2] = rs.getString(3);
+                        data[3] = rs.getString(4);
+                        data[4] = rs.getString(5);
+                        data[5] = rs.getString(6);
+                        data[6] = String.valueOf(rs.getDate(7));
+                        data[7] = String.valueOf(rs.getInt(8));
+                        data[8] = String.valueOf(rs.getFloat(9));
+                        data[9]=String.valueOf(rs.getInt(10));
+                        data[10]=String.valueOf(rs.getInt(11));
+                        writer.writeNext(data);
+                    }
+                    writer.flush();
+                    writer.close();
+                } catch (SQLException | IOException ex) {
+                    Logger.getLogger("report rivista").log(Level.SEVERE, ECCEZIONE, ex);
+                }
+            }
+        }
+    }
 
 
 }
