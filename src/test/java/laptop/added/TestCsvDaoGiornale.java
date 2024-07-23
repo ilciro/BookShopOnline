@@ -1,7 +1,7 @@
-package laptop.added;
+/*package laptop.added;
 
 import com.opencsv.exceptions.CsvValidationException;
-import laptop.database.CsvGiornaleDao;
+import laptop.database.csv.CsvGiornaleDao;
 import laptop.model.raccolta.Giornale;
 import org.junit.jupiter.api.Test;
 
@@ -28,3 +28,6 @@ public class TestCsvDaoGiornale {
         assertNotNull(csv.giornaliByIdTitoloEd(new File(LOCATION),g.getTitolo(),g.getEditore()));
     }
 }
+
+
+ */

@@ -210,6 +210,9 @@ public class LibroBean {
             case "TECNOLOGIA_MEDICINA" :
                 this.categoriaB = CategorieLibro.TECNOLOGIA_MEDICINA.toString();
                 break;
+            case "ALTRO":
+                this.categoriaB = CategorieLibro.ALTRO.toString();
+                break;
 
             default :
                 this.categoriaB = null;

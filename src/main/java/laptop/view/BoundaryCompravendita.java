@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -152,7 +153,7 @@ public class BoundaryCompravendita implements Initializable {
 	}
 
 	@FXML
-	private void vediLista() throws IOException {
+	private void vediLista() throws IOException, CsvValidationException, IdException {
 		//vedere if anche qui
 
 				table.setItems(cCV.getLista(vis.getType()));
@@ -233,7 +234,7 @@ public class BoundaryCompravendita implements Initializable {
 			titolo.setCellValueFactory(new PropertyValueFactory<>(TITOLOS));
 			editore.setCellValueFactory(new PropertyValueFactory<>(EDITORES));
 			autore.setCellValueFactory(new PropertyValueFactory<>("autore"));
-			categoria.setCellValueFactory(null);
+			categoria.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
 			prezzo.setCellValueFactory(new PropertyValueFactory<>(PREZZOS));
 			idLibro.setCellValueFactory(new PropertyValueFactory<>("id"));
 		}

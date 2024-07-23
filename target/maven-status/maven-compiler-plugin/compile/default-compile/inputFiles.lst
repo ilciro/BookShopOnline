@@ -21,6 +21,7 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerRicercaPage.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerRicercaPerTipo.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerScegliNegozio.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerScelta.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerSystemState.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerUserPage.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerVisualizza.java
@@ -28,8 +29,6 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerVisualizzaProfilo.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/CartaCreditoDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/ContrassegnoDao.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/CsvGiornaleDao.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/DaoInterface.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/GenerateDaoReportClass.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/GiornaleDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/LibroDao.java
@@ -37,9 +36,14 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/PagamentoDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/RivistaDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/UsersDao.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvGiornaleDao.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvLibroDao.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvRivistaDao.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/DaoInterface.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/AcquistaException.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/IdException.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/LogoutException.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/PersistenzaException.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/model/CartaDiCredito.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/model/Fattura.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/model/Negozio.java
@@ -79,6 +83,7 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/view/BoundaryRicercaPage.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/view/BoundaryRicercaPerTipo.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/view/BoundaryScegliNegozio.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/view/BoundaryScelta.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/view/BoundaryUserPage.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/view/BoundaryVisualizza.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/view/BoundaryVisualizzaOrdine.java

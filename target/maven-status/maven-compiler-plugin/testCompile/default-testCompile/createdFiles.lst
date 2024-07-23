@@ -1,7 +1,6 @@
 web/TestLoginRaccoltaLibro.class
 laptop/controller/ControllerRegistraUtenteTest.class
 laptop/added/TestNegozio.class
-laptop/added/TestCsvDaoGiornale.class
 laptop/controller/ControllerCheckPagamentoDataTest.class
 laptop/added/TestPagamento.class
 laptop/controller/ControllerModifPageTest.class

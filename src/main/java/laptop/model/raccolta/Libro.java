@@ -235,6 +235,9 @@ public class Libro implements Raccolta {
 			case "TECNOLOGIA_MEDICINA":
 				this.categoria = CategorieLibro.TECNOLOGIA_MEDICINA.toString();
 				break;
+			case "ALTRO":
+				this.categoria = CategorieLibro.ALTRO.toString();
+				break;
 
 			default:
 				this.categoria = null;

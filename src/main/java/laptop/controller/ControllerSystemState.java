@@ -17,6 +17,8 @@ public class ControllerSystemState {
 	 private String metodoP; //usato per vedere se contanti o cc
 
 	private int idOggetto; //usato nel pagamento
+
+	private String typeOfDb;
 	 
 	 private static ControllerSystemState instance = null;
 
@@ -111,5 +113,13 @@ public class ControllerSystemState {
 
 	public void setIdOggetto(int idOggetto) {
 		this.idOggetto = idOggetto;
+	}
+
+	public String getTypeOfDb() {
+		return typeOfDb;
+	}
+
+	public void setTypeOfDb(String typeOfDb) {
+		this.typeOfDb = typeOfDb;
 	}
 }

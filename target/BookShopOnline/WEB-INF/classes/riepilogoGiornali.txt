@@ -1,4 +1,4 @@
-Id :	1titolo :	La Republica1ricavo totale :	10.0
+Id :	1titolo :	La Republica1ricavo totale :	2.0
 Id :	2titolo :	La Republica2ricavo totale :	0.0
 Id :	3titolo :	La Republica3ricavo totale :	20.0
 Id :	4titolo :	La Republica4ricavo totale :	28.0

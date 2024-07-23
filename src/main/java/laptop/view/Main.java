@@ -25,7 +25,7 @@ public class Main  extends Application {
 		Scene scene;
 
 		try {
-			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePage.fxml")));
+			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("scelta.fxml")));
 			scene = new Scene(root);
 			primaryStage.setTitle("Benvenuto nella homePage");
 			primaryStage.setScene(scene);

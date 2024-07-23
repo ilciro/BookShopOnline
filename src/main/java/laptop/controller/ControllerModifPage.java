@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
-import laptop.database.CsvGiornaleDao;
+//import laptop.database.csv.CsvGiornaleDao;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
@@ -24,7 +24,7 @@ public class ControllerModifPage {
 	private final Rivista r;
 	private final RivistaDao rD;
 	private final ControllerBookData cBD;
-	private final CsvGiornaleDao csv=new CsvGiornaleDao();
+	//private final CsvGiornaleDao csv=new CsvGiornaleDao();
 	private static final String LOCATION="report/reportGiornali.csv";
 	
 	
@@ -35,7 +35,7 @@ public class ControllerModifPage {
 	
 	public ObservableList<Giornale> getGiornaliById(int id) throws SQLException, CsvValidationException, IOException, IdException {
 		g.setId(id);
-		csv.giornaleById(new File(LOCATION),g.getId());
+		//csv.giornaleById(new File(LOCATION),g.getId());
 		return gD.getGiornaleIdTitoloAutore(g);
 	}
 	
@@ -55,8 +55,8 @@ public class ControllerModifPage {
 			
 			gD.aggiornaGiornale(g);
 
-			csv.removeGiornale(new File(LOCATION),g);
-			csv.insertGiornale(new File(LOCATION),g);
+			//csv.removeGiornale(new File(LOCATION),g);
+			//csv.insertGiornale(new File(LOCATION),g);
 			
 		}
 		public ObservableList<Rivista> getRivistaById(int id) throws SQLException {

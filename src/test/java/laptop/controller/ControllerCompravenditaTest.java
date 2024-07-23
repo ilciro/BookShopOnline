@@ -1,5 +1,6 @@
 package laptop.controller;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.exception.IdException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,7 +19,7 @@ class ControllerCompravenditaTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"libro","giornale","rivista"})
-    void getLista(String strings) throws  IOException {
+    void getLista(String strings) throws IOException, CsvValidationException, IdException {
         assertNotNull(cC.getLista(strings));
     }
 
