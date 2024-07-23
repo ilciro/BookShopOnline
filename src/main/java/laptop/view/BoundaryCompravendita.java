@@ -222,9 +222,11 @@ public class BoundaryCompravendita implements Initializable {
 		{
 			header.setText(ritornaMessaggio());
 			titolo.setCellValueFactory(new PropertyValueFactory<>(TITOLOS));
+			//same on value editore
+			// giornale not have autore attr
+			autore.setCellValueFactory(new PropertyValueFactory<>(EDITORES));
 			editore.setCellValueFactory(new PropertyValueFactory<>(EDITORES));
-			autore.setCellValueFactory(null);
-			categoria.setCellValueFactory(null);
+			categoria.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
 			prezzo.setCellValueFactory(new PropertyValueFactory<>(PREZZOS));
 			idLibro.setCellValueFactory(new PropertyValueFactory<>("id"));
 		}

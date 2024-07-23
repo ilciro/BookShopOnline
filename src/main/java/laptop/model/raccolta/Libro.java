@@ -178,9 +178,6 @@ public class Libro implements Raccolta {
 			case "FAMIGLIA":
 				this.categoria = CategorieLibro.FAMIGLIA.toString();
 				break;
-			case "SALUTE_BENESSERE":
-				this.categoria = CategorieLibro.SALUTE_BENESSERE.toString();
-				break;
 			case "FANTASCIENZA_FANTASY":
 				this.categoria = CategorieLibro.FANTASCIENZA_FANTASY.toString();
 				break;

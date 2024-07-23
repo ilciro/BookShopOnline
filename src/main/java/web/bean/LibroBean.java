@@ -153,9 +153,6 @@ public class LibroBean {
             case "FAMIGLIA" :
                 this.categoriaB = CategorieLibro.FAMIGLIA.toString();
                 break;
-            case "SALUTE_BENESSERE" :
-                this.categoriaB = CategorieLibro.SALUTE_BENESSERE.toString();
-                break;
             case "FANTASCIENZA_FANTASY" :
                 this.categoriaB = CategorieLibro.FANTASCIENZA_FANTASY.toString();
                 break;

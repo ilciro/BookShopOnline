@@ -7,13 +7,10 @@ import java.sql.SQLException;
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-//import laptop.database.csv.CsvGiornaleDao;
-import laptop.database.csv.CsvGiornaleDao;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
-import laptop.database.csv.CsvLibroDao;
-import laptop.database.csv.CsvRivistaDao;
+import laptop.database.csv.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.User;
 import laptop.model.raccolta.Giornale;
@@ -37,12 +34,11 @@ public class ControllerCompravendita {
 	private static final String RIVISTA = "rivista";
 	private static final String GIORNALE = "giornale";
 	private final ControllerSystemState vis=ControllerSystemState.getInstance();
-	private final CsvGiornaleDao csvG ;
-	private final CsvLibroDao csvL;
-	private final CsvRivistaDao csvR;
-	private final static String REPORTGIORNALI="report/reportGiornali.csv";
-	private final static String REPORTLIBRI="report/reportLibri.csv";
-	private final static String REPORTRIVISTE="report/reportRiviste.csv";
+	private final CsvOggettoDao csv ;
+
+	private static final String REPORTGIORNALI="report/reportGiornali.csv";
+	private static final String REPORTLIBRI="report/reportLibri.csv";
+	private static final String REPORTRIVISTE="report/reportRiviste.csv";
 
 
 
@@ -56,9 +52,8 @@ public class ControllerCompravendita {
 		r=new Rivista();
 		l=new Libro();
 		rD=new RivistaDao();
-		csvG=new CsvGiornaleDao();
-		csvL=new CsvLibroDao();
-		csvR=new CsvRivistaDao();
+		csv=new CsvOggettoDao();
+
 	}
 
 	private void checkID(int id) throws IdException {
@@ -89,20 +84,21 @@ public class ControllerCompravendita {
 
 
 			}
-		} if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		}
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
 			switch (type) {
 				case LIBRO:
-					csvL.generaReport();
-					catalogo.addAll(csvL.retrieveAllData(new File(REPORTLIBRI)));
+					csv.generaReport();
+					catalogo.addAll(csv.retrieveAllData(new File(REPORTLIBRI)));
 					break;
 				case GIORNALE:
-					csvG.generaReport();
-					catalogo.addAll(csvG.retrieveAllData(new File(REPORTGIORNALI)));
+					csv.generaReport();
+					catalogo.addAll(csv.retrieveAllData(new File(REPORTGIORNALI)));
 					break;
 				case RIVISTA:
-					csvR.generaReport();
-					catalogo.addAll(csvR.retrieveAllData(new File(REPORTRIVISTE)));
+					csv.generaReport();
+					catalogo.addAll(csv.retrieveAllData(new File(REPORTRIVISTE)));
 					break;
 				default:
 					break;

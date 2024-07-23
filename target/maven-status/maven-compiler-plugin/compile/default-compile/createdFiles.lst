@@ -32,6 +32,7 @@ web/bean/CartaCreditoBean.class
 laptop/model/User.class
 web/servlet/RicercaServlet.class
 laptop/model/TempUser$RuoliT.class
+laptop/database/csv/CsvOggettoDao.class
 web/bean/RivistaBean.class
 laptop/database/RivistaDao.class
 laptop/model/Pagamento.class
@@ -43,7 +44,6 @@ web/bean/UserBean$Ruoli.class
 web/servlet/ServletScrittore.class
 laptop/view/BoundaryUserPage.class
 laptop/controller/ControllerGestionePage.class
-laptop/database/csv/CsvRivistaDao.class
 web/bean/SystemBean.class
 laptop/view/BoundaryPagamentoCC.class
 laptop/controller/ControllerPagamentoCash.class
@@ -56,7 +56,6 @@ laptop/controller/ControllerVisualizzaProfilo.class
 laptop/controller/ControllerLogin.class
 laptop/view/BoundaryRicercaPerTipo.class
 laptop/view/BoundaryVisualizzaOrdine.class
-laptop/database/csv/CsvLibroDao.class
 laptop/controller/ControllerCancellaUser.class
 web/servlet/NegozioServlet.class
 laptop/view/BoundaryHomePageAfterLoginSE.class
@@ -71,7 +70,6 @@ laptop/model/Negozio.class
 web/servlet/InserisciOggettoServlet.class
 laptop/model/TempUser.class
 laptop/view/BoundaryAcquista.class
-laptop/database/csv/CsvGiornaleDao.class
 laptop/controller/ControllerRicercaPerTipo.class
 laptop/controller/ControllerReportRaccolta.class
 web/bean/LibroBean.class

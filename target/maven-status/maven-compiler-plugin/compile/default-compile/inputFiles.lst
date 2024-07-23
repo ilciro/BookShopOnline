@@ -36,9 +36,7 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/PagamentoDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/RivistaDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/UsersDao.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvGiornaleDao.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvLibroDao.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvRivistaDao.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvOggettoDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/DaoInterface.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/AcquistaException.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/IdException.java
