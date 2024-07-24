@@ -30,14 +30,15 @@ public class ControllerCheckPagamentoData {
 		p=new Pagamento(0,"", 0, "",0, null);
 			
 		//inserire qui
-		p.setMetodo("cash");
+		if(vis.getMetodoP().equals("cash"))
+			p.setMetodo("cash");
+		else p.setMetodo("cCredito");
 		p.setNomeUtente(nome);
 		
 		p.setId(vis.getId());
 		
-		
-		
-		pagD.inserisciPagamento(p);
+
+
 
 		switch (tipo){
 			case "libro":
@@ -45,8 +46,9 @@ public class ControllerCheckPagamentoData {
 				l.setId(vis.getId());
 				checkID(vis.getId());
 				p.setAmmontare(vis.getSpesaT());
-				p.setId(l.getId());
+				p.setIdOggetto(l.getId());
 				p.setTipo(lD.getData(l).getCategoria());
+
 				break;
 			}
 			case "giornale" :
@@ -54,8 +56,8 @@ public class ControllerCheckPagamentoData {
 				g.setId(vis.getId());
 				checkID(vis.getId());
 				p.setAmmontare(vis.getSpesaT());
-				p.setId(g.getId());
-				p.setTipo(gD.getData(g).getTipologia());
+				p.setIdOggetto(g.getId());
+				p.setTipo("QIOTIDIANO");
 				break;
 			}
 			case "rivista":
@@ -63,12 +65,13 @@ public class ControllerCheckPagamentoData {
 				r.setId(vis.getId());
 				checkID(vis.getId());
 				p.setAmmontare(vis.getSpesaT());
-				p.setId(r.getId());
+				p.setIdOggetto(r.getId());
 				p.setTipo(rD.getData(r).getTipologia());
 				break;
 			}
 			default: break;
 		}
+		pagD.inserisciPagamento(p);
 
 		
 		

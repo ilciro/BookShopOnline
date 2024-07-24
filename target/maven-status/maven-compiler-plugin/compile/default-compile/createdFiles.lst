@@ -62,6 +62,7 @@ laptop/view/BoundaryHomePageAfterLoginSE.class
 laptop/model/raccolta/CategorieRivista.class
 web/servlet/IndexServlet.class
 laptop/controller/ControllerSystemState.class
+laptop/database/csvPagamento/PagamentoCsv.class
 web/servlet/RicercaCatalogoServlet.class
 laptop/view/BoundaryGestionePage.class
 laptop/view/BoundaryLogin.class
@@ -98,6 +99,8 @@ laptop/database/LibroDao.class
 laptop/model/raccolta/MatchParam.class
 web/servlet/DownloadServletTotale.class
 web/servlet/ModificaUtenteServlet.class
+laptop/database/csvPagamento/CartaCreditoCsv.class
+laptop/database/csvPagamento/PagamentoInterface.class
 laptop/model/raccolta/Rivista.class
 laptop/view/BoundaryReportPage.class
 web/servlet/GestioneOggettoServlet.class
@@ -120,6 +123,7 @@ laptop/view/BoundaryModificaUtente.class
 laptop/database/UsersDao.class
 laptop/model/raccolta/Raccolta.class
 web/servlet/AcquistaServlet.class
+laptop/database/csvPagamento/FatturaCsv.class
 laptop/controller/ControllerAggiungiPage.class
 laptop/model/raccolta/Libro.class
 web/bean/AcquistaBean.class

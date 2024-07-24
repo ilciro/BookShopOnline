@@ -6,13 +6,16 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 import javafx.collections.ObservableList;
-import laptop.database.CartaCreditoDao;
+import laptop.database.*;
 
-import laptop.database.PagamentoDao;
-
+import laptop.database.csvPagamento.CartaCreditoCsv;
+import laptop.database.csvPagamento.PagamentoCsv;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Pagamento;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
+import laptop.model.raccolta.Rivista;
 
 
 public class ControllerPagamentoCC {
@@ -21,8 +24,15 @@ public class ControllerPagamentoCC {
 	private CartaDiCredito cc;
 	private final PagamentoDao pDao;
 	private final ControllerSystemState vis= ControllerSystemState.getInstance();
-	
+
 	private boolean state=false;
+
+	private final Libro l;
+	private final Giornale g;
+	private final Rivista r;
+	private final LibroDao ld;
+	private final RivistaDao rd;
+	private final PagamentoCsv pagCsv;
 	
 	
 	private int cont=0;
@@ -75,6 +85,12 @@ public class ControllerPagamentoCC {
 		pDao=new PagamentoDao();
 		
 		cCPD=new ControllerCheckPagamentoData();
+		l=new Libro();
+		g=new Giornale();
+		r=new Rivista();
+		ld=new LibroDao();
+		rd=new RivistaDao();
+		pagCsv=new PagamentoCsv();
 		
 	}
 
@@ -112,13 +128,19 @@ public class ControllerPagamentoCC {
 		return cDao.popolaDati(cc);
 	}
 
-	public void pagamentoCC(String nome) throws SQLException, IdException {
+	public void pagamentoCC(String nome) throws SQLException, IdException, IOException {
 		Pagamento p;
-		p=new Pagamento(0,"cartaCredito", 0,nome,0, null);
+		p=new Pagamento(0,"cartaCredito", 0,nome,vis.getSpesaT(), null);
 			
 		//inserire qui
 		p.setMetodo("cCredito");
 		p.setNomeUtente(nome);
+
+
+
+
+
+
 		cCPD.checkPagamentoData(nome);
 		
 		
@@ -127,7 +149,16 @@ public class ControllerPagamentoCC {
 		
 		java.util.logging.Logger.getLogger("Pagamento effettuato").log(Level.INFO, "info {0}",p.getAmmontare()+p.getTipo()+p.getId());
 
-		pDao.inserisciPagamento(p);
+		//pDao.inserisciPagamento(p);
+
+		// uso il pagamento in quanto guest
+		//non ha carte registrate
+
+
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+			pagCsv.report();
+		}
 	}
 	
 }

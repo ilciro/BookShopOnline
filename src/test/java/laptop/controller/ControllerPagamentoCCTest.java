@@ -40,7 +40,7 @@ class ControllerPagamentoCCTest {
     }
 
     @Test
-    void pagamentoCC() throws SQLException, IdException {
+    void pagamentoCC() throws SQLException, IdException, IOException {
         String nome="franco";
         cPCC.pagamentoCC(nome);
         assertNotNull(nome);

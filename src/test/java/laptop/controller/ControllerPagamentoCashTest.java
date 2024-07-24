@@ -16,7 +16,7 @@ class ControllerPagamentoCashTest {
     }
 
     @Test
-    void controllaL() throws SQLException, IdException {
+    void controllaL() throws SQLException, IdException, IOException {
         vis.setTypeAsBook();
         vis.setId(1);
         vis.setSpesaT(7.99f);
@@ -25,7 +25,7 @@ class ControllerPagamentoCashTest {
 
     }
     @Test
-    void controllaG() throws SQLException, IdException {
+    void controllaG() throws SQLException, IdException, IOException {
         vis.setTypeAsDaily();
         vis.setId(6);
         vis.setSpesaT(4f);
@@ -34,7 +34,7 @@ class ControllerPagamentoCashTest {
 
     }
     @Test
-    void controllaR() throws SQLException, IdException {
+    void controllaR() throws SQLException, IdException, IOException {
         vis.setTypeAsMagazine();
         vis.setId(1);
         vis.setSpesaT(4f);

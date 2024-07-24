@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import laptop.database.ContrassegnoDao;
+import laptop.database.csvPagamento.FatturaCsv;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
 
@@ -13,10 +14,11 @@ public class ControllerPagamentoCash {
 	private final Fattura f;
 	private final ControllerSystemState vis= ControllerSystemState.getInstance();
 	private final ControllerCheckPagamentoData cCPD;
+	private final FatturaCsv fCsv;
 	
 	
 
-	public void controlla(String nome, String cognome, String via, String com) throws SQLException, IdException {
+	public void controlla(String nome, String cognome, String via, String com) throws SQLException, IdException, IOException {
 		
 			
 			float spesa=vis.getSpesaT();
@@ -37,7 +39,11 @@ public class ControllerPagamentoCash {
 			
 			
 			cCPD.checkPagamentoData(nome);
-			
+
+			if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+			{
+				fCsv.report();
+			}
 			
 			
 			
@@ -48,6 +54,7 @@ public class ControllerPagamentoCash {
 		cD = new ContrassegnoDao();
 		f = new Fattura();
 		cCPD=new ControllerCheckPagamentoData();
+		fCsv=new FatturaCsv();
 		
 		
 	}
