@@ -490,6 +490,7 @@ public class CsvOggettoDao implements DaoInterface{
                 while ((gVector = reader.readNext()) != null) {
                     id=Integer.parseInt(gVector[GETINDEXIDR]);
                 }
+                break;
             }
             default:
                 java.util.logging.Logger.getLogger("Test General connection standard").log(Level.INFO, "Connesso standard a sys........\n");
