@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import laptop.database.ContrassegnoDao;
-import laptop.database.csvPagamento.FatturaCsv;
+import laptop.database.csvpagamento.FatturaCsv;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
 

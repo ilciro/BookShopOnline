@@ -8,14 +8,10 @@ import java.util.logging.Level;
 import javafx.collections.ObservableList;
 import laptop.database.*;
 
-import laptop.database.csvPagamento.CartaCreditoCsv;
-import laptop.database.csvPagamento.PagamentoCsv;
+import laptop.database.csvpagamento.PagamentoCsv;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Pagamento;
-import laptop.model.raccolta.Giornale;
-import laptop.model.raccolta.Libro;
-import laptop.model.raccolta.Rivista;
 
 
 public class ControllerPagamentoCC {
@@ -27,11 +23,7 @@ public class ControllerPagamentoCC {
 
 	private boolean state=false;
 
-	private final Libro l;
-	private final Giornale g;
-	private final Rivista r;
-	private final LibroDao ld;
-	private final RivistaDao rd;
+
 	private final PagamentoCsv pagCsv;
 	
 	
@@ -85,11 +77,7 @@ public class ControllerPagamentoCC {
 		pDao=new PagamentoDao();
 		
 		cCPD=new ControllerCheckPagamentoData();
-		l=new Libro();
-		g=new Giornale();
-		r=new Rivista();
-		ld=new LibroDao();
-		rd=new RivistaDao();
+
 		pagCsv=new PagamentoCsv();
 		
 	}
@@ -149,7 +137,7 @@ public class ControllerPagamentoCC {
 		
 		java.util.logging.Logger.getLogger("Pagamento effettuato").log(Level.INFO, "info {0}",p.getAmmontare()+p.getTipo()+p.getId());
 
-		//pDao.inserisciPagamento(p);
+
 
 		// uso il pagamento in quanto guest
 		//non ha carte registrate

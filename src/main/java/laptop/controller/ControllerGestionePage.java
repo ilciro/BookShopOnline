@@ -3,6 +3,7 @@ package laptop.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
@@ -50,6 +51,8 @@ public class ControllerGestionePage {
 				case LIBRO -> fd=new File("report/reportLibri.csv");
 				case GIORNALE -> fd=new File("report/reportGiornali.csv");
 				case RIVISTA -> fd=new File("report/reportRiviste.csv");
+				default ->	java.util.logging.Logger.getLogger("cancella oggetto").log(Level.SEVERE, " type not correct !!\n");
+
 			}
 			csvDao.eliminaOggetto(fd);
 		}

@@ -81,7 +81,7 @@ public class CsvOggettoDao implements DaoInterface{
     private static final int GETINDEXIDR=10;
     private static final String QUERYR = "select titolo,tipologia,autore,lingua,editore,descrizione,dataPubblicazione,disp,prezzo,copieRimanenti,idRivista from RIVISTA";
     private static final File fdr = new File(LOCATIONR);
-    private static final String LIBRO="libro";
+    private static final String LIBRO="LIBRO";
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
     private static final String DELETED=" deleted";
@@ -469,14 +469,14 @@ public class CsvOggettoDao implements DaoInterface{
         String[] gVector;
         int id = 0;
         switch (vis.getType()) {
-            case "libro": {
+            case LIBRO: {
                 reader = new CSVReader(new FileReader(LOCATIONL));
                 while ((gVector = reader.readNext()) != null) {
                     id = Integer.parseInt(gVector[GETINDEXIDL]);
                 }
                 break;
             }
-                case "giornale":
+            case GIORNALE:
                 {
                     reader = new CSVReader(new FileReader(LOCATIONG));
                     while ((gVector = reader.readNext()) != null) {
@@ -484,7 +484,7 @@ public class CsvOggettoDao implements DaoInterface{
                     }
                     break;
                 }
-            case "rivista":
+            case RIVISTA:
             {
                 reader = new CSVReader(new FileReader(LOCATIONR));
                 while ((gVector = reader.readNext()) != null) {
@@ -492,7 +492,8 @@ public class CsvOggettoDao implements DaoInterface{
                 }
             }
             default:
-                break;
+                java.util.logging.Logger.getLogger("Test General connection standard").log(Level.INFO, "Connesso standard a sys........\n");
+
         }
         return id;
 

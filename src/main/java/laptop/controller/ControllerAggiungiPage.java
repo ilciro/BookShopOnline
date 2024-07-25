@@ -11,7 +11,6 @@ import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
 import laptop.database.csv.CsvOggettoDao;
 import laptop.model.raccolta.Giornale;
-import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
 
 
@@ -32,7 +31,8 @@ public class ControllerAggiungiPage {
 	
 
 	public boolean checkDataG(Giornale g) throws SQLException, IOException, CsvValidationException {
-		assert (g.getDataPubb()!=null);
+		if(g.getDataPubb()==null)
+			throw new SQLException(" data is wrong");
 
 
 		status = gD.creaGiornale(g);
@@ -48,7 +48,10 @@ public class ControllerAggiungiPage {
 	public boolean checkDataR(String [] info,  LocalDate data,
 			int dispo, float prezzo, int copie, String desc) throws SQLException, IOException, CsvValidationException {
 		
-		assert(data!=null);
+		if(data==null)
+		{
+			throw new SQLException(" data is null");
+		}
 
 		
 

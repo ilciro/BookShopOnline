@@ -19,7 +19,6 @@ public class ControllerCheckPagamentoData {
 	private final Giornale g;
 	private final  Rivista r;
 	private final LibroDao  lD;
-	private final GiornaleDao gD;
 	private final RivistaDao rD;
 	private final PagamentoDao pagD;
 	public void checkPagamentoData(String nome) throws SQLException, IdException {
@@ -82,7 +81,6 @@ public class ControllerCheckPagamentoData {
 		r=new Rivista();
 		lD=new LibroDao();
 		rD=new RivistaDao();
-		gD=new GiornaleDao();
 		pagD=new PagamentoDao();
 		
 	}
