@@ -42,10 +42,11 @@ public class Main  extends Application {
 
 	public static void main(String[] args) throws Exception {
 
+
+
 		try {
 
 			ConnToDb.creaPopolaDb();
-
 
 		} catch (FileNotFoundException eFile) {
 			Logger.getLogger("crwa db").log(Level.SEVERE, "\n eccezione ottenuta .", eFile);
@@ -54,6 +55,8 @@ public class Main  extends Application {
 
 
 			launch(args);
+
+
 
 
 	}

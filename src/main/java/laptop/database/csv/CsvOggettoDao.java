@@ -12,17 +12,27 @@ import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
 import laptop.model.raccolta.Rivista;
 import laptop.utilities.ConnToDb;
+import org.apache.commons.lang.SystemUtils;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class CsvOggettoDao implements DaoInterface{
 
@@ -82,7 +92,9 @@ public class CsvOggettoDao implements DaoInterface{
     private static final String ECCEZIONE="\n eccezione ottenuta .";
     private static final String USERNOTFOUND=" user not found -> id null";
 
-    private static ControllerSystemState vis= ControllerSystemState.getInstance();
+
+
+    private static final ControllerSystemState vis= ControllerSystemState.getInstance();
 
     private static void cleanUp(Path path) throws IOException {
         Files.delete(path);
@@ -96,6 +108,40 @@ public class CsvOggettoDao implements DaoInterface{
     public ObservableList<Raccolta> retrieveAllData(File fd) throws CsvValidationException, IOException, IdException {
         return retrieveData(fd);
     }
+
+    @Override
+    public void inserisciLibro(Libro l) throws IOException, CsvValidationException {
+        inserimentoLibro(l);
+    }
+    @Override
+    public void inserisciGiornale(Giornale g) throws IOException, CsvValidationException {
+        inserimentoGiornale(g);
+    }
+    @Override
+    public void inserisciRivista(Rivista r) throws IOException, CsvValidationException {
+        inserimentoRivista(r);
+    }
+
+    @Override
+    public void eliminaOggetto(File fd) throws CsvValidationException, IOException {
+        cancellaById(fd);
+    }
+
+    @Override
+    public void modificaLibro(File fd,Libro l) throws CsvValidationException, IOException {
+        aggiornaLibro(fd,l);
+    }
+
+    @Override
+    public void modificaRivista(File file, Rivista r) throws CsvValidationException, IOException {
+        aggiornaRivista(file,r);
+    }
+
+    @Override
+    public void modificaGiornale(File file, Giornale g) throws CsvValidationException, IOException {
+        aggiornaGiornale(file,g);
+    }
+
 
     private static synchronized void report() throws IOException {
 
@@ -114,7 +160,6 @@ public class CsvOggettoDao implements DaoInterface{
         }
 
     }
-
     private synchronized ObservableList<Raccolta> retrieveData(File fd) throws CsvValidationException, IOException, IdException {
         ObservableList<Raccolta> gList = FXCollections.observableArrayList();
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
@@ -240,8 +285,6 @@ public class CsvOggettoDao implements DaoInterface{
 
         return  gList;
     }
-
-
     private  static synchronized void reportLibro() throws IOException {
         try {
             cleanUp(Path.of(fdl.toURI()));
@@ -355,6 +398,159 @@ public class CsvOggettoDao implements DaoInterface{
             }
         }
     }
+    private static synchronized void inserimentoLibro(Libro l) throws IOException, CsvValidationException {
 
+        cleanUp(Path.of(LOCATIONL));
+
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONL, true)));
+        String[] gVector = new String[14];
+
+        gVector[GETINDEXTITOLOL] = l.getTitolo();
+        gVector[GETINDEXNRPL] = String.valueOf(l.getNrPagine());
+        gVector[GETINDEXISBNL] = l.getCodIsbn();
+        gVector[GETINDEXEDITOREL] = l.getEditore();
+        gVector[GETINDEXAUTOREL] = l.getAutore();
+        gVector[GETINDEXLINGUAL] = l.getLingua();
+        gVector[GETINDEXCATEGORIAL] = l.getCategoria();
+        gVector[GETINDEXDATAL] = String.valueOf(l.getDataPubb());
+        gVector[GETINDEXRECENSIONEL] = l.getRecensione();
+        gVector[GETINDEXCOPIEL] = String.valueOf(l.getNrCopie());
+        gVector[GETINDEXDESCL] = l.getDesc();
+        gVector[GETINDEXDISPL] = String.valueOf(l.getDisponibilita());
+        gVector[GETINDEXPREZZOL] = String.valueOf(l.getPrezzo());
+        gVector[GETINDEXIDL] = String.valueOf(getIdMax() + 1);
+        csvWriter.writeNext(gVector);
+        csvWriter.flush();
+        csvWriter.close();
+    }
+    private static synchronized void inserimentoGiornale(Giornale g) throws IOException, CsvValidationException {
+        cleanUp(Path.of(LOCATIONG));
+
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONG, true)));
+        String[] gVector = new String[9];
+
+        gVector[GETINDEXTITOLOG] = g.getTitolo();
+        gVector[GETINDEXTIPOLOGIAG] = g.getTipologia();
+        gVector[GETINDEXLINGUAG] = g.getLingua();
+        gVector[GETINDEXEDITOREG] = g.getEditore();
+        gVector[GETINDEXDATAG] = String.valueOf(g.getDataPubb());
+        gVector[GETINDEXCOPIERG] = String.valueOf(g.getCopieRimanenti());
+        gVector[GETINDEXDISPG] = String.valueOf(g.getDisponibilita());
+        gVector[GETINDEXPREZZOG] = String.valueOf(g.getPrezzo());
+        gVector[GETINDEXIDG] = String.valueOf(getIdMax()+1);
+        csvWriter.writeNext(gVector);
+        csvWriter.flush();
+        csvWriter.close();
+    }
+    private static synchronized void inserimentoRivista(Rivista r) throws IOException, CsvValidationException {
+        cleanUp(Path.of(LOCATIONR));
+
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONR, true)));
+        String [] gVector = new String[11];
+
+        gVector[GETINDEXTITOLOR] = r.getTitolo();
+        gVector[GETINDEXTIPOLOGIAR] = r.getTipologia();
+        gVector[GETINDEXAUTORER] = r.getAutore();
+        gVector[GETINDEXLINGUAR] = r.getLingua();
+        gVector[GETINDEXEDITORER] =r.getEditore();
+        gVector[GETINDEXDESCRIZIONER] =r.getDescrizione();
+        gVector[GETINDEXDATAR] = String.valueOf(r.getDataPubb());
+        gVector[GETINDEXDISPR] = String.valueOf(r.getDisp());
+        gVector[GETINDEXPREZZOR] = String.valueOf(r.getPrezzo());
+        gVector[GETINDEXCOPIER]=String.valueOf(r.getCopieRim());
+        gVector[GETINDEXIDR]=String.valueOf(getIdMax()+1);
+        csvWriter.writeNext(gVector);
+        csvWriter.flush();
+        csvWriter.close();
+    }
+    public static synchronized int getIdMax() throws IOException, CsvValidationException {
+        //used for insert correct idOgg
+        CSVReader reader;
+        String[] gVector;
+        int id = 0;
+        switch (vis.getType()) {
+            case "libro": {
+                reader = new CSVReader(new FileReader(LOCATIONL));
+                while ((gVector = reader.readNext()) != null) {
+                    id = Integer.parseInt(gVector[GETINDEXIDL]);
+                }
+                break;
+            }
+                case "giornale":
+                {
+                    reader = new CSVReader(new FileReader(LOCATIONG));
+                    while ((gVector = reader.readNext()) != null) {
+                        id=Integer.parseInt(gVector[GETINDEXIDG]);
+                    }
+                    break;
+                }
+            case "rivista":
+            {
+                reader = new CSVReader(new FileReader(LOCATIONR));
+                while ((gVector = reader.readNext()) != null) {
+                    id=Integer.parseInt(gVector[GETINDEXIDR]);
+                }
+            }
+            default:
+                break;
+        }
+        return id;
+
+    }
+    private static synchronized void cancellaById(File fd) throws IOException, CsvValidationException {
+        assert(vis.getId()<getIdMax() || vis.getId()!=0);
+        if (SystemUtils.IS_OS_UNIX) {
+            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
+            Files.createTempFile("prefix", "suffix", attr); // Compliant
+        }
+        File tmpFD = new File("report/appoggio.csv");
+        boolean found = false;
+        // create csvReader object passing file reader as a parameter
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] giornaleVector;
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));
+        //check on path
+        boolean userVectorFound = false;
+
+        while ((giornaleVector = csvReader.readNext()) != null) {
+            switch (fd.getPath()) {
+                case LOCATIONL -> userVectorFound = giornaleVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));
+                case LOCATIONG -> userVectorFound = giornaleVector[GETINDEXIDG].equals(String.valueOf(vis.getId()));
+                case LOCATIONR -> userVectorFound = giornaleVector[GETINDEXIDR].equals(String.valueOf(vis.getId()));
+                default-> Logger.getLogger("Test cancella").log(Level.SEVERE,"Path not matching ..");
+
+            }
+            if (!userVectorFound) {
+                csvWriter.writeNext(giornaleVector);
+            } else {
+                found = true;
+            }
+        }
+        csvWriter.flush();
+        csvReader.close();
+        csvWriter.close();
+        if (found) {
+            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
+        } else {
+            cleanUp(Path.of(tmpFD.toURI()));
+        }
+
+    }
+    private static synchronized void aggiornaLibro(File fd,Libro l) throws CsvValidationException, IOException {
+        assert(vis.getId()<getIdMax() || vis.getId()!=0);
+        cancellaById(fd);
+        inserimentoLibro(l);
+    }
+
+    private static synchronized void aggiornaRivista(File file, Rivista r) throws CsvValidationException, IOException{
+        assert(vis.getId()<getIdMax() || vis.getId()!=0);
+        cancellaById(file);
+        inserimentoRivista(r);
+    }
+    private static synchronized void aggiornaGiornale(File file, Giornale g) throws CsvValidationException, IOException{
+        assert(vis.getId()<getIdMax() || vis.getId()!=0);
+        cancellaById(file);
+        inserimentoGiornale(g);
+    }
 
 }

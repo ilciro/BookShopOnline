@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -25,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerGestionePage;
 import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
 import laptop.model.raccolta.Raccolta;
 
 public class BoundaryGestionePage implements Initializable {
@@ -67,8 +69,9 @@ public class BoundaryGestionePage implements Initializable {
 	
 	
 	@FXML
-	private void genera()
-	{
+	private void genera() throws CsvValidationException, IOException, IdException {
+
+		table.setItems(null);
 
 		table.setItems(cGP.getLista(vis.getType()));
 		
@@ -99,11 +102,11 @@ public class BoundaryGestionePage implements Initializable {
 		
 	}
 	@FXML
-	private void cancella() throws  SQLException
-	{
+	private void cancella() throws SQLException, CsvValidationException, IOException {
 		
 		
 		cGP.cancella(Integer.parseInt(idL.getText()));
+		vis.setId(Integer.parseInt(idL.getText()));
 		
 	}
 	@FXML
@@ -125,29 +128,35 @@ public class BoundaryGestionePage implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 
-        try {
+		try {
             cGP=new ControllerGestionePage();
-        } catch (IOException e) {
+			table.setItems(null);
+
+		} catch (IOException e) {
 			java.util.logging.Logger.getLogger("Test initialize").log(Level.SEVERE, "eccezione ottenuta",e);
 
 		}
-        header.setText(cGP.settaHeader(vis.getType()));
-		
+
+		header.setText(cGP.settaHeader(vis.getType()));
+
 		titolo.setCellValueFactory(new PropertyValueFactory<>("titolo"));
-		if(vis.getType().equals("libro") || vis.getType().equals("rivista"))
-			tipologia.setCellValueFactory(null);
-		else 
-			tipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-		if(vis.getType().equals("giornale"))
-			autore.setCellValueFactory(null);
-		else 
-			autore.setCellValueFactory(new PropertyValueFactory<>("autore"));			
-		
+		tipologia.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 		editore.setCellValueFactory(new PropertyValueFactory<>("editore"));
+		autore.setCellValueFactory(new PropertyValueFactory<>("autore"));
 		prezzo.setCellValueFactory(new PropertyValueFactory<>("prezzo"));
 		id.setCellValueFactory(new PropertyValueFactory<>("id"));
-	
-		
+
+		if(vis.getType().equals("giornale")) {
+			tipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+			autore.setCellValueFactory(new PropertyValueFactory<>("editore"));
+		}
+		if(vis.getType().equals("rivista"))
+		{
+			tipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+
+		}
+
+
 		
 	}
 

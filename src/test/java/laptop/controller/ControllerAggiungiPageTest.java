@@ -1,5 +1,6 @@
 package laptop.controller;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.model.raccolta.Giornale;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class ControllerAggiungiPageTest {
     }
 
     @Test
-    void checkDataG() throws SQLException {
+    void checkDataG() throws SQLException, IOException, CsvValidationException {
         g.setTitolo(rbOggetto.getString("titoloG"));
         g.setTipologia(rbOggetto.getString("tipoG"));
         g.setLingua(rbOggetto.getString("lingua"));
@@ -32,7 +33,7 @@ class ControllerAggiungiPageTest {
     }
 
     @Test
-    void checkDataR() throws SQLException {
+    void checkDataR() throws SQLException, IOException, CsvValidationException {
         String[] info =new String[5];
         info[0]=rbOggetto.getString("titoloR");
         info[1]=rbOggetto.getString("tipoR");
@@ -47,7 +48,7 @@ class ControllerAggiungiPageTest {
     }
 
     @Test
-    void checkData() throws SQLException {
+    void checkData() throws SQLException, CsvValidationException, IOException {
         String[] info=new String[7];
         String [] infoGen=new String[6];
 

@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -62,7 +63,7 @@ public class BoundaryAggiungiPage implements Initializable {
 	@FXML
 	private TextField copieRimanentiT;
 	@FXML
-	private Button buttunC;
+	private Button buttonC;
 	@FXML
 	private Button buttonA;
 	@FXML
@@ -101,11 +102,10 @@ public class BoundaryAggiungiPage implements Initializable {
 	private final ObservableList<String> items = FXCollections.observableArrayList();
 	private final String[] infoGen=new String[6];
 	private final String[]infoCostoDisp =new String[6];
-	private final String[] info=new String[5];
+	private final String[] info=new String[6];
 
 	@FXML
-	private void conferma() throws SQLException
-	{
+	private void conferma() throws SQLException, CsvValidationException, IOException {
 		if(ControllerSystemState.getInstance().getType().equals("libro"))
 		{
 		
@@ -146,15 +146,26 @@ public class BoundaryAggiungiPage implements Initializable {
 		infoCostoDisp[2]=String.valueOf(copie);// settatodi proprosito
 		infoCostoDisp[5]=String.valueOf(50);//settato di proposito
 		
-		cAP.checkData(infoGen,r,desc,d,infoCostoDisp);
+		if(cAP.checkData(infoGen,r,desc,d,infoCostoDisp))
+		{
+			Stage stage;
+			Parent root;
+			stage = (Stage) buttonC.getScene().getWindow();
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("paginaGestione.fxml")));
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		}
+
+
 		}
 		else if(ControllerSystemState.getInstance().getType().equals("giornale"))
 		{
 			String title=titoloT.getText();
-			String type="Quotidiano";
 			String editor=editoreT.getText();
 			String language=linguaT.getText();
 			LocalDate date=dataP.getValue();
+			String tipologia=categoriaList.getSelectionModel().getSelectedItem();
 			boolean disp=disponibilitaC.isSelected();
 
 			int dispo;
@@ -172,11 +183,20 @@ public class BoundaryAggiungiPage implements Initializable {
 			prezzo=Float.parseFloat(prezzoT.getText());
 			copie=Integer.parseInt(copieRimanentiT.getText());
 			info[0]=title;
-			info[1]=type;
+			info[1]=tipologia;
 			info[2]=language;
 			info[4]=editor;
 			Giornale giornale = new Giornale(info,date, copie,dispo,prezzo,0);
-			cAP.checkDataG(giornale);
+			if(cAP.checkDataG(giornale))
+			{
+				Stage stage;
+				Parent root;
+				stage = (Stage) buttonC.getScene().getWindow();
+				root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("paginaGestione.fxml")));
+				scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			}
 			
 			
 			
@@ -209,7 +229,16 @@ public class BoundaryAggiungiPage implements Initializable {
 				dispo=0;
 			
 			
-			 cAP.checkDataR(info,data,dispo,prezzo,copie,desc);
+			 if(cAP.checkDataR(info,data,dispo,prezzo,copie,desc))
+			 {
+				 Stage stage;
+				 Parent root;
+				 stage = (Stage) buttonC.getScene().getWindow();
+				 root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("paginaGestione.fxml")));
+				 scene = new Scene(root);
+				 stage.setScene(scene);
+				 stage.show();
+			 }
 		}
 		
 
@@ -271,6 +300,13 @@ public class BoundaryAggiungiPage implements Initializable {
 		}
 		else if(ControllerSystemState.getInstance().getType().equals("rivista"))
 		{
+			numeroPagineL.setVisible(false);
+			numeroPagineT.setVisible(false);
+			codeIsbnL.setVisible(false);
+			codeIsbnT.setVisible(false);
+			recensioneL.setVisible(false);
+			recensioneT.setVisible(false);
+			pane.autosize();
 			categoriaList.setItems(items);
 			items.add("SETTIMANALE");
 			items.add("BISETTIMANALE");
@@ -288,6 +324,23 @@ public class BoundaryAggiungiPage implements Initializable {
 			items.add("INFORMATICA");
 			
 		}
+		else if(ControllerSystemState.getInstance().getType().equals("giornale"))
+			//disabilito le cose che non servono
+			numeroPagineL.setVisible(false);
+			numeroPagineT.setVisible(false);
+			codeIsbnL.setVisible(false);
+			codeIsbnT.setVisible(false);
+			autoreL.setVisible(false);
+			autoreT.setVisible(false);
+			recensioneL.setVisible(false);
+			recensioneT.setVisible(false);
+			descrizioneL.setVisible(false);
+			descrizioneA.setVisible(false);
+			pane.autosize();
+			categoriaList.setItems(items);
+
+
+			items.add("QUOTIDIANO");
 		
 	}
 

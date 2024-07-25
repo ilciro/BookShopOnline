@@ -63,7 +63,7 @@ class ControllerModifPageTest {
     }
 
     @Test
-    void checkDataR() throws SQLException {
+    void checkDataR() throws SQLException, CsvValidationException, IOException {
 
         //tipologia no , ma aggiorna
         String []info=new String[5];
@@ -86,7 +86,7 @@ class ControllerModifPageTest {
     }
 
     @Test
-    void checkDataL() {
+    void checkDataL() throws CsvValidationException, IOException {
         String [] info=new String[6];
         String []infoCosti=new String[6];
 

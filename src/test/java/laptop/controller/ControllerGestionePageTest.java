@@ -1,5 +1,7 @@
 package laptop.controller;
 
+import com.opencsv.exceptions.CsvValidationException;
+import laptop.exception.IdException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -17,21 +19,21 @@ class ControllerGestionePageTest {
     }
 
     @Test
-    void cancellaL() throws SQLException {
+    void cancellaL() throws SQLException, CsvValidationException, IOException {
         vis.setId(20);
         vis.setTypeAsBook();
         cGP.cancella(vis.getId());
         assertEquals(20,vis.getId());
     }
     @Test
-    void cancellaG() throws SQLException {
+    void cancellaG() throws SQLException, CsvValidationException, IOException {
         vis.setId(13);
         vis.setTypeAsDaily();
         cGP.cancella(vis.getId());
         assertEquals(13,vis.getId());
     }
     @Test
-    void cancellaR() throws SQLException {
+    void cancellaR() throws SQLException, CsvValidationException, IOException {
         vis.setId(6);
         vis.setTypeAsMagazine();
         cGP.cancella(vis.getId());
@@ -40,7 +42,7 @@ class ControllerGestionePageTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"libro","giornale","rivista"})
-    void getLista(String strings) {
+    void getLista(String strings) throws CsvValidationException, IOException, IdException {
         assertNotNull(cGP.getLista(strings));
     }
 

@@ -170,6 +170,16 @@ public class BoundaryModificaPage implements Initializable {
 					java.util.logging.Logger.getLogger("Test modif book").log(Level.SEVERE,"\n not modified ");
 
 				}
+                else
+                {
+                    Stage stage;
+                    Parent root;
+                    stage = (Stage) buttonC.getScene().getWindow();
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("paginaGestione.fxml")));
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
             }
             case "giornale" -> {
                 String t = titoloT.getText();
@@ -196,7 +206,16 @@ public class BoundaryModificaPage implements Initializable {
                 info[2] = ed;
                 info[3] = l;
 
-                cMP.checkDataG(info, d, dispo, prezzo, copie);
+                if(cMP.checkDataG(info, d, dispo, prezzo, copie)==1)
+                {
+                    Stage stage;
+                    Parent root;
+                    stage = (Stage) buttonC.getScene().getWindow();
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("paginaGestione.fxml")));
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
 
             }
             case "rivista" -> {
@@ -227,7 +246,16 @@ public class BoundaryModificaPage implements Initializable {
                 info[3] = l;
                 info[4] = e;
 
-                cMP.checkDataR(info, d, dispo, prezzo, copie, vis.getId(), desc);
+               if( cMP.checkDataR(info, d, dispo, prezzo, copie, vis.getId(), desc)==1)
+               {
+                   Stage stage;
+                   Parent root;
+                   stage = (Stage) buttonC.getScene().getWindow();
+                   root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("paginaGestione.fxml")));
+                   scene = new Scene(root);
+                   stage.setScene(scene);
+                   stage.show();
+               }
 
 
             }
@@ -309,16 +337,45 @@ public class BoundaryModificaPage implements Initializable {
                     items.add("TECNOLOGIA_MEDICINA");
                 }
                 case "giornale" -> {
+
+
+                    numeroPagineL.setVisible(false);
+                    labelNP.setVisible(false);
+                    numeroPagineT.setVisible(false);
+                    codeIsbnL.setVisible(false);
+                    labelCod.setVisible(false);
+                    codeIsbnT.setVisible(false);
+                    autoreL.setVisible(false);
+                    labelA.setVisible(false);
+                    autoreT.setVisible(false);
                     labelT.setText(cMP.getGiornaliById(vis.getId()).get(0).getTitolo());
                     labelE.setText(cMP.getGiornaliById(vis.getId()).get(0).getEditore());
                     labelL.setText(cMP.getGiornaliById(vis.getId()).get(0).getLingua());
-                    labelCat.setText("Quotidiano");
+                    labelCat.setText("QUOTIDIANO");
+                    recensioneL.setVisible(false);
+                    labelR.setVisible(false);
+                    recensioneT.setVisible(false);
+                    descrizioneL.setVisible(false);
+                    labelDesc.setVisible(false);
+                    descrizioneT.setVisible(false);
                     labelP.setText(String.valueOf(cMP.getGiornaliById(vis.getId()).get(0).getPrezzo()));
                     labelCopie.setText(String.valueOf(cMP.getGiornaliById(vis.getId()).get(0).getCopieRimanenti()));
                     labelD.setText(cMP.getGiornaliById(vis.getId()).get(0).getDataPubb().toString());
                     labelDisp.setText(String.valueOf(cMP.getGiornaliById(vis.getId()).get(0).getDisponibilita()));
                 }
                 case "rivista" -> {
+                      /*TODO sistemare pagian qui
+                        levare roba inutile
+                     */
+                    numeroPagineL.setVisible(false);
+                    labelNP.setVisible(false);
+                    numeroPagineT.setVisible(false);
+                    codeIsbnL.setVisible(false);
+                    labelCod.setVisible(false);
+                    codeIsbnT.setVisible(false);
+                    recensioneL.setVisible(false);
+                    labelR.setVisible(false);
+                    recensioneT.setVisible(false);
                     labelT.setText(cMP.getRivistaById(vis.getId()).get(0).getTitolo());
                     labelE.setText(cMP.getRivistaById(vis.getId()).get(0).getEditore());
                     labelA.setText(cMP.getRivistaById(vis.getId()).get(0).getAutore());

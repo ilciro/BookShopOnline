@@ -33,7 +33,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 	private static final String TITOLOG="titolo13";
 	private static final String DSTPATH="dstPath";
 
-	private String[] infoGenerali=new String[5];
+	private String[] infoGenerali=new String[6];
 
 
 
@@ -55,7 +55,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 		this.prezzo=prezzo;
 		this.id=id;
 		this.titolo=info[0];
-		this.tipologia=info[5];
+		this.tipologia=info[1];
 		this.editore=info[2];
 		this.lingua=info[4];
 		

@@ -1,5 +1,6 @@
 package laptop.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import javafx.collections.ObservableList;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
+import laptop.database.csv.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
@@ -22,6 +24,7 @@ public class ControllerModifPage {
 	private final Rivista r;
 	private final RivistaDao rD;
 	private final ControllerBookData cBD;
+	private final CsvOggettoDao csv;
 
 	
 	public ObservableList<Libro> getLibriById(int id) throws SQLException {
@@ -35,7 +38,7 @@ public class ControllerModifPage {
 	}
 	
 		
-		public void checkDataG(String[] info, LocalDate d, int dispo, float prezzo,
+		public int checkDataG(String[] info, LocalDate d, int dispo, float prezzo,
 				int copie) throws SQLException, CsvValidationException, IOException {
 			
 
@@ -47,8 +50,12 @@ public class ControllerModifPage {
 			g.setDisponibilita(dispo);
 			g.setPrezzo(prezzo);
 			g.setCopieRimanenti(copie);
+			if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+			{
+				csv.modificaGiornale(new File("report/reportGiornali.csv"),g);
+			}
 			
-			gD.aggiornaGiornale(g);
+			return gD.aggiornaGiornale(g);
 
 			
 		}
@@ -59,8 +66,8 @@ public class ControllerModifPage {
 		
 		
 
-		public void checkDataR(String [] info, LocalDate d,
-				int dispo, float prezzo, int copie, int id, String desc) throws SQLException {
+		public int checkDataR(String [] info, LocalDate d,
+				int dispo, float prezzo, int copie, int id, String desc) throws SQLException, CsvValidationException, IOException {
 			
 			r.setTitolo(info[0]);
 			r.setTipologia(info[1]);
@@ -73,8 +80,13 @@ public class ControllerModifPage {
 			r.setPrezzo(prezzo);
 			r.setCopieRim(copie);
 			r.setId(id);
+
+			if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+			{
+				csv.modificaRivista(new File("report/reportRiviste.csv"),r);
+			}
 			
-			rD.aggiornaRivista(r);
+			return rD.aggiornaRivista(r);
 			
 			
 		}
@@ -89,14 +101,19 @@ public class ControllerModifPage {
 		r=new Rivista();
 		rD=new RivistaDao();
 		cBD=new ControllerBookData();
+		csv=new CsvOggettoDao();
 	}
 	
 	
-	public boolean checkDataL(String []info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws NullPointerException
-	{
-		
+	public boolean checkDataL(String []info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws NullPointerException, CsvValidationException, IOException {
+
+		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+		{
+			csv.modificaLibro(new File("report/reportLibri.csv"),cBD.checkBookData(info,recensione,descrizione,data,infoCosti));
+		}
 		
 		return ld.aggiornaLibro(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));
+
 	}
 	
 	
