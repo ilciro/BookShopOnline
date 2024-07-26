@@ -244,31 +244,30 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         String[] gVector;
         int id = 0;
         try {
+
+
             if (vis.getMetodoP().equalsIgnoreCase("cash")) {
                 reader = new CSVReader(new FileReader(LOCATIONF));
                 while ((gVector = reader.readNext()) != null) {
                     id = Integer.parseInt(gVector[GETINDEXIDF]);
                 }
-                if (id == 0)
-                    throw new IdException(IDNULL);
+
             } else if (vis.getMetodoP().equalsIgnoreCase("cCredito")) {
                 reader = new CSVReader(new FileReader(LOCATIONCC));
                 while ((gVector = reader.readNext()) != null) {
                     id = Integer.parseInt(gVector[GETINDEXIDCC]);
-                    if (id == 0)
-                        throw new IdException(IDNULL);
 
                 }
             }
-
-                    else{
+               else{
                 reader = new CSVReader(new FileReader(LOCATIONP));
                 while ((gVector = reader.readNext()) != null) {
                     id = Integer.parseInt(gVector[GETINDEXIDP]);
                 }
-                if (id == 0)
-                    throw new IdException(IDNULL);
+
             }
+            if (id == 0)
+                throw new IdException(IDNULL);
 
     }catch (IdException e)
         {
