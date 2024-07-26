@@ -335,19 +335,19 @@ public class Libro implements Raccolta {
 
 
 		switch (i) {
-			case 1 -> f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo1"));
-			case 2->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo2"));
-			case 3->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo3"));
-			case 4->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo4"));
-			case 5->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo5"));
-			case 6->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo6"));
-			case 7->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo7"));
-			case 8->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo8"));
-			case 9->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo9"));
-			case 10->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo10"));
-			case 11->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo11"));
+			case 1 -> this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo1"));
+			case 2->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo2"));
+			case 3->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo3"));
+			case 4->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo4"));
+			case 5->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo5"));
+			case 6->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo6"));
+			case 7->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo7"));
+			case 8->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo8"));
+			case 9->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo9"));
+			case 10->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo10"));
+			case 11->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo11"));
 
-			case 12->f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo12"));
+			case 12->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo12"));
 
 			default -> 	Logger.getLogger("Test leggi").log(Level.SEVERE, "read error");
 		}

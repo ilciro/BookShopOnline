@@ -22,6 +22,7 @@ web/servlet/ProfiloServlet.class
 web/servlet/ResetPasswordServlet.class
 laptop/controller/ControllerVisualizza.class
 laptop/controller/ControllerAcquista.class
+laptop/database/csvpagamento/FatturaPagamentoCCredito.class
 web/servlet/InserisciUtenteServlet.class
 laptop/controller/ControllerCompravendita.class
 laptop/controller/ControllerPassword.class
@@ -59,7 +60,6 @@ laptop/view/BoundaryRicercaPerTipo.class
 laptop/view/BoundaryVisualizzaOrdine.class
 laptop/controller/ControllerCancellaUser.class
 web/servlet/NegozioServlet.class
-laptop/database/csvpagamento/PagamentoCsv.class
 laptop/view/BoundaryHomePageAfterLoginSE.class
 laptop/model/raccolta/CategorieRivista.class
 web/servlet/IndexServlet.class
@@ -122,11 +122,9 @@ web/servlet/GiornaliServlet.class
 laptop/view/BoundaryAggiungiUtente.class
 laptop/view/BoundaryModificaUtente.class
 laptop/database/UsersDao.class
-laptop/database/csvpagamento/FatturaCsv.class
 laptop/model/raccolta/Raccolta.class
 web/servlet/DownloadServletG.class
 web/servlet/AcquistaServlet.class
-laptop/database/csvpagamento/CartaCreditoCsv.class
 laptop/controller/ControllerAggiungiPage.class
 laptop/model/raccolta/Libro.class
 web/bean/AcquistaBean.class

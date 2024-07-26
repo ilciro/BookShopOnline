@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,7 +89,7 @@ public class BoundaryPagamentoCC implements Initializable {
 	private static final ControllerSystemState vis = ControllerSystemState.getInstance();
 
 	@FXML
-	private void procediCC() throws IOException, SQLException, IdException {
+	private void procediCC() throws IOException, SQLException, IdException, CsvValidationException {
 		vis.setMetodoP("cCredito");
 
 		String cod = codiceTF.getText();
@@ -168,7 +169,7 @@ public class BoundaryPagamentoCC implements Initializable {
 	}
 
 	@FXML
-	public void registraCC() throws ParseException, SQLException, IdException {
+	public void registraCC() throws ParseException, SQLException, IdException, CsvValidationException, IOException {
 		
 
 		String nome = nomeTF.getText();

@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,7 +63,7 @@ public class BoundaryPagamentoCash implements Initializable{
 	private static final ControllerSystemState vis = ControllerSystemState.getInstance();
 
 	@FXML
-	private void procediCash() throws IOException, SQLException, IdException {
+	private void procediCash() throws IOException, SQLException, IdException, CsvValidationException {
 		
 		vis.setMetodoP("cash");
 

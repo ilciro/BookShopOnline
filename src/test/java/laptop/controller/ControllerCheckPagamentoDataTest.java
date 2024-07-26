@@ -1,12 +1,12 @@
 package laptop.controller;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.exception.IdException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerCheckPagamentoDataTest {
     private final ControllerCheckPagamentoData cCPD=new ControllerCheckPagamentoData();
@@ -16,7 +16,7 @@ class ControllerCheckPagamentoDataTest {
     }
 
     @Test
-    void checkPagamentoDataL() throws SQLException, IdException {
+    void checkPagamentoDataL() throws SQLException, IdException, CsvValidationException, IOException {
         vis.setTypeAsBook();
         vis.setSpesaT(12f);
         vis.setId(6);
@@ -24,7 +24,7 @@ class ControllerCheckPagamentoDataTest {
 
     }
     @Test
-    void checkPagamentoDataG() throws SQLException, IdException {
+    void checkPagamentoDataG() throws SQLException, IdException, CsvValidationException, IOException {
         vis.setTypeAsDaily();
         vis.setSpesaT(2);
         vis.setId(1);
@@ -32,7 +32,7 @@ class ControllerCheckPagamentoDataTest {
 
     }
     @Test
-    void checkPagamentoDataR() throws SQLException, IdException {
+    void checkPagamentoDataR() throws SQLException, IdException, CsvValidationException, IOException {
         vis.setTypeAsMagazine();
         vis.setSpesaT(5f);
         vis.setId(6);

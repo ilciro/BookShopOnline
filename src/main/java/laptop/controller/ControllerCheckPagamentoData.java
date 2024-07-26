@@ -3,10 +3,12 @@ package laptop.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.PagamentoDao;
 import laptop.database.RivistaDao;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Pagamento;
 import laptop.model.raccolta.Giornale;
@@ -21,7 +23,8 @@ public class ControllerCheckPagamentoData {
 	private final LibroDao  lD;
 	private final RivistaDao rD;
 	private final PagamentoDao pagD;
-	public void checkPagamentoData(String nome) throws SQLException, IdException {
+	private final FatturaPagamentoCCredito csv;
+	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
 		String tipo=vis.getType();
 		
 		Pagamento p;
@@ -71,6 +74,11 @@ public class ControllerCheckPagamentoData {
 			default: break;
 		}
 		pagD.inserisciPagamento(p);
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+			csv.report();
+			csv.inserisciPagamento(p);
+		}
 
 		
 		
@@ -82,6 +90,7 @@ public class ControllerCheckPagamentoData {
 		lD=new LibroDao();
 		rD=new RivistaDao();
 		pagD=new PagamentoDao();
+		csv=new FatturaPagamentoCCredito();
 		
 	}
 	private void checkID(int id) throws IdException {

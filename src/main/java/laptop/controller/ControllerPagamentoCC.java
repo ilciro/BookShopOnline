@@ -5,10 +5,11 @@ import java.sql.SQLException;
 
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
 import laptop.database.*;
 
-import laptop.database.csvpagamento.PagamentoCsv;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Pagamento;
@@ -24,47 +25,47 @@ public class ControllerPagamentoCC {
 	private boolean state=false;
 
 
-	private final PagamentoCsv pagCsv;
+	private final FatturaPagamentoCCredito csv;
 	
 	
 	private int cont=0;
 	private final ControllerCheckPagamentoData cCPD;
 
 	public boolean controllaPag(String d, String c,String civ) {
-		int x;
+		try {
+			int x;
 
-		 int anno;
-		 int mese;
-		 int giorno;
-		String[] verifica;
-
-
-		appoggio = appoggio + d;
-		  anno = Integer.parseInt((String) appoggio.subSequence(0, 4));
-		  mese = Integer.parseInt((String) appoggio.subSequence(5, 7));
-		  giorno = Integer.parseInt((String) appoggio.subSequence(8, 10));
-		
-		if (anno > 2020 && (mese >= 1 && mese <= 12) && (giorno >= 1 && giorno <= 31) && c.length() <= 20 && civ.length()==3 ) {
+			int anno;
+			int mese;
+			int giorno;
+			String[] verifica;
 
 
-				
-					 verifica= c.split("-");
-					
-					for ( x=0; x<verifica.length; x++) {
-							if(verifica[x].length()==4)
-							{
-								cont++;
-							}
+			appoggio = appoggio + d;
+			anno = Integer.parseInt((String) appoggio.subSequence(0, 4));
+			mese = Integer.parseInt((String) appoggio.subSequence(5, 7));
+			giorno = Integer.parseInt((String) appoggio.subSequence(8, 10));
+
+			if (anno > 2020 && (mese >= 1 && mese <= 12) && (giorno >= 1 && giorno <= 31) && c.length() <= 20 && civ.length() == 3) {
+
+
+				verifica = c.split("-");
+
+				for (x = 0; x < verifica.length; x++) {
+					if (verifica[x].length() == 4) {
+						cont++;
 					}
-					if (cont==4)
-					{
-						state=true;
-					}
-					
-				
+				}
+				if (cont == 4) {
+					state = true;
+				}
 
-		} 
-		
+
+			}
+		}catch (NumberFormatException e)
+		{
+			java.util.logging.Logger.getLogger("procedi cash").log(Level.SEVERE,"\n errore nel pagamento");
+		}
 		
 		return state;
 
@@ -78,12 +79,11 @@ public class ControllerPagamentoCC {
 		
 		cCPD=new ControllerCheckPagamentoData();
 
-		pagCsv=new PagamentoCsv();
-		
+		csv=new FatturaPagamentoCCredito();
 	}
 
 	public void aggiungiCartaDB(String n, String c, String cod, java.sql.Date data, String civ, float prezzo)
-			throws SQLException, IdException {
+            throws SQLException, IdException, CsvValidationException, IOException {
 		
 		
 		
@@ -116,18 +116,9 @@ public class ControllerPagamentoCC {
 		return cDao.popolaDati(cc);
 	}
 
-	public void pagamentoCC(String nome) throws SQLException, IdException, IOException {
+	public void pagamentoCC(String nome) throws SQLException, IdException, IOException, CsvValidationException {
 		Pagamento p;
-		p=new Pagamento(0,"cartaCredito", 0,nome,vis.getSpesaT(), null);
-			
-		//inserire qui
-		p.setMetodo("cCredito");
-		p.setNomeUtente(nome);
-
-
-
-
-
+		p=new Pagamento(0,"cCredito", 0,nome,vis.getSpesaT(), null);
 
 		cCPD.checkPagamentoData(nome);
 		
@@ -145,7 +136,7 @@ public class ControllerPagamentoCC {
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
-			pagCsv.report();
+			csv.report();
 		}
 	}
 	
