@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.IdentityHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +68,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private static final String LOCATIONP="report/reportPagamento.csv";
     private static final String QUERYP="select idPagamento,metodo,esito,nomeUtente,spesaTotale,email,tipoAcquisto,idProdotto from PAGAMENTO ";
 
-    private static File fd ;
+    private static final String IDNULL=" id is null !!";
 
 
     private static void cleanUp(Path path) throws IOException {
@@ -80,15 +79,12 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         switch (vis.getMetodoP())
         {
             case "cash":
-                fd=new File(LOCATIONF);
                 generaReportF();
                 break;
             case "cCredito":
-                fd=new File(LOCATIONCC);
                 generaReportCC();
                 break;
             default:
-                fd=new File(LOCATIONP);
                 generaReportP();
         }
 
@@ -110,6 +106,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
     private static synchronized void generaReportF() throws IOException {
+        File fd=new File(LOCATIONF);
         try {
             cleanUp(Path.of(fd.toURI()));
             Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONF + DELETED);
@@ -145,6 +142,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
     }
     private static synchronized void generaReportCC () throws IOException {
+        File fd=new File(LOCATIONCC);
         try {
             cleanUp(Path.of(fd.toURI()));
             Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONCC + DELETED);
@@ -180,6 +178,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
     }
     private static synchronized void generaReportP() throws IOException {
+        File fd=new File(LOCATIONP);
         try {
             cleanUp(Path.of(fd.toURI()));
             Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONP + DELETED);
@@ -244,7 +243,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                         id = Integer.parseInt(gVector[GETINDEXIDF]);
                     }
                     if (id == 0)
-                        throw new IdException(" id is null");
+                        throw new IdException(IDNULL);
                     break;
                 }
                 case "cCredito": {
@@ -252,7 +251,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                     while ((gVector = reader.readNext()) != null) {
                         id = Integer.parseInt(gVector[GETINDEXIDCC]);
                         if (id == 0)
-                            throw new IdException(" id is null");
+                            throw new IdException(IDNULL);
                     }
                     break;
                 }
@@ -265,7 +264,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                 id = Integer.parseInt(gVector[GETINDEXIDP]);
             }
             if (id == 0)
-                throw new IdException(" id is null");
+                throw new IdException(IDNULL);
         }catch (IdException e)
         {
             java.util.logging.Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
