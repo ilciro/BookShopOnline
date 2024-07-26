@@ -81,7 +81,7 @@ public class CsvOggettoDao implements DaoInterface{
     private static final int GETINDEXIDR=10;
     private static final String QUERYR = "select titolo,tipologia,autore,lingua,editore,descrizione,dataPubblicazione,disp,prezzo,copieRimanenti,idRivista from RIVISTA";
     private static final File fdr = new File(LOCATIONR);
-    private static final String LIBRO="LIBRO";
+    private static final String LIBRO="libro";
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
     private static final String DELETED=" deleted";
