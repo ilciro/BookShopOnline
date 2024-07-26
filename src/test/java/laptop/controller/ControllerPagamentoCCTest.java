@@ -31,7 +31,7 @@ class ControllerPagamentoCCTest {
     }
 
     @Test
-    void ritornaElencoCC() {
+    void ritornaElencoCC() throws CsvValidationException, IOException, IdException {
         assertNotNull(cPCC.ritornaElencoCC("franco"));
     }
 

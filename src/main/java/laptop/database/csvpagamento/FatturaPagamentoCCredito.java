@@ -3,21 +3,22 @@ package laptop.database.csvpagamento;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import laptop.controller.ControllerSystemState;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Fattura;
 import laptop.model.Pagamento;
 import laptop.model.User;
+import laptop.model.raccolta.Libro;
 import laptop.utilities.ConnToDb;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -104,6 +105,13 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     public void inserisciPagamento(Pagamento p) throws IOException, CsvValidationException {
         creaPagamento(p);
     }
+
+    @Override
+    public ObservableList<CartaDiCredito> getAllDataCredito(String nome) throws CsvValidationException, IOException, IdException {
+        return listCarteCredito(nome);
+    }
+
+
 
     private static synchronized void generaReportF() throws IOException {
         File fd=new File(LOCATIONF);
@@ -230,51 +238,50 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         csvWriter.close();
     }
 
-    public static synchronized int getIdMax() throws IOException, CsvValidationException {
+    private static synchronized int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
-        CSVReader reader;
+        CSVReader reader = null;
         String[] gVector;
         int id = 0;
         try {
-            switch (vis.getMetodoP()) {
-                case "cash": {
-                    reader = new CSVReader(new FileReader(LOCATIONF));
-                    while ((gVector = reader.readNext()) != null) {
-                        id = Integer.parseInt(gVector[GETINDEXIDF]);
-                    }
+            if (vis.getMetodoP().equalsIgnoreCase("cash")) {
+                reader = new CSVReader(new FileReader(LOCATIONF));
+                while ((gVector = reader.readNext()) != null) {
+                    id = Integer.parseInt(gVector[GETINDEXIDF]);
+                }
+                if (id == 0)
+                    throw new IdException(IDNULL);
+            } else if (vis.getMetodoP().equalsIgnoreCase("cCredito")) {
+                reader = new CSVReader(new FileReader(LOCATIONCC));
+                while ((gVector = reader.readNext()) != null) {
+                    id = Integer.parseInt(gVector[GETINDEXIDCC]);
                     if (id == 0)
                         throw new IdException(IDNULL);
-                    break;
-                }
-                case "cCredito": {
-                    reader = new CSVReader(new FileReader(LOCATIONCC));
-                    while ((gVector = reader.readNext()) != null) {
-                        id = Integer.parseInt(gVector[GETINDEXIDCC]);
-                        if (id == 0)
-                            throw new IdException(IDNULL);
-                    }
-                    break;
-                }
-                                default:
-                    java.util.logging.Logger.getLogger("Test General connection standard").log(Level.INFO, "Connesso standard a sys........\n");
 
+                }
             }
-            reader = new CSVReader(new FileReader(LOCATIONP));
-            while ((gVector = reader.readNext()) != null) {
-                id = Integer.parseInt(gVector[GETINDEXIDP]);
+
+                    else{
+                reader = new CSVReader(new FileReader(LOCATIONP));
+                while ((gVector = reader.readNext()) != null) {
+                    id = Integer.parseInt(gVector[GETINDEXIDP]);
+                }
+                if (id == 0)
+                    throw new IdException(IDNULL);
             }
-            if (id == 0)
-                throw new IdException(IDNULL);
-        }catch (IdException e)
+
+    }catch (IdException e)
         {
-            java.util.logging.Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
+            Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
             id=0;
         }
+
         return id;
 
     }
 
     private static synchronized void creaCC(CartaDiCredito cc) throws IOException, CsvValidationException {
+       cleanUp(Path.of(LOCATIONCC));
         CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONCC,true)));
         String[] gVectore=new String[7];
         gVectore[GETINDEXNOMEPCC]=cc.getNomeUser();
@@ -284,7 +291,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         gVectore[GETINDEXPINCC]=cc.getCiv();
         gVectore[GETINDEXAMMONTARECC]= String.valueOf(cc.getAmmontare());
         gVectore[GETINDEXIDCC]= String.valueOf(getIdMax()+1);
-
         csvWriter.writeNext(gVectore);
         csvWriter.flush();
         csvWriter.close();
@@ -305,6 +311,43 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         csvWriter.writeNext(gVectore);
         csvWriter.flush();
         csvWriter.close();
+    }
+
+    private static synchronized ObservableList<CartaDiCredito> listCarteCredito(String nome) throws CsvValidationException, IOException, IdException {
+        ObservableList<CartaDiCredito> gList = FXCollections.observableArrayList();
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(LOCATIONCC)));
+        String[] gVEctor;
+
+
+        while ((gVEctor = csvReader.readNext()) != null) {
+            boolean found=gVEctor[GETINDEXNOMEPCC].equals(nome);
+                if(found) {
+                    String nomeU = gVEctor[GETINDEXNOMEPCC];
+                    String cognome = gVEctor[GETINDEXCOGNOMEPCC];
+                    String codice = gVEctor[GETINDEXCODICECARTACC];
+                    String scadenza = gVEctor[GETINDEXSCADENZACC];
+                    String pin = gVEctor[GETINDEXPINCC];
+                    String ammontare = gVEctor[GETINDEXAMMONTARECC];
+
+                    CartaDiCredito cc=new CartaDiCredito();
+                    cc.setNomeUser(nomeU);
+                    cc.setCognomeUser(cognome);
+                    cc.setNumeroCC(codice);
+                    cc.setScadenza(Date.valueOf(LocalDate.parse(scadenza)));
+                    cc.setCiv(pin);
+                    cc.setAmmontare(Double.parseDouble(ammontare));
+
+
+
+                    gList.add(cc);
+                }
+
+        }
+        csvReader.close();
+        if (gList.isEmpty()) {
+            throw new IdException("CartaCredito non trovate!!");
+        }
+        return gList;
     }
 
 }

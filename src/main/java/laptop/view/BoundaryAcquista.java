@@ -96,7 +96,9 @@ public class BoundaryAcquista implements Initializable {
 			java.util.logging.Logger.getLogger("Test pagacc").log(Level.SEVERE,"\n Non vi e sufficiente disponibilita");
 		}
 		else {
-		Stage stage;
+			vis.setMetodoP("cCredito");
+
+			Stage stage;
 		Parent root;
 		stage = (Stage) buttonCC.getScene().getWindow();
 		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pagamentoCC.fxml")));
@@ -129,12 +131,13 @@ public class BoundaryAcquista implements Initializable {
 			stage.setScene(scene);
 			stage.show();
 			java.util.logging.Logger.getLogger("Test pagacc").log(Level.SEVERE,"\n Non vi e sufficiente disponibilita");
-			
+
 
 
 		}
 		else {
 
+			vis.setMetodoP("cash");
 
 		Stage stage;
 		Parent root;

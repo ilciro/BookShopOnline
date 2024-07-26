@@ -193,7 +193,8 @@ public class BoundaryPagamentoCC implements Initializable {
 				java.util.logging.Logger.getLogger("Test pagacc").log(Level.SEVERE,"\n eccezione ottenuta {0}",e.toString());
 
 		    }
-		cPCC.aggiungiCartaDB(nome, cognome, codice, sqlDate, civ, (float) 0.0);
+		cPCC.aggiungiCartaDB(nome, cognome, codice, sqlDate, civ, vis.getSpesaT());
+
 		
 		 
 		 
@@ -224,7 +225,7 @@ public class BoundaryPagamentoCC implements Initializable {
 				buttonPrendi.setDisable(false);
 				tableCC.setItems(cPCC.ritornaElencoCC(nomeUt));
 			}
-		} catch (IOException e) {
+		} catch (IOException| CsvValidationException |IdException e) {
 			e.getMessage();
 		}
 		buttonPrendi.setDisable(false);

@@ -89,8 +89,12 @@ public class ControllerPagamentoCC {
 		
 			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);
 						
-			cc.setPrezzoTransazine(vis.getSpesaT());
 			cDao.insCC(cc);
+
+			if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+			{
+				csv.inserisciCartaCredito(cc);
+			}
 						
 			Pagamento p;
 			 p=new Pagamento(0,"cc",0,cc.getNomeUser(),vis.getSpesaT(),null);
@@ -104,9 +108,16 @@ public class ControllerPagamentoCC {
 
 	}
 
-	public ObservableList<CartaDiCredito> ritornaElencoCC(String nomeU)  {
-		
+	public ObservableList<CartaDiCredito> ritornaElencoCC(String nomeU) throws CsvValidationException, IOException, IdException {
+
+        if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+            csv.getAllDataCredito(nomeU);
+        }
+
 		return cDao.getCarteCredito(nomeU);
+
+
 	}
 	
 	public CartaDiCredito tornaDalDb(String codiceCarta)
