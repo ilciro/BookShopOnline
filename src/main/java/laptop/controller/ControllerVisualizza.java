@@ -1,12 +1,16 @@
 package laptop.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
+import laptop.database.csv.CsvOggettoDao;
+import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
@@ -23,6 +27,7 @@ public class ControllerVisualizza {
 	
 	
 	private final ControllerSystemState vis = ControllerSystemState.getInstance() ;
+	private final CsvOggettoDao csv=new CsvOggettoDao();
 	
 	public ControllerVisualizza() throws IOException {
 		l = new Libro();
@@ -43,12 +48,16 @@ public class ControllerVisualizza {
 
 		return vis.getId();
 	}
-	public Libro getDataL(int i) throws SQLException
-	{
+	public Libro getDataL(int i) throws SQLException, CsvValidationException, IOException, IdException {
 		// imposto che è un libro nel controller
 		vis.setId(i);
 		l.setId(vis.getId());
-		return  lD.getData(l);
+
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+            return csv.retrieveAllLibroData(new File("report/reportLibro.csv"),l.getId(),"");
+		}
+		else 		return  lD.getData(l);
 	}
 	public Giornale getDataG(int i) throws SQLException
 	{

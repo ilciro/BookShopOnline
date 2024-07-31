@@ -8,6 +8,7 @@ import laptop.database.ContrassegnoDao;
 import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
+import laptop.model.Pagamento;
 
 
 public class ControllerPagamentoCash {
@@ -16,7 +17,7 @@ public class ControllerPagamentoCash {
 	private final ControllerSystemState vis= ControllerSystemState.getInstance();
 	private final ControllerCheckPagamentoData cCPD;
 	private final FatturaPagamentoCCredito fCsv;
-	
+
 	
 
 	public void controlla(String nome, String cognome, String via, String com) throws SQLException, IdException, IOException, CsvValidationException {
@@ -30,24 +31,24 @@ public class ControllerPagamentoCash {
 			f.setVia(via);
 			f.setCom(com);
 			f.setAmmontare(spesa);
-			
-	 		
 
-					
-			
-			cD.inserisciFattura(f);
-			
-			
-			cCPD.checkPagamentoData(nome);
 
-			if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 			{
-				fCsv.report();
+
 				fCsv.inserisciFattura(f);
+				cCPD.checkPagamentoData(f.getNome());
+				System.out.println(" id in pagamento cash :" + vis.getId());
+
 			}
-			
-			
-			
+
+			else {
+				cD.inserisciFattura(f);
+				cCPD.checkPagamentoData(f.getNome());
+
+		}
+
 			
 	}
 
@@ -56,7 +57,7 @@ public class ControllerPagamentoCash {
 		f = new Fattura();
 		cCPD=new ControllerCheckPagamentoData();
 		fCsv=new FatturaPagamentoCCredito();
-		
+
 		
 	}
 

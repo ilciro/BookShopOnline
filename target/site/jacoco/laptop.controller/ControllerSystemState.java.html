@@ -17,100 +17,110 @@ public class ControllerSystemState {
 	 private String metodoP; //usato per vedere se contanti o cc
 
 	private int idOggetto; //usato nel pagamento
+
+	private String typeOfDb;
 	 
-<span class="fc" id="L21">	 private static ControllerSystemState instance = null;</span>
+<span class="fc" id="L23">	 private static ControllerSystemState instance = null;</span>
 
 	    private ControllerSystemState() {}
 
 	    public static ControllerSystemState getInstance() {
-<span class="fc bfc" id="L26" title="All 2 branches covered.">	        if (instance == null) {</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">	        if (instance == null) {</span>
 	          
-<span class="fc" id="L28">	        	instance = new ControllerSystemState();</span>
+<span class="fc" id="L30">	        	instance = new ControllerSystemState();</span>
 	                }
 	       
-<span class="fc" id="L31">	        return instance;</span>
+<span class="fc" id="L33">	        return instance;</span>
 	    }
 	 public int getQuantita() {
-<span class="fc" id="L34">		return quantita;</span>
+<span class="nc" id="L36">		return quantita;</span>
 	}
 
 	public void setQuantita(int quantita) {
-<span class="fc" id="L38">		this.quantita = quantita;</span>
-<span class="fc" id="L39">	}</span>
+<span class="nc" id="L40">		this.quantita = quantita;</span>
+<span class="nc" id="L41">	}</span>
 
 	public float getSpesaT() {
-<span class="fc" id="L42">		return spesaT;</span>
+<span class="nc" id="L44">		return spesaT;</span>
 	}
 
 	public void setSpesaT(float spesaT) {
-<span class="fc" id="L46">		this.spesaT = spesaT;</span>
-<span class="fc" id="L47">	}</span>
+<span class="nc" id="L48">		this.spesaT = spesaT;</span>
+<span class="nc" id="L49">	}</span>
 
 	
 
 	public int getId() {
-<span class="fc" id="L52">		return id;</span>
+<span class="fc" id="L54">		return id;</span>
 	}
 
 	public void setId(int id) {
-<span class="fc" id="L56">		this.id = id;</span>
-<span class="fc" id="L57">	}</span>
+<span class="fc" id="L58">		this.id = id;</span>
+<span class="fc" id="L59">	}</span>
 	public void setTypeAsBook()
 	{
-<span class="fc" id="L60">		this.type = &quot;libro&quot;;</span>
-<span class="fc" id="L61">	}</span>
+<span class="fc" id="L62">		this.type = &quot;libro&quot;;</span>
+<span class="fc" id="L63">	}</span>
 	public void setTypeAsMagazine()
 	{
-<span class="fc" id="L64">		this.type = &quot;rivista&quot;;</span>
-<span class="fc" id="L65">	}</span>
+<span class="fc" id="L66">		this.type = &quot;rivista&quot;;</span>
+<span class="fc" id="L67">	}</span>
 	public void setTypeAsDaily()
 	{
-<span class="fc" id="L68">		this.type = &quot;giornale&quot;;</span>
-<span class="fc" id="L69">	}</span>
+<span class="fc" id="L70">		this.type = &quot;giornale&quot;;</span>
+<span class="fc" id="L71">	}</span>
 	public String getType()
 	{
-<span class="fc" id="L72">		return type;</span>
+<span class="fc" id="L74">		return type;</span>
 	}
 
 	public boolean getIsLogged() {
-<span class="nc" id="L76">		return isLogged;</span>
+<span class="nc" id="L78">		return isLogged;</span>
 	}
 
 	public void setIsLogged(boolean isLogged) {
-<span class="fc" id="L80">		this.isLogged = isLogged;</span>
-<span class="fc" id="L81">	}</span>
+<span class="nc" id="L82">		this.isLogged = isLogged;</span>
+<span class="nc" id="L83">	}</span>
 	
 	public boolean getIsSearch() {
-<span class="nc" id="L84">		return isSearch;</span>
+<span class="nc" id="L86">		return isSearch;</span>
 	}
 
 	public void setIsSearch(boolean isSearch) {
-<span class="fc" id="L88">		this.isSearch = isSearch;</span>
-<span class="fc" id="L89">	}</span>
+<span class="nc" id="L90">		this.isSearch = isSearch;</span>
+<span class="nc" id="L91">	}</span>
 
 	public boolean getIsPickup() {
-<span class="nc" id="L92">		return isPickup;</span>
+<span class="nc" id="L94">		return isPickup;</span>
 	}
 
 	public void setPickup(boolean isPickup) {
-<span class="nc" id="L96">		this.isPickup = isPickup;</span>
-<span class="nc" id="L97">	}</span>
+<span class="nc" id="L98">		this.isPickup = isPickup;</span>
+<span class="nc" id="L99">	}</span>
 
 	public String getMetodoP() {
-<span class="fc" id="L100">		return metodoP;</span>
+<span class="nc" id="L102">		return metodoP;</span>
 	}
 
 	public void setMetodoP(String metodoP) {
-<span class="fc" id="L104">		this.metodoP = metodoP;</span>
-<span class="fc" id="L105">	}</span>
+<span class="nc" id="L106">		this.metodoP = metodoP;</span>
+<span class="nc" id="L107">	}</span>
 
 
 	public int getIdOggetto() {
-<span class="nc" id="L109">		return idOggetto;</span>
+<span class="nc" id="L111">		return idOggetto;</span>
 	}
 
 	public void setIdOggetto(int idOggetto) {
-<span class="nc" id="L113">		this.idOggetto = idOggetto;</span>
-<span class="nc" id="L114">	}</span>
+<span class="nc" id="L115">		this.idOggetto = idOggetto;</span>
+<span class="nc" id="L116">	}</span>
+
+	public String getTypeOfDb() {
+<span class="fc" id="L119">		return typeOfDb;</span>
+	}
+
+	public void setTypeOfDb(String typeOfDb) {
+<span class="fc" id="L123">		this.typeOfDb = typeOfDb;</span>
+<span class="fc" id="L124">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

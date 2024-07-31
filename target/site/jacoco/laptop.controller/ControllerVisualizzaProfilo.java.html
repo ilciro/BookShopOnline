@@ -8,7 +8,7 @@ import laptop.model.User;
 
 
 public class ControllerVisualizzaProfilo {
-<span class="fc" id="L11">	private boolean status=false;</span>
+<span class="nc" id="L11">	private boolean status=false;</span>
 
 	public User getCredenziali() throws SQLException {
 
@@ -17,21 +17,21 @@ public class ControllerVisualizzaProfilo {
 	}
 
 	public ControllerVisualizzaProfilo()
-<span class="fc" id="L20">	{</span>
-<span class="fc" id="L21">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO, &quot;Costruttore ControllerVisualizzaProfilo&quot;);</span>
+<span class="nc" id="L20">	{</span>
+<span class="nc" id="L21">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO, &quot;Costruttore ControllerVisualizzaProfilo&quot;);</span>
 
-<span class="fc" id="L23">	}</span>
+<span class="nc" id="L23">	}</span>
 
 	public boolean cancellaUtente() throws SQLException {
 		
 		
-<span class="pc bpc" id="L28" title="1 of 2 branches missed.">		if(UsersDao.deleteUser(User.getInstance()))</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">		if(UsersDao.deleteUser(User.getInstance()))</span>
 		{
-<span class="fc" id="L30">			status=true;</span>
+<span class="nc" id="L30">			status=true;</span>
 		}
 		
  
-<span class="fc" id="L34">		return status;</span>
+<span class="nc" id="L34">		return status;</span>
 
 	}
 }

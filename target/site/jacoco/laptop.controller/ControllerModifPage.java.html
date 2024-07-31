@@ -7,10 +7,10 @@ import java.time.LocalDate;
 
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
-import laptop.database.CsvGiornaleDao;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
+import laptop.database.csv.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
@@ -24,86 +24,99 @@ public class ControllerModifPage {
 	private final Rivista r;
 	private final RivistaDao rD;
 	private final ControllerBookData cBD;
-<span class="fc" id="L27">	private final CsvGiornaleDao csv=new CsvGiornaleDao();</span>
-	private static final String LOCATION=&quot;report/reportGiornali.csv&quot;;
-	
+	private final CsvOggettoDao csv;
+
 	
 	public ObservableList&lt;Libro&gt; getLibriById(int id) throws SQLException {
-<span class="fc" id="L32">		l.setId(id);</span>
-<span class="fc" id="L33">		return ld.getLibroIdTitoloAutore(l);</span>
+<span class="nc" id="L31">		l.setId(id);</span>
+<span class="nc" id="L32">		return ld.getLibroIdTitoloAutore(l);</span>
 	}
 	
 	public ObservableList&lt;Giornale&gt; getGiornaliById(int id) throws SQLException, CsvValidationException, IOException, IdException {
-<span class="fc" id="L37">		g.setId(id);</span>
-<span class="fc" id="L38">		csv.giornaleById(new File(LOCATION),g.getId());</span>
-<span class="fc" id="L39">		return gD.getGiornaleIdTitoloAutore(g);</span>
+<span class="nc" id="L36">		g.setId(id);</span>
+<span class="nc" id="L37">		return gD.getGiornaleIdTitoloAutore(g);</span>
 	}
 	
 		
-		public void checkDataG(String[] info, LocalDate d, int dispo, float prezzo,
-				int copie) throws SQLException, CsvValidationException, IOException {
+		public int checkDataG(String[] info, LocalDate d, int dispo, float prezzo,
+				int copie) throws SQLException, CsvValidationException, IOException, IdException {
 			
 
-<span class="fc" id="L47">			g.setTitolo(info[0]);</span>
-<span class="fc" id="L48">			g.setTipologia(info[1]);</span>
-<span class="fc" id="L49">			g.setEditore(info[2]);</span>
-<span class="fc" id="L50">			g.setLingua(info[3]);</span>
-<span class="fc" id="L51">			g.setDataPubb(d);</span>
-<span class="fc" id="L52">			g.setDisponibilita(dispo);</span>
-<span class="fc" id="L53">			g.setPrezzo(prezzo);</span>
-<span class="fc" id="L54">			g.setCopieRimanenti(copie);</span>
+<span class="nc" id="L45">			g.setTitolo(info[0]);</span>
+<span class="nc" id="L46">			g.setTipologia(info[1]);</span>
+<span class="nc" id="L47">			g.setEditore(info[2]);</span>
+<span class="nc" id="L48">			g.setLingua(info[3]);</span>
+<span class="nc" id="L49">			g.setDataPubb(d);</span>
+<span class="nc" id="L50">			g.setDisponibilita(dispo);</span>
+<span class="nc" id="L51">			g.setPrezzo(prezzo);</span>
+<span class="nc" id="L52">			g.setCopieRimanenti(copie);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">			if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
+			{
+<span class="nc" id="L55">				csv.modificaGiornale(new File(&quot;report/reportGiornali.csv&quot;),g);</span>
+			}
 			
-<span class="fc" id="L56">			gD.aggiornaGiornale(g);</span>
+<span class="nc" id="L58">			return gD.aggiornaGiornale(g);</span>
 
-<span class="fc" id="L58">			csv.removeGiornale(new File(LOCATION),g);</span>
-<span class="fc" id="L59">			csv.insertGiornale(new File(LOCATION),g);</span>
 			
-<span class="fc" id="L61">		}</span>
+		}
 		public ObservableList&lt;Rivista&gt; getRivistaById(int id) throws SQLException {
-<span class="fc" id="L63">			r.setId(id);</span>
-<span class="fc" id="L64">			return rD.getRivistaIdTitoloAutore(r);</span>
+<span class="nc" id="L63">			r.setId(id);</span>
+<span class="nc" id="L64">			return rD.getRivistaIdTitoloAutore(r);</span>
 		}
 		
 		
 
-		public void checkDataR(String [] info, LocalDate d,
-				int dispo, float prezzo, int copie, int id, String desc) throws SQLException {
+		public int checkDataR(String [] info, LocalDate d,
+				int dispo, float prezzo, int copie, int id, String desc) throws SQLException, CsvValidationException, IOException, IdException {
+
+<span class="nc" id="L72">			int state = 0;</span>
+<span class="nc" id="L73">			r.setTitolo(info[0]);</span>
+<span class="nc" id="L74">			r.setTipologia(info[1]);</span>
+<span class="nc" id="L75">			r.setAutore(info[2]);</span>
+<span class="nc" id="L76">			r.setLingua(info[3]);</span>
+<span class="nc" id="L77">			r.setEditore(info[4]);</span>
+<span class="nc" id="L78">			r.setDescrizione(desc);</span>
+<span class="nc" id="L79">			r.setDataPubb(d);</span>
+<span class="nc" id="L80">			r.setDisp(dispo);</span>
+<span class="nc" id="L81">			r.setPrezzo(prezzo);</span>
+<span class="nc" id="L82">			r.setCopieRim(copie);</span>
+<span class="nc" id="L83">			r.setId(id);</span>
+
+<span class="nc bnc" id="L85" title="All 2 branches missed.">			if (ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;)) {</span>
+<span class="nc" id="L86">				csv.modificaRivista(new File(&quot;report/reportRiviste.csv&quot;), r);</span>
+<span class="nc" id="L87">				state = 1;</span>
+			} else
+<span class="nc" id="L89">				state = rD.aggiornaRivista(r);</span>
+
+<span class="nc" id="L91">			return state;</span>
 			
-<span class="fc" id="L72">			r.setTitolo(info[0]);</span>
-<span class="fc" id="L73">			r.setTipologia(info[1]);</span>
-<span class="fc" id="L74">			r.setAutore(info[2]);</span>
-<span class="fc" id="L75">			r.setLingua(info[3]);</span>
-<span class="fc" id="L76">			r.setEditore(info[4]);</span>
-<span class="fc" id="L77">			r.setDescrizione(desc);</span>
-<span class="fc" id="L78">			r.setDataPubb(d);</span>
-<span class="fc" id="L79">			r.setDisp(dispo);</span>
-<span class="fc" id="L80">			r.setPrezzo(prezzo);</span>
-<span class="fc" id="L81">			r.setCopieRim(copie);</span>
-<span class="fc" id="L82">			r.setId(id);</span>
-			
-<span class="fc" id="L84">			rD.aggiornaRivista(r);</span>
-			
-			
-<span class="fc" id="L87">		}</span>
+		}
 		
 	
 	
-<span class="fc" id="L91">	public ControllerModifPage() throws IOException {</span>
-<span class="fc" id="L92">		ld=new LibroDao();</span>
-<span class="fc" id="L93">		l=new Libro();</span>
-<span class="fc" id="L94">		g=new Giornale();</span>
-<span class="fc" id="L95">		gD=new GiornaleDao();</span>
-<span class="fc" id="L96">		r=new Rivista();</span>
-<span class="fc" id="L97">		rD=new RivistaDao();</span>
-<span class="fc" id="L98">		cBD=new ControllerBookData();</span>
-<span class="fc" id="L99">	}</span>
+<span class="nc" id="L97">	public ControllerModifPage() throws IOException {</span>
+<span class="nc" id="L98">		ld=new LibroDao();</span>
+<span class="nc" id="L99">		l=new Libro();</span>
+<span class="nc" id="L100">		g=new Giornale();</span>
+<span class="nc" id="L101">		gD=new GiornaleDao();</span>
+<span class="nc" id="L102">		r=new Rivista();</span>
+<span class="nc" id="L103">		rD=new RivistaDao();</span>
+<span class="nc" id="L104">		cBD=new ControllerBookData();</span>
+<span class="nc" id="L105">		csv=new CsvOggettoDao();</span>
+<span class="nc" id="L106">	}</span>
 	
 	
-	public boolean checkDataL(String []info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws NullPointerException
-	{
-		
-		
-<span class="fc" id="L106">		return ld.aggiornaLibro(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));</span>
+	public boolean checkDataL(String []info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws NullPointerException, CsvValidationException, IOException, IdException {
+
+<span class="nc" id="L111">		boolean state=false;</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">		if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
+		{
+<span class="nc" id="L114">			csv.modificaLibro(new File(&quot;report/reportLibri.csv&quot;),cBD.checkBookData(info,recensione,descrizione,data,infoCosti));</span>
+		}
+		else {
+<span class="nc" id="L117">			state = ld.aggiornaLibro(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));</span>
+		}
+<span class="nc" id="L119">		return state;</span>
 	}
 	
 	

@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -155,7 +156,7 @@ public class BoundaryAcquista implements Initializable {
 	
 
 	@FXML
-	private void importo() throws  SQLException, NumberFormatException, IdException, AcquistaException {
+	private void importo() throws SQLException, NumberFormatException, IdException, AcquistaException, CsvValidationException, IOException {
 		
 		if (!nome.getText().isEmpty()) {
 			buttonCC.setDisable(false);
@@ -170,7 +171,7 @@ public class BoundaryAcquista implements Initializable {
 			tot = x * (Float.parseFloat(quantita.getText()));
 			totale.setText(String.valueOf( tot));
 
-			cA.inserisciAmmontare(vis.getType(),Integer.parseInt(quantita.getText()));
+			cA.inserisciAmmontare(vis.getType());
 			vis.setSpesaT(tot);
 			vis.setQuantita(Integer.parseInt(quantita.getText()));
 			
@@ -221,12 +222,11 @@ public class BoundaryAcquista implements Initializable {
 			copieLabel.setText(String.valueOf(cA.getDisp(vis.getType())));
 		
 				costo.setText(String.valueOf(cA.getCosto(vis.getType())));
-			} catch (SQLException | IdException e) {
+			} catch (SQLException | IdException |CsvValidationException |IOException e) {
 				java.util.logging.Logger.getLogger("Test initialize").log(Level.SEVERE, " eccezione ottenuta {0}.", e.toString());
 
 			}
 
-
-	}
+    }
 
 }

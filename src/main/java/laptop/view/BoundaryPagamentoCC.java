@@ -103,6 +103,7 @@ public class BoundaryPagamentoCC implements Initializable {
 			//insrrire pagamento cc
 			//vedasi inserimento fattura
 			cPCC.pagamentoCC(nomeTF.getText());
+			vis.setIdOggetto(vis.getId());
 			if(vis.getIsPickup()) 
 			{
 				Stage stage;

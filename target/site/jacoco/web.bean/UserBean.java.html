@@ -51,53 +51,53 @@ public class UserBean {
     }
 
     public void setNomeB(String nomeB) {
-<span class="fc" id="L54">        this.nomeB = nomeB;</span>
-<span class="fc" id="L55">    }</span>
+<span class="nc" id="L54">        this.nomeB = nomeB;</span>
+<span class="nc" id="L55">    }</span>
 
     public String getCognomeB() {
 <span class="nc" id="L58">        return cognomeB;</span>
     }
 
     public void setCognomeB(String cognomeB) {
-<span class="fc" id="L62">        this.cognomeB = cognomeB;</span>
-<span class="fc" id="L63">    }</span>
+<span class="nc" id="L62">        this.cognomeB = cognomeB;</span>
+<span class="nc" id="L63">    }</span>
 
     public LocalDate getDataDiNascitaB() {
 <span class="nc" id="L66">        return dataDiNascitaB;</span>
     }
 
     public void setDataDiNascitaB(LocalDate dataDiNascitaB) {
-<span class="fc" id="L70">        this.dataDiNascitaB = dataDiNascitaB;</span>
-<span class="fc" id="L71">    }</span>
+<span class="nc" id="L70">        this.dataDiNascitaB = dataDiNascitaB;</span>
+<span class="nc" id="L71">    }</span>
 
     public String getDescrizioneB() {
 <span class="nc" id="L74">        return descrizioneB;</span>
     }
 
     public void setDescrizioneB(String descrizioneB) {
-<span class="fc" id="L78">        this.descrizioneB = descrizioneB;</span>
-<span class="fc" id="L79">    }</span>
+<span class="nc" id="L78">        this.descrizioneB = descrizioneB;</span>
+<span class="nc" id="L79">    }</span>
 
     private String descrizioneB;
 
-<span class="fc" id="L83">    private static UserBean instance=null;</span>
+<span class="nc" id="L83">    private static UserBean instance=null;</span>
 
     public static UserBean getInstance()
     {
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        if(instance==null)</span>
-<span class="fc" id="L88">            instance=new UserBean();</span>
-<span class="fc" id="L89">        return instance;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if(instance==null)</span>
+<span class="nc" id="L88">            instance=new UserBean();</span>
+<span class="nc" id="L89">        return instance;</span>
     }
 
     private UserBean() {}
 
     public int getIdB() {
-<span class="fc" id="L95">        return idB;</span>
+<span class="nc" id="L95">        return idB;</span>
     }
 
     public void setIdB(int idB) {
-<span class="fc" id="L99">        this.idB = idB;</span>
-<span class="fc" id="L100">    }</span>
+<span class="nc" id="L99">        this.idB = idB;</span>
+<span class="nc" id="L100">    }</span>
 
     public String getRuoloB() {
 <span class="nc" id="L103">        return ruoloB;</span>
@@ -109,7 +109,7 @@ public class UserBean {
 <span class="nc" id="L109">    }</span>
 
     public String getEmailB() {
-<span class="fc" id="L112">        return emailB;</span>
+<span class="nc" id="L112">        return emailB;</span>
     }
 
     public void setEmailB(String emailB) {
@@ -117,24 +117,24 @@ public class UserBean {
         Pattern pattern;
 
         String emailRegex;
-<span class="fc" id="L120">        emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;;</span>
+<span class="nc" id="L120">        emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;;</span>
 
-<span class="fc" id="L122">        pattern = Pattern.compile(emailRegex);</span>
-<span class="pc bpc" id="L123" title="3 of 6 branches missed.">        if (emailB == null || emailB.isEmpty() || !pattern.matcher(emailB).matches())</span>
+<span class="nc" id="L122">        pattern = Pattern.compile(emailRegex);</span>
+<span class="nc bnc" id="L123" title="All 6 branches missed.">        if (emailB == null || emailB.isEmpty() || !pattern.matcher(emailB).matches())</span>
 <span class="nc" id="L124">            this.emailB=null;</span>
 
-<span class="fc" id="L126">        this.emailB = emailB;</span>
-<span class="fc" id="L127">    }</span>
+<span class="nc" id="L126">        this.emailB = emailB;</span>
+<span class="nc" id="L127">    }</span>
 
     public String getPassB() {
-<span class="fc" id="L130">        return passB;</span>
+<span class="nc" id="L130">        return passB;</span>
     }
 
     public void setPassB(String passB) {
-<span class="fc bfc" id="L134" title="All 2 branches covered.">        if(passB.length() &lt;= 8)</span>
-<span class="fc" id="L135">            this.passB=null;</span>
-<span class="fc" id="L136">        this.passB = passB;</span>
-<span class="fc" id="L137">    }</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if(passB.length() &lt;= 8)</span>
+<span class="nc" id="L135">            this.passB=null;</span>
+<span class="nc" id="L136">        this.passB = passB;</span>
+<span class="nc" id="L137">    }</span>
 
     private String getRuolo(String r) {
         String rB;

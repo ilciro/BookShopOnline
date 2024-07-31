@@ -1,5 +1,6 @@
 package laptop.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -9,10 +10,14 @@ import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
 import laptop.database.*;
 
+import laptop.database.csv.CsvOggettoDao;
 import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Pagamento;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
+import laptop.model.raccolta.Rivista;
 
 
 public class ControllerPagamentoCC {
@@ -25,7 +30,8 @@ public class ControllerPagamentoCC {
 	private boolean state=false;
 
 
-	private final FatturaPagamentoCCredito csv;
+	private final FatturaPagamentoCCredito csvFattura;
+	private final CsvOggettoDao csv;
 	
 	
 	private int cont=0;
@@ -79,7 +85,8 @@ public class ControllerPagamentoCC {
 		
 		cCPD=new ControllerCheckPagamentoData();
 
-		csv=new FatturaPagamentoCCredito();
+		csvFattura=new FatturaPagamentoCCredito();
+		csv=new CsvOggettoDao();
 	}
 
 	public void aggiungiCartaDB(String n, String c, String cod, java.sql.Date data, String civ, float prezzo)
@@ -88,21 +95,29 @@ public class ControllerPagamentoCC {
 		
 		
 			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);
-						
-			cDao.insCC(cc);
 
-			if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-			{
-				csv.inserisciCartaCredito(cc);
-			}
-						
+
 			Pagamento p;
-			 p=new Pagamento(0,"cc",0,cc.getNomeUser(),vis.getSpesaT(),null);
-				p.setMetodo("cc");
-				p.setNomeUtente(cc.getNomeUser());
+			p=new Pagamento(0,"cc",0,cc.getNomeUser(),vis.getSpesaT(),null);
+			p.setMetodo("cc");
+			p.setNomeUtente(cc.getNomeUser());
+
+
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+			{
+				csvFattura.inserisciCartaCredito(cc);
+
 				cCPD.checkPagamentoData(n);
-								
-				pDao.inserisciPagamento(p);
+			}
+			else
+		{
+			cDao.insCC(cc);
+			cCPD.checkPagamentoData(n);
+
+			pDao.inserisciPagamento(p);
+
+		}
+
 		
 		
 
@@ -112,7 +127,7 @@ public class ControllerPagamentoCC {
 
         if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
-            csv.getAllDataCredito(nomeU);
+            csvFattura.getAllDataCredito(nomeU);
         }
 
 		return cDao.getCarteCredito(nomeU);
@@ -128,27 +143,69 @@ public class ControllerPagamentoCC {
 	}
 
 	public void pagamentoCC(String nome) throws SQLException, IdException, IOException, CsvValidationException {
-		Pagamento p;
-		p=new Pagamento(0,"cCredito", 0,nome,vis.getSpesaT(), null);
+		Pagamento p = new Pagamento(0, "cCredito", 0, nome, vis.getSpesaT(), null);
 
-		cCPD.checkPagamentoData(nome);
-		
-		
-		//ammontare,acquisto,idProd
-		//settare in p
-		
+		switch (vis.getType()) {
+			case "libro" -> {
+				Libro l1 = csv.retrieveAllLibroData(new File("report/reportLibro.csv"), vis.getId(), "");
+				p.setTipo(l1.getCategoria());
+				p.setIdOggetto(vis.getIdOggetto());
+
+				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
+					//inserito anche qui
+					//ma visto che non è loggato
+					//non importa dei dati
+					csvFattura.inserisciCartaCredito(new CartaDiCredito());
+					csvFattura.inserisciPagamento(p);
+				} else {
+					cCPD.checkPagamentoData(nome);
+				}
+			}
+			case "giornale" -> {
+				Giornale g1 = csv.retrieveAllGiornaleData(new File("report/reportgiornale.csv"), vis.getId(), "");
+				p.setTipo(g1.getTipologia());
+				p.setIdOggetto(vis.getIdOggetto());
+
+				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
+					//inserito anche qui
+					//ma visto che non è loggato
+					//non importa dei dati
+					csvFattura.inserisciCartaCredito(new CartaDiCredito());
+					csvFattura.inserisciPagamento(p);
+				} else {
+					cCPD.checkPagamentoData(nome);
+				}
+
+			}
+			case "rivista" -> {
+				Rivista r1 = csv.retrieveAllRivistaData(new File("report/reportRivista.csv"), vis.getId(), "","");
+				p.setTipo(r1.getTipologia());
+				p.setIdOggetto(vis.getIdOggetto());
+
+				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
+					//inserito anche qui
+					//ma visto che non è loggato
+					//non importa dei dati
+					csvFattura.inserisciCartaCredito(new CartaDiCredito());
+					csvFattura.inserisciPagamento(p);
+				} else {
+					cCPD.checkPagamentoData(nome);
+				}
+			}
+			default -> throw new IdException(" id not found");
+
+		}
+
 		java.util.logging.Logger.getLogger("Pagamento effettuato").log(Level.INFO, "info {0}",p.getAmmontare()+p.getTipo()+p.getId());
 
-
-
-		// uso il pagamento in quanto guest
-		//non ha carte registrate
-
-
-		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-		{
-			csv.report();
-		}
 	}
-	
+
 }
+
+		
+
+		
+
+
+	
+

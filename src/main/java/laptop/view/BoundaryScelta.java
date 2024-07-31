@@ -43,7 +43,7 @@ public class BoundaryScelta implements Initializable {
         String tipo;
         tipo=tF.getText();
 
-        if(cScelta.getTypeDb(tipo))
+        if(cScelta.getTypeDb(tipo)!=null)
         {
             Stage stage;
             Parent root;

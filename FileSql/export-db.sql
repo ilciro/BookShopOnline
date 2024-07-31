@@ -251,18 +251,17 @@ DELIMITER $$
 
 USE `ISPW`$$
 DROP TRIGGER IF EXISTS `ISPW`.`insert_user` $$
-USE `ISPW`$$
 CREATE
 DEFINER=`root`@`localhost`
 TRIGGER `ISPW`.`insert_user`
 AFTER INSERT ON `ISPW`.`USERS`
 FOR EACH ROW
 begin
-if(new.idRuolo ="A")
+    if (new.idRuolo ="A")
 	then insert into ISPW.AMMINISTRATORE values (0,new.idUser);
-    elseif (new.idRuolo="W")
+    else if (new.idRuolo="W")
     then insert into ISPW.SCRITTORE values(0,new.idUser,new.nome);
-    elseif(new.idRuolo="E")
+    else if (new.idRuolo="E")
     then insert into ISPW.EDITORE values(0,new.idUser,new.nome);
     end if;
  end$$

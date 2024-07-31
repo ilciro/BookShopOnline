@@ -132,7 +132,7 @@ public class BoundaryModificaPage implements Initializable {
 
 
 	@FXML
-	private void aggiorna() throws SQLException, NullPointerException, CsvValidationException, IOException {
+	private void aggiorna() throws SQLException, NullPointerException, CsvValidationException, IOException, IdException {
         switch (vis.getType()) {
             case "libro" -> {
                 String t = titoloT.getText();

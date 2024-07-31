@@ -1,34 +1,44 @@
 package laptop.controller;
 
 import laptop.exception.PersistenzaException;
+import laptop.utilities.ConnToDb;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ControllerScelta {
-    private ControllerSystemState vis=ControllerSystemState.getInstance();
-    public boolean getTypeDb(String type)
-    {
-        boolean state = false;
+    private final ControllerSystemState vis=ControllerSystemState.getInstance();
+    public String getTypeDb(String type) {
+
 
         try{
-            if(type.equalsIgnoreCase("file")) {
-                state = true;
-                vis.setTypeOfDb("file");
-            }
-            else if (type.equalsIgnoreCase("db")) {
-                state=true;
+            if(type.equalsIgnoreCase("db")) {
+
                 vis.setTypeOfDb("db");
+                ConnToDb.creaPopolaDb();
+
+
+            }
+            else if (type.equalsIgnoreCase("file")) {
+
+                vis.setTypeOfDb("file");
+
 
             }
             else throw new PersistenzaException();
 
 
-        }catch (PersistenzaException e)
+        }catch (PersistenzaException | FileNotFoundException e)
         {
             Logger.getLogger("Type of db").log(Level.SEVERE," check persisyency", e);
 
         }
-        return state;
+
+            return vis.getTypeOfDb();
+
     }
+
+
+
 }

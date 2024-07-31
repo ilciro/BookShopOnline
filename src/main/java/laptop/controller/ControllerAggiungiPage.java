@@ -37,7 +37,7 @@ public class ControllerAggiungiPage {
 
 		status = gD.creaGiornale(g);
 
-		if(vis.getTypeOfDb().equals("file"))
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
 			csv.inserisciGiornale(g);
 		}

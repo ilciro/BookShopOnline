@@ -6,27 +6,27 @@ import laptop.exception.LogoutException;
 import laptop.model.User;
 
 public class ControllerHomePageAfterLoginSE {
-<span class="fc" id="L9">	private static final User u = User.getInstance();</span>
-<span class="fc" id="L10">	private static final ControllerSystemState vis = ControllerSystemState.getInstance() ;</span>
+<span class="nc" id="L9">	private static final User u = User.getInstance();</span>
+<span class="nc" id="L10">	private static final ControllerSystemState vis = ControllerSystemState.getInstance() ;</span>
 
 	// qui ci va la funzione di logout
 
 	public static boolean logout() throws   SecurityException, IllegalArgumentException, LogoutException
 	{	
 			
-<span class="fc" id="L17">			String n = u.getNome();</span>
-<span class="fc" id="L18">			java.util.logging.Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, &quot;stai sloggando come {0}&quot;,n);</span>
+<span class="nc" id="L17">			String n = u.getNome();</span>
+<span class="nc" id="L18">			java.util.logging.Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, &quot;stai sloggando come {0}&quot;,n);</span>
 
-<span class="fc" id="L20">			u.setId(-1);</span>
-<span class="fc" id="L21">			u.setNome(null);</span>
-<span class="fc" id="L22">			u.setCognome(null);</span>
-<span class="fc" id="L23">			u.setDataDiNascita(null);</span>
-<span class="fc" id="L24">			u.setDescrizione(null);</span>
-<span class="fc" id="L25">			u.setEmail(null);</span>
-<span class="fc" id="L26">			u.setPassword(null);</span>
+<span class="nc" id="L20">			u.setId(-1);</span>
+<span class="nc" id="L21">			u.setNome(null);</span>
+<span class="nc" id="L22">			u.setCognome(null);</span>
+<span class="nc" id="L23">			u.setDataDiNascita(null);</span>
+<span class="nc" id="L24">			u.setDescrizione(null);</span>
+<span class="nc" id="L25">			u.setEmail(null);</span>
+<span class="nc" id="L26">			u.setPassword(null);</span>
 			
 
-<span class="pc bpc" id="L29" title="1 of 2 branches missed.">			if(u.getId()!=-1)</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">			if(u.getId()!=-1)</span>
 			{
 <span class="nc" id="L31">				throw new LogoutException(&quot;Errore Logout&quot;);</span>
 
@@ -34,10 +34,10 @@ public class ControllerHomePageAfterLoginSE {
 			}
 			else
 			{	
-<span class="fc" id="L37">				java.util.logging.Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, &quot;logout utente {0}&quot;,u.getEmail());</span>
+<span class="nc" id="L37">				java.util.logging.Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, &quot;logout utente {0}&quot;,u.getEmail());</span>
 
-<span class="fc" id="L39">				vis.setIsLogged(false);</span>
-<span class="fc" id="L40">				return true;</span>
+<span class="nc" id="L39">				vis.setIsLogged(false);</span>
+<span class="nc" id="L40">				return true;</span>
 			}
 
 		

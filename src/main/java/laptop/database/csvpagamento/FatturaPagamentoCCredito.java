@@ -11,8 +11,7 @@ import laptop.model.CartaDiCredito;
 import laptop.model.Fattura;
 import laptop.model.Pagamento;
 import laptop.model.User;
-import laptop.model.raccolta.Libro;
-import laptop.utilities.ConnToDb;
+
 
 import java.io.*;
 import java.nio.file.Files;
@@ -33,14 +32,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private static final int GETINDEXIDF=5;
 
     private static final String LOCATIONF="report/reportFattura.csv";
-    private static final String DELETED="file deleted ";
-    private static final String GENERAREPORT=" report fattura ";
-    private static final String FILECANCELLATO=" file cancellato";
-    private static final String FILENOTEXISTS=" file not exists";
-    private static final String MAKINGFILE=" making file";
-    private static final String ECCEZIONE=" eccezione ottenuta ";
-
-    private static final String QUERYF="select nome,cognome,via,comunicazioni,ammontare,idFattura from FATTURA";
 
 
     private static final int GETINDEXIDP=0;
@@ -64,32 +55,19 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private static final String LOCATIONCC="report/reportCartaCredito.csv";
 
 
-    private static final String QUERYCC="select nomeP,cognomeP,codiceCarta,scadenza,pin,ammontare,idCarta from CARTACREDITO";
 
     private static final String LOCATIONP="report/reportPagamento.csv";
-    private static final String QUERYP="select idPagamento,metodo,esito,nomeUtente,spesaTotale,email,tipoAcquisto,idProdotto from PAGAMENTO ";
 
     private static final String IDNULL=" id is null !!";
+
 
 
     private static void cleanUp(Path path) throws IOException {
         Files.delete(path);
     }
-    @Override
-    public void report() throws IOException {
-        switch (vis.getMetodoP())
-        {
-            case "cash":
-                generaReportF();
-                break;
-            case "cCredito":
-                generaReportCC();
-                break;
-            default:
-                generaReportP();
-        }
 
-    }
+
+
 
     @Override
     public void inserisciFattura(Fattura f) throws CsvValidationException, IOException {
@@ -113,118 +91,9 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
 
 
-    private static synchronized void generaReportF() throws IOException {
-        File fd=new File(LOCATIONF);
-        try {
-            cleanUp(Path.of(fd.toURI()));
-            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONF + DELETED);
-            throw new IOException(FILECANCELLATO);
-        } catch (IOException e) {
-            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONF + FILENOTEXISTS);
-            if (fd.createNewFile()) {
-                Logger.getLogger("report fattura").log(Level.SEVERE, "\n" + LOCATIONF + MAKINGFILE);
-                try (Connection conn = ConnToDb.connectionToDB();
-                     PreparedStatement prepQ = conn.prepareStatement(QUERYF)) {
-                    ResultSet rs = prepQ.executeQuery(QUERYF);
-                    CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONF));
-                    rs.getMetaData();
-                    String[] data = new String[6];
-                    while (rs.next()) {
-                        data[0] = rs.getString(1);
-                        data[1] = rs.getString(2);
-                        data[2] = rs.getString(3);
-                        data[3] = rs.getString(4);
-                        data[4] = String.valueOf(rs.getFloat(5));
-                        data[5] = String.valueOf(rs.getInt(6));
 
-                        writer.writeNext(data);
-                    }
-                    writer.flush();
-                    writer.close();
-                } catch (SQLException | IOException ex) {
-                    Logger.getLogger("report fattura exception").log(Level.SEVERE, ECCEZIONE, ex);
-                }
-            }
-        }
-
-
-    }
-    private static synchronized void generaReportCC () throws IOException {
-        File fd=new File(LOCATIONCC);
-        try {
-            cleanUp(Path.of(fd.toURI()));
-            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONCC + DELETED);
-            throw new IOException(FILECANCELLATO);
-        } catch (IOException e) {
-            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONCC + FILENOTEXISTS);
-            if (fd.createNewFile()) {
-                Logger.getLogger("report carta credito").log(Level.SEVERE, "\n" + LOCATIONCC + MAKINGFILE);
-                try (Connection conn = ConnToDb.connectionToDB();
-                     PreparedStatement prepQ = conn.prepareStatement(QUERYCC)) {
-                    ResultSet rs = prepQ.executeQuery(QUERYCC);
-                    CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONCC));
-                    rs.getMetaData();
-                    String[] data = new String[7];
-                    while (rs.next()) {
-                        data[0] = rs.getString(1);
-                        data[1] = rs.getString(2);
-                        data[2] = rs.getString(3);
-                        data[3] = String.valueOf(rs.getDate(4));
-                        data[4] = rs.getString(5);
-                        data[5] = String.valueOf(rs.getFloat(6));
-                        data[6]=String.valueOf((rs.getInt(7)));
-
-                        writer.writeNext(data);
-                    }
-                    writer.flush();
-                    writer.close();
-                } catch (SQLException | IOException ex) {
-                    Logger.getLogger("report carta credito exception").log(Level.SEVERE, ECCEZIONE, ex);
-                }
-            }
-        }
-
-    }
-    private static synchronized void generaReportP() throws IOException {
-        File fd=new File(LOCATIONP);
-        try {
-            cleanUp(Path.of(fd.toURI()));
-            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONP + DELETED);
-            throw new IOException(FILECANCELLATO);
-        } catch (IOException e) {
-            Logger.getLogger(GENERAREPORT).log(Level.SEVERE, "\n " + LOCATIONP + FILENOTEXISTS);
-            if (fd.createNewFile()) {
-                Logger.getLogger("report carta credito").log(Level.SEVERE, "\n" + LOCATIONP + MAKINGFILE);
-                try (Connection conn = ConnToDb.connectionToDB();
-                     PreparedStatement prepQ = conn.prepareStatement(QUERYP)) {
-                    ResultSet rs = prepQ.executeQuery(QUERYP);
-                    CSVWriter writer = new CSVWriter(new FileWriter(LOCATIONP));
-                    rs.getMetaData();
-                    String[] data = new String[9];
-                    while (rs.next()) {
-                        data[0] = String.valueOf(rs.getInt(1));
-                        data[1] = rs.getString(2);
-                        data[2] = String.valueOf(rs.getInt(3));
-                        data[3] = rs.getString(4);
-                        data[4] = String.valueOf(rs.getFloat(5));
-                        data[5] = rs.getString(6);
-                        data[6]=rs.getString(7);
-                        data[7]=String.valueOf(rs.getInt(8));
-
-                        writer.writeNext(data);
-                    }
-                    writer.flush();
-                    writer.close();
-                } catch (SQLException | IOException ex) {
-                    Logger.getLogger("report carta credito exception").log(Level.SEVERE, ECCEZIONE, ex);
-                }
-            }
-        }
-
-    }
 
     private static synchronized void creaFattura(Fattura f) throws IOException, CsvValidationException {
-        cleanUp(Path.of(LOCATIONF));
         CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONF,true)));
         String[] gVectore=new String[6];
         gVectore[GETINDEXNOMEF]=f.getNome();
@@ -238,19 +107,23 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         csvWriter.close();
     }
 
-    private static synchronized int getIdMax() throws IOException, CsvValidationException {
+    private static int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
-        CSVReader reader = null;
+        CSVReader reader;
         String[] gVector;
         int id = 0;
+
+
         try {
 
 
             if (vis.getMetodoP().equalsIgnoreCase("cash")) {
                 reader = new CSVReader(new FileReader(LOCATIONF));
                 while ((gVector = reader.readNext()) != null) {
+
                     id = Integer.parseInt(gVector[GETINDEXIDF]);
                 }
+
 
             } else if (vis.getMetodoP().equalsIgnoreCase("cCredito")) {
                 reader = new CSVReader(new FileReader(LOCATIONCC));
@@ -258,21 +131,19 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                     id = Integer.parseInt(gVector[GETINDEXIDCC]);
 
                 }
-            }
-               else{
-                reader = new CSVReader(new FileReader(LOCATIONP));
-                while ((gVector = reader.readNext()) != null) {
-                    id = Integer.parseInt(gVector[GETINDEXIDP]);
-                }
 
             }
+
+
+
             if (id == 0)
                 throw new IdException(IDNULL);
 
-    }catch (IdException e)
+    }catch (IdException  e)
         {
             Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
-            id=0;
+
+
         }
 
         return id;
@@ -280,7 +151,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
     private static synchronized void creaCC(CartaDiCredito cc) throws IOException, CsvValidationException {
-       cleanUp(Path.of(LOCATIONCC));
         CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONCC,true)));
         String[] gVectore=new String[7];
         gVectore[GETINDEXNOMEPCC]=cc.getNomeUser();
@@ -298,6 +168,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private static synchronized void creaPagamento(Pagamento p) throws IOException, CsvValidationException {
         CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONP,true)));
         String[] gVectore=new String[8];
+        //fare if su tipo pagamento
         gVectore[GETINDEXIDP]= String.valueOf(getIdMax()+1);
         gVectore[GETINDEXMETODOP]=p.getMetodo();
         gVectore[GETINDEXESITOP]= String.valueOf(p.getEsito());
@@ -348,5 +219,25 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         }
         return gList;
     }
+    /*
+    private static synchronized void creaFilePagamento(File fd)
+    {
+        try{
+           cleanUp(Path.of(fd.toURI()));
+            if (!fd.exists()) {
+                throw new IOException( "file not exist");
+            }
+
+        }catch (IOException e)
+        {
+            Logger.getLogger(" crea File Pagamento").log(Level.SEVERE, "file "+ fd.getPath() + " not exists");
+            fd=new File(LOCATIONP);
+
+        }
+        Logger.getLogger(" crea File Pagamento").log(Level.INFO, "file "+ fd.getPath() + " created");
+
+    }
+
+     */
 
 }

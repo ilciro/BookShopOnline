@@ -3,6 +3,7 @@ package laptop.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
@@ -36,9 +37,9 @@ public class ControllerCompravendita {
 	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 	private final CsvOggettoDao csv ;
 
-	private static final String REPORTGIORNALI="report/reportGiornali.csv";
-	private static final String REPORTLIBRI="report/reportLibri.csv";
-	private static final String REPORTRIVISTE="report/reportRiviste.csv";
+	private static final String REPORTGIORNALE="report/reportGiornale.csv";
+	private static final String REPORTLIBRO="report/reportLibro.csv";
+	private static final String REPORTRIVISTA="report/reportRivista.csv";
 
 
 
@@ -70,38 +71,21 @@ public class ControllerCompravendita {
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
 			switch (type) {
-				case LIBRO:
-					catalogo.addAll(lD.getLibri());
-					break;
-				case GIORNALE:
-					catalogo.addAll(gD.getGiornali());
-					break;
-				case RIVISTA:
-					catalogo.addAll(rD.getRiviste());
-					break;
-				default:
-					break;
-
+				case LIBRO->catalogo.addAll(lD.getLibri());
+				case GIORNALE->catalogo.addAll(gD.getGiornali());
+				case RIVISTA->catalogo.addAll(rD.getRiviste());
+				default->java.util.logging.Logger.getLogger("Test getId db").log(Level.INFO, "error !! list empty");
 
 			}
 		}
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
 			switch (type) {
-				case LIBRO:
-					csv.generaReport();
-					catalogo.addAll(csv.retrieveAllData(new File(REPORTLIBRI)));
-					break;
-				case GIORNALE:
-					csv.generaReport();
-					catalogo.addAll(csv.retrieveAllData(new File(REPORTGIORNALI)));
-					break;
-				case RIVISTA:
-					csv.generaReport();
-					catalogo.addAll(csv.retrieveAllData(new File(REPORTRIVISTE)));
-					break;
-				default:
-					break;
+				case LIBRO->catalogo.addAll(csv.retrieveAllData(new File(REPORTLIBRO)));
+				case GIORNALE->	catalogo.addAll(csv.retrieveAllData(new File(REPORTGIORNALE)));
+				case RIVISTA->catalogo.addAll(csv.retrieveAllData(new File(REPORTRIVISTA)));
+				default->java.util.logging.Logger.getLogger("get lista").log(Level.SEVERE, " list is empty");
+
 
 
 			}
@@ -110,30 +94,62 @@ public class ControllerCompravendita {
 	return catalogo;
 	}
 
-	public boolean disponibilita(String type, String i) throws SQLException, IdException {
-		switch (type)
-		{
-			case LIBRO:
+	public boolean disponibilita(String type, String i) throws SQLException, IdException, CsvValidationException, IOException {
+		switch (type) {
+			case LIBRO -> {
 
-				l.setId(Integer.parseInt(i));
-				checkID(Integer.parseInt(i));
-				if(lD.getData(l).getDisponibilita()>0)
+
+			l.setId(Integer.parseInt(i));
+			checkID(Integer.parseInt(i));
+			if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+			{
+				Libro l1=csv.retrieveAllLibroData(new File("report/reportLibro.csv"),l.getId(),"");
+				vis.setId(l1.getId());
+				vis.setIdOggetto(vis.getId());
+				if(l1.getDisponibilita()>0)
 					status=true;
+			}
+			else {
 
-				break;
-			case GIORNALE:
+
+				if (lD.getData(l).getDisponibilita() > 0)
+					status = true;
+			}
+		}
+			case GIORNALE-> {
 				g.setId(Integer.parseInt(i));
 				checkID(Integer.parseInt(i));
-				if(gD.getData(g).getDisponibilita()>0)
-					status=true;
-				break;
-			case RIVISTA:
+				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+				{
+					Giornale g1=csv.retrieveAllGiornaleData(new File("report/reportGiornale.csv"),g.getId(),"");
+					vis.setId(g1.getId());
+					vis.setIdOggetto(vis.getId());
+					System.out.println(" id in compravendita :"+ vis.getId());
+					if(g1.getDisponibilita()>0)
+						status=true;
+				}
+				else {
+					if (gD.getData(g).getDisponibilita() > 0)
+						status = true;
+				}
+			}
+			case RIVISTA-> {
 				r.setId(Integer.parseInt(i));
 				checkID(Integer.parseInt(i));
-				if(rD.getData(r).getDisp()>0)
-					status=true;
-				break;
-			default: checkID(Integer.parseInt(i));
+				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+				{
+					Rivista  r1=csv.retrieveAllRivistaData(new File("report/reportRiviste.csv"),r.getId(),"","");
+					vis.setId(r1.getId());
+					vis.setIdOggetto(vis.getId());
+					if(r1.getDisp()>0)
+						status=true;
+				}
+				else {
+					if(rD.getData(r).getDisp()>0)
+						return true;
+				}
+			}
+			default-> checkID(Integer.parseInt(i));
 
 		}
 		return status;

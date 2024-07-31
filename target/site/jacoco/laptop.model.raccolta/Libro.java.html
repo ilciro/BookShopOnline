@@ -30,8 +30,8 @@ public class Libro implements Raccolta {
 	private int disponibilita;
 	private float prezzo;
 	private int id;
-<span class="fc" id="L33">	private String[] infoGenerali = new String[7];</span>
-<span class="fc" id="L34">	private String[] infoCostiDisp = new String[5];</span>
+<span class="pc" id="L33">	private String[] infoGenerali = new String[7];</span>
+<span class="pc" id="L34">	private String[] infoCostiDisp = new String[5];</span>
 	private static final String DSTPATH=&quot;dstPath&quot;;
 
 	private  File f;
@@ -45,51 +45,51 @@ public class Libro implements Raccolta {
 
 
 	public String getTitolo() {
-<span class="fc" id="L48">		return this.titolo;</span>
+<span class="nc" id="L48">		return this.titolo;</span>
 	}
 
 	public String getCodIsbn() {
-<span class="fc" id="L52">		return this.codIsbn;</span>
+<span class="nc" id="L52">		return this.codIsbn;</span>
 	}
 
 	public String getEditore() {
-<span class="fc" id="L56">		return this.editore;</span>
+<span class="nc" id="L56">		return this.editore;</span>
 	}
 
 	public String getAutore() {
-<span class="fc" id="L60">		return this.autore;</span>
+<span class="nc" id="L60">		return this.autore;</span>
 	}
 
 	public String getLingua() {
-<span class="fc" id="L64">		return this.lingua;</span>
+<span class="nc" id="L64">		return this.lingua;</span>
 	}
 
 	public String getCategoria() {
-<span class="fc" id="L68">		return this.categoria;</span>
+<span class="nc" id="L68">		return this.categoria;</span>
 	}
 
 	public LocalDate getDataPubb() {
-<span class="fc" id="L72">		return this.dataPubb;</span>
+<span class="nc" id="L72">		return this.dataPubb;</span>
 	}
 
 	public String getRecensione() {
-<span class="fc" id="L76">		return this.recensione;</span>
+<span class="nc" id="L76">		return this.recensione;</span>
 	}
 
 	public int getNrCopie() {
-<span class="fc" id="L80">		return this.nrCopie;</span>
+<span class="nc" id="L80">		return this.nrCopie;</span>
 	}
 
 	public String getDesc() {
-<span class="fc" id="L84">		return this.descrizione;</span>
+<span class="nc" id="L84">		return this.descrizione;</span>
 	}
 
 	public int getDisponibilita() {
-<span class="fc" id="L88">		return this.disponibilita;</span>
+<span class="nc" id="L88">		return this.disponibilita;</span>
 	}
 
 	public float getPrezzo() {
-<span class="fc" id="L92">		return this.prezzo;</span>
+<span class="nc" id="L92">		return this.prezzo;</span>
 	}
 
 	public void setTitolo(String titolo) {
@@ -136,10 +136,10 @@ public class Libro implements Raccolta {
 <span class="fc" id="L136">		this.prezzo = prezzo;</span>
 <span class="fc" id="L137">	}</span>
 
-<span class="fc" id="L139">	private final ResourceBundle rbTitoli=ResourceBundle.getBundle(&quot;configurations/titles&quot;);</span>
+<span class="pc" id="L139">	private final ResourceBundle rbTitoli=ResourceBundle.getBundle(&quot;configurations/titles&quot;);</span>
 
 	public int getId() {
-<span class="fc" id="L142">		return id;</span>
+<span class="nc" id="L142">		return id;</span>
 	}
 
 	public void setId(int id) {
@@ -147,93 +147,93 @@ public class Libro implements Raccolta {
 <span class="fc" id="L147">	}</span>
 
 	public void setCategoria(String categoria) {
-<span class="pc bpc" id="L150" title="1 of 30 branches missed.">		switch (categoria) {</span>
+<span class="pc bpc" id="L150" title="21 of 30 branches missed.">		switch (categoria) {</span>
 			case &quot;ADOLESCENTI_RAGAZZI&quot;:
-<span class="fc" id="L152">				this.categoria = CategorieLibro.ADOLESCENTI_RAGAZZI.toString();</span>
-<span class="fc" id="L153">				break;</span>
+<span class="nc" id="L152">				this.categoria = CategorieLibro.ADOLESCENTI_RAGAZZI.toString();</span>
+<span class="nc" id="L153">				break;</span>
 			case &quot;ARTE&quot;:
-<span class="fc" id="L155">				this.categoria = CategorieLibro.ARTE.toString();</span>
-<span class="fc" id="L156">				break;</span>
+<span class="nc" id="L155">				this.categoria = CategorieLibro.ARTE.toString();</span>
+<span class="nc" id="L156">				break;</span>
 			case &quot;CINEMA_FOTOGRAFIA&quot;:
-<span class="fc" id="L158">				this.categoria = CategorieLibro.CINEMA_FOTOGRAFIA.toString();</span>
-<span class="fc" id="L159">				break;</span>
+<span class="nc" id="L158">				this.categoria = CategorieLibro.CINEMA_FOTOGRAFIA.toString();</span>
+<span class="nc" id="L159">				break;</span>
 			case &quot;BIOGRAFIE&quot;:
-<span class="fc" id="L161">				this.categoria = CategorieLibro.BIOGRAFIE.toString();</span>
-<span class="fc" id="L162">				break;</span>
+<span class="nc" id="L161">				this.categoria = CategorieLibro.BIOGRAFIE.toString();</span>
+<span class="nc" id="L162">				break;</span>
 			case &quot;DIARI_MEMORIE&quot;:
-<span class="fc" id="L164">				this.categoria = CategorieLibro.DIARI_MEMORIE.toString();</span>
-<span class="fc" id="L165">				break;</span>
+<span class="nc" id="L164">				this.categoria = CategorieLibro.DIARI_MEMORIE.toString();</span>
+<span class="nc" id="L165">				break;</span>
 			case &quot;CALENDARI_AGENDE&quot;:
-<span class="fc" id="L167">				this.categoria = CategorieLibro.CALENDARI_AGENDE.toString();</span>
-<span class="fc" id="L168">				break;</span>
+<span class="nc" id="L167">				this.categoria = CategorieLibro.CALENDARI_AGENDE.toString();</span>
+<span class="nc" id="L168">				break;</span>
 			case &quot;DIRITTO&quot;:
-<span class="fc" id="L170">				this.categoria = CategorieLibro.DIRITTO.toString();</span>
-<span class="fc" id="L171">				break;</span>
+<span class="nc" id="L170">				this.categoria = CategorieLibro.DIRITTO.toString();</span>
+<span class="nc" id="L171">				break;</span>
 			case &quot;DIZINARI_OPERE&quot;:
-<span class="fc" id="L173">				this.categoria = CategorieLibro.DIZINARI_OPERE.toString();</span>
-<span class="fc" id="L174">				break;</span>
+<span class="nc" id="L173">				this.categoria = CategorieLibro.DIZINARI_OPERE.toString();</span>
+<span class="nc" id="L174">				break;</span>
 			case &quot;ECONOMIA&quot;:
 <span class="fc" id="L176">				this.categoria = CategorieLibro.ECONOMIA.toString();</span>
 <span class="fc" id="L177">				break;</span>
 			case &quot;FAMIGLIA&quot;:
-<span class="fc" id="L179">				this.categoria = CategorieLibro.FAMIGLIA.toString();</span>
-<span class="fc" id="L180">				break;</span>
-			case &quot;SALUTE_BENESSERE&quot;:
-<span class="fc" id="L182">				this.categoria = CategorieLibro.SALUTE_BENESSERE.toString();</span>
-<span class="fc" id="L183">				break;</span>
+<span class="nc" id="L179">				this.categoria = CategorieLibro.FAMIGLIA.toString();</span>
+<span class="nc" id="L180">				break;</span>
 			case &quot;FANTASCIENZA_FANTASY&quot;:
-<span class="fc" id="L185">				this.categoria = CategorieLibro.FANTASCIENZA_FANTASY.toString();</span>
-<span class="fc" id="L186">				break;</span>
+<span class="fc" id="L182">				this.categoria = CategorieLibro.FANTASCIENZA_FANTASY.toString();</span>
+<span class="fc" id="L183">				break;</span>
 			case &quot;FUMETTI_MANGA&quot;:
-<span class="fc" id="L188">				this.categoria = CategorieLibro.FUMETTI_MANGA.toString();</span>
-<span class="fc" id="L189">				break;</span>
+<span class="fc" id="L185">				this.categoria = CategorieLibro.FUMETTI_MANGA.toString();</span>
+<span class="fc" id="L186">				break;</span>
 			case &quot;GIALLI_THRILLER&quot;:
-<span class="fc" id="L191">				this.categoria = CategorieLibro.GIALLI_THRILLER.toString();</span>
-<span class="fc" id="L192">				break;</span>
+<span class="nc" id="L188">				this.categoria = CategorieLibro.GIALLI_THRILLER.toString();</span>
+<span class="nc" id="L189">				break;</span>
 			case &quot;COMPUTER_GIOCHI&quot;:
-<span class="fc" id="L194">				this.categoria = CategorieLibro.COMPUTER_GIOCHI.toString();</span>
-<span class="fc" id="L195">				break;</span>
+<span class="fc" id="L191">				this.categoria = CategorieLibro.COMPUTER_GIOCHI.toString();</span>
+<span class="fc" id="L192">				break;</span>
 			case &quot;HUMOR&quot;:
-<span class="fc" id="L197">				this.categoria = CategorieLibro.HUMOR.toString();</span>
-<span class="fc" id="L198">				break;</span>
+<span class="nc" id="L194">				this.categoria = CategorieLibro.HUMOR.toString();</span>
+<span class="nc" id="L195">				break;</span>
 			case &quot;INFORMATICA&quot;:
-<span class="fc" id="L200">				this.categoria = CategorieLibro.INFORMATICA.toString();</span>
-<span class="fc" id="L201">				break;</span>
+<span class="fc" id="L197">				this.categoria = CategorieLibro.INFORMATICA.toString();</span>
+<span class="fc" id="L198">				break;</span>
 			case &quot;WEB_DIGITAL_MEDIA&quot;:
-<span class="fc" id="L203">				this.categoria = CategorieLibro.WEB_DIGITAL_MEDIA.toString();</span>
-<span class="fc" id="L204">				break;</span>
+<span class="nc" id="L200">				this.categoria = CategorieLibro.WEB_DIGITAL_MEDIA.toString();</span>
+<span class="nc" id="L201">				break;</span>
 			case &quot;LETTERATURA_NARRATIVA&quot;:
-<span class="fc" id="L206">				this.categoria = CategorieLibro.LETTERATURA_NARRATIVA.toString();</span>
-<span class="fc" id="L207">				break;</span>
+<span class="fc" id="L203">				this.categoria = CategorieLibro.LETTERATURA_NARRATIVA.toString();</span>
+<span class="fc" id="L204">				break;</span>
 			case &quot;LIBRI_BAMBINI&quot;:
-<span class="fc" id="L209">				this.categoria = CategorieLibro.LIBRI_BAMBINI.toString();</span>
-<span class="fc" id="L210">				break;</span>
+<span class="nc" id="L206">				this.categoria = CategorieLibro.LIBRI_BAMBINI.toString();</span>
+<span class="nc" id="L207">				break;</span>
 			case &quot;LIBRI_SCOLASTICI&quot;:
-<span class="fc" id="L212">				this.categoria = CategorieLibro.LIBRI_SCOLASTICI.toString();</span>
-<span class="fc" id="L213">				break;</span>
+<span class="nc" id="L209">				this.categoria = CategorieLibro.LIBRI_SCOLASTICI.toString();</span>
+<span class="nc" id="L210">				break;</span>
 			case &quot;LIBRI_UNIVERSITARI&quot;:
-<span class="fc" id="L215">				this.categoria = CategorieLibro.LIBRI_UNIVERSITARI.toString();</span>
-<span class="fc" id="L216">				break;</span>
+<span class="fc" id="L212">				this.categoria = CategorieLibro.LIBRI_UNIVERSITARI.toString();</span>
+<span class="fc" id="L213">				break;</span>
 			case &quot;RICETTARI_GENERALI&quot;:
-<span class="fc" id="L218">				this.categoria = CategorieLibro.RICETTARI_GENERALI.toString();</span>
-<span class="fc" id="L219">				break;</span>
+<span class="nc" id="L215">				this.categoria = CategorieLibro.RICETTARI_GENERALI.toString();</span>
+<span class="nc" id="L216">				break;</span>
 			case &quot;LINGUISTICA_SCRITTURA&quot;:
-<span class="fc" id="L221">				this.categoria = CategorieLibro.LINGUISTICA_SCRITTURA.toString();</span>
-<span class="fc" id="L222">				break;</span>
+<span class="fc" id="L218">				this.categoria = CategorieLibro.LINGUISTICA_SCRITTURA.toString();</span>
+<span class="fc" id="L219">				break;</span>
 			case &quot;POLITICA&quot;:
-<span class="fc" id="L224">				this.categoria = CategorieLibro.POLITICA.toString();</span>
-<span class="fc" id="L225">				break;</span>
+<span class="nc" id="L221">				this.categoria = CategorieLibro.POLITICA.toString();</span>
+<span class="nc" id="L222">				break;</span>
 			case &quot;RELIGIONE&quot;:
-<span class="fc" id="L227">				this.categoria = CategorieLibro.RELIGIONE.toString();</span>
-<span class="fc" id="L228">				break;</span>
+<span class="nc" id="L224">				this.categoria = CategorieLibro.RELIGIONE.toString();</span>
+<span class="nc" id="L225">				break;</span>
 			case &quot;ROMANZI_ROSA&quot;:
-<span class="fc" id="L230">				this.categoria = CategorieLibro.ROMANZI_ROSA.toString();</span>
-<span class="fc" id="L231">				break;</span>
+<span class="nc" id="L227">				this.categoria = CategorieLibro.ROMANZI_ROSA.toString();</span>
+<span class="nc" id="L228">				break;</span>
 			case &quot;SCIENZE&quot;:
-<span class="fc" id="L233">				this.categoria = CategorieLibro.SCIENZE.toString();</span>
-<span class="fc" id="L234">				break;</span>
+<span class="nc" id="L230">				this.categoria = CategorieLibro.SCIENZE.toString();</span>
+<span class="nc" id="L231">				break;</span>
 			case &quot;TECNOLOGIA_MEDICINA&quot;:
-<span class="fc" id="L236">				this.categoria = CategorieLibro.TECNOLOGIA_MEDICINA.toString();</span>
+<span class="nc" id="L233">				this.categoria = CategorieLibro.TECNOLOGIA_MEDICINA.toString();</span>
+<span class="nc" id="L234">				break;</span>
+			case &quot;ALTRO&quot;:
+<span class="fc" id="L236">				this.categoria = CategorieLibro.ALTRO.toString();</span>
 <span class="fc" id="L237">				break;</span>
 
 			default:
@@ -245,12 +245,12 @@ public class Libro implements Raccolta {
 	private void createPDF(String name)
 	{
 		//create a pdf with a paragraph
-<span class="fc" id="L248">		Document document=new Document();</span>
+<span class="nc" id="L248">		Document document=new Document();</span>
 		try{
-<span class="fc" id="L250">			PdfWriter writer=PdfWriter.getInstance(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
-<span class="fc" id="L251">			document.open();</span>
-<span class="fc" id="L252">			document.addTitle(&quot;Libro &quot;);</span>
-<span class="fc" id="L253">			document.add(new Paragraph(&quot;&quot;&quot;</span>
+<span class="nc" id="L250">			PdfWriter writer=PdfWriter.getInstance(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
+<span class="nc" id="L251">			document.open();</span>
+<span class="nc" id="L252">			document.addTitle(&quot;Libro &quot;);</span>
+<span class="nc" id="L253">			document.add(new Paragraph(&quot;&quot;&quot;</span>
                     libro/book not avalaible.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Curabitur tempus tincidunt justo eget eleifend.
                     Maecenas nisl nulla, lobortis quis semper quis, scelerisque nec purus.
@@ -268,51 +268,51 @@ public class Libro implements Raccolta {
                     Duis id ante ut nibh suscipit gravida.
                     Cras egestas risus ac tellus varius, et rhoncus enim porttitor.
                     Nam malesuada in massa eu venenatis.&quot;&quot;&quot;));
-<span class="fc" id="L271">			document.close();</span>
-<span class="fc" id="L272">			writer.close();</span>
+<span class="nc" id="L271">			document.close();</span>
+<span class="nc" id="L272">			writer.close();</span>
 
-<span class="fc" id="L274">			readPdf(name);</span>
+<span class="nc" id="L274">			readPdf(name);</span>
 
 
 <span class="nc" id="L277">		}catch (DocumentException | IOException e)</span>
 		{
 <span class="nc" id="L279">			Logger.getLogger(&quot;create pdf&quot;).log(Level.SEVERE,&quot;pdf not created:{0} &quot;, name);</span>
-<span class="fc" id="L280">		}</span>
-<span class="fc" id="L281">    }</span>
+<span class="nc" id="L280">		}</span>
+<span class="nc" id="L281">    }</span>
 
 	private void readPdf(String name) throws IOException, DocumentException {
 
-<span class="fc" id="L285">		Document document = new Document();</span>
+<span class="nc" id="L285">		Document document = new Document();</span>
 
-<span class="fc" id="L287">        PdfReader reader = new PdfReader(rbTitoli.getString(&quot;srcPath&quot;) +name);</span>
-<span class="fc" id="L288">		PdfCopy copy=new PdfCopy(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
-<span class="fc" id="L289">		document.open();</span>
+<span class="nc" id="L287">        PdfReader reader = new PdfReader(rbTitoli.getString(&quot;srcPath&quot;) +name);</span>
+<span class="nc" id="L288">		PdfCopy copy=new PdfCopy(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
+<span class="nc" id="L289">		document.open();</span>
 
-<span class="fc" id="L291">		int pages = reader.getNumberOfPages();</span>
-<span class="fc bfc" id="L292" title="All 2 branches covered.">		for (int i = 1; i &lt;= pages; i++) {</span>
-<span class="fc" id="L293">			copy.addPage(copy.getImportedPage(reader,i));</span>
+<span class="nc" id="L291">		int pages = reader.getNumberOfPages();</span>
+<span class="nc bnc" id="L292" title="All 2 branches missed.">		for (int i = 1; i &lt;= pages; i++) {</span>
+<span class="nc" id="L293">			copy.addPage(copy.getImportedPage(reader,i));</span>
 
 		}
 
 
-<span class="fc" id="L298">		reader.close();</span>
-<span class="fc" id="L299">		document.close();</span>
+<span class="nc" id="L298">		reader.close();</span>
+<span class="nc" id="L299">		document.close();</span>
 
 
 
-<span class="fc" id="L303">	}</span>
+<span class="nc" id="L303">	}</span>
 	@Override
 	public void scarica(int i) throws DocumentException, IOException {
 
 		//here is copy of file
 
-<span class="pc bpc" id="L309" title="7 of 13 branches missed.">			switch (i) {</span>
-<span class="fc" id="L310">				case 1 -&gt;createPDF(rbTitoli.getString(&quot;titolo1&quot;));</span>
-<span class="fc" id="L311">				case 2 -&gt; createPDF(rbTitoli.getString(&quot;titolo2&quot;));</span>
-<span class="fc" id="L312">				case 3-&gt; createPDF(rbTitoli.getString(&quot;titolo3&quot;));</span>
-<span class="fc" id="L313">				case 4-&gt; createPDF(rbTitoli.getString(&quot;titolo4&quot;));</span>
-<span class="fc" id="L314">				case 5-&gt;createPDF(rbTitoli.getString(&quot;titolo5&quot;));</span>
-<span class="fc" id="L315">				case 6-&gt;createPDF(rbTitoli.getString(&quot;titolo6&quot;));</span>
+<span class="nc bnc" id="L309" title="All 13 branches missed.">			switch (i) {</span>
+<span class="nc" id="L310">				case 1 -&gt;createPDF(rbTitoli.getString(&quot;titolo1&quot;));</span>
+<span class="nc" id="L311">				case 2 -&gt; createPDF(rbTitoli.getString(&quot;titolo2&quot;));</span>
+<span class="nc" id="L312">				case 3-&gt; createPDF(rbTitoli.getString(&quot;titolo3&quot;));</span>
+<span class="nc" id="L313">				case 4-&gt; createPDF(rbTitoli.getString(&quot;titolo4&quot;));</span>
+<span class="nc" id="L314">				case 5-&gt;createPDF(rbTitoli.getString(&quot;titolo5&quot;));</span>
+<span class="nc" id="L315">				case 6-&gt;createPDF(rbTitoli.getString(&quot;titolo6&quot;));</span>
 <span class="nc" id="L316">				case 7-&gt; createPDF(rbTitoli.getString(&quot;titolo7&quot;));</span>
 <span class="nc" id="L317">				case 8-&gt;createPDF(rbTitoli.getString(&quot;titolo8&quot;));</span>
 <span class="nc" id="L318">				case 9-&gt; createPDF(rbTitoli.getString(&quot;titolo9&quot;));</span>
@@ -327,91 +327,91 @@ public class Libro implements Raccolta {
 
 			}
 
-<span class="fc" id="L330">}</span>
+<span class="nc" id="L330">}</span>
 
 	@Override
 	public void leggi(int i) throws IOException, DocumentException, URISyntaxException {
 
 
 
-<span class="pc bpc" id="L337" title="7 of 13 branches missed.">		switch (i) {</span>
-<span class="fc" id="L338">			case 1 -&gt; f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo1&quot;));</span>
-<span class="fc" id="L339">			case 2-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo2&quot;));</span>
-<span class="fc" id="L340">			case 3-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo3&quot;));</span>
-<span class="fc" id="L341">			case 4-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo4&quot;));</span>
-<span class="fc" id="L342">			case 5-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo5&quot;));</span>
-<span class="fc" id="L343">			case 6-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo6&quot;));</span>
-<span class="nc" id="L344">			case 7-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo7&quot;));</span>
-<span class="nc" id="L345">			case 8-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo8&quot;));</span>
-<span class="nc" id="L346">			case 9-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo9&quot;));</span>
-<span class="nc" id="L347">			case 10-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo10&quot;));</span>
-<span class="nc" id="L348">			case 11-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo11&quot;));</span>
+<span class="nc bnc" id="L337" title="All 13 branches missed.">		switch (i) {</span>
+<span class="nc" id="L338">			case 1 -&gt; this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo1&quot;));</span>
+<span class="nc" id="L339">			case 2-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo2&quot;));</span>
+<span class="nc" id="L340">			case 3-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo3&quot;));</span>
+<span class="nc" id="L341">			case 4-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo4&quot;));</span>
+<span class="nc" id="L342">			case 5-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo5&quot;));</span>
+<span class="nc" id="L343">			case 6-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo6&quot;));</span>
+<span class="nc" id="L344">			case 7-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo7&quot;));</span>
+<span class="nc" id="L345">			case 8-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo8&quot;));</span>
+<span class="nc" id="L346">			case 9-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo9&quot;));</span>
+<span class="nc" id="L347">			case 10-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo10&quot;));</span>
+<span class="nc" id="L348">			case 11-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo11&quot;));</span>
 
-<span class="nc" id="L350">			case 12-&gt;f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo12&quot;));</span>
+<span class="nc" id="L350">			case 12-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo12&quot;));</span>
 
 <span class="nc" id="L352">			default -&gt; 	Logger.getLogger(&quot;Test leggi&quot;).log(Level.SEVERE, &quot;read error&quot;);</span>
 		}
-<span class="pc bpc" id="L354" title="1 of 2 branches missed.">		if (Desktop.isDesktopSupported()) {</span>
-<span class="fc" id="L355">			new Thread(() -&gt; {</span>
+<span class="nc bnc" id="L354" title="All 2 branches missed.">		if (Desktop.isDesktopSupported()) {</span>
+<span class="nc" id="L355">			new Thread(() -&gt; {</span>
 				try {
-<span class="fc" id="L357">					Desktop.getDesktop().open(f);</span>
+<span class="nc" id="L357">					Desktop.getDesktop().open(f);</span>
 <span class="nc" id="L358">				} catch (IOException e) {</span>
-<span class="pc" id="L359">					Logger.getLogger(&quot;open file&quot;).log(Level.SEVERE, &quot;open error&quot;);				}</span>
-<span class="fc" id="L360">			}).start();</span>
+<span class="nc" id="L359">					Logger.getLogger(&quot;open file&quot;).log(Level.SEVERE, &quot;open error&quot;);				}</span>
+<span class="nc" id="L360">			}).start();</span>
 		}
-<span class="fc" id="L362">	}</span>
+<span class="nc" id="L362">	}</span>
 
 	/*
 	 * provo a levare i codeSmells &gt; 7 paramentri
 	 */
-<span class="fc" id="L367">	public Libro(String[] info, LocalDate dataPubb,  String recensione, String descrizione,String [] prezzi) {</span>
-<span class="fc" id="L368">		this.infoGenerali=info;</span>
-<span class="fc" id="L369">		this.infoCostiDisp=prezzi;</span>
-<span class="fc" id="L370">		this.descrizione=descrizione;</span>
+<span class="nc" id="L367">	public Libro(String[] info, LocalDate dataPubb,  String recensione, String descrizione,String [] prezzi) {</span>
+<span class="nc" id="L368">		this.infoGenerali=info;</span>
+<span class="nc" id="L369">		this.infoCostiDisp=prezzi;</span>
+<span class="nc" id="L370">		this.descrizione=descrizione;</span>
 
-<span class="fc" id="L372">		this.recensione=recensione;</span>
-<span class="fc" id="L373">		this.dataPubb = dataPubb;</span>
+<span class="nc" id="L372">		this.recensione=recensione;</span>
+<span class="nc" id="L373">		this.dataPubb = dataPubb;</span>
 
-<span class="fc" id="L375">		this.titolo=info[0];</span>
-<span class="fc" id="L376">		this.codIsbn=info[1];</span>
-<span class="fc" id="L377">		this.editore=info[2];</span>
-<span class="fc" id="L378">		this.autore=info[3];</span>
-<span class="fc" id="L379">		this.lingua=info[4];</span>
-<span class="fc" id="L380">		this.categoria=info[5];</span>
-
-
-<span class="fc" id="L383">		this.nrPagine=Integer.parseInt(prezzi[0]);</span>
-<span class="fc" id="L384">		this.nrCopie=Integer.parseInt(prezzi[1]);</span>
-<span class="fc" id="L385">		this.disponibilita=Integer.parseInt(prezzi[2]);</span>
-<span class="fc" id="L386">		this.prezzo=Float.parseFloat(prezzi[3]);</span>
-<span class="fc" id="L387">		this.id=Integer.parseInt(prezzi[4]);</span>
+<span class="nc" id="L375">		this.titolo=info[0];</span>
+<span class="nc" id="L376">		this.codIsbn=info[1];</span>
+<span class="nc" id="L377">		this.editore=info[2];</span>
+<span class="nc" id="L378">		this.autore=info[3];</span>
+<span class="nc" id="L379">		this.lingua=info[4];</span>
+<span class="nc" id="L380">		this.categoria=info[5];</span>
 
 
+<span class="nc" id="L383">		this.nrPagine=Integer.parseInt(prezzi[0]);</span>
+<span class="nc" id="L384">		this.nrCopie=Integer.parseInt(prezzi[1]);</span>
+<span class="nc" id="L385">		this.disponibilita=Integer.parseInt(prezzi[2]);</span>
+<span class="nc" id="L386">		this.prezzo=Float.parseFloat(prezzi[3]);</span>
+<span class="nc" id="L387">		this.id=Integer.parseInt(prezzi[4]);</span>
 
-<span class="fc" id="L391">	}</span>
+
+
+<span class="nc" id="L391">	}</span>
 
 	public String[] getInfoGenerali() {
-<span class="fc" id="L394">		return infoGenerali;</span>
+<span class="nc" id="L394">		return infoGenerali;</span>
 	}
 
 	public void setInfoGenerali(String[] infoGenerali) {
-<span class="fc" id="L398">		this.infoGenerali = infoGenerali;</span>
-<span class="fc" id="L399">	}</span>
+<span class="nc" id="L398">		this.infoGenerali = infoGenerali;</span>
+<span class="nc" id="L399">	}</span>
 
 
 
 
 	public String[] getInfoCostiDisp() {
-<span class="fc" id="L405">		return infoCostiDisp;</span>
+<span class="nc" id="L405">		return infoCostiDisp;</span>
 	}
 
 	public void setInfoCostiDisp(String[] infoCostiDisp) {
-<span class="fc" id="L409">		this.infoCostiDisp = infoCostiDisp;</span>
-<span class="fc" id="L410">	}</span>
+<span class="nc" id="L409">		this.infoCostiDisp = infoCostiDisp;</span>
+<span class="nc" id="L410">	}</span>
 
 
 	public int getNrPagine() {
-<span class="fc" id="L414">		return nrPagine;</span>
+<span class="nc" id="L414">		return nrPagine;</span>
 	}
 
 	public void setNrPagine(int nrPagine) {

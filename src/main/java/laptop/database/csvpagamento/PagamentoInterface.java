@@ -10,7 +10,6 @@ import laptop.model.Pagamento;
 import java.io.IOException;
 
 public interface PagamentoInterface {
-     void report() throws IOException;
 
      void inserisciFattura(Fattura f) throws CsvValidationException, IOException;
 

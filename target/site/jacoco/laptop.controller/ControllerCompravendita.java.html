@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerCompravendita.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerCompravendita.java</span></div><h1>ControllerCompravendita.java</h1><pre class="source lang-java linenums">package laptop.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import laptop.database.CsvGiornaleDao;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
+import laptop.database.csv.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.User;
 import laptop.model.raccolta.Giornale;
@@ -21,86 +23,117 @@ import laptop.model.raccolta.Rivista;
 public class ControllerCompravendita {
 	//insrt comment
 	private final LibroDao lD;
-<span class="fc" id="L24">	private final User u = User.getInstance();</span>
+<span class="fc" id="L26">	private final User u = User.getInstance();</span>
 	private final GiornaleDao gD;
 	private final Giornale g;
 	private final Libro l;
 	private final Rivista r;
 	private final RivistaDao rD;
-<span class="fc" id="L30">	private boolean status = false;</span>
+<span class="fc" id="L32">	private boolean status = false;</span>
 	private static final String LIBRO = &quot;libro&quot;;
 	private static final String RIVISTA = &quot;rivista&quot;;
 	private static final String GIORNALE = &quot;giornale&quot;;
-<span class="fc" id="L34">	private final CsvGiornaleDao csv =new CsvGiornaleDao();</span>
+<span class="fc" id="L36">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+	private final CsvOggettoDao csv ;
+
+	private static final String REPORTGIORNALE=&quot;report/reportGiornale.csv&quot;;
+	private static final String REPORTLIBRO=&quot;report/reportLibro.csv&quot;;
+	private static final String REPORTRIVISTA=&quot;report/reportRivista.csv&quot;;
 
 
 
 
-<span class="fc" id="L39">	public ControllerCompravendita() throws IOException {</span>
-<span class="fc" id="L40">		lD = new LibroDao();</span>
-<span class="fc" id="L41">		gD=new GiornaleDao();</span>
-<span class="fc" id="L42">		g=new Giornale();</span>
-<span class="fc" id="L43">		r=new Rivista();</span>
-<span class="fc" id="L44">		l=new Libro();</span>
-<span class="fc" id="L45">		rD=new RivistaDao();</span>
-<span class="fc" id="L46">	}</span>
+
+
+<span class="fc" id="L48">	public ControllerCompravendita() throws IOException {</span>
+<span class="fc" id="L49">		lD = new LibroDao();</span>
+<span class="fc" id="L50">		gD=new GiornaleDao();</span>
+<span class="fc" id="L51">		g=new Giornale();</span>
+<span class="fc" id="L52">		r=new Rivista();</span>
+<span class="fc" id="L53">		l=new Libro();</span>
+<span class="fc" id="L54">		rD=new RivistaDao();</span>
+<span class="fc" id="L55">		csv=new CsvOggettoDao();</span>
+
+<span class="fc" id="L57">	}</span>
 
 	private void checkID(int id) throws IdException {
-<span class="pc bpc" id="L49" title="1 of 2 branches missed.">		if(id&lt;=0)</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">		if(id&lt;=0)</span>
 		{
-<span class="nc" id="L51">			throw new IdException(&quot;id not correct&quot;);</span>
+<span class="nc" id="L62">			throw new IdException(&quot;id not correct&quot;);</span>
 		}
-<span class="fc" id="L53">	}</span>
+<span class="nc" id="L64">	}</span>
 
-	public ObservableList&lt;Raccolta&gt; getLista(String type) throws IOException {
-<span class="fc" id="L56">		ObservableList&lt;Raccolta&gt; catalogo = FXCollections.observableArrayList();</span>
-<span class="pc bpc" id="L57" title="1 of 4 branches missed.">		switch (type) {</span>
-			case LIBRO:
-<span class="fc" id="L59">				catalogo.addAll(lD.getLibri());</span>
-<span class="fc" id="L60">				break;</span>
-			case GIORNALE:
-<span class="fc" id="L62">				catalogo.addAll(gD.getGiornali());</span>
-<span class="fc" id="L63">				csv.generaReport();</span>
-<span class="fc" id="L64">				break;</span>
-			case RIVISTA:
-<span class="fc" id="L66">				catalogo.addAll(rD.getRiviste());</span>
-<span class="fc" id="L67">				break;</span>
-			default:
-				break;
+	public ObservableList&lt;Raccolta&gt; getLista(String type) throws IOException, CsvValidationException, IdException {
 
 
+<span class="fc" id="L69">		ObservableList&lt;Raccolta&gt; catalogo = FXCollections.observableArrayList();</span>
+
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;)) {</span>
+<span class="nc bnc" id="L72" title="All 4 branches missed.">			switch (type) {</span>
+				case LIBRO:
+<span class="nc" id="L74">					catalogo.addAll(lD.getLibri());</span>
+<span class="nc" id="L75">					break;</span>
+				case GIORNALE:
+<span class="nc" id="L77">					catalogo.addAll(gD.getGiornali());</span>
+<span class="nc" id="L78">					break;</span>
+				case RIVISTA:
+<span class="nc" id="L80">					catalogo.addAll(rD.getRiviste());</span>
+<span class="nc" id="L81">					break;</span>
+				default:
+					break;
+
+
+			}
+		}
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+		{
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">			switch (type) {</span>
+				case LIBRO:
+<span class="fc" id="L92">					catalogo.addAll(csv.retrieveAllData(new File(REPORTLIBRO)));</span>
+<span class="fc" id="L93">					break;</span>
+				case GIORNALE:
+<span class="fc" id="L95">					catalogo.addAll(csv.retrieveAllData(new File(REPORTGIORNALE)));</span>
+<span class="fc" id="L96">					break;</span>
+				case RIVISTA:
+<span class="fc" id="L98">					catalogo.addAll(csv.retrieveAllData(new File(REPORTRIVISTA)));</span>
+<span class="fc" id="L99">					break;</span>
+				default:
+					break;
+
+
+			}
 		}
 
-<span class="fc" id="L74">	return catalogo;</span>
+<span class="fc" id="L107">	return catalogo;</span>
 	}
 
 	public boolean disponibilita(String type, String i) throws SQLException, IdException {
-<span class="pc bpc" id="L78" title="1 of 4 branches missed.">		switch (type)</span>
+<span class="nc bnc" id="L111" title="All 4 branches missed.">		switch (type)</span>
 		{
 			case LIBRO:
 
-<span class="fc" id="L82">				l.setId(Integer.parseInt(i));</span>
-<span class="fc" id="L83">				checkID(Integer.parseInt(i));</span>
-<span class="pc bpc" id="L84" title="1 of 2 branches missed.">				if(lD.getData(l).getDisponibilita()&gt;0)</span>
-<span class="fc" id="L85">					status=true;</span>
+<span class="nc" id="L115">				l.setId(Integer.parseInt(i));</span>
+<span class="nc" id="L116">				checkID(Integer.parseInt(i));</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">				if(lD.getData(l).getDisponibilita()&gt;0)</span>
+<span class="nc" id="L118">					status=true;</span>
 
 				break;
 			case GIORNALE:
-<span class="fc" id="L89">				g.setId(Integer.parseInt(i));</span>
-<span class="fc" id="L90">				checkID(Integer.parseInt(i));</span>
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">				if(gD.getData(g).getDisponibilita()&gt;0)</span>
-<span class="fc" id="L92">					status=true;</span>
+<span class="nc" id="L122">				g.setId(Integer.parseInt(i));</span>
+<span class="nc" id="L123">				checkID(Integer.parseInt(i));</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">				if(gD.getData(g).getDisponibilita()&gt;0)</span>
+<span class="nc" id="L125">					status=true;</span>
 				break;
 			case RIVISTA:
-<span class="fc" id="L95">				r.setId(Integer.parseInt(i));</span>
-<span class="fc" id="L96">				checkID(Integer.parseInt(i));</span>
-<span class="pc bpc" id="L97" title="1 of 2 branches missed.">				if(rD.getData(r).getDisp()&gt;0)</span>
-<span class="fc" id="L98">					status=true;</span>
+<span class="nc" id="L128">				r.setId(Integer.parseInt(i));</span>
+<span class="nc" id="L129">				checkID(Integer.parseInt(i));</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">				if(rD.getData(r).getDisp()&gt;0)</span>
+<span class="nc" id="L131">					status=true;</span>
 				break;
-<span class="nc" id="L100">			default: checkID(Integer.parseInt(i));</span>
+<span class="nc" id="L133">			default: checkID(Integer.parseInt(i));</span>
 
 		}
-<span class="fc" id="L103">		return status;</span>
+<span class="nc" id="L136">		return status;</span>
 	}
 
 	
@@ -110,13 +143,13 @@ public class ControllerCompravendita {
 	 */
 	public String retTipoUser()
 	{
-<span class="nc" id="L113">		return u.getIdRuolo();</span>
+<span class="nc" id="L146">		return u.getIdRuolo();</span>
 	}
 	//usato nel caso se non � loggato-&gt; &quot;utente&quot;
 	public void setTipoUser(String ruolo)
 	{
-<span class="nc" id="L118">		u.setIdRuolo(ruolo);	</span>
-<span class="nc" id="L119">	}</span>
+<span class="nc" id="L151">		u.setIdRuolo(ruolo);	</span>
+<span class="nc" id="L152">	}</span>
 
 
 

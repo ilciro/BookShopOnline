@@ -3,54 +3,62 @@
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.ContrassegnoDao;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
+import laptop.model.Pagamento;
 
 
 public class ControllerPagamentoCash {
 	private final ContrassegnoDao cD;
 	private final Fattura f;
-<span class="fc" id="L14">	private final ControllerSystemState vis= ControllerSystemState.getInstance();</span>
+<span class="fc" id="L17">	private final ControllerSystemState vis= ControllerSystemState.getInstance();</span>
 	private final ControllerCheckPagamentoData cCPD;
+	private final FatturaPagamentoCCredito fCsv;
+
 	
-	
 
-	public void controlla(String nome, String cognome, String via, String com) throws SQLException, IdException {
+	public void controlla(String nome, String cognome, String via, String com) throws SQLException, IdException, IOException, CsvValidationException {
 		
 			
-<span class="fc" id="L22">			float spesa=vis.getSpesaT();</span>
+<span class="nc" id="L26">			float spesa=vis.getSpesaT();</span>
 
-			//fino a qui va
-			
-<span class="fc" id="L26">			f.setNome(nome);</span>
-<span class="fc" id="L27">			f.setCognome(cognome);</span>
-<span class="fc" id="L28">			f.setVia(via);</span>
-<span class="fc" id="L29">			f.setCom(com);</span>
-<span class="fc" id="L30">			f.setAmmontare(spesa);</span>
-			
-	 		
 
-					
-			
-<span class="fc" id="L36">			cD.inserisciFattura(f);</span>
-			
-			
-<span class="fc" id="L39">			cCPD.checkPagamentoData(nome);</span>
-			
-			
-			
-			
-			
-<span class="fc" id="L45">	}</span>
+<span class="nc" id="L29">			f.setNome(nome);</span>
+<span class="nc" id="L30">			f.setCognome(cognome);</span>
+<span class="nc" id="L31">			f.setVia(via);</span>
+<span class="nc" id="L32">			f.setCom(com);</span>
+<span class="nc" id="L33">			f.setAmmontare(spesa);</span>
 
-<span class="fc" id="L47">	public ControllerPagamentoCash() throws IOException {</span>
-<span class="fc" id="L48">		cD = new ContrassegnoDao();</span>
-<span class="fc" id="L49">		f = new Fattura();</span>
-<span class="fc" id="L50">		cCPD=new ControllerCheckPagamentoData();</span>
+
+
+<span class="nc bnc" id="L37" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+			{
+
+<span class="nc" id="L40">				fCsv.inserisciFattura(f);</span>
+<span class="nc" id="L41">				cCPD.checkPagamentoData(f.getNome());</span>
+
+			}
+
+			else {
+<span class="nc" id="L46">				cD.inserisciFattura(f);</span>
+<span class="nc" id="L47">				cCPD.checkPagamentoData(f.getNome());</span>
+
+		}
+
+			
+<span class="nc" id="L52">	}</span>
+
+<span class="fc" id="L54">	public ControllerPagamentoCash() throws IOException {</span>
+<span class="fc" id="L55">		cD = new ContrassegnoDao();</span>
+<span class="fc" id="L56">		f = new Fattura();</span>
+<span class="fc" id="L57">		cCPD=new ControllerCheckPagamentoData();</span>
+<span class="fc" id="L58">		fCsv=new FatturaPagamentoCCredito();</span>
+
 		
-		
-<span class="fc" id="L53">	}</span>
+<span class="fc" id="L61">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -13,31 +13,31 @@ public class ControllerAggiungiUtente {
 	
 	
 	public ControllerAggiungiUtente()
-<span class="fc" id="L16">	{</span>
-<span class="fc" id="L17">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerAggiungiUtente&quot;);</span>
+<span class="nc" id="L16">	{</span>
+<span class="nc" id="L17">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerAggiungiUtente&quot;);</span>
 
-<span class="fc" id="L19">	}</span>
+<span class="nc" id="L19">	}</span>
 
 	public boolean checkData(String nome, String cognome, String email, String pass, String dataN) throws ParseException, SQLException {
 		Date sqlDate ;
 		java.util.Date utilDate;
 		
-<span class="fc" id="L25">		SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);</span>
+<span class="nc" id="L25">		SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);</span>
 
 	  
-<span class="fc" id="L28">	         utilDate = format.parse(dataN);</span>
-<span class="fc" id="L29">	         sqlDate = new Date(utilDate.getTime());</span>
+<span class="nc" id="L28">	         utilDate = format.parse(dataN);</span>
+<span class="nc" id="L29">	         sqlDate = new Date(utilDate.getTime());</span>
        
 
-<span class="fc" id="L32">			 User.getInstance().setIdRuolo(&quot;U&quot;);</span>
+<span class="nc" id="L32">			 User.getInstance().setIdRuolo(&quot;U&quot;);</span>
        
-<span class="fc" id="L34">       User.getInstance().setNome(nome);</span>
-<span class="fc" id="L35">       User.getInstance().setCognome(cognome);</span>
-<span class="fc" id="L36">       User.getInstance().setEmail(email);</span>
-<span class="fc" id="L37">       User.getInstance().setPassword(pass);</span>
-<span class="fc" id="L38">       User.getInstance().setDataDiNascita(sqlDate.toLocalDate());</span>
+<span class="nc" id="L34">       User.getInstance().setNome(nome);</span>
+<span class="nc" id="L35">       User.getInstance().setCognome(cognome);</span>
+<span class="nc" id="L36">       User.getInstance().setEmail(email);</span>
+<span class="nc" id="L37">       User.getInstance().setPassword(pass);</span>
+<span class="nc" id="L38">       User.getInstance().setDataDiNascita(sqlDate.toLocalDate());</span>
        
-<span class="fc" id="L40">      return UsersDao.createUser(User.getInstance());</span>
+<span class="nc" id="L40">      return UsersDao.createUser(User.getInstance());</span>
 		
 	}
 

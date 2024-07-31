@@ -39,7 +39,7 @@ public class ControllerModifPage {
 	
 		
 		public int checkDataG(String[] info, LocalDate d, int dispo, float prezzo,
-				int copie) throws SQLException, CsvValidationException, IOException {
+				int copie) throws SQLException, CsvValidationException, IOException, IdException {
 			
 
 			g.setTitolo(info[0]);
@@ -67,8 +67,9 @@ public class ControllerModifPage {
 		
 
 		public int checkDataR(String [] info, LocalDate d,
-				int dispo, float prezzo, int copie, int id, String desc) throws SQLException, CsvValidationException, IOException {
-			
+				int dispo, float prezzo, int copie, int id, String desc) throws SQLException, CsvValidationException, IOException, IdException {
+
+			int state = 0;
 			r.setTitolo(info[0]);
 			r.setTipologia(info[1]);
 			r.setAutore(info[2]);
@@ -81,13 +82,13 @@ public class ControllerModifPage {
 			r.setCopieRim(copie);
 			r.setId(id);
 
-			if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
-			{
-				csv.modificaRivista(new File("report/reportRiviste.csv"),r);
-			}
-			
-			return rD.aggiornaRivista(r);
-			
+			if (ControllerSystemState.getInstance().getTypeOfDb().equals("file")) {
+				csv.modificaRivista(new File("report/reportRiviste.csv"), r);
+				state = 1;
+			} else
+				state = rD.aggiornaRivista(r);
+
+			return state;
 			
 		}
 		
@@ -105,15 +106,17 @@ public class ControllerModifPage {
 	}
 	
 	
-	public boolean checkDataL(String []info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws NullPointerException, CsvValidationException, IOException {
+	public boolean checkDataL(String []info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws NullPointerException, CsvValidationException, IOException, IdException {
 
+		boolean state=false;
 		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
 		{
 			csv.modificaLibro(new File("report/reportLibri.csv"),cBD.checkBookData(info,recensione,descrizione,data,infoCosti));
 		}
-		
-		return ld.aggiornaLibro(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));
-
+		else {
+			state = ld.aggiornaLibro(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));
+		}
+		return state;
 	}
 	
 	

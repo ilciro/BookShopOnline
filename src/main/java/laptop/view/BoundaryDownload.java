@@ -63,7 +63,10 @@ public class BoundaryDownload implements Initializable {
 				java.util.logging.Logger.getLogger("scarica").log(Level.INFO," all ok...");
 
 	            //passo 0 per evitare il NullPointer
-            	cD.scarica(vis.getType());
+
+				System.out.println(" id in buondary download " + vis.getId());
+
+				cD.scarica(vis.getType());
 
 
 	        }

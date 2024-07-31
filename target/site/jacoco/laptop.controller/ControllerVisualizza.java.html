@@ -22,16 +22,16 @@ public class ControllerVisualizza {
 	private final GiornaleDao gD;
 	
 	
-<span class="fc" id="L25">	private final ControllerSystemState vis = ControllerSystemState.getInstance() ;</span>
+<span class="nc" id="L25">	private final ControllerSystemState vis = ControllerSystemState.getInstance() ;</span>
 	
-<span class="fc" id="L27">	public ControllerVisualizza() throws IOException {</span>
-<span class="fc" id="L28">		l = new Libro();</span>
-<span class="fc" id="L29">		g=new Giornale();</span>
-<span class="fc" id="L30">		r=new Rivista();</span>
-<span class="fc" id="L31">		lD=new LibroDao();</span>
-<span class="fc" id="L32">		gD=new GiornaleDao();</span>
-<span class="fc" id="L33">		rD=new RivistaDao();</span>
-<span class="fc" id="L34">	}</span>
+<span class="nc" id="L27">	public ControllerVisualizza() throws IOException {</span>
+<span class="nc" id="L28">		l = new Libro();</span>
+<span class="nc" id="L29">		g=new Giornale();</span>
+<span class="nc" id="L30">		r=new Rivista();</span>
+<span class="nc" id="L31">		lD=new LibroDao();</span>
+<span class="nc" id="L32">		gD=new GiornaleDao();</span>
+<span class="nc" id="L33">		rD=new RivistaDao();</span>
+<span class="nc" id="L34">	}</span>
 	public void setID(String i)
 	{		
 		
@@ -46,23 +46,23 @@ public class ControllerVisualizza {
 	public Libro getDataL(int i) throws SQLException
 	{
 		// imposto che è un libro nel controller
-<span class="fc" id="L49">		vis.setId(i);</span>
-<span class="fc" id="L50">		l.setId(vis.getId());</span>
-<span class="fc" id="L51">		return  lD.getData(l);</span>
+<span class="nc" id="L49">		vis.setId(i);</span>
+<span class="nc" id="L50">		l.setId(vis.getId());</span>
+<span class="nc" id="L51">		return  lD.getData(l);</span>
 	}
 	public Giornale getDataG(int i) throws SQLException
 	{
 		// imposto che è un libro nel controller
-<span class="fc" id="L56">		vis.setId(i);</span>
-<span class="fc" id="L57">		g.setId(vis.getId());</span>
-<span class="fc" id="L58">		return  gD.getData(g);</span>
+<span class="nc" id="L56">		vis.setId(i);</span>
+<span class="nc" id="L57">		g.setId(vis.getId());</span>
+<span class="nc" id="L58">		return  gD.getData(g);</span>
 	}
 	public Rivista getDataR(int i) throws SQLException
 	{
 		// imposto che è un libro nel controller
-<span class="fc" id="L63">		vis.setId(i);</span>
-<span class="fc" id="L64">		r.setId(vis.getId());</span>
-<span class="fc" id="L65">		return  rD.getData(r);</span>
+<span class="nc" id="L63">		vis.setId(i);</span>
+<span class="nc" id="L64">		r.setId(vis.getId());</span>
+<span class="nc" id="L65">		return  rD.getData(r);</span>
 	}
 	
 }

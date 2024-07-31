@@ -1,13 +1,15 @@
 package laptop.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
-import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.PagamentoDao;
 import laptop.database.RivistaDao;
+import laptop.database.csv.CsvOggettoDao;
 import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Pagamento;
@@ -23,7 +25,8 @@ public class ControllerCheckPagamentoData {
 	private final LibroDao  lD;
 	private final RivistaDao rD;
 	private final PagamentoDao pagD;
-	private final FatturaPagamentoCCredito csv;
+	private final FatturaPagamentoCCredito csvFattura;
+	private final CsvOggettoDao csv;
 	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
 		String tipo=vis.getType();
 		
@@ -43,44 +46,49 @@ public class ControllerCheckPagamentoData {
 
 
 		switch (tipo){
-			case "libro":
+			case "libro"->
 			{
 				l.setId(vis.getId());
 				checkID(vis.getId());
 				p.setAmmontare(vis.getSpesaT());
 				p.setIdOggetto(l.getId());
-				p.setTipo(lD.getData(l).getCategoria());
+				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+				{
+					Libro l1=csv.retrieveAllLibroData(new File("report/reportLibro.csv"),l.getId(),"");
+					p.setTipo(l1.getCategoria());
+					csvFattura.inserisciPagamento(p);
 
-				break;
+
+				}
+				else {
+
+					p.setTipo(lD.getData(l).getCategoria());
+					pagD.inserisciPagamento(p);
+
+				}
+
 			}
-			case "giornale" :
+			case "giornale" ->
 			{
 				g.setId(vis.getId());
 				checkID(vis.getId());
 				p.setAmmontare(vis.getSpesaT());
 				p.setIdOggetto(g.getId());
-				p.setTipo("QIOTIDIANO");
-				break;
+				p.setTipo("QUOTIDIANO");
 			}
-			case "rivista":
+			case "rivista"->
 			{
 				r.setId(vis.getId());
 				checkID(vis.getId());
 				p.setAmmontare(vis.getSpesaT());
 				p.setIdOggetto(r.getId());
 				p.setTipo(rD.getData(r).getTipologia());
-				break;
+
 			}
-			default: break;
-		}
-		pagD.inserisciPagamento(p);
-		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-		{
-			csv.report();
-			csv.inserisciPagamento(p);
+			default->java.util.logging.Logger.getLogger("Test checkPagamento Data").log(Level.SEVERE," type not correct");
+
 		}
 
-		
 		
 	}
 	public ControllerCheckPagamentoData() throws IOException {
@@ -90,7 +98,8 @@ public class ControllerCheckPagamentoData {
 		lD=new LibroDao();
 		rD=new RivistaDao();
 		pagD=new PagamentoDao();
-		csv=new FatturaPagamentoCCredito();
+		csv=new CsvOggettoDao();
+		csvFattura=new FatturaPagamentoCCredito();
 		
 	}
 	private void checkID(int id) throws IdException {

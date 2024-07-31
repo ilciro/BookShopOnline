@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerSystemState;
 import laptop.controller.ControllerVisualizza;
+import laptop.exception.IdException;
 
 public class BoundaryVisualizza implements Initializable {
 	
@@ -186,15 +188,14 @@ public class BoundaryVisualizza implements Initializable {
 				default -> java.util.logging.Logger.getLogger("Test initialize").log(Level.SEVERE, "type is wrong");
 
 			}
-		} catch (SQLException  e) {
+		} catch (SQLException |CsvValidationException|IOException |IdException e) {
 			e.getMessage();
 
 			
 		}
-		
-		
 
-	}
+
+    }
 	
 
 }

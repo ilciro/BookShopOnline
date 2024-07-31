@@ -19,88 +19,88 @@ public class Pagamento {
 
 
 	public Pagamento(int id, String metodo, int esito, String nomeUtente, float ammontare, String tipo) {
-<span class="fc" id="L22">		super();</span>
-<span class="fc" id="L23">		this.id = id;</span>
-<span class="fc" id="L24">		this.metodo = metodo;</span>
-<span class="fc" id="L25">		this.esito = esito;</span>
-<span class="fc" id="L26">		this.nomeUtente = nomeUtente;</span>
-<span class="fc" id="L27">		this.ammontare = ammontare;</span>
-<span class="fc" id="L28">		this.tipo = tipo;</span>
-<span class="fc" id="L29">	}</span>
+<span class="nc" id="L22">		super();</span>
+<span class="nc" id="L23">		this.id = id;</span>
+<span class="nc" id="L24">		this.metodo = metodo;</span>
+<span class="nc" id="L25">		this.esito = esito;</span>
+<span class="nc" id="L26">		this.nomeUtente = nomeUtente;</span>
+<span class="nc" id="L27">		this.ammontare = ammontare;</span>
+<span class="nc" id="L28">		this.tipo = tipo;</span>
+<span class="nc" id="L29">	}</span>
 	public int getId() {
-<span class="fc" id="L31">		return id;</span>
+<span class="nc" id="L31">		return id;</span>
 	}
 	public void setId(int id) throws IdException {
 
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">		if (id&lt;0)</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">		if (id&lt;0)</span>
 		{
 <span class="nc" id="L37">			throw new IdException(&quot;id incorrect&quot;);</span>
 		}
-<span class="fc" id="L39">		this.id = id;</span>
-<span class="fc" id="L40">	}</span>
+<span class="nc" id="L39">		this.id = id;</span>
+<span class="nc" id="L40">	}</span>
 	public String getMetodo() {
-<span class="fc" id="L42">		return metodo;</span>
+<span class="nc" id="L42">		return metodo;</span>
 	}
 	public void setMetodo(String metodo)
     {
-<span class="fc" id="L46">		this.metodo = metodo;</span>
-<span class="fc" id="L47">	}</span>
+<span class="nc" id="L46">		this.metodo = metodo;</span>
+<span class="nc" id="L47">	}</span>
 	public int getEsito() {
-<span class="fc" id="L49">		return esito;</span>
+<span class="nc" id="L49">		return esito;</span>
 	}
 	public void setEsito(int esito)  {
 
 <span class="nc" id="L53">		this.esito = esito;</span>
 <span class="nc" id="L54">	}</span>
 	public String getNomeUtente() {
-<span class="fc" id="L56">		return nomeUtente;</span>
+<span class="nc" id="L56">		return nomeUtente;</span>
 	}
 	public void setNomeUtente(String nomeUtente) {
 
-<span class="fc" id="L60">		this.nomeUtente = nomeUtente;</span>
-<span class="fc" id="L61">	}</span>
+<span class="nc" id="L60">		this.nomeUtente = nomeUtente;</span>
+<span class="nc" id="L61">	}</span>
 	public float getAmmontare() {
-<span class="fc" id="L63">		return ammontare;</span>
+<span class="nc" id="L63">		return ammontare;</span>
 	}
 	public void setAmmontare(float ammontare)  {
 
-<span class="fc" id="L67">		this.ammontare = ammontare;</span>
-<span class="fc" id="L68">	}</span>
+<span class="nc" id="L67">		this.ammontare = ammontare;</span>
+<span class="nc" id="L68">	}</span>
 	public String getTipo() {
-<span class="fc" id="L70">		return tipo;</span>
+<span class="nc" id="L70">		return tipo;</span>
 	}
 	public void setTipo(String tipo) {
 
-<span class="fc" id="L74">		this.tipo = tipo;</span>
-<span class="fc" id="L75">	}</span>
+<span class="nc" id="L74">		this.tipo = tipo;</span>
+<span class="nc" id="L75">	}</span>
 	
 	
 	@Override
 	public String toString() {
-<span class="fc" id="L80">		return &quot;Pagamento [id=&quot; + id + &quot;, metodo=&quot; + metodo + &quot;, esito=&quot; + esito + &quot;, nomeUtente=&quot; + nomeUtente</span>
+<span class="nc" id="L80">		return &quot;Pagamento [id=&quot; + id + &quot;, metodo=&quot; + metodo + &quot;, esito=&quot; + esito + &quot;, nomeUtente=&quot; + nomeUtente</span>
 				+ &quot;, ammontare=&quot; + ammontare + &quot;, tipo=&quot; + tipo + &quot;, idOggetto=&quot;+idOggetto+&quot;]&quot;;
 	}
 	
 	public int getIdOggetto() {
-<span class="fc" id="L85">		return idOggetto;</span>
+<span class="nc" id="L85">		return idOggetto;</span>
 	}
 	public void setIdOggetto(int idOggetto) {
-<span class="fc" id="L88">		this.idOggetto = idOggetto;</span>
-<span class="fc" id="L89">	}</span>
+<span class="nc" id="L88">		this.idOggetto = idOggetto;</span>
+<span class="nc" id="L89">	}</span>
 	//usato per stampare roba in cronologia ordini
 	public Pagamento(int id, String metodo, int esito, String nomeUtente, float ammontare, String tipo,int idOggetto) {
-<span class="fc" id="L92">	super();</span>
-<span class="fc" id="L93">	this.id = id;</span>
-<span class="fc" id="L94">	this.metodo = metodo;</span>
-<span class="fc" id="L95">	this.esito = esito;</span>
-<span class="fc" id="L96">	this.nomeUtente = nomeUtente;</span>
-<span class="fc" id="L97">	this.ammontare = ammontare;</span>
-<span class="fc" id="L98">	this.tipo = tipo;</span>
-<span class="fc" id="L99">	this.idOggetto=idOggetto;</span>
-<span class="fc" id="L100">}</span>
-<span class="fc" id="L101">	public Pagamento() {</span>
+<span class="nc" id="L92">	super();</span>
+<span class="nc" id="L93">	this.id = id;</span>
+<span class="nc" id="L94">	this.metodo = metodo;</span>
+<span class="nc" id="L95">	this.esito = esito;</span>
+<span class="nc" id="L96">	this.nomeUtente = nomeUtente;</span>
+<span class="nc" id="L97">	this.ammontare = ammontare;</span>
+<span class="nc" id="L98">	this.tipo = tipo;</span>
+<span class="nc" id="L99">	this.idOggetto=idOggetto;</span>
+<span class="nc" id="L100">}</span>
+<span class="nc" id="L101">	public Pagamento() {</span>
 		
-<span class="fc" id="L103">	}</span>
+<span class="nc" id="L103">	}</span>
 
 	
 	

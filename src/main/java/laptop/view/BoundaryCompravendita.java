@@ -74,7 +74,7 @@ public class BoundaryCompravendita implements Initializable {
 
 
 	@FXML
-	private void verifica() throws IOException, SQLException, IdException {
+	private void verifica() throws IOException, SQLException, IdException, CsvValidationException {
 		
 			String i = entryText.getText();
 			
@@ -123,7 +123,7 @@ public class BoundaryCompravendita implements Initializable {
 	}
 
 	@FXML
-	private void procedi() throws IOException, SQLException, IdException {
+	private void procedi() throws IOException, SQLException, IdException, CsvValidationException {
 		String i = entryText.getText();
 		
 		

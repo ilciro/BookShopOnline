@@ -65,15 +65,12 @@ public class ControllerGestionePage {
 		{
 			switch (type) {
 				case LIBRO:
-					csvDao.generaReport();
 					catalogo.addAll(csvDao.retrieveAllData(new File("report/reportLibri.csv")));
 					break;
 				case GIORNALE:
-					csvDao.generaReport();
 					catalogo.addAll(csvDao.retrieveAllData(new File("report/reportGiornali.csv")));
 					break;
 				case RIVISTA:
-					csvDao.generaReport();
 					catalogo.addAll(csvDao.retrieveAllData(new File("report/reportRiviste.csv")));
 					break;
 				default:
