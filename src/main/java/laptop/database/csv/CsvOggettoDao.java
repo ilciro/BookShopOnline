@@ -335,7 +335,6 @@ public class CsvOggettoDao implements DaoInterface {
     private static synchronized int getIdMaxL() throws IOException, CsvValidationException {
         //used for insert correct idOgg
         CSVReader reader = new CSVReader(new FileReader(LOCATIONL));
-        ;
         String[] gVector;
         int id = 0;
         while ((gVector = reader.readNext()) != null)
@@ -360,7 +359,6 @@ public class CsvOggettoDao implements DaoInterface {
     private static synchronized int getIdMaxR() throws IOException, CsvValidationException {
         //used for insert correct idOgg
         CSVReader reader = new CSVReader(new FileReader(LOCATIONR));
-        ;
         String[] gVector;
         int id = 0;
         while ((gVector = reader.readNext()) != null)

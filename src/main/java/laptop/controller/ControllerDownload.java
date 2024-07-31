@@ -69,7 +69,6 @@ public class ControllerDownload {
 			case LIBRO->
 			{
 
-				System.out.println(" id in controlelr download " + vis.getId());
 				l.setId(vis.getId());
 				l.scarica(vis.getId());
 				l.leggi(vis.getId());

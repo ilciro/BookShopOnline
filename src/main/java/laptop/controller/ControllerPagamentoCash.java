@@ -39,7 +39,6 @@ public class ControllerPagamentoCash {
 
 				fCsv.inserisciFattura(f);
 				cCPD.checkPagamentoData(f.getNome());
-				System.out.println(" id in pagamento cash :" + vis.getId());
 
 			}
 

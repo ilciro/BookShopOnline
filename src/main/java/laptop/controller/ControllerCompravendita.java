@@ -103,7 +103,7 @@ public class ControllerCompravendita {
 			checkID(Integer.parseInt(i));
 			if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 			{
-				Libro l1=csv.retrieveAllLibroData(new File("report/reportLibro.csv"),l.getId(),"");
+				Libro l1=csv.retrieveAllLibroData(new File(REPORTLIBRO),l.getId(),"");
 				vis.setId(l1.getId());
 				vis.setIdOggetto(vis.getId());
 				if(l1.getDisponibilita()>0)
@@ -121,10 +121,9 @@ public class ControllerCompravendita {
 				checkID(Integer.parseInt(i));
 				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 				{
-					Giornale g1=csv.retrieveAllGiornaleData(new File("report/reportGiornale.csv"),g.getId(),"");
+					Giornale g1=csv.retrieveAllGiornaleData(new File(REPORTGIORNALE),g.getId(),"");
 					vis.setId(g1.getId());
 					vis.setIdOggetto(vis.getId());
-					System.out.println(" id in compravendita :"+ vis.getId());
 					if(g1.getDisponibilita()>0)
 						status=true;
 				}
@@ -138,7 +137,7 @@ public class ControllerCompravendita {
 				checkID(Integer.parseInt(i));
 				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 				{
-					Rivista  r1=csv.retrieveAllRivistaData(new File("report/reportRiviste.csv"),r.getId(),"","");
+					Rivista  r1=csv.retrieveAllRivistaData(new File(REPORTRIVISTA),r.getId(),"","");
 					vis.setId(r1.getId());
 					vis.setIdOggetto(vis.getId());
 					if(r1.getDisp()>0)

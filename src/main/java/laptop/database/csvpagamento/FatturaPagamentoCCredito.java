@@ -219,25 +219,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         }
         return gList;
     }
-    /*
-    private static synchronized void creaFilePagamento(File fd)
-    {
-        try{
-           cleanUp(Path.of(fd.toURI()));
-            if (!fd.exists()) {
-                throw new IOException( "file not exist");
-            }
 
-        }catch (IOException e)
-        {
-            Logger.getLogger(" crea File Pagamento").log(Level.SEVERE, "file "+ fd.getPath() + " not exists");
-            fd=new File(LOCATIONP);
-
-        }
-        Logger.getLogger(" crea File Pagamento").log(Level.INFO, "file "+ fd.getPath() + " created");
-
-    }
-
-     */
 
 }
