@@ -1,41 +1,58 @@
 package laptop.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
+import laptop.database.csvUsers.CsvUtente;
 import laptop.model.User;
 
 
 public class ControllerRegistraUtente {
 	private Boolean state=false;
 	private final User u=User.getInstance();
-
-	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException {
+	private static final ControllerSystemState vis=ControllerSystemState.getInstance();
+	private static final CsvUtente csv=new CsvUtente();
+	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException, CsvValidationException, IOException {
 		
 		
 		u.setEmail(email);
 		u.setPassword(pwd);
 		u.setDataDiNascita(localDate);
-		
+
 		
 		if(checkData ( n,c,email,pwd,pwdC) )
 		{
-			if (UsersDao.checkUser(u) == 0)
-			{
-				// nuovo utente creo l'account
-				u.setNome(n);
-				u.setCognome(c);
-				
-				state=UsersDao.createUser(u);
+			if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
+
+
+				System.out.println(" user : " + csv.getUserList(new File("report/reportUtente.csv"), 0, u.getEmail(), 0, u.getPassword()));
+					if (csv.getUserList(new File("report/reportUtente.csv"), 0, email, 0, pwd).getPassword() == null) {
+					u.setNome(n);
+					u.setCognome(c);
+					state = csv.inserisciUtente(u);
+				}
 			}
-			else 			{
-				// utente gia registrato o errore 
-				state = false;
-			}
+
+				else {
+					if (UsersDao.checkUser(u) == 0) {
+						// nuovo utente creo l'account
+						u.setNome(n);
+						u.setCognome(c);
+
+						state = UsersDao.createUser(u);
+					} else {
+						// utente gia registrato o errore
+						state = false;
+					}
+				}
 		}
+
 		else {
 			state=false;
 		}

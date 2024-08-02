@@ -58,10 +58,10 @@ public class Rivista implements Raccolta  {
 <span class="fc" id="L58">	}</span>
 	
 	public String getTitolo() {
-<span class="nc" id="L61">		return this.titolo;</span>
+<span class="fc" id="L61">		return this.titolo;</span>
 	}
 	public String getTipologia() {
-<span class="nc" id="L64">		return this.tipologia;</span>
+<span class="fc" id="L64">		return this.tipologia;</span>
 	}
 	public String getAutore() {
 <span class="nc" id="L67">		return this.autore;</span>
@@ -79,26 +79,26 @@ public class Rivista implements Raccolta  {
 <span class="nc" id="L79">		return this.dataPubb;</span>
 	}
 	public int getDisp() {
-<span class="nc" id="L82">		return this.disp;</span>
+<span class="fc" id="L82">		return this.disp;</span>
 	}
 	public float getPrezzo() {
-<span class="nc" id="L85">		return this.prezzo;</span>
+<span class="fc" id="L85">		return this.prezzo;</span>
 	}
 	public int getCopieRim() {
-<span class="nc" id="L88">		return this.copieRim;</span>
+<span class="fc" id="L88">		return this.copieRim;</span>
 	}
 	public int getId() {
-<span class="nc" id="L91">		return this.id;</span>
+<span class="fc" id="L91">		return this.id;</span>
 	}
 	public void setTitolo(String titolo) {
 <span class="fc" id="L94">		this.titolo = titolo;</span>
 <span class="fc" id="L95">	}</span>
 	public void setTipologia(String tipologia) {
-<span class="pc bpc" id="L97" title="12 of 15 branches missed.">		switch (tipologia){</span>
+<span class="pc bpc" id="L97" title="13 of 15 branches missed.">		switch (tipologia){</span>
 		
 		case &quot;SETTIMANALE&quot;: 
-<span class="fc" id="L100">			this.tipologia = CategorieRivista.SETTIMANALE.toString();  </span>
-<span class="fc" id="L101">			break;</span>
+<span class="nc" id="L100">			this.tipologia = CategorieRivista.SETTIMANALE.toString();  </span>
+<span class="nc" id="L101">			break;</span>
 
 		case &quot;BISETTIMANALE&quot;: 
 <span class="nc" id="L104">			this.tipologia = CategorieRivista.BISETTIMANALE.toString();  </span>
@@ -187,12 +187,12 @@ public class Rivista implements Raccolta  {
 	
 	@Override
 	public void scarica(int i) throws IOException {
-<span class="nc" id="L190">		Document document=new Document();</span>
+<span class="fc" id="L190">		Document document=new Document();</span>
 		try{
-<span class="nc" id="L192">			PdfWriter writer=PdfWriter.getInstance(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+ rbTitoli.getString(TITOLOR)));</span>
-<span class="nc" id="L193">			document.open();</span>
-<span class="nc" id="L194">			document.addTitle(&quot;Rivista &quot;);</span>
-<span class="nc" id="L195">			document.add(new Paragraph(&quot;&quot;&quot;</span>
+<span class="fc" id="L192">			PdfWriter writer=PdfWriter.getInstance(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+ rbTitoli.getString(TITOLOR)));</span>
+<span class="fc" id="L193">			document.open();</span>
+<span class="fc" id="L194">			document.addTitle(&quot;Rivista &quot;);</span>
+<span class="fc" id="L195">			document.add(new Paragraph(&quot;&quot;&quot;</span>
                     Rivista/Magazine not avalaible
                     Nam ultricies efficitur magna, sit amet luctus magna luctus volutpat
                     Pellentesque facilisis lacinia mi, nec posuere justo pharetra non:
@@ -205,9 +205,9 @@ public class Rivista implements Raccolta  {
                     Vestibulum auctor est ac laoreet egestas.
                     Nam malesuada in massa eu venenatis.&quot;&quot;&quot;));
 
-<span class="nc" id="L208">			readPdf();</span>
-<span class="nc" id="L209">			document.close();</span>
-<span class="nc" id="L210">			writer.close();</span>
+<span class="fc" id="L208">			readPdf();</span>
+<span class="fc" id="L209">			document.close();</span>
+<span class="fc" id="L210">			writer.close();</span>
 
 
 
@@ -215,22 +215,22 @@ public class Rivista implements Raccolta  {
 <span class="nc" id="L215">		}catch (DocumentException | IOException e)</span>
 		{
 <span class="nc" id="L217">			Logger.getLogger(&quot;create pdf&quot;).log(Level.SEVERE,&quot;pdf not created&quot;);</span>
-<span class="nc" id="L218">		}</span>
-<span class="nc" id="L219">	}</span>
+<span class="fc" id="L218">		}</span>
+<span class="fc" id="L219">	}</span>
 	@Override
 	public void leggi(int i) throws IOException, DocumentException {
-<span class="nc bnc" id="L222" title="All 2 branches missed.">		if (Desktop.isDesktopSupported()) {</span>
-<span class="nc" id="L223">			new Thread(() -&gt; {</span>
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">		if (Desktop.isDesktopSupported()) {</span>
+<span class="fc" id="L223">			new Thread(() -&gt; {</span>
 				try {
-<span class="nc" id="L225">					Desktop.getDesktop().open(new File(rbTitoli.getString(DSTPATH)+rbTitoli.getString(TITOLOR)));</span>
+<span class="fc" id="L225">					Desktop.getDesktop().open(new File(rbTitoli.getString(DSTPATH)+rbTitoli.getString(TITOLOR)));</span>
 <span class="nc" id="L226">				} catch (IOException e) {</span>
-<span class="nc" id="L227">					Logger.getLogger(&quot;open file&quot;).log(Level.SEVERE, &quot;open error&quot;);				}</span>
-<span class="nc" id="L228">			}).start();</span>
+<span class="pc" id="L227">					Logger.getLogger(&quot;open file&quot;).log(Level.SEVERE, &quot;open error&quot;);				}</span>
+<span class="fc" id="L228">			}).start();</span>
 		}
 
 
 		
-<span class="nc" id="L233">	}</span>
+<span class="fc" id="L233">	}</span>
 	public String [] getInfoGenerali() {
 <span class="nc" id="L235">		return infoGenerali;</span>
 	}
@@ -240,23 +240,23 @@ public class Rivista implements Raccolta  {
 
 	private void readPdf() throws IOException, DocumentException {
 
-<span class="nc" id="L243">		Document document = new Document();</span>
+<span class="fc" id="L243">		Document document = new Document();</span>
 
-<span class="nc" id="L245">		PdfReader reader = new PdfReader(rbTitoli.getString(&quot;srcPath&quot;) + rbTitoli.getString(TITOLOR));</span>
-<span class="nc" id="L246">		PdfCopy copy=new PdfCopy(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+ rbTitoli.getString(TITOLOR)));</span>
-<span class="nc" id="L247">		document.open();</span>
+<span class="fc" id="L245">		PdfReader reader = new PdfReader(rbTitoli.getString(&quot;srcPath&quot;) + rbTitoli.getString(TITOLOR));</span>
+<span class="fc" id="L246">		PdfCopy copy=new PdfCopy(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+ rbTitoli.getString(TITOLOR)));</span>
+<span class="fc" id="L247">		document.open();</span>
 
-<span class="nc" id="L249">		int pages = reader.getNumberOfPages();</span>
-<span class="nc bnc" id="L250" title="All 2 branches missed.">		for (int i = 1; i &lt;= pages; i++) {</span>
-<span class="nc" id="L251">			copy.addPage(copy.getImportedPage(reader,i));</span>
+<span class="fc" id="L249">		int pages = reader.getNumberOfPages();</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">		for (int i = 1; i &lt;= pages; i++) {</span>
+<span class="fc" id="L251">			copy.addPage(copy.getImportedPage(reader,i));</span>
 
 		}
 
 
-<span class="nc" id="L256">		reader.close();</span>
-<span class="nc" id="L257">		document.close();</span>
+<span class="fc" id="L256">		reader.close();</span>
+<span class="fc" id="L257">		document.close();</span>
 
-<span class="nc" id="L259">	}</span>
+<span class="fc" id="L259">	}</span>
 	
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

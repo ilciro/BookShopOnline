@@ -24,6 +24,9 @@ public class Main  extends Application {
 	private static final String LIBROFINALE="report/reportLibro.csv";
 	private static final String GIORNALEFINALE="report/reportGiornale.csv";
 	private static final String RIVISTAFINALE="report/reportRivista.csv";
+	private static final String UTENTEP="src/main/resources/csvfiles/utente.csv";
+	private static final String UTENTEFINALE="src/main/resources/csvfiles/utente.csv";
+
 
 
 	// insert a comment
@@ -58,6 +61,8 @@ public class Main  extends Application {
 			Files.copy(Path.of(LIBROP), Path.of(LIBROFINALE),REPLACE_EXISTING);
 			Files.copy(Path.of(GIORNALEP), Path.of(GIORNALEFINALE),REPLACE_EXISTING);
 			Files.copy(Path.of(RIVISTAP), Path.of(RIVISTAFINALE),REPLACE_EXISTING);
+			Files.copy(Path.of(UTENTEP), Path.of(UTENTEFINALE),REPLACE_EXISTING);
+
 
 
 

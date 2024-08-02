@@ -10,7 +10,7 @@ import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 
 import laptop.database.RivistaDao;
-import laptop.database.csv.CsvOggettoDao;
+import laptop.database.csvOggetto.CsvOggettoDao;
 import laptop.exception.AcquistaException;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
@@ -69,12 +69,15 @@ public class ControllerAcquista {
 			}
 			case GIORNALE->
 			{
+
 				checkID(vis.getId());
 				vis.setQuantita(quantita);
+
+
 				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 				{
 
-					Giornale g1=csv.retrieveAllGiornaleData(new File(LOCATIONG),g.getId(),titolo);
+					 Giornale g1=csv.retrieveAllGiornaleData(new File(LOCATIONG),vis.getId(),titolo);
 					x=g1.getPrezzo();
 
 
@@ -93,7 +96,7 @@ public class ControllerAcquista {
 				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 				{
 
-					Rivista r1=csv.retrieveAllRivistaData(new File(LOCATIONR),r.getId(),titolo,"");
+					Rivista r1=csv.retrieveAllRivistaData(new File(LOCATIONR),vis.getId(),titolo,"");
 					x=r1.getPrezzo();
 
 
@@ -300,7 +303,7 @@ public class ControllerAcquista {
 
 				r.setId(vis.getId());
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Rivista r1 = csv.retrieveAllRivistaData(new File(LOCATIONR), l.getId(), "","");
+					Rivista r1 = csv.retrieveAllRivistaData(new File(LOCATIONR), r.getId(), "","");
 					disp = r1.getCopieRim();
 				} else
 					disp = rD.getData(r).getCopieRim();

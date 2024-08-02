@@ -9,7 +9,7 @@ import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
-import laptop.database.csv.CsvOggettoDao;
+import laptop.database.csvOggetto.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
@@ -59,19 +59,25 @@ public class ControllerVisualizza {
 		}
 		else 		return  lD.getData(l);
 	}
-	public Giornale getDataG(int i) throws SQLException
-	{
+	public Giornale getDataG(int i) throws SQLException, CsvValidationException, IOException, IdException {
 		// imposto che è un libro nel controller
 		vis.setId(i);
 		g.setId(vis.getId());
-		return  gD.getData(g);
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+			return csv.retrieveAllGiornaleData(new File("report/reportGiornale.csv"),g.getId(),"");
+		}
+		else 		return  gD.getData(g);
 	}
-	public Rivista getDataR(int i) throws SQLException
-	{
+	public Rivista getDataR(int i) throws SQLException, CsvValidationException, IOException, IdException {
 		// imposto che è un libro nel controller
 		vis.setId(i);
 		r.setId(vis.getId());
-		return  rD.getData(r);
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+			return csv.retrieveAllRivistaData(new File("report/reportRivista.csv"),r.getId(),"","");
+		}
+		else 		return  rD.getData(r);
 	}
 	
 }

@@ -16,7 +16,7 @@ import java.util.logging.Level;
 public class ConnToDb 
 {
 	
-<span class="fc" id="L19">	protected static Connection conn = null;</span>
+<span class="nc" id="L19">	protected static Connection conn = null;</span>
 
 	
 	private static final String CONNESSIONE=&quot;Tentativo di conessione al server..........\\\\n&quot;;
@@ -25,99 +25,99 @@ public class ConnToDb
 	private static final String ERRORE=&quot;Errore in mysql..........\\n&quot;;
 
 
-<span class="fc" id="L28">	private static final ResourceBundle rB=ResourceBundle.getBundle(&quot;configurations/configDb&quot;);</span>
+<span class="nc" id="L28">	private static final ResourceBundle rB=ResourceBundle.getBundle(&quot;configurations/configDb&quot;);</span>
 
 	private static boolean statusConnSys;
 	private static boolean statusConnDB;
 
 	public static boolean getStatusConnSys() {
-<span class="fc" id="L34">		return statusConnSys;</span>
+<span class="nc" id="L34">		return statusConnSys;</span>
 	}
 
 	public static void setStatusConnSys(boolean statusConnSys) {
-<span class="fc" id="L38">		ConnToDb.statusConnSys = statusConnSys;</span>
-<span class="fc" id="L39">	}</span>
+<span class="nc" id="L38">		ConnToDb.statusConnSys = statusConnSys;</span>
+<span class="nc" id="L39">	}</span>
 
 	public static boolean getStatusConnDB() {
-<span class="fc" id="L42">		return statusConnDB;</span>
+<span class="nc" id="L42">		return statusConnDB;</span>
 	}
 
 	public static void setStatusConnDB(boolean statusConnDB) {
-<span class="fc" id="L46">		ConnToDb.statusConnDB = statusConnDB;</span>
-<span class="fc" id="L47">	}</span>
+<span class="nc" id="L46">		ConnToDb.statusConnDB = statusConnDB;</span>
+<span class="nc" id="L47">	}</span>
 
 	public static Connection generalConnection()
 	{
 
 
-<span class="fc" id="L53">		String driver=rB.getString(&quot;driver&quot;);</span>
-<span class="fc" id="L54">		String user=rB.getString(&quot;user&quot;);</span>
-<span class="fc" id="L55">		String pwd=rB.getString(&quot;pwdLinux&quot;);</span>
-<span class="fc" id="L56">		String url=rB.getString(&quot;url&quot;);</span>
+<span class="nc" id="L53">		String driver=rB.getString(&quot;driver&quot;);</span>
+<span class="nc" id="L54">		String user=rB.getString(&quot;user&quot;);</span>
+<span class="nc" id="L55">		String pwd=rB.getString(&quot;pwdLinux&quot;);</span>
+<span class="nc" id="L56">		String url=rB.getString(&quot;url&quot;);</span>
 		try
 		{
-<span class="fc" id="L59">			Class.forName(driver);</span>
-<span class="fc" id="L60">			java.util.logging.Logger.getLogger(&quot;Test General connection&quot;).log(Level.INFO, CONNESSIONE);</span>
-<span class="fc" id="L61">			conn = DriverManager.getConnection(url, user,pwd);</span>
-<span class="fc" id="L62">			java.util.logging.Logger.getLogger(&quot;Test General connection standard&quot;).log(Level.INFO, &quot;Connesso standard a sys........\n&quot;);</span>
-<span class="fc" id="L63">			setStatusConnSys(true);</span>
+<span class="nc" id="L59">			Class.forName(driver);</span>
+<span class="nc" id="L60">			java.util.logging.Logger.getLogger(&quot;Test General connection&quot;).log(Level.INFO, CONNESSIONE);</span>
+<span class="nc" id="L61">			conn = DriverManager.getConnection(url, user,pwd);</span>
+<span class="nc" id="L62">			java.util.logging.Logger.getLogger(&quot;Test General connection standard&quot;).log(Level.INFO, &quot;Connesso standard a sys........\n&quot;);</span>
+<span class="nc" id="L63">			setStatusConnSys(true);</span>
 		}
 <span class="nc" id="L65">		catch (SQLException | ClassNotFoundException e1)</span>
 		{
 <span class="nc" id="L67">			java.util.logging.Logger.getLogger(&quot;Test general connection error&quot;).log(Level.INFO, ERRORE, e1);</span>
 <span class="nc" id="L68">			setStatusConnSys(false);</span>
 
-<span class="fc" id="L70">		}</span>
+<span class="nc" id="L70">		}</span>
 
-<span class="fc" id="L72">		return conn;</span>
+<span class="nc" id="L72">		return conn;</span>
 
 	}
 	public static Connection connectionToDB()
 	{
 
 
-<span class="fc" id="L79">		String driver=rB.getString(&quot;driver&quot;);</span>
-<span class="fc" id="L80">		String user=rB.getString(&quot;user&quot;);</span>
-<span class="fc" id="L81">		String pwd=rB.getString(&quot;pwdLinux&quot;);</span>
-<span class="fc" id="L82">		String url=rB.getString(&quot;urlDb&quot;);</span>
+<span class="nc" id="L79">		String driver=rB.getString(&quot;driver&quot;);</span>
+<span class="nc" id="L80">		String user=rB.getString(&quot;user&quot;);</span>
+<span class="nc" id="L81">		String pwd=rB.getString(&quot;pwdLinux&quot;);</span>
+<span class="nc" id="L82">		String url=rB.getString(&quot;urlDb&quot;);</span>
 		try
 		{
-<span class="fc" id="L85">			Class.forName(driver);</span>
-<span class="fc" id="L86">			java.util.logging.Logger.getLogger(&quot;Test connection to my db&quot;).log(Level.INFO, CONNESSIONE);</span>
-<span class="fc" id="L87">			conn = DriverManager.getConnection(url, user,pwd);</span>
-<span class="fc" id="L88">			java.util.logging.Logger.getLogger(&quot;Test connection to my db&quot;).log(Level.INFO, &quot;Connesso standard a ISPW........\n&quot;);</span>
-<span class="fc" id="L89">			setStatusConnDB(true);</span>
+<span class="nc" id="L85">			Class.forName(driver);</span>
+<span class="nc" id="L86">			java.util.logging.Logger.getLogger(&quot;Test connection to my db&quot;).log(Level.INFO, CONNESSIONE);</span>
+<span class="nc" id="L87">			conn = DriverManager.getConnection(url, user,pwd);</span>
+<span class="nc" id="L88">			java.util.logging.Logger.getLogger(&quot;Test connection to my db&quot;).log(Level.INFO, &quot;Connesso standard a ISPW........\n&quot;);</span>
+<span class="nc" id="L89">			setStatusConnDB(true);</span>
 		}
 <span class="nc" id="L91">		catch (SQLException | ClassNotFoundException e1)</span>
 		{
 <span class="nc" id="L93">			java.util.logging.Logger.getLogger(&quot;TTest connection to my db error&quot;).log(Level.INFO, ERRORE, e1);</span>
 <span class="nc" id="L94">			setStatusConnDB(false);</span>
 
-<span class="fc" id="L96">		}</span>
+<span class="nc" id="L96">		}</span>
 
-<span class="fc" id="L98">		return conn;</span>
+<span class="nc" id="L98">		return conn;</span>
 
 	}
 
 
 
 	public static void creaPopolaDb() throws FileNotFoundException {
-<span class="fc" id="L105">		ConnToDb.generalConnection();</span>
-<span class="fc" id="L106">		ConnToDb.connectionToDB();</span>
-<span class="fc" id="L107">		boolean statusSys=ConnToDb.getStatusConnSys();</span>
-<span class="fc" id="L108">		boolean statusDb=ConnToDb.getStatusConnDB();</span>
-<span class="pc bpc" id="L109" title="2 of 4 branches missed.">		boolean status=statusSys&amp;&amp;statusDb;</span>
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">		if(Boolean.FALSE.equals(status)) {</span>
+<span class="nc" id="L105">		ConnToDb.generalConnection();</span>
+<span class="nc" id="L106">		ConnToDb.connectionToDB();</span>
+<span class="nc" id="L107">		boolean statusSys=ConnToDb.getStatusConnSys();</span>
+<span class="nc" id="L108">		boolean statusDb=ConnToDb.getStatusConnDB();</span>
+<span class="nc bnc" id="L109" title="All 4 branches missed.">		boolean status=statusSys&amp;&amp;statusDb;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">		if(Boolean.FALSE.equals(status)) {</span>
 <span class="nc" id="L111">			Reader reader = new BufferedReader(new FileReader(&quot;FileSql/export-db.sql&quot;));</span>
 <span class="nc" id="L112">			ScriptRunner sr = new ScriptRunner(conn);</span>
 <span class="nc" id="L113">			sr.setSendFullScript(false);</span>
 <span class="nc" id="L114">			sr.runScript(reader);</span>
 <span class="nc" id="L115">		}</span>
 		else {
-<span class="fc" id="L117">			java.util.logging.Logger.getLogger(&quot;creaPopolaDB&quot;).log(Level.INFO, &quot;entrambi popolati&quot;);</span>
+<span class="nc" id="L117">			java.util.logging.Logger.getLogger(&quot;creaPopolaDB&quot;).log(Level.INFO, &quot;entrambi popolati&quot;);</span>
 
 		}
-<span class="fc" id="L120">	}</span>
+<span class="nc" id="L120">	}</span>
 	private ConnToDb(){}
 
 

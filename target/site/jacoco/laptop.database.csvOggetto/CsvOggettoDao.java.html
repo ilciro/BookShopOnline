@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CsvOggettoDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.database.csvOggetto</a> &gt; <span class="el_source">CsvOggettoDao.java</span></div><h1>CsvOggettoDao.java</h1><pre class="source lang-java linenums">package laptop.database.csvOggetto;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
+import laptop.model.raccolta.Raccolta;
+import laptop.model.raccolta.Rivista;
+import org.apache.commons.lang.SystemUtils;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+
+import java.time.LocalDate;
+
+
+import java.util.Set;
+import java.util.logging.Level;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+<span class="fc" id="L31">public class CsvOggettoDao implements DaoInterface {</span>
+
+    private static final String LOCATIONG = &quot;report/reportGiornale.csv&quot;;
+    private static final int GETINDEXTITOLOG = 0;
+    private static final int GETINDEXTIPOLOGIAG = 1;
+    private static final int GETINDEXLINGUAG = 2;
+    private static final int GETINDEXEDITOREG = 3;
+    private static final int GETINDEXDATAG = 4;
+    private static final int GETINDEXCOPIERG = 5;
+    private static final int GETINDEXDISPG = 6;
+    private static final int GETINDEXPREZZOG = 7;
+    private static final int GETINDEXIDG = 8;
+
+    private static final String LOCATIONL = &quot;report/reportLibro.csv&quot;;
+    private static final int GETINDEXTITOLOL = 0;
+    private static final int GETINDEXNRPL = 1;
+    private static final int GETINDEXISBNL = 2;
+    private static final int GETINDEXEDITOREL = 3;
+    private static final int GETINDEXAUTOREL = 4;
+    private static final int GETINDEXLINGUAL = 5;
+    private static final int GETINDEXCATEGORIAL = 6;
+    private static final int GETINDEXDATAL = 7;
+    private static final int GETINDEXRECENSIONEL = 8;
+    private static final int GETINDEXCOPIEL = 9;
+    private static final int GETINDEXDESCL = 10;
+    private static final int GETINDEXDISPL = 11;
+    private static final int GETINDEXPREZZOL = 12;
+    private static final int GETINDEXIDL = 13;
+
+
+    private static final String LOCATIONR = &quot;report/reportRivista.csv&quot;;
+    private static final int GETINDEXTITOLOR = 0;
+    private static final int GETINDEXTIPOLOGIAR = 1;
+    private static final int GETINDEXAUTORER = 2;
+    private static final int GETINDEXLINGUAR = 3;
+    private static final int GETINDEXEDITORER = 4;
+    private static final int GETINDEXDESCRIZIONER = 5;
+    private static final int GETINDEXDATAR = 6;
+    private static final int GETINDEXDISPR = 7;
+    private static final int GETINDEXPREZZOR = 8;
+    private static final int GETINDEXCOPIER = 9;
+    private static final int GETINDEXIDR = 10;
+
+    private static final String LIBRO = &quot;libro&quot;;
+    private static final String GIORNALE = &quot;giornale&quot;;
+    private static final String RIVISTA = &quot;rivista&quot;;
+
+    private static final String USERNOTFOUND = &quot; user not found -&gt; id null&quot;;
+
+
+<span class="fc" id="L81">    private static final ControllerSystemState vis = ControllerSystemState.getInstance();</span>
+
+    private static void cleanUp(Path path) throws IOException {
+<span class="nc" id="L84">        Files.delete(path);</span>
+<span class="nc" id="L85">    }</span>
+
+
+    @Override
+    public ObservableList&lt;Raccolta&gt; retrieveAllData(File fd) throws CsvValidationException, IOException, IdException {
+<span class="nc" id="L90">        return retrieveData(fd);</span>
+    }
+
+    @Override
+    public void inserisciLibro(Libro l) throws IOException, CsvValidationException {
+<span class="nc" id="L95">        inserimentoLibro(l);</span>
+<span class="nc" id="L96">    }</span>
+
+    @Override
+    public void inserisciGiornale(Giornale g) throws IOException, CsvValidationException {
+<span class="nc" id="L100">        inserimentoGiornale(g);</span>
+<span class="nc" id="L101">    }</span>
+
+    @Override
+    public void inserisciRivista(Rivista r) throws IOException, CsvValidationException {
+<span class="nc" id="L105">        inserimentoRivista(r);</span>
+<span class="nc" id="L106">    }</span>
+
+    @Override
+    public void eliminaOggetto(File fd) throws CsvValidationException, IOException {
+<span class="nc" id="L110">        cancellaById(fd);</span>
+<span class="nc" id="L111">    }</span>
+
+    @Override
+    public void modificaLibro(File fd, Libro l) throws CsvValidationException, IOException, IdException {
+<span class="nc" id="L115">        aggiornaLibro(fd, l);</span>
+<span class="nc" id="L116">    }</span>
+
+    @Override
+    public void modificaRivista(File file, Rivista r) throws CsvValidationException, IOException, IdException {
+<span class="nc" id="L120">        aggiornaRivista(file, r);</span>
+<span class="nc" id="L121">    }</span>
+
+    @Override
+    public void modificaGiornale(File file, Giornale g) throws CsvValidationException, IOException, IdException {
+<span class="nc" id="L125">        aggiornaGiornale(file, g);</span>
+<span class="nc" id="L126">    }</span>
+
+    @Override
+    public Libro retrieveAllLibroData(File fd, int id, String titolo) throws CsvValidationException, IOException, IdException {
+<span class="fc" id="L130">        return retrieveDataL(fd, id, titolo);</span>
+    }
+
+    @Override
+    public Giornale retrieveAllGiornaleData(File fd, int id, String editore) throws CsvValidationException, IOException, IdException {
+<span class="fc" id="L135">        return retrieveDataG(fd, id, editore);</span>
+    }
+
+    @Override
+    public Rivista retrieveAllRivistaData(File fd, int id, String editore, String autore) throws CsvValidationException, IOException, IdException {
+<span class="fc" id="L140">        return retrieveDataR(fd, id, editore, autore);</span>
+    }
+
+
+    private synchronized ObservableList&lt;Raccolta&gt; retrieveData(File fd) throws CsvValidationException, IOException, IdException {
+<span class="nc" id="L145">        ObservableList&lt;Raccolta&gt; gList = FXCollections.observableArrayList();</span>
+<span class="nc" id="L146">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] gVEctor;
+<span class="nc bnc" id="L148" title="All 4 branches missed.">        switch (vis.getType()) {</span>
+            case LIBRO:
+
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                while ((gVEctor = csvReader.readNext()) != null) {</span>
+<span class="nc" id="L152">                    String titolo = gVEctor[GETINDEXTITOLOL];</span>
+<span class="nc" id="L153">                    String numeroPagine = gVEctor[GETINDEXNRPL];</span>
+<span class="nc" id="L154">                    String isbn = gVEctor[GETINDEXISBNL];</span>
+<span class="nc" id="L155">                    String editore = gVEctor[GETINDEXEDITOREL];</span>
+<span class="nc" id="L156">                    String autore = gVEctor[GETINDEXAUTOREL];</span>
+<span class="nc" id="L157">                    String lingua = gVEctor[GETINDEXLINGUAL];</span>
+<span class="nc" id="L158">                    String categoria = gVEctor[GETINDEXCATEGORIAL];</span>
+<span class="nc" id="L159">                    String data = gVEctor[GETINDEXDATAL];</span>
+<span class="nc" id="L160">                    String recensione = gVEctor[GETINDEXRECENSIONEL];</span>
+<span class="nc" id="L161">                    String copie = gVEctor[GETINDEXCOPIEL];</span>
+<span class="nc" id="L162">                    String desc = gVEctor[GETINDEXDESCL];</span>
+<span class="nc" id="L163">                    String disp = gVEctor[GETINDEXDISPL];</span>
+<span class="nc" id="L164">                    String prezzo = gVEctor[GETINDEXPREZZOL];</span>
+<span class="nc" id="L165">                    String id = gVEctor[GETINDEXIDL];</span>
+
+<span class="nc" id="L167">                    Libro l = new Libro();</span>
+<span class="nc" id="L168">                    l.setTitolo(titolo);</span>
+<span class="nc" id="L169">                    l.setNrPagine(Integer.parseInt(numeroPagine));</span>
+<span class="nc" id="L170">                    l.setCodIsbn(isbn);</span>
+<span class="nc" id="L171">                    l.setEditore(editore);</span>
+<span class="nc" id="L172">                    l.setAutore(autore);</span>
+<span class="nc" id="L173">                    l.setLingua(lingua);</span>
+<span class="nc" id="L174">                    l.setCategoria(categoria);</span>
+<span class="nc" id="L175">                    l.setDataPubb(LocalDate.parse(data));</span>
+<span class="nc" id="L176">                    l.setRecensione(recensione);</span>
+<span class="nc" id="L177">                    l.setNrCopie(Integer.parseInt(copie));</span>
+<span class="nc" id="L178">                    l.setDesc(desc);</span>
+<span class="nc" id="L179">                    l.setDisponibilita(Integer.parseInt(disp));</span>
+<span class="nc" id="L180">                    l.setPrezzo(Float.parseFloat(prezzo));</span>
+<span class="nc" id="L181">                    l.setId(Integer.parseInt(id));</span>
+
+
+<span class="nc" id="L184">                    gList.add(l);</span>
+
+<span class="nc" id="L186">                }</span>
+<span class="nc" id="L187">                csvReader.close();</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">                if (gList.isEmpty()) {</span>
+<span class="nc" id="L189">                    throw new IdException(USERNOTFOUND);</span>
+                }
+                break;
+            case GIORNALE:
+<span class="nc bnc" id="L193" title="All 2 branches missed.">                while ((gVEctor = csvReader.readNext()) != null) {</span>
+
+
+<span class="nc" id="L196">                    String titolo = gVEctor[GETINDEXTITOLOG];</span>
+<span class="nc" id="L197">                    String tipologia = gVEctor[GETINDEXTIPOLOGIAG];</span>
+<span class="nc" id="L198">                    String lingua = gVEctor[GETINDEXLINGUAG];</span>
+<span class="nc" id="L199">                    String editore = gVEctor[GETINDEXEDITOREG];</span>
+<span class="nc" id="L200">                    String data = gVEctor[GETINDEXDATAG];</span>
+<span class="nc" id="L201">                    String copie = gVEctor[GETINDEXCOPIERG];</span>
+<span class="nc" id="L202">                    String disp = gVEctor[GETINDEXDISPG];</span>
+<span class="nc" id="L203">                    String prezzo = gVEctor[GETINDEXPREZZOG];</span>
+<span class="nc" id="L204">                    String id = gVEctor[GETINDEXIDG];</span>
+<span class="nc" id="L205">                    Giornale g = new Giornale();</span>
+<span class="nc" id="L206">                    g.setTitolo(titolo);</span>
+<span class="nc" id="L207">                    g.setTipologia(tipologia);</span>
+<span class="nc" id="L208">                    g.setLingua(lingua);</span>
+<span class="nc" id="L209">                    g.setEditore(editore);</span>
+<span class="nc" id="L210">                    g.setDataPubb(LocalDate.parse(data));</span>
+<span class="nc" id="L211">                    g.setCopieRimanenti(Integer.parseInt(copie));</span>
+<span class="nc" id="L212">                    g.setDisponibilita(Integer.parseInt(disp));</span>
+<span class="nc" id="L213">                    g.setPrezzo(Float.parseFloat(prezzo));</span>
+<span class="nc" id="L214">                    g.setId(Integer.parseInt(id));</span>
+
+
+<span class="nc" id="L217">                    gList.add(g);</span>
+
+<span class="nc" id="L219">                }</span>
+<span class="nc" id="L220">                csvReader.close();</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">                if (gList.isEmpty()) {</span>
+<span class="nc" id="L222">                    throw new IdException(USERNOTFOUND);</span>
+                }
+                break;
+            case RIVISTA:
+<span class="nc bnc" id="L226" title="All 2 branches missed.">                while ((gVEctor = csvReader.readNext()) != null) {</span>
+
+
+<span class="nc" id="L229">                    String titolo = gVEctor[GETINDEXTITOLOR];</span>
+<span class="nc" id="L230">                    String tipologia = gVEctor[GETINDEXTIPOLOGIAR];</span>
+<span class="nc" id="L231">                    String autore = gVEctor[GETINDEXAUTORER];</span>
+<span class="nc" id="L232">                    String lingua = gVEctor[GETINDEXLINGUAR];</span>
+<span class="nc" id="L233">                    String editore = gVEctor[GETINDEXEDITORER];</span>
+<span class="nc" id="L234">                    String desc = gVEctor[GETINDEXDESCRIZIONER];</span>
+<span class="nc" id="L235">                    String data = gVEctor[GETINDEXDATAR];</span>
+<span class="nc" id="L236">                    String disp = gVEctor[GETINDEXDISPR];</span>
+<span class="nc" id="L237">                    String prezzo = gVEctor[GETINDEXPREZZOR];</span>
+<span class="nc" id="L238">                    String copie = gVEctor[GETINDEXCOPIER];</span>
+<span class="nc" id="L239">                    String id = gVEctor[GETINDEXIDR];</span>
+
+<span class="nc" id="L241">                    Rivista r = new Rivista();</span>
+<span class="nc" id="L242">                    r.setTitolo(titolo);</span>
+<span class="nc" id="L243">                    r.setTipologia(tipologia);</span>
+<span class="nc" id="L244">                    r.setAutore(autore);</span>
+<span class="nc" id="L245">                    r.setLingua(lingua);</span>
+<span class="nc" id="L246">                    r.setEditore(editore);</span>
+<span class="nc" id="L247">                    r.setDescrizione(desc);</span>
+<span class="nc" id="L248">                    r.setDataPubb(LocalDate.parse(data));</span>
+<span class="nc" id="L249">                    r.setDisp(Integer.parseInt(disp));</span>
+<span class="nc" id="L250">                    r.setPrezzo(Float.parseFloat(prezzo));</span>
+<span class="nc" id="L251">                    r.setCopieRim(Integer.parseInt(copie));</span>
+<span class="nc" id="L252">                    r.setId(Integer.parseInt(id));</span>
+
+
+<span class="nc" id="L255">                    gList.add(r);</span>
+
+<span class="nc" id="L257">                }</span>
+<span class="nc" id="L258">                csvReader.close();</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">                if (gList.isEmpty()) {</span>
+<span class="nc" id="L260">                    throw new IdException(USERNOTFOUND);</span>
+                }
+                break;
+            default:
+                break;
+        }
+
+<span class="nc" id="L267">        return gList;</span>
+    }
+
+    private static synchronized void inserimentoLibro(Libro l) throws IOException, CsvValidationException {
+
+
+<span class="nc" id="L273">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONL, true)));</span>
+<span class="nc" id="L274">        String[] gVector = new String[14];</span>
+
+<span class="nc" id="L276">        gVector[GETINDEXTITOLOL] = l.getTitolo();</span>
+<span class="nc" id="L277">        gVector[GETINDEXNRPL] = String.valueOf(l.getNrPagine());</span>
+<span class="nc" id="L278">        gVector[GETINDEXISBNL] = l.getCodIsbn();</span>
+<span class="nc" id="L279">        gVector[GETINDEXEDITOREL] = l.getEditore();</span>
+<span class="nc" id="L280">        gVector[GETINDEXAUTOREL] = l.getAutore();</span>
+<span class="nc" id="L281">        gVector[GETINDEXLINGUAL] = l.getLingua();</span>
+<span class="nc" id="L282">        gVector[GETINDEXCATEGORIAL] = l.getCategoria();</span>
+<span class="nc" id="L283">        gVector[GETINDEXDATAL] = String.valueOf(l.getDataPubb());</span>
+<span class="nc" id="L284">        gVector[GETINDEXRECENSIONEL] = l.getRecensione();</span>
+<span class="nc" id="L285">        gVector[GETINDEXCOPIEL] = String.valueOf(l.getNrCopie());</span>
+<span class="nc" id="L286">        gVector[GETINDEXDESCL] = l.getDesc();</span>
+<span class="nc" id="L287">        gVector[GETINDEXDISPL] = String.valueOf(l.getDisponibilita());</span>
+<span class="nc" id="L288">        gVector[GETINDEXPREZZOL] = String.valueOf(l.getPrezzo());</span>
+<span class="nc" id="L289">        gVector[GETINDEXIDL] = String.valueOf(getIdMaxL() + 1);</span>
+<span class="nc" id="L290">        csvWriter.writeNext(gVector);</span>
+<span class="nc" id="L291">        csvWriter.flush();</span>
+<span class="nc" id="L292">        csvWriter.close();</span>
+<span class="nc" id="L293">    }</span>
+
+    private static synchronized void inserimentoGiornale(Giornale g) throws IOException, CsvValidationException {
+
+<span class="nc" id="L297">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONG, true)));</span>
+<span class="nc" id="L298">        String[] gVector = new String[9];</span>
+
+<span class="nc" id="L300">        gVector[GETINDEXTITOLOG] = g.getTitolo();</span>
+<span class="nc" id="L301">        gVector[GETINDEXTIPOLOGIAG] = g.getTipologia();</span>
+<span class="nc" id="L302">        gVector[GETINDEXLINGUAG] = g.getLingua();</span>
+<span class="nc" id="L303">        gVector[GETINDEXEDITOREG] = g.getEditore();</span>
+<span class="nc" id="L304">        gVector[GETINDEXDATAG] = String.valueOf(g.getDataPubb());</span>
+<span class="nc" id="L305">        gVector[GETINDEXCOPIERG] = String.valueOf(g.getCopieRimanenti());</span>
+<span class="nc" id="L306">        gVector[GETINDEXDISPG] = String.valueOf(g.getDisponibilita());</span>
+<span class="nc" id="L307">        gVector[GETINDEXPREZZOG] = String.valueOf(g.getPrezzo());</span>
+<span class="nc" id="L308">        gVector[GETINDEXIDG] = String.valueOf(getIdMaxG() + 1);</span>
+<span class="nc" id="L309">        csvWriter.writeNext(gVector);</span>
+<span class="nc" id="L310">        csvWriter.flush();</span>
+<span class="nc" id="L311">        csvWriter.close();</span>
+<span class="nc" id="L312">    }</span>
+
+    private static synchronized void inserimentoRivista(Rivista r) throws IOException, CsvValidationException {
+
+<span class="nc" id="L316">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONR, true)));</span>
+<span class="nc" id="L317">        String[] gVector = new String[11];</span>
+
+<span class="nc" id="L319">        gVector[GETINDEXTITOLOR] = r.getTitolo();</span>
+<span class="nc" id="L320">        gVector[GETINDEXTIPOLOGIAR] = r.getTipologia();</span>
+<span class="nc" id="L321">        gVector[GETINDEXAUTORER] = r.getAutore();</span>
+<span class="nc" id="L322">        gVector[GETINDEXLINGUAR] = r.getLingua();</span>
+<span class="nc" id="L323">        gVector[GETINDEXEDITORER] = r.getEditore();</span>
+<span class="nc" id="L324">        gVector[GETINDEXDESCRIZIONER] = r.getDescrizione();</span>
+<span class="nc" id="L325">        gVector[GETINDEXDATAR] = String.valueOf(r.getDataPubb());</span>
+<span class="nc" id="L326">        gVector[GETINDEXDISPR] = String.valueOf(r.getDisp());</span>
+<span class="nc" id="L327">        gVector[GETINDEXPREZZOR] = String.valueOf(r.getPrezzo());</span>
+<span class="nc" id="L328">        gVector[GETINDEXCOPIER] = String.valueOf(r.getCopieRim());</span>
+<span class="nc" id="L329">        gVector[GETINDEXIDR] = String.valueOf(getIdMaxR() + 1);</span>
+<span class="nc" id="L330">        csvWriter.writeNext(gVector);</span>
+<span class="nc" id="L331">        csvWriter.flush();</span>
+<span class="nc" id="L332">        csvWriter.close();</span>
+<span class="nc" id="L333">    }</span>
+
+    private static synchronized int getIdMaxL() throws IOException, CsvValidationException {
+        //used for insert correct idOgg
+<span class="nc" id="L337">        CSVReader reader = new CSVReader(new FileReader(LOCATIONL));</span>
+        String[] gVector;
+<span class="nc" id="L339">        int id = 0;</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null)</span>
+<span class="nc" id="L341">            id = Integer.parseInt(gVector[GETINDEXIDL]);</span>
+
+<span class="nc" id="L343">        return id;</span>
+
+    }
+
+    private static synchronized int getIdMaxG() throws IOException, CsvValidationException {
+        //used for insert correct idOgg
+<span class="nc" id="L349">        CSVReader reader = new CSVReader(new FileReader(LOCATIONG));</span>
+        String[] gVector;
+<span class="nc" id="L351">        int id = 0;</span>
+<span class="nc bnc" id="L352" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null)</span>
+<span class="nc" id="L353">            id = Integer.parseInt(gVector[GETINDEXIDG]);</span>
+
+<span class="nc" id="L355">        return id;</span>
+
+    }
+
+    private static synchronized int getIdMaxR() throws IOException, CsvValidationException {
+        //used for insert correct idOgg
+<span class="nc" id="L361">        CSVReader reader = new CSVReader(new FileReader(LOCATIONR));</span>
+        String[] gVector;
+<span class="nc" id="L363">        int id = 0;</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null)</span>
+<span class="nc" id="L365">            id = Integer.parseInt(gVector[GETINDEXIDR]);</span>
+
+<span class="nc" id="L367">        return id;</span>
+
+    }
+
+    private static synchronized void cancellaById(File fd) throws IOException, CsvValidationException {
+
+<span class="nc bnc" id="L373" title="All 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="nc" id="L374">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
+<span class="nc" id="L375">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
+        }
+<span class="nc" id="L377">        File tmpFD = new File(&quot;report/appoggio.csv&quot;);</span>
+<span class="nc" id="L378">        boolean found = false;</span>
+        // create csvReader object passing file reader as a parameter
+<span class="nc" id="L380">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] giornaleVector;
+<span class="nc" id="L382">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
+        //check on path
+<span class="nc" id="L384">        boolean userVectorFound = false;</span>
+
+
+<span class="nc bnc" id="L387" title="All 2 branches missed.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
+<span class="nc bnc" id="L388" title="All 4 branches missed.">            switch (fd.getPath()) {</span>
+<span class="nc" id="L389">                case LOCATIONL -&gt; userVectorFound = giornaleVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));</span>
+<span class="nc" id="L390">                case LOCATIONG -&gt; userVectorFound = giornaleVector[GETINDEXIDG].equals(String.valueOf(vis.getId()));</span>
+<span class="nc" id="L391">                case LOCATIONR -&gt; userVectorFound = giornaleVector[GETINDEXIDR].equals(String.valueOf(vis.getId()));</span>
+                default -&gt;
+<span class="nc" id="L393">                        java.util.logging.Logger.getLogger(&quot;test cancella by id&quot;).log(Level.SEVERE, &quot; file not exists \n&quot;);</span>
+
+            }
+<span class="nc bnc" id="L396" title="All 2 branches missed.">            if (!userVectorFound) {</span>
+<span class="nc" id="L397">                csvWriter.writeNext(giornaleVector);</span>
+            } else {
+<span class="nc" id="L399">                found = userVectorFound;</span>
+            }
+
+        }
+
+<span class="nc" id="L404">        csvWriter.flush();</span>
+<span class="nc" id="L405">        csvReader.close();</span>
+<span class="nc" id="L406">        csvWriter.close();</span>
+<span class="nc bnc" id="L407" title="All 2 branches missed.">        if (found) {</span>
+<span class="nc" id="L408">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
+        } else {
+<span class="nc" id="L410">            cleanUp(Path.of(tmpFD.toURI()));</span>
+        }
+
+<span class="nc" id="L413">    }</span>
+
+    private static synchronized void aggiornaLibro(File fd, Libro l) throws CsvValidationException, IOException, IdException {
+<span class="nc" id="L416">        cancellaById(fd);</span>
+<span class="nc" id="L417">        inserimentoLibro(l);</span>
+<span class="nc" id="L418">    }</span>
+
+    private static synchronized void aggiornaRivista(File file, Rivista r) throws CsvValidationException, IOException, IdException {
+
+<span class="nc" id="L422">        cancellaById(file);</span>
+<span class="nc" id="L423">        inserimentoRivista(r);</span>
+<span class="nc" id="L424">    }</span>
+
+    private static synchronized void aggiornaGiornale(File file, Giornale g) throws CsvValidationException, IOException, IdException {
+
+<span class="nc" id="L428">        cancellaById(file);</span>
+<span class="nc" id="L429">        inserimentoGiornale(g);</span>
+<span class="nc" id="L430">    }</span>
+
+    private synchronized Libro retrieveDataL(File fd, int idL, String t) throws CsvValidationException, IOException, IdException {
+
+<span class="fc" id="L434">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] gVEctor;
+<span class="fc" id="L436">        Libro l = new Libro();</span>
+
+<span class="fc bfc" id="L438" title="All 2 branches covered.">        while ((gVEctor = csvReader.readNext()) != null) {</span>
+<span class="fc bfc" id="L439" title="All 4 branches covered.">            boolean recordFound = gVEctor[GETINDEXIDL].equals(String.valueOf(idL)) || gVEctor[GETINDEXTITOLOL].equals(t);</span>
+<span class="fc bfc" id="L440" title="All 2 branches covered.">            if (recordFound) {</span>
+<span class="fc" id="L441">                String tit = gVEctor[GETINDEXTITOLOL];</span>
+<span class="fc" id="L442">                String numeroPagine = gVEctor[GETINDEXNRPL];</span>
+<span class="fc" id="L443">                String isbn = gVEctor[GETINDEXISBNL];</span>
+<span class="fc" id="L444">                String editore = gVEctor[GETINDEXEDITOREL];</span>
+<span class="fc" id="L445">                String autore = gVEctor[GETINDEXAUTOREL];</span>
+<span class="fc" id="L446">                String lingua = gVEctor[GETINDEXLINGUAL];</span>
+<span class="fc" id="L447">                String categoria = gVEctor[GETINDEXCATEGORIAL];</span>
+<span class="fc" id="L448">                String data = gVEctor[GETINDEXDATAL];</span>
+<span class="fc" id="L449">                String recensione = gVEctor[GETINDEXRECENSIONEL];</span>
+<span class="fc" id="L450">                String copie = gVEctor[GETINDEXCOPIEL];</span>
+<span class="fc" id="L451">                String desc = gVEctor[GETINDEXDESCL];</span>
+<span class="fc" id="L452">                String disp = gVEctor[GETINDEXDISPL];</span>
+<span class="fc" id="L453">                String prezzo = gVEctor[GETINDEXPREZZOL];</span>
+<span class="fc" id="L454">                String id = gVEctor[GETINDEXIDL];</span>
+
+<span class="fc" id="L456">                l.setTitolo(tit);</span>
+<span class="fc" id="L457">                l.setNrPagine(Integer.parseInt(numeroPagine));</span>
+<span class="fc" id="L458">                l.setCodIsbn(isbn);</span>
+<span class="fc" id="L459">                l.setEditore(editore);</span>
+<span class="fc" id="L460">                l.setAutore(autore);</span>
+<span class="fc" id="L461">                l.setLingua(lingua);</span>
+<span class="fc" id="L462">                l.setCategoria(categoria);</span>
+<span class="fc" id="L463">                l.setDataPubb(LocalDate.parse(data));</span>
+<span class="fc" id="L464">                l.setRecensione(recensione);</span>
+<span class="fc" id="L465">                l.setNrCopie(Integer.parseInt(copie));</span>
+<span class="fc" id="L466">                l.setDesc(desc);</span>
+<span class="fc" id="L467">                l.setDisponibilita(Integer.parseInt(disp));</span>
+<span class="fc" id="L468">                l.setPrezzo(Float.parseFloat(prezzo));</span>
+<span class="fc" id="L469">                l.setId(Integer.parseInt(id));</span>
+
+
+            }
+<span class="fc" id="L473">        }</span>
+<span class="fc" id="L474">        csvReader.close();</span>
+
+
+<span class="fc" id="L477">        return l;</span>
+    }
+
+    private static synchronized Giornale retrieveDataG(File fd, int idG, String editore) throws IOException, CsvValidationException {
+<span class="fc" id="L481">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] gVEctor;
+<span class="fc" id="L483">        Giornale g = new Giornale();</span>
+<span class="fc bfc" id="L484" title="All 2 branches covered.">        while ((gVEctor = csvReader.readNext()) != null) {</span>
+<span class="pc bpc" id="L485" title="1 of 4 branches missed.">            boolean recordFound = gVEctor[GETINDEXIDG].equals(String.valueOf(idG)) || gVEctor[GETINDEXEDITOREG].equals(editore);</span>
+<span class="fc bfc" id="L486" title="All 2 branches covered.">            if (recordFound) {</span>
+<span class="fc" id="L487">                String titolo = gVEctor[GETINDEXTITOLOG];</span>
+<span class="fc" id="L488">                String tipologia = gVEctor[GETINDEXTIPOLOGIAG];</span>
+<span class="fc" id="L489">                String lingua = gVEctor[GETINDEXLINGUAG];</span>
+<span class="fc" id="L490">                String ed = gVEctor[GETINDEXEDITOREG];</span>
+<span class="fc" id="L491">                String data = gVEctor[GETINDEXDATAG];</span>
+<span class="fc" id="L492">                String copie = gVEctor[GETINDEXCOPIERG];</span>
+<span class="fc" id="L493">                String disp = gVEctor[GETINDEXDISPG];</span>
+<span class="fc" id="L494">                String prezzo = gVEctor[GETINDEXPREZZOG];</span>
+<span class="fc" id="L495">                String id = gVEctor[GETINDEXIDG];</span>
+
+<span class="fc" id="L497">                g.setTitolo(titolo);</span>
+<span class="fc" id="L498">                g.setTipologia(tipologia);</span>
+<span class="fc" id="L499">                g.setLingua(lingua);</span>
+<span class="fc" id="L500">                g.setEditore(ed);</span>
+<span class="fc" id="L501">                g.setDataPubb(LocalDate.parse(data));</span>
+<span class="fc" id="L502">                g.setCopieRimanenti(Integer.parseInt(copie));</span>
+<span class="fc" id="L503">                g.setDisponibilita(Integer.parseInt(disp));</span>
+<span class="fc" id="L504">                g.setPrezzo(Float.parseFloat(prezzo));</span>
+<span class="fc" id="L505">                g.setId(Integer.parseInt(id));</span>
+
+            }
+<span class="fc" id="L508">        }</span>
+<span class="fc" id="L509">        return g;</span>
+    }
+
+    private static synchronized Rivista retrieveDataR(File fd, int idR, String editore, String autore) throws IOException, CsvValidationException {
+<span class="fc" id="L513">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] gVEctor;
+<span class="fc" id="L515">        Rivista r = new Rivista();</span>
+<span class="fc bfc" id="L516" title="All 2 branches covered.">        while ((gVEctor = csvReader.readNext()) != null) {</span>
+<span class="pc bpc" id="L517" title="2 of 6 branches missed.">            boolean recordFound = gVEctor[GETINDEXIDR].equals(String.valueOf(idR)) || gVEctor[GETINDEXEDITORER].equals(editore) || gVEctor[GETINDEXAUTORER].equalsIgnoreCase(autore);</span>
+<span class="fc bfc" id="L518" title="All 2 branches covered.">            if (recordFound) {</span>
+<span class="fc" id="L519">                String titolo=gVEctor[GETINDEXTITOLOR];</span>
+<span class="fc" id="L520">                String tipologia=gVEctor[GETINDEXTIPOLOGIAR];</span>
+<span class="fc" id="L521">                String aut=gVEctor[GETINDEXAUTORER];</span>
+<span class="fc" id="L522">                String lingua=gVEctor[GETINDEXLINGUAR];</span>
+<span class="fc" id="L523">                String ed=gVEctor[GETINDEXEDITORER];</span>
+<span class="fc" id="L524">                String desc=gVEctor[GETINDEXDESCRIZIONER];</span>
+<span class="fc" id="L525">                String data=gVEctor[GETINDEXDATAR];</span>
+<span class="fc" id="L526">                String disp=gVEctor[GETINDEXDISPR];</span>
+<span class="fc" id="L527">                String prezzo=gVEctor[GETINDEXPREZZOR];</span>
+<span class="fc" id="L528">                String copieRim=gVEctor[GETINDEXCOPIER];</span>
+<span class="fc" id="L529">                String id=gVEctor[GETINDEXIDR];</span>
+
+<span class="fc" id="L531">                r.setTitolo(titolo);</span>
+<span class="fc" id="L532">                r.setTipologia(tipologia);</span>
+<span class="fc" id="L533">                r.setAutore(aut);</span>
+<span class="fc" id="L534">                r.setLingua(lingua);</span>
+<span class="fc" id="L535">                r.setEditore(ed);</span>
+<span class="fc" id="L536">                r.setDescrizione(desc);</span>
+<span class="fc" id="L537">                r.setDataPubb(LocalDate.parse(data));</span>
+<span class="fc" id="L538">                r.setDisp(Integer.parseInt(disp));</span>
+<span class="fc" id="L539">                r.setPrezzo(Float.parseFloat(prezzo));</span>
+<span class="fc" id="L540">                r.setCopieRim(Integer.parseInt(copieRim));</span>
+<span class="fc" id="L541">                r.setId(Integer.parseInt(id));</span>
+
+
+
+            }
+<span class="fc" id="L546">        }</span>
+<span class="fc" id="L547">        return r;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -5,10 +5,9 @@ import java.sql.SQLException;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.ContrassegnoDao;
-import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.database.csvPagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
-import laptop.model.Pagamento;
 
 
 public class ControllerPagamentoCash {
@@ -47,6 +46,7 @@ public class ControllerPagamentoCash {
 				cCPD.checkPagamentoData(f.getNome());
 
 		}
+
 
 			
 	}

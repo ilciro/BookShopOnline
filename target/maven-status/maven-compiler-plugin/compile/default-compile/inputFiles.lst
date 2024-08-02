@@ -36,10 +36,12 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/PagamentoDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/RivistaDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/UsersDao.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/CsvOggettoDao.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csv/DaoInterface.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvpagamento/FatturaPagamentoCCredito.java
-/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvpagamento/PagamentoInterface.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvOggetto/CsvOggettoDao.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvOggetto/DaoInterface.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvPagamento/FatturaPagamentoCCredito.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvPagamento/PagamentoInterface.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvUsers/CsvUtente.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/database/csvUsers/UserInterface.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/AcquistaException.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/IdException.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/exception/LogoutException.java

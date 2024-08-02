@@ -1,1 +1,4 @@
-/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/TestAcquistaCsv.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/TestAcquistaCSVGiornale.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/TestAcquistaCSVRivista.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/TestAcquistaCsvLibro.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/TestControllerLoginCsv.java

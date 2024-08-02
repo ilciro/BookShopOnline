@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -65,7 +66,7 @@ public class BoundaryLogin implements Initializable {
 	}
 
 	@FXML
-	private void controllaCredenziali() throws IOException, SQLException {
+	private void controllaCredenziali() throws IOException, SQLException, CsvValidationException {
 		
 		String u;
 		String p;

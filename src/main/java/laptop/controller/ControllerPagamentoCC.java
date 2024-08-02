@@ -10,8 +10,8 @@ import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
 import laptop.database.*;
 
-import laptop.database.csv.CsvOggettoDao;
-import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.database.csvOggetto.CsvOggettoDao;
+import laptop.database.csvPagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Pagamento;
@@ -149,29 +149,23 @@ public class ControllerPagamentoCC {
 			case "libro" -> {
 				Libro l1 = csv.retrieveAllLibroData(new File("report/reportLibro.csv"), vis.getId(), "");
 				p.setTipo(l1.getCategoria());
-				p.setIdOggetto(vis.getIdOggetto());
+				p.setIdOggetto(l1.getId());
 
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					//inserito anche qui
-					//ma visto che non è loggato
-					//non importa dei dati
-					csvFattura.inserisciCartaCredito(new CartaDiCredito());
+
 					csvFattura.inserisciPagamento(p);
 				} else {
 					cCPD.checkPagamentoData(nome);
 				}
 			}
 			case "giornale" -> {
-				Giornale g1 = csv.retrieveAllGiornaleData(new File("report/reportgiornale.csv"), vis.getId(), "");
+				Giornale g1 = csv.retrieveAllGiornaleData(new File("report/reportGiornale.csv"), vis.getId(), "");
 				p.setTipo(g1.getTipologia());
-				p.setIdOggetto(vis.getIdOggetto());
+				p.setIdOggetto(g1.getId());
 
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					//inserito anche qui
-					//ma visto che non è loggato
-					//non importa dei dati
-					csvFattura.inserisciCartaCredito(new CartaDiCredito());
 					csvFattura.inserisciPagamento(p);
+
 				} else {
 					cCPD.checkPagamentoData(nome);
 				}
@@ -180,14 +174,13 @@ public class ControllerPagamentoCC {
 			case "rivista" -> {
 				Rivista r1 = csv.retrieveAllRivistaData(new File("report/reportRivista.csv"), vis.getId(), "","");
 				p.setTipo(r1.getTipologia());
-				p.setIdOggetto(vis.getIdOggetto());
+				p.setIdOggetto(r1.getId());
 
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					//inserito anche qui
-					//ma visto che non è loggato
-					//non importa dei dati
-					csvFattura.inserisciCartaCredito(new CartaDiCredito());
+
+
 					csvFattura.inserisciPagamento(p);
+
 				} else {
 					cCPD.checkPagamentoData(nome);
 				}

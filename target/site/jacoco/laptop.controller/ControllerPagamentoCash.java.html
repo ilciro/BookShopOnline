@@ -5,16 +5,15 @@ import java.sql.SQLException;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.ContrassegnoDao;
-import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.database.csvPagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
-import laptop.model.Pagamento;
 
 
 public class ControllerPagamentoCash {
 	private final ContrassegnoDao cD;
 	private final Fattura f;
-<span class="fc" id="L17">	private final ControllerSystemState vis= ControllerSystemState.getInstance();</span>
+<span class="fc" id="L16">	private final ControllerSystemState vis= ControllerSystemState.getInstance();</span>
 	private final ControllerCheckPagamentoData cCPD;
 	private final FatturaPagamentoCCredito fCsv;
 
@@ -23,33 +22,34 @@ public class ControllerPagamentoCash {
 	public void controlla(String nome, String cognome, String via, String com) throws SQLException, IdException, IOException, CsvValidationException {
 		
 			
-<span class="nc" id="L26">			float spesa=vis.getSpesaT();</span>
+<span class="fc" id="L25">			float spesa=vis.getSpesaT();</span>
 
 
-<span class="nc" id="L29">			f.setNome(nome);</span>
-<span class="nc" id="L30">			f.setCognome(cognome);</span>
-<span class="nc" id="L31">			f.setVia(via);</span>
-<span class="nc" id="L32">			f.setCom(com);</span>
-<span class="nc" id="L33">			f.setAmmontare(spesa);</span>
+<span class="fc" id="L28">			f.setNome(nome);</span>
+<span class="fc" id="L29">			f.setCognome(cognome);</span>
+<span class="fc" id="L30">			f.setVia(via);</span>
+<span class="fc" id="L31">			f.setCom(com);</span>
+<span class="fc" id="L32">			f.setAmmontare(spesa);</span>
 
 
 
-<span class="nc bnc" id="L37" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
 			{
 
-<span class="nc" id="L40">				fCsv.inserisciFattura(f);</span>
-<span class="nc" id="L41">				cCPD.checkPagamentoData(f.getNome());</span>
+<span class="fc" id="L39">				fCsv.inserisciFattura(f);</span>
+<span class="fc" id="L40">				cCPD.checkPagamentoData(f.getNome());</span>
 
 			}
 
 			else {
-<span class="nc" id="L46">				cD.inserisciFattura(f);</span>
-<span class="nc" id="L47">				cCPD.checkPagamentoData(f.getNome());</span>
+<span class="nc" id="L45">				cD.inserisciFattura(f);</span>
+<span class="nc" id="L46">				cCPD.checkPagamentoData(f.getNome());</span>
 
 		}
 
+
 			
-<span class="nc" id="L52">	}</span>
+<span class="fc" id="L52">	}</span>
 
 <span class="fc" id="L54">	public ControllerPagamentoCash() throws IOException {</span>
 <span class="fc" id="L55">		cD = new ContrassegnoDao();</span>

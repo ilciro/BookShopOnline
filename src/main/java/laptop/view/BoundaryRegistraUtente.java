@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -69,7 +70,7 @@ public class BoundaryRegistraUtente implements Initializable {
 
 	
 	@FXML
-	private void procedi() throws IOException, SQLException {
+	private void procedi() throws IOException, SQLException, CsvValidationException {
 		LocalDate data=calendarL.getValue();
 		
 		

@@ -45,7 +45,7 @@ public class Libro implements Raccolta {
 
 
 	public String getTitolo() {
-<span class="nc" id="L48">		return this.titolo;</span>
+<span class="fc" id="L48">		return this.titolo;</span>
 	}
 
 	public String getCodIsbn() {
@@ -65,7 +65,7 @@ public class Libro implements Raccolta {
 	}
 
 	public String getCategoria() {
-<span class="nc" id="L68">		return this.categoria;</span>
+<span class="fc" id="L68">		return this.categoria;</span>
 	}
 
 	public LocalDate getDataPubb() {
@@ -77,7 +77,7 @@ public class Libro implements Raccolta {
 	}
 
 	public int getNrCopie() {
-<span class="nc" id="L80">		return this.nrCopie;</span>
+<span class="fc" id="L80">		return this.nrCopie;</span>
 	}
 
 	public String getDesc() {
@@ -85,11 +85,11 @@ public class Libro implements Raccolta {
 	}
 
 	public int getDisponibilita() {
-<span class="nc" id="L88">		return this.disponibilita;</span>
+<span class="fc" id="L88">		return this.disponibilita;</span>
 	}
 
 	public float getPrezzo() {
-<span class="nc" id="L92">		return this.prezzo;</span>
+<span class="fc" id="L92">		return this.prezzo;</span>
 	}
 
 	public void setTitolo(String titolo) {
@@ -139,7 +139,7 @@ public class Libro implements Raccolta {
 <span class="pc" id="L139">	private final ResourceBundle rbTitoli=ResourceBundle.getBundle(&quot;configurations/titles&quot;);</span>
 
 	public int getId() {
-<span class="nc" id="L142">		return id;</span>
+<span class="fc" id="L142">		return id;</span>
 	}
 
 	public void setId(int id) {
@@ -147,7 +147,7 @@ public class Libro implements Raccolta {
 <span class="fc" id="L147">	}</span>
 
 	public void setCategoria(String categoria) {
-<span class="pc bpc" id="L150" title="21 of 30 branches missed.">		switch (categoria) {</span>
+<span class="pc bpc" id="L150" title="29 of 30 branches missed.">		switch (categoria) {</span>
 			case &quot;ADOLESCENTI_RAGAZZI&quot;:
 <span class="nc" id="L152">				this.categoria = CategorieLibro.ADOLESCENTI_RAGAZZI.toString();</span>
 <span class="nc" id="L153">				break;</span>
@@ -173,8 +173,8 @@ public class Libro implements Raccolta {
 <span class="nc" id="L173">				this.categoria = CategorieLibro.DIZINARI_OPERE.toString();</span>
 <span class="nc" id="L174">				break;</span>
 			case &quot;ECONOMIA&quot;:
-<span class="fc" id="L176">				this.categoria = CategorieLibro.ECONOMIA.toString();</span>
-<span class="fc" id="L177">				break;</span>
+<span class="nc" id="L176">				this.categoria = CategorieLibro.ECONOMIA.toString();</span>
+<span class="nc" id="L177">				break;</span>
 			case &quot;FAMIGLIA&quot;:
 <span class="nc" id="L179">				this.categoria = CategorieLibro.FAMIGLIA.toString();</span>
 <span class="nc" id="L180">				break;</span>
@@ -182,26 +182,26 @@ public class Libro implements Raccolta {
 <span class="fc" id="L182">				this.categoria = CategorieLibro.FANTASCIENZA_FANTASY.toString();</span>
 <span class="fc" id="L183">				break;</span>
 			case &quot;FUMETTI_MANGA&quot;:
-<span class="fc" id="L185">				this.categoria = CategorieLibro.FUMETTI_MANGA.toString();</span>
-<span class="fc" id="L186">				break;</span>
+<span class="nc" id="L185">				this.categoria = CategorieLibro.FUMETTI_MANGA.toString();</span>
+<span class="nc" id="L186">				break;</span>
 			case &quot;GIALLI_THRILLER&quot;:
 <span class="nc" id="L188">				this.categoria = CategorieLibro.GIALLI_THRILLER.toString();</span>
 <span class="nc" id="L189">				break;</span>
 			case &quot;COMPUTER_GIOCHI&quot;:
-<span class="fc" id="L191">				this.categoria = CategorieLibro.COMPUTER_GIOCHI.toString();</span>
-<span class="fc" id="L192">				break;</span>
+<span class="nc" id="L191">				this.categoria = CategorieLibro.COMPUTER_GIOCHI.toString();</span>
+<span class="nc" id="L192">				break;</span>
 			case &quot;HUMOR&quot;:
 <span class="nc" id="L194">				this.categoria = CategorieLibro.HUMOR.toString();</span>
 <span class="nc" id="L195">				break;</span>
 			case &quot;INFORMATICA&quot;:
-<span class="fc" id="L197">				this.categoria = CategorieLibro.INFORMATICA.toString();</span>
-<span class="fc" id="L198">				break;</span>
+<span class="nc" id="L197">				this.categoria = CategorieLibro.INFORMATICA.toString();</span>
+<span class="nc" id="L198">				break;</span>
 			case &quot;WEB_DIGITAL_MEDIA&quot;:
 <span class="nc" id="L200">				this.categoria = CategorieLibro.WEB_DIGITAL_MEDIA.toString();</span>
 <span class="nc" id="L201">				break;</span>
 			case &quot;LETTERATURA_NARRATIVA&quot;:
-<span class="fc" id="L203">				this.categoria = CategorieLibro.LETTERATURA_NARRATIVA.toString();</span>
-<span class="fc" id="L204">				break;</span>
+<span class="nc" id="L203">				this.categoria = CategorieLibro.LETTERATURA_NARRATIVA.toString();</span>
+<span class="nc" id="L204">				break;</span>
 			case &quot;LIBRI_BAMBINI&quot;:
 <span class="nc" id="L206">				this.categoria = CategorieLibro.LIBRI_BAMBINI.toString();</span>
 <span class="nc" id="L207">				break;</span>
@@ -209,14 +209,14 @@ public class Libro implements Raccolta {
 <span class="nc" id="L209">				this.categoria = CategorieLibro.LIBRI_SCOLASTICI.toString();</span>
 <span class="nc" id="L210">				break;</span>
 			case &quot;LIBRI_UNIVERSITARI&quot;:
-<span class="fc" id="L212">				this.categoria = CategorieLibro.LIBRI_UNIVERSITARI.toString();</span>
-<span class="fc" id="L213">				break;</span>
+<span class="nc" id="L212">				this.categoria = CategorieLibro.LIBRI_UNIVERSITARI.toString();</span>
+<span class="nc" id="L213">				break;</span>
 			case &quot;RICETTARI_GENERALI&quot;:
 <span class="nc" id="L215">				this.categoria = CategorieLibro.RICETTARI_GENERALI.toString();</span>
 <span class="nc" id="L216">				break;</span>
 			case &quot;LINGUISTICA_SCRITTURA&quot;:
-<span class="fc" id="L218">				this.categoria = CategorieLibro.LINGUISTICA_SCRITTURA.toString();</span>
-<span class="fc" id="L219">				break;</span>
+<span class="nc" id="L218">				this.categoria = CategorieLibro.LINGUISTICA_SCRITTURA.toString();</span>
+<span class="nc" id="L219">				break;</span>
 			case &quot;POLITICA&quot;:
 <span class="nc" id="L221">				this.categoria = CategorieLibro.POLITICA.toString();</span>
 <span class="nc" id="L222">				break;</span>
@@ -233,8 +233,8 @@ public class Libro implements Raccolta {
 <span class="nc" id="L233">				this.categoria = CategorieLibro.TECNOLOGIA_MEDICINA.toString();</span>
 <span class="nc" id="L234">				break;</span>
 			case &quot;ALTRO&quot;:
-<span class="fc" id="L236">				this.categoria = CategorieLibro.ALTRO.toString();</span>
-<span class="fc" id="L237">				break;</span>
+<span class="nc" id="L236">				this.categoria = CategorieLibro.ALTRO.toString();</span>
+<span class="nc" id="L237">				break;</span>
 
 			default:
 <span class="nc" id="L240">				this.categoria = null;</span>
@@ -245,12 +245,12 @@ public class Libro implements Raccolta {
 	private void createPDF(String name)
 	{
 		//create a pdf with a paragraph
-<span class="nc" id="L248">		Document document=new Document();</span>
+<span class="fc" id="L248">		Document document=new Document();</span>
 		try{
-<span class="nc" id="L250">			PdfWriter writer=PdfWriter.getInstance(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
-<span class="nc" id="L251">			document.open();</span>
-<span class="nc" id="L252">			document.addTitle(&quot;Libro &quot;);</span>
-<span class="nc" id="L253">			document.add(new Paragraph(&quot;&quot;&quot;</span>
+<span class="fc" id="L250">			PdfWriter writer=PdfWriter.getInstance(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
+<span class="fc" id="L251">			document.open();</span>
+<span class="fc" id="L252">			document.addTitle(&quot;Libro &quot;);</span>
+<span class="fc" id="L253">			document.add(new Paragraph(&quot;&quot;&quot;</span>
                     libro/book not avalaible.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Curabitur tempus tincidunt justo eget eleifend.
                     Maecenas nisl nulla, lobortis quis semper quis, scelerisque nec purus.
@@ -268,51 +268,51 @@ public class Libro implements Raccolta {
                     Duis id ante ut nibh suscipit gravida.
                     Cras egestas risus ac tellus varius, et rhoncus enim porttitor.
                     Nam malesuada in massa eu venenatis.&quot;&quot;&quot;));
-<span class="nc" id="L271">			document.close();</span>
-<span class="nc" id="L272">			writer.close();</span>
+<span class="fc" id="L271">			document.close();</span>
+<span class="fc" id="L272">			writer.close();</span>
 
-<span class="nc" id="L274">			readPdf(name);</span>
+<span class="fc" id="L274">			readPdf(name);</span>
 
 
 <span class="nc" id="L277">		}catch (DocumentException | IOException e)</span>
 		{
 <span class="nc" id="L279">			Logger.getLogger(&quot;create pdf&quot;).log(Level.SEVERE,&quot;pdf not created:{0} &quot;, name);</span>
-<span class="nc" id="L280">		}</span>
-<span class="nc" id="L281">    }</span>
+<span class="fc" id="L280">		}</span>
+<span class="fc" id="L281">    }</span>
 
 	private void readPdf(String name) throws IOException, DocumentException {
 
-<span class="nc" id="L285">		Document document = new Document();</span>
+<span class="fc" id="L285">		Document document = new Document();</span>
 
-<span class="nc" id="L287">        PdfReader reader = new PdfReader(rbTitoli.getString(&quot;srcPath&quot;) +name);</span>
-<span class="nc" id="L288">		PdfCopy copy=new PdfCopy(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
-<span class="nc" id="L289">		document.open();</span>
+<span class="fc" id="L287">        PdfReader reader = new PdfReader(rbTitoli.getString(&quot;srcPath&quot;) +name);</span>
+<span class="fc" id="L288">		PdfCopy copy=new PdfCopy(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+name));</span>
+<span class="fc" id="L289">		document.open();</span>
 
-<span class="nc" id="L291">		int pages = reader.getNumberOfPages();</span>
-<span class="nc bnc" id="L292" title="All 2 branches missed.">		for (int i = 1; i &lt;= pages; i++) {</span>
-<span class="nc" id="L293">			copy.addPage(copy.getImportedPage(reader,i));</span>
+<span class="fc" id="L291">		int pages = reader.getNumberOfPages();</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">		for (int i = 1; i &lt;= pages; i++) {</span>
+<span class="fc" id="L293">			copy.addPage(copy.getImportedPage(reader,i));</span>
 
 		}
 
 
-<span class="nc" id="L298">		reader.close();</span>
-<span class="nc" id="L299">		document.close();</span>
+<span class="fc" id="L298">		reader.close();</span>
+<span class="fc" id="L299">		document.close();</span>
 
 
 
-<span class="nc" id="L303">	}</span>
+<span class="fc" id="L303">	}</span>
 	@Override
 	public void scarica(int i) throws DocumentException, IOException {
 
 		//here is copy of file
 
-<span class="nc bnc" id="L309" title="All 13 branches missed.">			switch (i) {</span>
+<span class="pc bpc" id="L309" title="12 of 13 branches missed.">			switch (i) {</span>
 <span class="nc" id="L310">				case 1 -&gt;createPDF(rbTitoli.getString(&quot;titolo1&quot;));</span>
 <span class="nc" id="L311">				case 2 -&gt; createPDF(rbTitoli.getString(&quot;titolo2&quot;));</span>
 <span class="nc" id="L312">				case 3-&gt; createPDF(rbTitoli.getString(&quot;titolo3&quot;));</span>
 <span class="nc" id="L313">				case 4-&gt; createPDF(rbTitoli.getString(&quot;titolo4&quot;));</span>
 <span class="nc" id="L314">				case 5-&gt;createPDF(rbTitoli.getString(&quot;titolo5&quot;));</span>
-<span class="nc" id="L315">				case 6-&gt;createPDF(rbTitoli.getString(&quot;titolo6&quot;));</span>
+<span class="fc" id="L315">				case 6-&gt;createPDF(rbTitoli.getString(&quot;titolo6&quot;));</span>
 <span class="nc" id="L316">				case 7-&gt; createPDF(rbTitoli.getString(&quot;titolo7&quot;));</span>
 <span class="nc" id="L317">				case 8-&gt;createPDF(rbTitoli.getString(&quot;titolo8&quot;));</span>
 <span class="nc" id="L318">				case 9-&gt; createPDF(rbTitoli.getString(&quot;titolo9&quot;));</span>
@@ -327,20 +327,20 @@ public class Libro implements Raccolta {
 
 			}
 
-<span class="nc" id="L330">}</span>
+<span class="fc" id="L330">}</span>
 
 	@Override
 	public void leggi(int i) throws IOException, DocumentException, URISyntaxException {
 
 
 
-<span class="nc bnc" id="L337" title="All 13 branches missed.">		switch (i) {</span>
+<span class="pc bpc" id="L337" title="12 of 13 branches missed.">		switch (i) {</span>
 <span class="nc" id="L338">			case 1 -&gt; this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo1&quot;));</span>
 <span class="nc" id="L339">			case 2-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo2&quot;));</span>
 <span class="nc" id="L340">			case 3-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo3&quot;));</span>
 <span class="nc" id="L341">			case 4-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo4&quot;));</span>
 <span class="nc" id="L342">			case 5-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo5&quot;));</span>
-<span class="nc" id="L343">			case 6-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo6&quot;));</span>
+<span class="fc" id="L343">			case 6-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo6&quot;));</span>
 <span class="nc" id="L344">			case 7-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo7&quot;));</span>
 <span class="nc" id="L345">			case 8-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo8&quot;));</span>
 <span class="nc" id="L346">			case 9-&gt;this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString(&quot;titolo9&quot;));</span>
@@ -351,15 +351,15 @@ public class Libro implements Raccolta {
 
 <span class="nc" id="L352">			default -&gt; 	Logger.getLogger(&quot;Test leggi&quot;).log(Level.SEVERE, &quot;read error&quot;);</span>
 		}
-<span class="nc bnc" id="L354" title="All 2 branches missed.">		if (Desktop.isDesktopSupported()) {</span>
-<span class="nc" id="L355">			new Thread(() -&gt; {</span>
+<span class="pc bpc" id="L354" title="1 of 2 branches missed.">		if (Desktop.isDesktopSupported()) {</span>
+<span class="fc" id="L355">			new Thread(() -&gt; {</span>
 				try {
-<span class="nc" id="L357">					Desktop.getDesktop().open(f);</span>
+<span class="fc" id="L357">					Desktop.getDesktop().open(f);</span>
 <span class="nc" id="L358">				} catch (IOException e) {</span>
-<span class="nc" id="L359">					Logger.getLogger(&quot;open file&quot;).log(Level.SEVERE, &quot;open error&quot;);				}</span>
-<span class="nc" id="L360">			}).start();</span>
+<span class="pc" id="L359">					Logger.getLogger(&quot;open file&quot;).log(Level.SEVERE, &quot;open error&quot;);				}</span>
+<span class="fc" id="L360">			}).start();</span>
 		}
-<span class="nc" id="L362">	}</span>
+<span class="fc" id="L362">	}</span>
 
 	/*
 	 * provo a levare i codeSmells &gt; 7 paramentri

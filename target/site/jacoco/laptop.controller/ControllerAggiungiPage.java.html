@@ -9,7 +9,7 @@ import laptop.database.GiornaleDao;
 
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
-import laptop.database.csv.CsvOggettoDao;
+import laptop.database.csvOggetto.CsvOggettoDao;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Rivista;
 

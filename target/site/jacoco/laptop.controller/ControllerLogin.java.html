@@ -1,54 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerLogin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerLogin.java</span></div><h1>ControllerLogin.java</h1><pre class="source lang-java linenums">package laptop.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
+import laptop.database.csvUsers.CsvUtente;
 import laptop.model.User;
 
-<span class="nc" id="L9">public class ControllerLogin {</span>
+<span class="fc" id="L13">public class ControllerLogin {</span>
 	
-<span class="nc" id="L11">	private final User user = User.getInstance();</span>
+<span class="fc" id="L15">	private static final User user = User.getInstance();</span>
 	protected boolean esito;
+<span class="fc" id="L17">	private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L18">	private static final CsvUtente csvU=new CsvUtente();</span>
 
 	
-	public boolean controlla(String m, String p) throws SQLException
-	{
+	public boolean controlla(String m, String p) throws SQLException, CsvValidationException, IOException {
 		
 		
 		
-<span class="nc" id="L20">			user.setEmail(m);</span>
-<span class="nc" id="L21">			user.setPassword(p);</span>
-			
-<span class="nc bnc" id="L23" title="All 2 branches missed.">			 if (UsersDao.checkUser(user) == 1)</span>
-			{
-				// utente trovato
-				// vai col login
-				// vai con la specializzazione prendendo i dati dal dao
-				
-				// qui prendo il ruolo in base ala mail dell'utente
-<span class="nc" id="L30">				String r =UsersDao.getRuolo(user);</span>
-				// predno e li assegno all'oggetto user
-<span class="nc" id="L32">				UsersDao.pickData(user);</span>
-<span class="nc" id="L33">				java.util.logging.Logger.getLogger(&quot;Test log&quot;).log(Level.INFO, &quot;loggato come {0}&quot;, r);</span>
+<span class="fc" id="L25">			user.setEmail(m);</span>
+<span class="fc" id="L26">			user.setPassword(p);</span>
 
-<span class="nc" id="L35">				ControllerSystemState.getInstance().setIsLogged(true);</span>
-<span class="nc" id="L36">				 esito = true;</span>
-<span class="nc" id="L37">			}</span>
-			 else {
-<span class="nc" id="L39">				 esito=false;</span>
-			 }
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">			if(vis.getTypeOfDb().equals(&quot;file&quot;))</span>
+			{
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">                esito= csvU.getUserList(new File(&quot;report/reportUtente.csv&quot;), 0, user.getEmail(), 0, user.getEmail()) != null;</span>
+			}
+			else {
+
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">				if (UsersDao.checkUser(user) == 1) {</span>
+					// utente trovato
+					// vai col login
+					// vai con la specializzazione prendendo i dati dal dao
+
+					// qui prendo il ruolo in base ala mail dell'utente
+<span class="nc" id="L41">					String r = UsersDao.getRuolo(user);</span>
+					// predno e li assegno all'oggetto user
+<span class="nc" id="L43">					UsersDao.pickData(user);</span>
+<span class="nc" id="L44">					java.util.logging.Logger.getLogger(&quot;Test log&quot;).log(Level.INFO, &quot;loggato come {0}&quot;, r);</span>
+
+<span class="nc" id="L46">					ControllerSystemState.getInstance().setIsLogged(true);</span>
+<span class="nc" id="L47">					esito = true;</span>
+<span class="nc" id="L48">				} else {</span>
+<span class="nc" id="L49">					esito = false;</span>
+				}
+			}
 			
-<span class="nc" id="L42">			return esito;</span>
+<span class="fc" id="L53">			return esito;</span>
 
 		
 	}
 	
-	public String getRuoloTempUSer(String email) throws SQLException
-	{
+	public String getRuoloTempUSer(String email) throws SQLException, CsvValidationException, IOException {
 
-<span class="nc" id="L50">		user.setEmail(email);</span>
-<span class="nc" id="L51">		 return UsersDao.getRuolo(user);</span>
+<span class="fc" id="L60">		String ruolo=&quot;&quot;;</span>
+<span class="fc" id="L61">		user.setEmail(email);</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+<span class="fc" id="L63">			ruolo= csvU.getUserList(new File(&quot;report/reportUtente.csv&quot;), 0, user.getEmail(), 0, user.getEmail()).getIdRuolo();</span>
+<span class="nc" id="L64">		else ruolo= UsersDao.getRuolo(user);</span>
+<span class="fc" id="L65">		return ruolo;</span>
 		
 	}
 		

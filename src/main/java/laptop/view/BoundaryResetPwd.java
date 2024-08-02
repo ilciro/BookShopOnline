@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,8 +55,7 @@ public class BoundaryResetPwd implements Initializable{
 	protected Scene scene;
 	
 	@FXML
-	private void conferma() throws SQLException
-	{
+	private void conferma() throws SQLException, CsvValidationException, IOException {
 		
 		email=emailTF.getText();
 		vecchiaP=vecchiaPF.getText();

@@ -1,45 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerRegistraUtente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerRegistraUtente.java</span></div><h1>ControllerRegistraUtente.java</h1><pre class="source lang-java linenums">package laptop.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
+import laptop.database.csvUsers.CsvUtente;
 import laptop.model.User;
 
 
 public class ControllerRegistraUtente {
-<span class="nc" id="L13">	private Boolean state=false;</span>
-<span class="nc" id="L14">	private final User u=User.getInstance();</span>
+<span class="nc" id="L17">	private Boolean state=false;</span>
+<span class="nc" id="L18">	private final User u=User.getInstance();</span>
+<span class="nc" id="L19">	private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="nc" id="L20">	private static final CsvUtente csv=new CsvUtente();</span>
+	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException, CsvValidationException, IOException {
+		
+		
+<span class="nc" id="L24">		u.setEmail(email);</span>
+<span class="nc" id="L25">		u.setPassword(pwd);</span>
+<span class="nc" id="L26">		u.setDataDiNascita(localDate);</span>
 
-	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException {
 		
-		
-<span class="nc" id="L19">		u.setEmail(email);</span>
-<span class="nc" id="L20">		u.setPassword(pwd);</span>
-<span class="nc" id="L21">		u.setDataDiNascita(localDate);</span>
-		
-		
-<span class="nc bnc" id="L24" title="All 2 branches missed.">		if(checkData ( n,c,email,pwd,pwdC) )</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">		if(checkData ( n,c,email,pwd,pwdC) )</span>
 		{
-<span class="nc bnc" id="L26" title="All 2 branches missed.">			if (UsersDao.checkUser(u) == 0)</span>
-			{
-				// nuovo utente creo l'account
-<span class="nc" id="L29">				u.setNome(n);</span>
-<span class="nc" id="L30">				u.setCognome(c);</span>
-				
-<span class="nc" id="L32">				state=UsersDao.createUser(u);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">			if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+
+
+<span class="nc" id="L34">				System.out.println(&quot; user : &quot; + csv.getUserList(new File(&quot;report/reportUtente.csv&quot;), 0, u.getEmail(), 0, u.getPassword()));</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">					if (csv.getUserList(new File(&quot;report/reportUtente.csv&quot;), 0, email, 0, pwd).getPassword() == null) {</span>
+<span class="nc" id="L36">					u.setNome(n);</span>
+<span class="nc" id="L37">					u.setCognome(c);</span>
+<span class="nc" id="L38">					state = csv.inserisciUtente(u);</span>
+				}
 			}
-			else 			{
-				// utente gia registrato o errore 
-<span class="nc" id="L36">				state = false;</span>
-			}
+
+				else {
+<span class="nc bnc" id="L43" title="All 2 branches missed.">					if (UsersDao.checkUser(u) == 0) {</span>
+						// nuovo utente creo l'account
+<span class="nc" id="L45">						u.setNome(n);</span>
+<span class="nc" id="L46">						u.setCognome(c);</span>
+
+<span class="nc" id="L48">						state = UsersDao.createUser(u);</span>
+					} else {
+						// utente gia registrato o errore
+<span class="nc" id="L51">						state = false;</span>
+					}
+				}
 		}
+
 		else {
-<span class="nc" id="L40">			state=false;</span>
+<span class="nc" id="L57">			state=false;</span>
 		}
-<span class="nc" id="L42">		return state;</span>
+<span class="nc" id="L59">		return state;</span>
 	}
 	
 	
@@ -47,11 +64,11 @@ public class ControllerRegistraUtente {
 	private boolean checkData (String n, String c, String email, String pwd, String pwdC)
 	// controll  all data
 	{
-<span class="nc bnc" id="L50" title="All 6 branches missed.">		if(checkEmail(email) &amp;&amp; checkPassword(pwd,pwdC) &amp;&amp; checkNomeCognome(n,c))</span>
+<span class="nc bnc" id="L67" title="All 6 branches missed.">		if(checkEmail(email) &amp;&amp; checkPassword(pwd,pwdC) &amp;&amp; checkNomeCognome(n,c))</span>
 		{
-<span class="nc" id="L52">			state=true;</span>
+<span class="nc" id="L69">			state=true;</span>
 		}
-<span class="nc" id="L54">		return state;</span>
+<span class="nc" id="L71">		return state;</span>
 	}
 
 	private boolean checkEmail(String email)
@@ -59,36 +76,36 @@ public class ControllerRegistraUtente {
 		 Pattern pattern;
 
 		String emailRegex;
-<span class="nc" id="L62">		emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;; </span>
+<span class="nc" id="L79">		emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;; </span>
                   
-<span class="nc" id="L64">		pattern = Pattern.compile(emailRegex); </span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">		if (email == null) </span>
-<span class="nc" id="L66">			return false; </span>
-<span class="nc" id="L67">		return pattern.matcher(email).matches();</span>
+<span class="nc" id="L81">		pattern = Pattern.compile(emailRegex); </span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">		if (email == null) </span>
+<span class="nc" id="L83">			return false; </span>
+<span class="nc" id="L84">		return pattern.matcher(email).matches();</span>
 	}
 
 	private boolean checkPassword(String pwd, String pwdC )
 	{
-<span class="nc bnc" id="L72" title="All 6 branches missed.">		if(pwd.length()&gt;=8 &amp;&amp; pwdC.length()&gt;=8 &amp;&amp; pwd.equals(pwdC)) {</span>
-<span class="nc" id="L73">			state= true;</span>
+<span class="nc bnc" id="L89" title="All 6 branches missed.">		if(pwd.length()&gt;=8 &amp;&amp; pwdC.length()&gt;=8 &amp;&amp; pwd.equals(pwdC)) {</span>
+<span class="nc" id="L90">			state= true;</span>
 		}
-<span class="nc" id="L75">		return state;</span>
+<span class="nc" id="L92">		return state;</span>
 	}
 
 	private boolean checkNomeCognome(String n, String c)
 	{
-<span class="nc bnc" id="L80" title="All 4 branches missed.">		if (n != null &amp;&amp; c != null)</span>
+<span class="nc bnc" id="L97" title="All 4 branches missed.">		if (n != null &amp;&amp; c != null)</span>
 		{
-<span class="nc" id="L82">			state= true;</span>
+<span class="nc" id="L99">			state= true;</span>
 		}
-<span class="nc" id="L84">		return state;</span>
+<span class="nc" id="L101">		return state;</span>
 	}
 	
 	public ControllerRegistraUtente()
-<span class="nc" id="L88">	{</span>
-<span class="nc" id="L89">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO, &quot;Costruttore ControllerRegistaUtente&quot;);</span>
+<span class="nc" id="L105">	{</span>
+<span class="nc" id="L106">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO, &quot;Costruttore ControllerRegistaUtente&quot;);</span>
 
-<span class="nc" id="L91">	}</span>
+<span class="nc" id="L108">	}</span>
 	
 	// TO DO: checkData o lo facciamo diretti in mysql
 }

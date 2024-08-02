@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerScelta.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerScelta.java</span></div><h1>ControllerScelta.java</h1><pre class="source lang-java linenums">package laptop.controller;
 
 import laptop.exception.PersistenzaException;
+import laptop.utilities.ConnToDb;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-<span class="fc" id="L8">public class ControllerScelta {</span>
-<span class="fc" id="L9">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L10">public class ControllerScelta {</span>
+<span class="fc" id="L11">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
     public String getTypeDb(String type) {
 
 
         try{
-<span class="pc bpc" id="L14" title="1 of 2 branches missed.">            if(type.equalsIgnoreCase(&quot;db&quot;)) {</span>
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">            if(type.equalsIgnoreCase(&quot;db&quot;)) {</span>
 
-<span class="nc" id="L16">                vis.setTypeOfDb(&quot;db&quot;);</span>
-
-            }
-<span class="pc bpc" id="L19" title="1 of 2 branches missed.">            else if (type.equalsIgnoreCase(&quot;file&quot;)) {</span>
-
-<span class="fc" id="L21">                vis.setTypeOfDb(&quot;file&quot;);</span>
+<span class="nc" id="L18">                vis.setTypeOfDb(&quot;db&quot;);</span>
+<span class="nc" id="L19">                ConnToDb.creaPopolaDb();</span>
 
 
             }
-<span class="nc" id="L25">            else throw new PersistenzaException();</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">            else if (type.equalsIgnoreCase(&quot;file&quot;)) {</span>
+
+<span class="fc" id="L25">                vis.setTypeOfDb(&quot;file&quot;);</span>
 
 
-<span class="nc" id="L28">        }catch (PersistenzaException e)</span>
+            }
+<span class="nc" id="L29">            else throw new PersistenzaException();</span>
+
+
+<span class="nc" id="L32">        }catch (PersistenzaException | FileNotFoundException e)</span>
         {
-<span class="nc" id="L30">            Logger.getLogger(&quot;Type of db&quot;).log(Level.SEVERE,&quot; check persisyency&quot;, e);</span>
+<span class="nc" id="L34">            Logger.getLogger(&quot;Type of db&quot;).log(Level.SEVERE,&quot; check persisyency&quot;, e);</span>
 
-<span class="fc" id="L32">        }</span>
+<span class="fc" id="L36">        }</span>
 
-<span class="fc" id="L34">            return vis.getTypeOfDb();</span>
+<span class="fc" id="L38">            return vis.getTypeOfDb();</span>
 
     }
 
