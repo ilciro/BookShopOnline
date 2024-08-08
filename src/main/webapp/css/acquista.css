@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+h1{
+	font-weight : 500;
+	color:green;
+	text-align:center;
+}
+
+h2{
+	color:blue;
+	font-weight:500;
+	text-align:center;
+	
+}
+
+
+table
+{
+	   border-collapse: collapse;
+	   border-spacing: 8px 2px;
+	   margin-left: auto; 
+	   margin-right: auto;
+	   table-layout:auto;
+	  
+
+}
+ td {
+    border: 2px solid yellow;
+    padding : 6px;
+}
+
+caption{
+	color:violet;
+}
+
+
+.totale
+{
+	background-color: green; /* Green */
+  	border: none;
+  	color: white;
+  	padding: 15px 32px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 13px;
+}
+.annulla{
+	 background-color: red; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+.acquista{
+	 background-color: blue; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+.contanti{
+	 background-color: blue; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+.automatico{width:auto}
+div{text-align:center;
+	color:red;
+	font-weight:200;
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryRegistrazioneOk">
+   <children>
+      <VBox fx:id="vbox" fillWidth="false" layoutX="55.0" layoutY="100.0" prefHeight="240.0" prefWidth="135.0">
+         <children>
+            <Button fx:id="loginB" mnemonicParsing="false" onAction="#vaiLogin" prefHeight="80.0" prefWidth="139.0" text="Login" textFill="#00d0ff" />
+            <Label fx:id="labelScelta" prefHeight="84.0" prefWidth="139.0" text="Scegli tra" textAlignment="CENTER" textFill="#0037ff" />
+            <Button fx:id="homePageB" mnemonicParsing="false" onAction="#vaiHome" prefHeight="80.0" prefWidth="143.0" text="HomePage" textFill="#db06ee" />
+         </children>
+      </VBox>
+      <Label fx:id="header" layoutX="27.0" layoutY="38.0" prefHeight="17.0" prefWidth="545.0" text="Registrazione effettuata con successo.. Scegliere cosa fare !!!" textFill="#0303f5" />
+      <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" layoutX="316.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@registraz_ok.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
