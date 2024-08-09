@@ -53,8 +53,8 @@ public class CsvUtente implements UserInterface{
 
         boolean duplicated;
 <span class="nc" id="L55">        synchronized (this.cacheU) {</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">            boolean duplicatedM = ((this.cacheU.get(u.getEmail()) != null));</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">            boolean duplicatedP = ((this.cacheU.get(u.getEmail()) != null));</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            boolean duplicatedM = (this.cacheU.get(u.getEmail()) != null);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            boolean duplicatedP = (this.cacheU.get(u.getEmail()) != null);</span>
 <span class="nc bnc" id="L58" title="All 4 branches missed.">            duplicated = duplicatedM &amp;&amp; duplicatedP;</span>
 <span class="nc" id="L59">        }</span>
 <span class="nc bnc" id="L60" title="All 2 branches missed.">        if(!duplicated)</span>
@@ -110,151 +110,120 @@ public class CsvUtente implements UserInterface{
 <span class="nc" id="L110">    }</span>
 
 
+
+
     private static synchronized void insertUser(User u) throws IOException, CsvValidationException {
-<span class="nc" id="L114">        CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONU,true)));</span>
-<span class="nc" id="L115">        String[] gVector =new String[8];</span>
+<span class="nc" id="L116">        CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONU,true)));</span>
+<span class="nc" id="L117">        String[] gVector =new String[8];</span>
 
-<span class="nc" id="L117">        gVector[GETINDEXIDUSER]= String.valueOf(getIdMax()+1);</span>
-<span class="nc" id="L118">        gVector[GETINDEXRUOLO]=u.getIdRuolo();</span>
-<span class="nc" id="L119">        gVector[GETINDEXNOME]=u.getNome();</span>
-<span class="nc" id="L120">        gVector[GETINDEXCOGNOME]=u.getCognome();</span>
-<span class="nc" id="L121">        gVector[GETINDEXEMAIL]=u.getEmail();</span>
-<span class="nc" id="L122">        gVector[GETINDEXPWD]=u.getPassword();</span>
-<span class="nc" id="L123">        gVector[GETINDEXDESC]=u.getDescrizione();</span>
-<span class="nc" id="L124">        gVector[GETINDEXDATAN]= String.valueOf(u.getDataDiNascita());</span>
-<span class="nc" id="L125">        writer.writeNext(gVector);</span>
-<span class="nc" id="L126">        writer.flush();</span>
-<span class="nc" id="L127">        writer.close();</span>
-
-
+<span class="nc" id="L119">        gVector[GETINDEXIDUSER]= String.valueOf(getIdMax()+1);</span>
+<span class="nc" id="L120">        gVector[GETINDEXRUOLO]=u.getIdRuolo();</span>
+<span class="nc" id="L121">        gVector[GETINDEXNOME]=u.getNome();</span>
+<span class="nc" id="L122">        gVector[GETINDEXCOGNOME]=u.getCognome();</span>
+<span class="nc" id="L123">        gVector[GETINDEXEMAIL]=u.getEmail();</span>
+<span class="nc" id="L124">        gVector[GETINDEXPWD]=u.getPassword();</span>
+<span class="nc" id="L125">        gVector[GETINDEXDESC]=u.getDescrizione();</span>
+<span class="nc" id="L126">        gVector[GETINDEXDATAN]= String.valueOf(u.getDataDiNascita());</span>
+<span class="nc" id="L127">        writer.writeNext(gVector);</span>
+<span class="nc" id="L128">        writer.flush();</span>
+<span class="nc" id="L129">        writer.close();</span>
 
 
-<span class="nc" id="L132">    }</span>
+
+
+<span class="nc" id="L134">    }</span>
 
     private static synchronized List&lt;User&gt; getUserData(File fd, int id, String mail, String pass) throws CsvValidationException,IOException, CsvValidationException {
-<span class="nc" id="L135">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="nc" id="L137">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String []gVector ;
-<span class="nc" id="L137">        boolean recordFound = false;</span>
-<span class="nc" id="L138">        List&lt;User&gt; list=new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L139">        boolean recordFound = false;</span>
+<span class="nc" id="L140">        List&lt;User&gt; list=new ArrayList&lt;&gt;();</span>
 
-<span class="nc bnc" id="L140" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null) {</span>
-<span class="nc bnc" id="L141" title="All 2 branches missed.">            if(id&gt;0)</span>
-<span class="nc" id="L142">                recordFound=gVector[GETINDEXIDUSER].equals(String.valueOf(id));</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">            if(mail!=null)</span>
-<span class="nc bnc" id="L144" title="All 2 branches missed.">                if(pass!=null)</span>
-<span class="nc bnc" id="L145" title="All 4 branches missed.">                    recordFound=gVector[GETINDEXEMAIL].equals(mail) &amp;&amp; gVector[GETINDEXPWD].equals(pass);</span>
-<span class="nc" id="L146">                else recordFound=gVector[GETINDEXEMAIL].equals(mail);</span>
-<span class="nc bnc" id="L147" title="All 2 branches missed.">            if(recordFound)</span>
+
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null) {</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            if(id&gt;0)</span>
+<span class="nc" id="L145">                recordFound=gVector[GETINDEXIDUSER].equals(String.valueOf(id));</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">            if(mail!=null)</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">                if(pass!=null)</span>
+<span class="nc bnc" id="L148" title="All 4 branches missed.">                    recordFound=gVector[GETINDEXEMAIL].equals(mail) &amp;&amp; gVector[GETINDEXPWD].equals(pass);</span>
+<span class="nc" id="L149">                else recordFound=gVector[GETINDEXEMAIL].equals(mail);</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">            if(recordFound)</span>
             {
-<span class="nc" id="L149">                String idU=gVector[GETINDEXIDUSER];</span>
-<span class="nc" id="L150">                String ruoloU=gVector[GETINDEXRUOLO];</span>
-<span class="nc" id="L151">                String nome=gVector[GETINDEXNOME];</span>
-<span class="nc" id="L152">                String cognome=gVector[GETINDEXCOGNOME];</span>
-<span class="nc" id="L153">                String email=gVector[GETINDEXEMAIL];</span>
-<span class="nc" id="L154">                String pwd=gVector[GETINDEXPWD];</span>
-<span class="nc" id="L155">                String desc=gVector[GETINDEXDESC];</span>
-<span class="nc" id="L156">                String data=gVector[GETINDEXDATAN];</span>
+<span class="nc" id="L152">                String idU=gVector[GETINDEXIDUSER];</span>
+<span class="nc" id="L153">                String ruoloU=gVector[GETINDEXRUOLO];</span>
+<span class="nc" id="L154">                String nome=gVector[GETINDEXNOME];</span>
+<span class="nc" id="L155">                String cognome=gVector[GETINDEXCOGNOME];</span>
+<span class="nc" id="L156">                String email=gVector[GETINDEXEMAIL];</span>
+<span class="nc" id="L157">                String pwd=gVector[GETINDEXPWD];</span>
+<span class="nc" id="L158">                String desc=gVector[GETINDEXDESC];</span>
+<span class="nc" id="L159">                String data=gVector[GETINDEXDATAN];</span>
 
-<span class="nc" id="L158">                User.getInstance().setId(Integer.parseInt(idU));</span>
-<span class="nc" id="L159">                User.getInstance().setIdRuolo(ruoloU);</span>
-<span class="nc" id="L160">                User.getInstance().setNome(nome);</span>
-<span class="nc" id="L161">                User.getInstance().setCognome(cognome);</span>
-<span class="nc" id="L162">                User.getInstance().setEmail(email);</span>
-<span class="nc" id="L163">                User.getInstance().setPassword(pwd);</span>
-<span class="nc" id="L164">                User.getInstance().setDescrizione(desc);</span>
-<span class="nc" id="L165">                User.getInstance().setDataDiNascita(LocalDate.parse(data));</span>
+<span class="nc" id="L161">                User.getInstance().setId(Integer.parseInt(idU));</span>
+<span class="nc" id="L162">                User.getInstance().setIdRuolo(ruoloU);</span>
+<span class="nc" id="L163">                User.getInstance().setNome(nome);</span>
+<span class="nc" id="L164">                User.getInstance().setCognome(cognome);</span>
+<span class="nc" id="L165">                User.getInstance().setEmail(email);</span>
+<span class="nc" id="L166">                User.getInstance().setPassword(pwd);</span>
+<span class="nc" id="L167">                User.getInstance().setDescrizione(desc);</span>
+<span class="nc" id="L168">                User.getInstance().setDataDiNascita(LocalDate.parse(data));</span>
 
-<span class="nc" id="L167">                list.add(User.getInstance());</span>
-<span class="nc" id="L168">            }</span>
+<span class="nc" id="L170">                list.add(User.getInstance());</span>
+<span class="nc" id="L171">            }</span>
 
         }
-<span class="nc" id="L171">        return list;</span>
+<span class="nc" id="L174">        return list;</span>
     }
 
     private static synchronized int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
-<span class="nc" id="L176">        CSVReader reader = new CSVReader(new FileReader(LOCATIONU));</span>
+<span class="nc" id="L179">        CSVReader reader = new CSVReader(new FileReader(LOCATIONU));</span>
         String[] gVector;
-<span class="nc" id="L178">        int id = 0;</span>
-<span class="nc bnc" id="L179" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null)</span>
-<span class="nc" id="L180">            id = Integer.parseInt(gVector[GETINDEXIDUSER]);</span>
+<span class="nc" id="L181">        int id = 0;</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null)</span>
+<span class="nc" id="L183">            id = Integer.parseInt(gVector[GETINDEXIDUSER]);</span>
 
-<span class="nc" id="L182">        return id;</span>
+<span class="nc" id="L185">        return id;</span>
 
     }
     private static synchronized  void cancellaUserById(File fd,User u1) throws IOException, CsvValidationException {
-<span class="nc bnc" id="L186" title="All 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
-<span class="nc" id="L187">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
-<span class="nc" id="L188">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="nc" id="L190">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
+<span class="nc" id="L191">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
         }
-<span class="nc" id="L190">        File tmpFD = new File(&quot;report/appoggioUser.csv&quot;);</span>
-<span class="nc" id="L191">        boolean found = false;</span>
+<span class="nc" id="L193">        File tmpFD = new File(&quot;report/appoggioUser.csv&quot;);</span>
+<span class="nc" id="L194">        boolean found = false;</span>
         // create csvReader object passing file reader as a parameter
-<span class="nc" id="L193">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="nc" id="L196">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String[] giornaleVector;
-<span class="nc" id="L195">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
+<span class="nc" id="L198">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
         //check on path
-<span class="nc" id="L197">        boolean userVectorFound = false;</span>
+<span class="nc" id="L200">        boolean userVectorFound = false;</span>
 
 
-<span class="nc bnc" id="L200" title="All 2 branches missed.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
 
-<span class="nc bnc" id="L202" title="All 4 branches missed.">                userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());</span>
+<span class="nc bnc" id="L205" title="All 4 branches missed.">            userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());</span>
 
-            }
-<span class="nc bnc" id="L205" title="All 2 branches missed.">            if (!userVectorFound) {</span>
-<span class="nc" id="L206">                csvWriter.writeNext(giornaleVector);</span>
+
+<span class="nc bnc" id="L208" title="All 2 branches missed.">            if (!userVectorFound) {</span>
+<span class="nc" id="L209">                csvWriter.writeNext(giornaleVector);</span>
             } else {
-<span class="nc" id="L208">                found = userVectorFound;</span>
+<span class="nc" id="L211">                found = userVectorFound;</span>
             }
+        }
 
 
-
-<span class="nc" id="L213">        csvWriter.flush();</span>
-<span class="nc" id="L214">        csvReader.close();</span>
-<span class="nc" id="L215">        csvWriter.close();</span>
-<span class="nc bnc" id="L216" title="All 2 branches missed.">        if (found) {</span>
-<span class="nc" id="L217">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
+<span class="nc" id="L216">        csvWriter.flush();</span>
+<span class="nc" id="L217">        csvReader.close();</span>
+<span class="nc" id="L218">        csvWriter.close();</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">        if (found) {</span>
+<span class="nc" id="L220">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
         } else {
-<span class="nc" id="L219">            cleanUp(Path.of(tmpFD.toURI()));</span>
+<span class="nc" id="L222">            cleanUp(Path.of(tmpFD.toURI()));</span>
         }
 
-<span class="nc" id="L222">    }</span>
-    private static synchronized int getNumOfUser(File fd,String mail,String pass) throws CsvValidationException,IOException, CsvValidationException {
-<span class="nc" id="L224">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fd)));</span>
-        String []gVector ;
-        boolean recordFound;
-<span class="nc" id="L227">        int found=0;</span>
-<span class="nc bnc" id="L228" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null) {</span>
+<span class="nc" id="L225">    }</span>
 
-
-<span class="nc bnc" id="L231" title="All 4 branches missed.">             recordFound=gVector[GETINDEXEMAIL].equals(mail) &amp;&amp; gVector[GETINDEXPWD].equals(pass);</span>
-<span class="nc bnc" id="L232" title="All 2 branches missed.">            if(recordFound)</span>
-            {
-<span class="nc" id="L234">                String idU=gVector[GETINDEXIDUSER];</span>
-<span class="nc" id="L235">                String ruoloU=gVector[GETINDEXRUOLO];</span>
-<span class="nc" id="L236">                String nome=gVector[GETINDEXNOME];</span>
-<span class="nc" id="L237">                String cognome=gVector[GETINDEXCOGNOME];</span>
-<span class="nc" id="L238">                String email=gVector[GETINDEXEMAIL];</span>
-<span class="nc" id="L239">                String pwd=gVector[GETINDEXPWD];</span>
-<span class="nc" id="L240">                String desc=gVector[GETINDEXDESC];</span>
-<span class="nc" id="L241">                String data=gVector[GETINDEXDATAN];</span>
-
-<span class="nc" id="L243">                User.getInstance().setId(getIdMax()+1);</span>
-<span class="nc" id="L244">                User.getInstance().setIdRuolo(ruoloU);</span>
-<span class="nc" id="L245">                User.getInstance().setNome(nome);</span>
-<span class="nc" id="L246">                User.getInstance().setCognome(cognome);</span>
-<span class="nc" id="L247">                User.getInstance().setEmail(email);</span>
-<span class="nc" id="L248">                User.getInstance().setPassword(pwd);</span>
-<span class="nc" id="L249">                User.getInstance().setDescrizione(desc);</span>
-<span class="nc" id="L250">                User.getInstance().setDataDiNascita(LocalDate.parse(data));</span>
-
-<span class="nc" id="L252">                found=1;</span>
-<span class="nc" id="L253">            }</span>
-
-        }
-<span class="nc" id="L256">        return found;</span>
-    }
 
 
 }

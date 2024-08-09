@@ -46,7 +46,7 @@ public class ControllerAggiungiUtente {
 <span class="nc bnc" id="L46" title="All 2 branches missed.">	   if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
 <span class="nc" id="L47">		   state=csv.inserisciUtente(User.getInstance());</span>
        else
-<span class="nc" id="L49">      	state= UsersDao.createUser(User.getInstance());</span>
+<span class="nc" id="L49">		    state= UsersDao.createUser(User.getInstance());</span>
 <span class="nc" id="L50">	   return state;</span>
 		
 	}

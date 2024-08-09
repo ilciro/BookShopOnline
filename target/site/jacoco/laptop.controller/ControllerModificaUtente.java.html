@@ -10,52 +10,62 @@ import java.util.logging.Level;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
 import laptop.database.csvusers.CsvUtente;
+import laptop.exception.IdException;
 import laptop.model.User;
 
 public class ControllerModificaUtente {
-<span class="nc" id="L16">	private boolean state = false;</span>
+<span class="nc" id="L17">	private boolean state = false;</span>
 	private User uT;
-<span class="nc" id="L18">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="nc" id="L19">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 	private final CsvUtente csvUtente;
 
 
 
 	public ControllerModificaUtente()
-<span class="nc" id="L24">	{</span>
-<span class="nc" id="L25">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerModificaUtente&quot;);</span>
+<span class="nc" id="L25">	{</span>
+<span class="nc" id="L26">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerModificaUtente&quot;);</span>
 
-<span class="nc" id="L27">		uT=User.getInstance();</span>
-<span class="nc" id="L28">		csvUtente=new CsvUtente();</span>
-<span class="nc" id="L29">	}</span>
+<span class="nc" id="L28">		uT=User.getInstance();</span>
+<span class="nc" id="L29">		csvUtente=new CsvUtente();</span>
+<span class="nc" id="L30">	}</span>
 
 
 
-	public User prendi() throws SQLException, CsvValidationException, IOException {
-<span class="nc" id="L34">		List&lt;User&gt; list=new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">		if(vis.getTypeOfDb().equals(&quot;file&quot;))</span>
-<span class="nc" id="L36">			list.add(csvUtente.userList(uT).get(0));</span>
-<span class="nc" id="L37">		else list.add(UsersDao.pickData(User.getInstance()));</span>
-<span class="nc" id="L38">		return list.get(0);</span>
+	public User prendi() throws SQLException{
 
+<span class="nc" id="L36">	return UsersDao.pickData(User.getInstance());</span>
 
 	}
 
+	public User prendiCsv() throws CsvValidationException, IOException {
+<span class="nc" id="L41">		return csvUtente.userList(User.getInstance()).get(0);</span>
+	}
 
-	public boolean aggiornaTot(String n, String c, String email1, String pass, String desc, LocalDate localDate, String ruolo) throws SQLException, CsvValidationException, IOException {
-<span class="nc" id="L45">		uT=prendi();</span>
 
-<span class="nc" id="L47">		uT.setNome(n);</span>
-<span class="nc" id="L48">		uT.setCognome(c);</span>
-<span class="nc" id="L49">		uT.setEmail(email1);</span>
-<span class="nc" id="L50">		uT.setPassword(pass);</span>
-<span class="nc" id="L51">		uT.setDescrizione(desc);</span>
-<span class="nc" id="L52">		uT.setDataDiNascita(localDate);</span>
-<span class="nc" id="L53">		uT.setIdRuolo(ruolo);</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">		if(UsersDao.aggiornaUtente(uT,email1) != null)</span>
+	public boolean aggiornaTot(String n, String c, String email1, String pass, String desc, LocalDate localDate, String ruolo) throws SQLException, CsvValidationException, IOException, IdException {
+		//sistemare anche qui
+<span class="nc" id="L47">		uT=prendi();</span>
+
+<span class="nc" id="L49">		uT.setNome(n);</span>
+<span class="nc" id="L50">		uT.setCognome(c);</span>
+<span class="nc" id="L51">		uT.setEmail(email1);</span>
+<span class="nc" id="L52">		uT.setPassword(pass);</span>
+<span class="nc" id="L53">		uT.setDescrizione(desc);</span>
+<span class="nc" id="L54">		uT.setDataDiNascita(localDate);</span>
+<span class="nc" id="L55">		uT.setIdRuolo(ruolo);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		if(vis.getTypeOfDb().equals(&quot;file&quot;))</span>
 		{
-<span class="nc" id="L56">			state=true;</span>
+<span class="nc" id="L58">			csvUtente.removeUserByIdEmailPwd(User.getInstance());</span>
+<span class="nc" id="L59">			csvUtente.inserisciUtente(uT);</span>
+<span class="nc" id="L60">			state=true;</span>
 		}
-<span class="nc" id="L58">		return state;</span>
+		else {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">			if(UsersDao.aggiornaUtente(uT,email1) != null)</span>
+			{
+<span class="nc" id="L65">				state=true;</span>
+			}
+		}
+<span class="nc" id="L68">		return state;</span>
 	}
 
 }

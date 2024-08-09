@@ -53,8 +53,8 @@ public class CsvUtente implements UserInterface{
 
         boolean duplicated;
         synchronized (this.cacheU) {
-            boolean duplicatedM = ((this.cacheU.get(u.getEmail()) != null));
-            boolean duplicatedP = ((this.cacheU.get(u.getEmail()) != null));
+            boolean duplicatedM = (this.cacheU.get(u.getEmail()) != null);
+            boolean duplicatedP = (this.cacheU.get(u.getEmail()) != null);
             duplicated = duplicatedM && duplicatedP;
         }
         if(!duplicated)
@@ -139,7 +139,6 @@ public class CsvUtente implements UserInterface{
         boolean recordFound = false;
         List<User> list=new ArrayList<>();
 
-        System.out.println("id : " + id);
 
         while ((gVector = reader.readNext()) != null) {
             if(id>0)
@@ -191,7 +190,6 @@ public class CsvUtente implements UserInterface{
             FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
             Files.createTempFile("prefix", "suffix", attr); // Compliant
         }
-        System.out.println(" id nel cancella csv:" + u1.getId());
         File tmpFD = new File("report/appoggioUser.csv");
         boolean found = false;
         // create csvReader object passing file reader as a parameter

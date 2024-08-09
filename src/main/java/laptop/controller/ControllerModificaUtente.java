@@ -46,8 +46,6 @@ public class ControllerModificaUtente {
 		//sistemare anche qui
 		uT=prendi();
 
-		System.out.println(" aggiorna totale :" + prendi());
-
 		uT.setNome(n);
 		uT.setCognome(c);
 		uT.setEmail(email1);

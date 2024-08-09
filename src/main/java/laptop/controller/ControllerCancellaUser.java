@@ -16,10 +16,7 @@ public class ControllerCancellaUser {
 	public boolean cancellaUser() throws SQLException, CsvValidationException, IOException {
 		boolean state;
 
-		System.out.println("vis in calncella :" + vis.getId());
-		System.out.println("id user in calncella prima di assegnazione:" + User.getInstance().getId());
 		User.getInstance().setId(vis.getId());
-		System.out.println("id user in calncella dopo di assegnazione:" + User.getInstance().getId());
 
 		if(vis.getTypeOfDb().equals("file")) {
 			csvUtente.removeUserByIdEmailPwd(User.getInstance());
