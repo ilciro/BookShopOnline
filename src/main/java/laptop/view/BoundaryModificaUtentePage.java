@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import laptop.controller.ControllerModificaUtente;
 import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
 import laptop.model.User;
 
 public class BoundaryModificaUtentePage implements Initializable {
@@ -90,9 +92,9 @@ public class BoundaryModificaUtentePage implements Initializable {
 	}
 	
 	@FXML
-	private void aggiorna() throws SQLException, IOException, ParseException
-	{
+	private void aggiorna() throws SQLException, IOException, ParseException, CsvValidationException, IdException {
 		//buttonM
+		System.out.println("id di vis in bmup: " + ControllerSystemState.getInstance().getId());
 		User.getInstance().setId(ControllerSystemState.getInstance().getId());
 		User.getInstance().setDescrizione(descTA.getText());
 		
@@ -128,15 +130,24 @@ public class BoundaryModificaUtentePage implements Initializable {
 
 	
 	@FXML
-	private void prendiDati() throws SQLException
-	{
-		
-		utenteL.setText(cMU.prendi().getIdRuolo());
-		nomeL.setText(cMU.prendi().getNome());
-		cognomeL.setText(cMU.prendi().getCognome());
-		emailL.setText(cMU.prendi().getEmail());
-		passL.setText(cMU.prendi().getPassword());
-		dataL.setText(cMU.prendi().getDataDiNascita().toString());
+	private void prendiDati() throws SQLException, CsvValidationException, IOException {
+		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file")) {
+
+			utenteL.setText(cMU.prendiCsv().getIdRuolo());
+			nomeL.setText(cMU.prendiCsv().getNome());
+			cognomeL.setText(cMU.prendiCsv().getCognome());
+			emailL.setText(cMU.prendiCsv().getEmail());
+			passL.setText(cMU.prendiCsv().getPassword());
+			dataL.setText(cMU.prendiCsv().getDataDiNascita().toString());
+		}else {
+
+			utenteL.setText(cMU.prendi().getIdRuolo());
+			nomeL.setText(cMU.prendi().getNome());
+			cognomeL.setText(cMU.prendi().getCognome());
+			emailL.setText(cMU.prendi().getEmail());
+			passL.setText(cMU.prendi().getPassword());
+			dataL.setText(cMU.prendi().getDataDiNascita().toString());
+		}
 		//buttonPrendiDati
 		//vedere dati da controller (FARE)
 	}

@@ -21,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerPassword;
+import laptop.exception.IdException;
 
 public class BoundaryResetPwd implements Initializable{
 	@FXML
@@ -55,7 +56,7 @@ public class BoundaryResetPwd implements Initializable{
 	protected Scene scene;
 	
 	@FXML
-	private void conferma() throws SQLException, CsvValidationException, IOException {
+	private void conferma() throws SQLException, CsvValidationException, IOException, IdException {
 		
 		email=emailTF.getText();
 		vecchiaP=vecchiaPF.getText();

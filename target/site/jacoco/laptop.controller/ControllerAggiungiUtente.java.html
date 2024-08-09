@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerAggiungiUtente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerAggiungiUtente.java</span></div><h1>ControllerAggiungiUtente.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+
+import com.opencsv.exceptions.CsvValidationException;
+import laptop.database.UsersDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.database.csvusers.CsvUtente;
+import laptop.exception.IdException;
+import laptop.model.User;
+
+public class ControllerAggiungiUtente {
+	private final CsvUtente csv;
+	
+	
+<span class="nc" id="L21">	public ControllerAggiungiUtente() {</span>
+<span class="nc" id="L22">		csv=new CsvUtente();</span>
+<span class="nc" id="L23">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerAggiungiUtente&quot;);</span>
+
+<span class="nc" id="L25">	}</span>
+
+	public boolean checkData(String nome, String cognome, String email, String pass, String dataN) throws ParseException, SQLException, CsvValidationException, IOException, IdException {
+<span class="nc" id="L28">		boolean state=false;</span>
+		Date sqlDate ;
+		java.util.Date utilDate;
+		
+<span class="nc" id="L32">		SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);</span>
+
+	  
+<span class="nc" id="L35">		utilDate = format.parse(dataN);</span>
+<span class="nc" id="L36">	    sqlDate = new Date(utilDate.getTime());</span>
+       
+
+<span class="nc" id="L39">		User.getInstance().setIdRuolo(&quot;U&quot;);</span>
+       
+<span class="nc" id="L41">       User.getInstance().setNome(nome);</span>
+<span class="nc" id="L42">       User.getInstance().setCognome(cognome);</span>
+<span class="nc" id="L43">       User.getInstance().setEmail(email);</span>
+<span class="nc" id="L44">       User.getInstance().setPassword(pass);</span>
+<span class="nc" id="L45">       User.getInstance().setDataDiNascita(sqlDate.toLocalDate());</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">	   if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
+<span class="nc" id="L47">		   state=csv.inserisciUtente(User.getInstance());</span>
+       else
+<span class="nc" id="L49">      	state= UsersDao.createUser(User.getInstance());</span>
+<span class="nc" id="L50">	   return state;</span>
+		
+	}
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

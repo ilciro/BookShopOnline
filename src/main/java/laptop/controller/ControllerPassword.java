@@ -7,7 +7,8 @@ import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
-import laptop.database.csvUsers.CsvUtente;
+import laptop.database.csvusers.CsvUtente;
+import laptop.exception.IdException;
 import laptop.model.User;
 
 public class ControllerPassword {
@@ -21,7 +22,7 @@ public class ControllerPassword {
 
 	}
 
-	public boolean aggiornaPass(String email,String vecchiaP,String nuovaP) throws SQLException, CsvValidationException, IOException {
+	public boolean aggiornaPass(String email,String vecchiaP,String nuovaP) throws SQLException, CsvValidationException, IOException, IdException {
 		u.setEmail(email);
 		u.setPassword(vecchiaP);
 		if(u.getPassword().equals(vecchiaP) && (nuovaP.length()>=8 || !email.isEmpty()) )
@@ -41,13 +42,9 @@ public class ControllerPassword {
 					u2.setPassword(u.getPassword());
 					u2.setDescrizione(u.getDescrizione());
 					u2.setDataDiNascita(u.getDataDiNascita());
-					if(csv.getUserList(new File("report/reportUtente.csv"),u.getId(),u.getEmail(),u.getPassword())!=null)
-					{
-						csv.modificaUser(new File("report/reportUtenti.csv"),u,u2);
-						//controllo il secondo utente
-						if(csv.getUserList(new File("report/reportUtente.csv"),u2.getId(),u2.getEmail(),u2.getPassword())!=null)
-							status=true;
-					}
+
+					csv.removeUserByIdEmailPwd(u);
+					csv.inserisciUtente(u2);
 
 
 				}

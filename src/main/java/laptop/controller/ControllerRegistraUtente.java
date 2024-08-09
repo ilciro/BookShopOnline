@@ -4,15 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
-import laptop.database.csvUsers.CsvUtente;
+import laptop.database.csvusers.CsvUtente;
+import laptop.exception.IdException;
 import laptop.model.User;
 
 
@@ -21,7 +19,7 @@ public class ControllerRegistraUtente {
 	private final User u=User.getInstance();
 	private static final ControllerSystemState vis=ControllerSystemState.getInstance();
 	private static final CsvUtente csv=new CsvUtente();
-	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException, CsvValidationException, IOException {
+	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException, CsvValidationException, IOException, IdException {
 		
 		
 		u.setEmail(email);
@@ -36,7 +34,7 @@ public class ControllerRegistraUtente {
 
 
 
-					if(csv.getUserListNum(new File("report/reportUtente.csv"),  email, pwd)==0) {
+					if(csv.userList(u).isEmpty()) {
 						u.setNome(n);
 						u.setCognome(c);
 						u.setEmail(email);

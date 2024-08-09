@@ -1,0 +1,12 @@
+Id :	1titolo :	La Republica1ricavo totale :	2.0
+Id :	2titolo :	La Republica2ricavo totale :	0.0
+Id :	3titolo :	La Republica3ricavo totale :	20.0
+Id :	4titolo :	La Republica4ricavo totale :	28.0
+Id :	5titolo :	titolo giornale aggiornatoricavo totale :	1325.0
+Id :	6titolo :	La Republica6ricavo totale :	30.0
+Id :	7titolo :	Il Fatto Quotidiano1ricavo totale :	0.0
+Id :	8titolo :	Il Fatto Quotidiano2ricavo totale :	0.0
+Id :	9titolo :	Il Fatto Quotidiano3ricavo totale :	0.0
+Id :	10titolo :	Il Fatto Quotidiano4ricavo totale :	30.0
+Id :	11titolo :	Il Fatto Quotidiano5ricavo totale :	32.0
+Id :	12titolo :	La gazzetta del profetaricavo totale :	-4.25

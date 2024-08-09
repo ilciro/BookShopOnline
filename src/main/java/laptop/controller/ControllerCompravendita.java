@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
-import laptop.database.csvOggetto.CsvOggettoDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.User;
 import laptop.model.raccolta.Giornale;

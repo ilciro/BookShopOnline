@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Factory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.model.raccolta</a> &gt; <span class="el_source">Factory.java</span></div><h1>Factory.java</h1><pre class="source lang-java linenums">package laptop.model.raccolta;
+
+import java.time.LocalDate;
+import java.util.logging.Level;
+
+import laptop.exception.IdException;
+
+
+
+
+
+public class Factory {
+	private final MatchParam mp;
+	private final Libro l;
+	private final Giornale g;
+	private final Rivista r;
+	private static final String LIBRO = &quot;libro&quot;;
+	private static final String GIORNALE = &quot;giornale&quot;;
+	private static final String RIVISTA = &quot;rivista&quot;;
+	//usato per passare paramentri
+	
+	
+	// controlli il tipo
+
+	
+	
+	public String[] createRaccolta1(String titolo,String isbn,String editore,String autore,String lingua,String categoria)
+	{
+		 String[] infoGenerali ;
+
+		
+<span class="nc" id="L32">		 infoGenerali=mp.popola1(titolo, isbn, editore, autore, lingua, categoria);</span>
+
+<span class="nc" id="L34">		 return infoGenerali;</span>
+		 
+	}
+	public String[] createRaccolta2(int numPag,int nrCopie,int disp,float prezzo,int id)
+	{
+		 String[] infoCosti;
+
+<span class="nc" id="L41">		 infoCosti= mp.popola2(numPag, nrCopie, disp, prezzo,id);</span>
+
+<span class="nc" id="L43">		 return infoCosti;</span>
+	}
+	
+	
+	public void createRaccoltaFinale1(String tipologiaO,String titolo,String isbn,String editore,String autore,String lingua,String categoria)
+	{
+<span class="nc bnc" id="L49" title="All 2 branches missed.">		if(tipologiaO.equals(LIBRO))</span>
+		{
+<span class="nc" id="L51">				l.setInfoGenerali(createRaccolta1(titolo, isbn, editore, autore, lingua,categoria));</span>
+		}
+<span class="nc bnc" id="L53" title="All 2 branches missed.">		if(tipologiaO.equals(GIORNALE))</span>
+		{
+
+<span class="nc" id="L56">				g.setInfoGenerali(createRaccolta1(titolo, null, editore, null, lingua, categoria));</span>
+
+		}
+<span class="nc bnc" id="L59" title="All 2 branches missed.">		if(tipologiaO.equals(RIVISTA))</span>
+		{
+<span class="nc" id="L61">				r.setInfoGenerali(createRaccolta1(titolo, null, editore, autore, lingua, categoria));</span>
+		}
+		
+<span class="nc" id="L64">	}</span>
+	
+	public void createRaccoltaFinale2(String tipologiaO,int numPag,int nrCopie,int disp,float prezzo,int id)
+	{
+<span class="nc bnc" id="L68" title="All 2 branches missed.">		if(tipologiaO.equals(LIBRO))	</span>
+		{
+<span class="nc" id="L70">				l.setInfoCostiDisp(createRaccolta2(numPag,nrCopie,disp,prezzo,id));</span>
+				
+		}
+<span class="nc bnc" id="L73" title="All 2 branches missed.">		if (tipologiaO.equals(GIORNALE))</span>
+			{
+
+<span class="nc" id="L76">				g.setCopieRimanenti(nrCopie);</span>
+<span class="nc" id="L77">			g.setDisponibilita(disp);</span>
+<span class="nc" id="L78">			g.setPrezzo(prezzo);</span>
+<span class="nc" id="L79">			g.setId(id);</span>
+
+			
+			
+			}	
+<span class="nc bnc" id="L84" title="All 2 branches missed.">		 if (tipologiaO.equals(RIVISTA))</span>
+		{
+<span class="nc" id="L86">			r.setDisp(disp);</span>
+<span class="nc" id="L87">			r.setPrezzo(prezzo);</span>
+<span class="nc" id="L88">			r.setCopieRim(nrCopie);</span>
+<span class="nc" id="L89">			r.setId(id);</span>
+		}
+<span class="nc" id="L91">	}</span>
+	
+	
+	
+	public Raccolta createRaccoltaFinaleCompleta(String tipologiaO,LocalDate dataPubb,String recensione,String descrizione)
+	{
+<span class="nc bnc" id="L97" title="All 4 branches missed.">		switch(tipologiaO)</span>
+		{
+			case LIBRO:
+<span class="nc" id="L100">				l.setDataPubb(dataPubb);</span>
+<span class="nc" id="L101">				l.setRecensione(recensione);</span>
+<span class="nc" id="L102">				l.setDesc(descrizione);</span>
+<span class="nc" id="L103">				return  new Libro(l.getInfoGenerali(),l.getDataPubb(),l.getRecensione(),l.getDesc(),l.getInfoCostiDisp());</span>
+			case GIORNALE:
+<span class="nc" id="L105">				g.setDataPubb(dataPubb);</span>
+<span class="nc" id="L106">				return new Giornale(g.getInfoGenerali(),g.getDataPubb(),g.getCopieRimanenti(),g.getDisponibilita(),g.getPrezzo(),g.getId());</span>
+			case RIVISTA:
+<span class="nc" id="L108">				r.setDataPubb(dataPubb);</span>
+<span class="nc" id="L109">				r.setDescrizione(descrizione);</span>
+<span class="nc" id="L110">				return new Rivista(r.getInfoGenerali(), r.getDescrizione(), r.getDataPubb(),r.getDisp(),r.getPrezzo() ,r.getCopieRim(),r.getId());</span>
+		
+			default:
+				try {
+					
+<span class="nc" id="L115">					throw new IdException(&quot;id null -&gt; object not created&quot;);</span>
+<span class="nc" id="L116">				}catch(IdException e)</span>
+				{
+<span class="nc" id="L118">					java.util.logging.Logger.getLogger(&quot;report libro&quot;).log(Level.SEVERE,&quot;\n eccezione ottenuta .&quot;,e);</span>
+
+				}
+				//crefdvc rds
+<span class="nc" id="L122">				return null;</span>
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public Raccolta creaLibro(String[] info,LocalDate dataPubb,String recensione,String desc,String []infoCosti)
+	{
+
+<span class="nc" id="L138">		return new Libro(info,dataPubb,recensione,desc,infoCosti);</span>
+	}
+	
+	public Raccolta creaGiornale(String[] info,LocalDate dataPubb,int nrCopie, int disponibilita, float prezzo, int id)
+	{
+<span class="nc" id="L143">		return new Giornale(info,dataPubb,nrCopie,disponibilita,prezzo,id);</span>
+	}
+	public Raccolta creaRivista(String [] info,	String descrizione, LocalDate dataPubb2, int disp, float prezzo, int copieRim,int id)
+	{
+<span class="nc" id="L147">		return new Rivista(info,descrizione, dataPubb2,disp,prezzo,copieRim,id);</span>
+	}
+
+
+	
+	public Factory()
+<span class="fc" id="L153">	{</span>
+<span class="fc" id="L154">		mp=new MatchParam();</span>
+<span class="fc" id="L155">		l=new Libro();</span>
+<span class="fc" id="L156">		g=new Giornale();</span>
+<span class="fc" id="L157">		r=new Rivista();</span>
+<span class="fc" id="L158">	}</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

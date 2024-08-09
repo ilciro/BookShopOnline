@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
-import laptop.database.csvOggetto.CsvOggettoDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
@@ -43,17 +43,17 @@ public class ControllerGestionePage {
 			{
 				case LIBRO ->
 				{
-					l.setId(vis.getId());
+					l.setId(id);
 					csvDao.removeLibroById(l);
 				}
 				case GIORNALE ->
 				{
-					g.setId(vis.getId());
+					g.setId(id);
 					csvDao.removeGiornaleById(g);
 				}
 				case RIVISTA ->
 				{
-					r.setId(vis.getId());
+					r.setId(id);
 					csvDao.removeRivistaById(r);
 				}
 				default ->	java.util.logging.Logger.getLogger("cancella oggetto").log(Level.SEVERE, " type not correct !!\n");

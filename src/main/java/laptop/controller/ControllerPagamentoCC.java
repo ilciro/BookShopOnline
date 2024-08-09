@@ -10,8 +10,8 @@ import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
 import laptop.database.*;
 
-import laptop.database.csvOggetto.CsvOggettoDao;
-import laptop.database.csvPagamento.FatturaPagamentoCCredito;
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Pagamento;

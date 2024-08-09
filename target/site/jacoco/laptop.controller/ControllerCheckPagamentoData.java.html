@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerCheckPagamentoData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerCheckPagamentoData.java</span></div><h1>ControllerCheckPagamentoData.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+
+import com.opencsv.exceptions.CsvValidationException;
+import laptop.database.GiornaleDao;
+import laptop.database.LibroDao;
+import laptop.database.PagamentoDao;
+import laptop.database.RivistaDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.exception.IdException;
+import laptop.model.Pagamento;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
+import laptop.model.raccolta.Rivista;
+
+public class ControllerCheckPagamentoData {
+<span class="nc" id="L22">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+	private final Libro l;
+	private final Giornale g;
+	private final  Rivista r;
+	private final LibroDao  lD;
+	private final RivistaDao rD;
+	private final PagamentoDao pagD;
+	private final FatturaPagamentoCCredito csvFattura;
+	private final CsvOggettoDao csv;
+<span class="nc" id="L31">	private final GiornaleDao gD=new GiornaleDao();</span>
+	private static final String FATTURA=&quot;report/reportFattura.csv&quot;;
+	private static final String PAGAMENTO=&quot;report/reportPagamento.csv&quot;;
+	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
+<span class="nc" id="L35">		String tipo=vis.getType();</span>
+		
+		Pagamento p;
+		
+<span class="nc" id="L39">		p=new Pagamento(0,&quot;&quot;, 0, &quot;&quot;,0, null);</span>
+			
+		//inserire qui
+<span class="nc bnc" id="L42" title="All 2 branches missed.">		if(vis.getMetodoP().equals(&quot;cash&quot;))</span>
+<span class="nc" id="L43">			p.setMetodo(&quot;cash&quot;);</span>
+<span class="nc" id="L44">		else p.setMetodo(&quot;cCredito&quot;);</span>
+<span class="nc" id="L45">		p.setNomeUtente(nome);</span>
+
+
+<span class="nc" id="L48">		p.setId(vis.getId());</span>
+		
+
+
+
+<span class="nc bnc" id="L53" title="All 4 branches missed.">		switch (tipo){</span>
+			case &quot;libro&quot;-&gt;
+			{
+<span class="nc" id="L56">				l.setId(vis.getId());</span>
+<span class="nc" id="L57">				checkID(vis.getId());</span>
+<span class="nc" id="L58">				p.setAmmontare(vis.getSpesaT());</span>
+<span class="nc" id="L59">				p.setIdOggetto(l.getId());</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">				if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+				{
+<span class="nc" id="L62">					Libro l1=csv.retrieveLibroData(new File(&quot;report/reportLibro.csv&quot;),l).get(0);</span>
+<span class="nc" id="L63">					p.setTipo(l1.getCategoria());</span>
+
+
+<span class="nc" id="L66">				}</span>
+				else {
+
+<span class="nc" id="L69">					p.setTipo(lD.getData(l).getCategoria());</span>
+<span class="nc" id="L70">					pagD.inserisciPagamento(p);</span>
+
+				}
+<span class="nc" id="L73">				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);</span>
+
+
+<span class="nc" id="L76">			}</span>
+			case &quot;giornale&quot; -&gt;
+			{
+<span class="nc" id="L79">				g.setId(vis.getId());</span>
+<span class="nc" id="L80">				checkID(vis.getId());</span>
+<span class="nc" id="L81">				p.setAmmontare(vis.getSpesaT());</span>
+<span class="nc" id="L82">				p.setIdOggetto(g.getId());</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">				if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+				{
+<span class="nc" id="L85">					Giornale g1 =csv.retriveGiornaleData(new File(&quot;report/reportGiornale.csv&quot;),g).get(0);</span>
+<span class="nc" id="L86">					p.setTipo(g1.getTipologia());</span>
+
+
+<span class="nc" id="L89">				}</span>
+				else {
+
+<span class="nc" id="L92">					p.setTipo(gD.getData(g).getTipologia());</span>
+<span class="nc" id="L93">					pagD.inserisciPagamento(p);</span>
+
+				}
+<span class="nc" id="L96">				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);</span>
+
+
+<span class="nc" id="L99">			}</span>
+			case &quot;rivista&quot;-&gt;
+			{
+<span class="nc" id="L102">				r.setId(vis.getId());</span>
+<span class="nc" id="L103">				checkID(vis.getId());</span>
+<span class="nc" id="L104">				p.setAmmontare(vis.getSpesaT());</span>
+<span class="nc" id="L105">				p.setIdOggetto(r.getId());</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">				if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+				{
+<span class="nc" id="L108">					Rivista r1=csv.retrieveRivistaData(new File(&quot;report/reportRivista.csv&quot;),r).get(0);</span>
+<span class="nc" id="L109">					p.setTipo(r1.getTipologia());</span>
+					//sistemare qui
+
+
+<span class="nc" id="L113">				}</span>
+				else {
+
+<span class="nc" id="L116">					p.setTipo(rD.getData(r).getTipologia());</span>
+<span class="nc" id="L117">					pagD.inserisciPagamento(p);</span>
+
+				}
+<span class="nc" id="L120">				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);</span>
+
+
+
+<span class="nc" id="L124">			}</span>
+<span class="nc" id="L125">			default-&gt;java.util.logging.Logger.getLogger(&quot;Test checkPagamento Data&quot;).log(Level.SEVERE,&quot; type not correct&quot;);</span>
+
+		}
+
+		
+<span class="nc" id="L130">	}</span>
+<span class="nc" id="L131">	public ControllerCheckPagamentoData() throws IOException {</span>
+<span class="nc" id="L132">		l=new Libro();</span>
+<span class="nc" id="L133">		g=new Giornale();</span>
+<span class="nc" id="L134">		r=new Rivista();</span>
+<span class="nc" id="L135">		lD=new LibroDao();</span>
+<span class="nc" id="L136">		rD=new RivistaDao();</span>
+<span class="nc" id="L137">		pagD=new PagamentoDao();</span>
+<span class="nc" id="L138">		csv=new CsvOggettoDao();</span>
+<span class="nc" id="L139">		csvFattura=new FatturaPagamentoCCredito();</span>
+		
+<span class="nc" id="L141">	}</span>
+	private void checkID(int id) throws IdException {
+
+<span class="nc bnc" id="L144" title="All 4 branches missed.">		if (id&lt;=0 || id&gt;25)</span>
+		{
+
+<span class="nc" id="L147">			throw new IdException(&quot;id not correct&quot;);</span>
+		}
+
+<span class="nc" id="L150">	}</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

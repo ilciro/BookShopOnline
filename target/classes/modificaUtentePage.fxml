@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryModificaUtentePage">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryModificaUtentePage">
    <children>
       <Label fx:id="header" layoutX="202.0" layoutY="31.0" prefHeight="32.0" prefWidth="196.0" text="scegliere i campi da modificare" textFill="#27ff01" />
       <Label fx:id="tipo" layoutX="15.0" layoutY="100.0" prefHeight="20.0" prefWidth="100.0" text="tipo utente" />
@@ -28,7 +28,7 @@
       <TextField fx:id="dataTF" layoutX="360.0" layoutY="350.0" />
       <PasswordField fx:id="passL" layoutX="145.0" layoutY="300.0" />
       <PasswordField fx:id="passF" layoutX="360.0" layoutY="300.0" />
-      <Button fx:id="buttonI" layoutX="193.0" layoutY="399.0" mnemonicParsing="false" onMouseClicked="#prendiDati" text="prendi lista" textFill="#2b64c6" />
+      <Button fx:id="buttonI" layoutX="193.0" layoutY="399.0" mnemonicParsing="false" onAction="#prendiDati" onMouseClicked="#prendiDati" text="prendi lista" textFill="#2b64c6" />
       <Button fx:id="buttonA" layoutX="615.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#indietro" text="indietro" textFill="#fc0000" />
       <ListView fx:id="ruoli" layoutX="583.0" layoutY="86.0" onMouseClicked="#ritornaUtente" prefHeight="129.0" prefWidth="121.0" />
       <TextField fx:id="utenteTF" layoutX="360.0" layoutY="100.0" />

@@ -10,8 +10,8 @@ import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.PagamentoDao;
 import laptop.database.RivistaDao;
-import laptop.database.csvOggetto.CsvOggettoDao;
-import laptop.database.csvPagamento.FatturaPagamentoCCredito;
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Pagamento;
 import laptop.model.raccolta.Giornale;
@@ -29,8 +29,8 @@ public class ControllerCheckPagamentoData {
 	private final FatturaPagamentoCCredito csvFattura;
 	private final CsvOggettoDao csv;
 	private final GiornaleDao gD=new GiornaleDao();
-	private final String FATTURA="report/reportFattura.csv";
-	private final String PAGAMENTO="report/reportPagamento.csv";
+	private static final String FATTURA="report/reportFattura.csv";
+	private static final String PAGAMENTO="report/reportPagamento.csv";
 	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
 		String tipo=vis.getType();
 		

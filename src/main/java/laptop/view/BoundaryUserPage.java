@@ -4,11 +4,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -88,8 +90,7 @@ public class BoundaryUserPage implements Initializable {
 
 	}
 	@FXML
-	private void cancella() throws NumberFormatException, SQLException, IOException
-	{
+	private void cancella() throws NumberFormatException, SQLException, IOException, CsvValidationException {
 		 boolean state;
 
 		vis.setId(Integer.parseInt(utenteTF.getText()));
@@ -133,30 +134,46 @@ public class BoundaryUserPage implements Initializable {
 	}
 	@FXML
 	private void prendi() throws IOException,NullPointerException {
-		
-		
-		
-		cUP.getUtenti();
-		
-		elencoUtenti.clear();
-		
-		
-		try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/riepilogoUtenti.txt")))
-		{
-			String line= reader.readLine();		
 
-			
-			
-			while(line!=null)
-			{
-				
-				 elencoUtenti.appendText(line.concat("\n"));
-				 line = reader.readLine();		
-			    
-			}
+
+
+
+		if(vis.getTypeOfDb().equals("file"))
+		{
+			elencoUtenti.clear();
+				try {
+					CSVReader reader=new CSVReader(new BufferedReader(new FileReader("report/reportUtente.csv")));
+					String[] gVector;
+					while((gVector=reader.readNext())!=null){
+						elencoUtenti.appendText(Arrays.toString(gVector));
+						elencoUtenti.appendText("\n");
+					}
+
+				}catch (CsvValidationException e)
+				{
+					e.getCause();
+				}
 		}
-       
-		    	    
+		else {
+
+			elencoUtenti.clear();
+			cUP.getUtenti();
+
+
+
+			try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/riepilogoUtenti.txt"))) {
+				String line = reader.readLine();
+
+
+				while (line != null) {
+
+					elencoUtenti.appendText(line.concat("\n"));
+					line = reader.readLine();
+
+				}
+			}
+
+		}
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

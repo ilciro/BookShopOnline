@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SystemBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">web.bean</a> &gt; <span class="el_source">SystemBean.java</span></div><h1>SystemBean.java</h1><pre class="source lang-java linenums">package web.bean;
+
+public class SystemBean {
+    public String getTypeB() {
+<span class="nc" id="L5">        return typeB;</span>
+    }
+
+    public void setTypeB(String type) {
+<span class="nc" id="L9">        this.typeB = type;</span>
+<span class="nc" id="L10">    }</span>
+
+    public void setTypeAsBook()
+    {
+<span class="nc" id="L14">        setTypeB(&quot;libro&quot;);</span>
+<span class="nc" id="L15">    }</span>
+    public void setTypeAsMagazine()
+    {
+<span class="nc" id="L18">        setTypeB(&quot;rivista&quot;);</span>
+<span class="nc" id="L19">    }</span>
+    public void setTypeAsDaily()
+    {
+<span class="nc" id="L22">        setTypeB(&quot;giornale&quot;);</span>
+<span class="nc" id="L23">    }</span>
+
+
+
+
+<span class="nc" id="L28">    private static SystemBean instance=null;</span>
+
+    public static SystemBean getInstance() {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if(instance==null)</span>
+<span class="nc" id="L32">            instance=new SystemBean();</span>
+<span class="nc" id="L33">        return instance;</span>
+    }
+    private SystemBean(){}
+
+    private String typeB;
+
+    private String titoloB;
+    private String metodoPB;
+
+
+
+    public String getMetodoPB() {
+<span class="nc" id="L45">        return metodoPB;</span>
+    }
+
+    public void setMetodoPB(String metodoPB) {
+<span class="nc" id="L49">        this.metodoPB = metodoPB;</span>
+<span class="nc" id="L50">    }</span>
+
+    public String getTitoloB() {
+<span class="nc" id="L53">        return titoloB;</span>
+    }
+
+    public void setTitoloB(String titoloB) {
+<span class="nc" id="L57">        this.titoloB = titoloB;</span>
+<span class="nc" id="L58">    }</span>
+
+    public int getIdB() {
+<span class="nc" id="L61">        return idB;</span>
+    }
+
+    public void setIdB(int idB) {
+<span class="nc" id="L65">        this.idB = idB;</span>
+<span class="nc" id="L66">    }</span>
+
+    private int idB;
+
+    public int getQuantitaB() {
+<span class="nc" id="L71">        return quantitaB;</span>
+    }
+
+    public void setQuantitaB(int quantitaB) {
+<span class="nc" id="L75">        this.quantitaB = quantitaB;</span>
+<span class="nc" id="L76">    }</span>
+
+    private int quantitaB;
+
+    private float spesaTB;
+
+    public float getSpesaTB() {
+<span class="nc" id="L83">        return spesaTB;</span>
+    }
+
+    public void setSpesaTB(float spesaTB) {
+<span class="nc" id="L87">        this.spesaTB = spesaTB;</span>
+<span class="nc" id="L88">    }</span>
+
+    private boolean negozioSelezionatoB;
+
+    public boolean isNegozioSelezionatoB() {
+<span class="nc" id="L93">        return negozioSelezionatoB;</span>
+    }
+
+    public void setNegozioSelezionatoB(boolean negozioSelezionatoB) {
+<span class="nc" id="L97">        this.negozioSelezionatoB = negozioSelezionatoB;</span>
+<span class="nc" id="L98">    }</span>
+
+    private String categoriaB;
+
+    public String getCategoriaB() {
+<span class="nc" id="L103">        return categoriaB;</span>
+    }
+
+    public void setCategoriaB(String categoriaB) {
+<span class="nc" id="L107">        this.categoriaB = categoriaB;</span>
+<span class="nc" id="L108">    }</span>
+
+
+private  boolean loggedB;
+
+
+    public boolean isLoggedB() {
+<span class="nc" id="L115">        return loggedB;</span>
+    }
+
+    public void setLoggedB(boolean loggedB) {
+<span class="nc" id="L119">        this.loggedB = loggedB;</span>
+<span class="nc" id="L120">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

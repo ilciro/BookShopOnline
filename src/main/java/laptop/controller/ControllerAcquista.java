@@ -10,7 +10,7 @@ import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 
 import laptop.database.RivistaDao;
-import laptop.database.csvOggetto.CsvOggettoDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.exception.AcquistaException;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;

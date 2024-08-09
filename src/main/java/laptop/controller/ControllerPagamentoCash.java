@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.ContrassegnoDao;
-import laptop.database.csvPagamento.FatturaPagamentoCCredito;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
 

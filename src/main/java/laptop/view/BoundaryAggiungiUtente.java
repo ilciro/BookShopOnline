@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import laptop.controller.ControllerAggiungiUtente;
+import laptop.exception.IdException;
 
 public class BoundaryAggiungiUtente implements Initializable {
 	@FXML
@@ -52,8 +54,7 @@ public class BoundaryAggiungiUtente implements Initializable {
 	private ControllerAggiungiUtente cAU;
 	
 	@FXML
-	private void inserisci() throws ParseException, SQLException, IOException
-	{
+	private void inserisci() throws ParseException, SQLException, IOException, CsvValidationException, IdException {
 		if(cAU.checkData(nomeTF.getText(),cognomeTF.getText(),emailTF.getText(),passF.getText(),dataTF.getText()))
 		{
 			Stage stage;

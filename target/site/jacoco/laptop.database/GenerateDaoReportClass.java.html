@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenerateDaoReportClass.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.database</a> &gt; <span class="el_source">GenerateDaoReportClass.java</span></div><h1>GenerateDaoReportClass.java</h1><pre class="source lang-java linenums">package laptop.database;
+/*
+ * this class was created for
+ * reduce complexity and duplication for sonarcloud
+ */
+
+import laptop.model.TempUser;
+import laptop.utilities.ConnToDb;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class GenerateDaoReportClass {
+
+    private  File fd;
+    private  File fd1;
+
+
+    public String getQuery() {
+<span class="nc" id="L27">        return query;</span>
+    }
+
+    public void setQuery(String query) {
+<span class="nc" id="L31">        this.query = query;</span>
+<span class="nc" id="L32">    }</span>
+
+    private String query;
+
+    public String getPath() {
+<span class="nc" id="L37">        return path;</span>
+    }
+
+    public void setPath(String path) {
+<span class="nc" id="L41">        this.path = path;</span>
+<span class="nc" id="L42">    }</span>
+
+
+
+    private static final String RIEPILOGOGIORNALI = &quot;src/main/resources/riepilogoGiornali.txt&quot;;
+    private static final String RIEPILOGOGIORNALIWEB = &quot;src/main/webapp/WEB-INF/riepilogoGiornali.txt&quot;;
+    private static final String REPORTLIBRI=&quot;src/main/resources/riepilogoLibri.txt&quot;;
+    private static final String REPORTLIBRIWEB=&quot;src/main/webapp/WEB-INF/riepilogoLibri.txt&quot;;
+    private static final String RIEPILOGORIVISTE=&quot;src/main/resources/riepilogoRiviste.txt&quot;;
+    private static final String RIEPILOGORIVISTEWEB=&quot;src/main/webapp/WEB-INF/riepilogoRiviste.txt&quot;;
+    private static final String TXT_FILE_NAME=&quot;src/main/resources/riepilogoUtenti.txt&quot;;
+    private static final String TXT_FILE_NAME_WEB=&quot;src/main/webapp/WEB-INF/riepilogoUtenti.txt&quot;;
+    private static final String ECCEZIONE_METODO=&quot;Test Eccezione genera report&quot;;
+
+
+    public GenerateDaoReportClass(String type)
+<span class="fc" id="L58">    {</span>
+<span class="pc bpc" id="L59" title="2 of 5 branches missed.">        	switch (type)</span>
+            {
+                case GIORNALE -&gt; {
+<span class="fc" id="L62">                    this.fd = new File(RIEPILOGOGIORNALI);</span>
+<span class="fc" id="L63">                    this.fd1 = new File(RIEPILOGOGIORNALIWEB);</span>
+<span class="fc" id="L64">                }</span>
+                case LIBRO -&gt; {
+<span class="fc" id="L66">                    this.fd=new File(REPORTLIBRI);</span>
+<span class="fc" id="L67">                    this.fd1=new File(REPORTLIBRIWEB);</span>
+<span class="fc" id="L68">                }</span>
+                case RIVISTA -&gt; {
+<span class="fc" id="L70">                    this.fd=new File(RIEPILOGORIVISTE);</span>
+<span class="fc" id="L71">                    this.fd1=new File(RIEPILOGORIVISTEWEB);</span>
+<span class="fc" id="L72">                }</span>
+                case UTENTI-&gt;{
+<span class="nc" id="L74">                    this.fd=new File(TXT_FILE_NAME);</span>
+<span class="nc" id="L75">                    this.fd1=new File(TXT_FILE_NAME_WEB);</span>
+<span class="nc" id="L76">                }</span>
+<span class="nc" id="L77">                default -&gt; Logger.getLogger(&quot;GenerateDaoReportClass&quot;).log(Level.SEVERE, &quot; choice not correct !!&quot;);</span>
+
+
+
+
+            }
+
+<span class="fc" id="L84">    }</span>
+<span class="nc" id="L85">    public GenerateDaoReportClass(){}</span>
+
+    private String path;
+
+    private  static final  String RIVISTA=&quot;rivista&quot;;
+    private  static final String LIBRO=&quot;libro&quot;;
+    private  static final String GIORNALE=&quot;giornale&quot;;
+    private static final String UTENTI=&quot;utenti&quot;;
+
+
+
+    public boolean generateReport(String type) throws IOException {
+<span class="nc" id="L97">        boolean status=false;</span>
+
+<span class="nc bnc" id="L99" title="All 5 branches missed.">        switch (type) {</span>
+            case LIBRO -&gt; {
+
+<span class="nc" id="L102">                setQuery(&quot;select  idLibro ,titolo,copieRimanenti,prezzo  from LIBRO&quot;);</span>
+<span class="nc" id="L103">                setPath(REPORTLIBRI);</span>
+<span class="nc" id="L104">                status = writetoFileLGR(LIBRO, getPath());</span>
+<span class="nc" id="L105">            }</span>
+            case GIORNALE -&gt; {
+<span class="nc" id="L107">                setQuery(&quot;select  idGiornale ,titolo,copieRimanenti,prezzo  from GIORNALE&quot;);</span>
+<span class="nc" id="L108">                setPath(RIEPILOGOGIORNALI);</span>
+<span class="nc" id="L109">                status = writetoFileLGR(GIORNALE, getPath());</span>
+<span class="nc" id="L110">            }</span>
+            case RIVISTA -&gt; {
+
+<span class="nc" id="L113">                setQuery(&quot;select  idRivista ,titolo,copieRimanenti,prezzo  from RIVISTA&quot;);</span>
+<span class="nc" id="L114">                setPath(RIEPILOGORIVISTE);</span>
+<span class="nc" id="L115">                status = writetoFileLGR(RIVISTA, getPath());</span>
+<span class="nc" id="L116">            }</span>
+            case UTENTI-&gt; {
+
+<span class="nc" id="L119">            setQuery(&quot;select  * from USERS&quot;);</span>
+<span class="nc" id="L120">            path = TXT_FILE_NAME;</span>
+<span class="nc" id="L121">            status = writeToFileU(path);</span>
+<span class="nc" id="L122">         }</span>
+<span class="nc" id="L123">            default -&gt; Logger.getLogger(&quot;generateReport&quot;).log(Level.SEVERE, &quot; query not correct !!&quot;);</span>
+        }
+<span class="nc bnc" id="L125" title="All 2 branches missed.">       return !status;</span>
+
+    }
+
+    private boolean writetoFileLGR(String type,String path) throws IOException {
+<span class="nc" id="L130">        boolean status=false;</span>
+<span class="nc bnc" id="L131" title="All 6 branches missed.">        if(type.equals(LIBRO)|| type.equals(GIORNALE)||type.equals(RIVISTA)) {</span>
+
+<span class="nc" id="L133">            try (BufferedWriter b = new BufferedWriter(new FileWriter(path))) {</span>
+<span class="nc" id="L134">                try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L135">                     PreparedStatement prepQ = conn.prepareStatement(getQuery())) {</span>
+<span class="nc" id="L136">                    ResultSet rs = prepQ.executeQuery();</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">                    while (rs.next()) {</span>
+<span class="nc" id="L138">                        b.write(&quot;Id :\t&quot; + rs.getInt(1) + &quot;titolo :\t&quot; + rs.getString(2) + &quot;ricavo totale :\t&quot; + rs.getInt(3) * rs.getFloat(4) + &quot;\n&quot;);</span>
+
+                    }
+
+<span class="nc" id="L142">                } catch (SQLException e) {</span>
+<span class="nc" id="L143">                    Logger.getLogger(ECCEZIONE_METODO).log(Level.INFO, &quot;Error in SQL&quot;, e);</span>
+<span class="nc" id="L144">                }</span>
+<span class="nc" id="L145">                b.flush();</span>
+            }
+
+<span class="nc bnc" id="L148" title="All 2 branches missed.">            if (!path.isEmpty())</span>
+<span class="nc" id="L149">                status = true;</span>
+        }
+
+<span class="nc" id="L152">            return status;</span>
+
+    }
+    private boolean writeToFileU(String path) throws IOException
+    {
+<span class="nc" id="L157">        boolean status=false;</span>
+<span class="nc" id="L158">        try (BufferedWriter b = new BufferedWriter(new FileWriter(path))) {</span>
+<span class="nc" id="L159">            query = &quot;select * from USERS&quot;;</span>
+
+
+<span class="nc" id="L162">            try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L163">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+
+<span class="nc" id="L165">                ResultSet rs = prepQ.executeQuery();</span>
+
+
+<span class="nc bnc" id="L168" title="All 2 branches missed.">                while (rs.next()) {</span>
+
+<span class="nc" id="L170">                    TempUser.getInstance().setId(rs.getInt(1));</span>
+<span class="nc" id="L171">                    TempUser.getInstance().setIdRuolo(rs.getString(2));</span>
+<span class="nc" id="L172">                    TempUser.getInstance().setNomeT(rs.getString(3));</span>
+<span class="nc" id="L173">                    TempUser.getInstance().setCognomeT(rs.getString(4));</span>
+<span class="nc" id="L174">                    TempUser.getInstance().setEmailT(rs.getString(5));</span>
+<span class="nc" id="L175">                    TempUser.getInstance().setDescrizioneT(rs.getString(7));</span>
+<span class="nc" id="L176">                    TempUser.getInstance().setDataDiNascitaT(rs.getDate(8).toLocalDate());</span>
+<span class="nc" id="L177">                    b.write(TempUser.getInstance().getId() + &quot;\t&quot; + TempUser.getInstance().getIdRuolo() + &quot;\t&quot; + TempUser.getInstance().getNomeT() + &quot;\t&quot; + TempUser.getInstance().getCognomeT() +</span>
+<span class="nc" id="L178">                            &quot;\t&quot; + TempUser.getInstance().getEmailT() + &quot;\t&quot; + TempUser.getInstance().getDescrizioneT() + &quot;\t&quot; + TempUser.getInstance().getDataDiNascitaT().toString() + &quot;\n&quot;);</span>
+
+                }
+<span class="nc" id="L181">            } catch (SQLException e1) {</span>
+<span class="nc" id="L182">                Logger.getLogger(&quot;lista utenti&quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta .&quot;, e1);</span>
+
+<span class="nc" id="L184">            }</span>
+<span class="nc" id="L185">            b.flush();</span>
+
+        }
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if(!path.isEmpty())</span>
+<span class="nc" id="L189">            status=true;</span>
+<span class="nc" id="L190">        return status;</span>
+    }
+
+    public void checkFilePath(Path path) throws IOException {
+
+        try {
+<span class="nc" id="L196">            cleanUp(path);</span>
+
+<span class="nc bnc" id="L198" title="All 2 branches missed.">            if (!fd.exists())</span>
+<span class="nc" id="L199">                throw new IOException(&quot;file &quot; + fd.getPath() + &quot; not exists -&gt; creating&quot;);</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">            if (fd.exists()) {</span>
+<span class="nc" id="L201">                cleanUp(path);</span>
+<span class="nc" id="L202">                throw new IOException(&quot;file &quot; + fd.getPath() + &quot; -&gt; deleted not exists -&gt; creating&quot;);</span>
+            }
+
+<span class="nc" id="L205">        } catch (IOException e) {</span>
+<span class="nc" id="L206">            Logger.getLogger(ECCEZIONE_METODO).log(Level.INFO, &quot;creating file {0}.&quot;, fd1.getPath());</span>
+
+<span class="nc bnc" id="L208" title="All 2 branches missed.">            if (fd.createNewFile()) {</span>
+<span class="nc" id="L209">                Logger.getLogger(ECCEZIONE_METODO).log(Level.INFO, &quot;creating file {0}.&quot;, fd1.getPath());</span>
+            }
+
+<span class="nc" id="L212">        }</span>
+
+<span class="nc" id="L214">    }</span>
+
+    public String getReportView(String type) throws SQLException {
+<span class="nc" id="L217">        String reportFinale = null;</span>
+
+<span class="nc bnc" id="L219" title="All 5 branches missed.">        switch (type) {</span>
+            case LIBRO -&gt; {
+<span class="nc" id="L221">                setQuery(&quot;create or replace view reportLibri (id,titolo,ricavoMassimo) as select idLibro,titolo,(copieRimanenti*prezzo) from LIBRO&quot;);</span>
+<span class="nc" id="L222">                try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L223">                    PreparedStatement prepQ=conn.prepareStatement(getQuery())) {</span>
+<span class="nc" id="L224">                    prepQ.executeUpdate();</span>
+<span class="nc" id="L225">                }catch (SQLException e)</span>
+                {
+
+<span class="nc" id="L228">                    Logger.getLogger(&quot;Test report book view &quot;).log(Level.SEVERE, &quot;view book not created!&quot;);</span>
+
+<span class="nc" id="L230">                }</span>
+<span class="nc" id="L231">                reportFinale=leggiReport(LIBRO);</span>
+
+
+<span class="nc" id="L234">            }</span>
+            case GIORNALE -&gt; {
+<span class="nc" id="L236">                setQuery(&quot;create or replace view reportGiornali (id,titolo,ricavoMassimo) as select idGiornale,titolo,(copieRimanenti*prezzo) from GIORNALE&quot;);</span>
+<span class="nc" id="L237">                try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L238">                    PreparedStatement prepQ=conn.prepareStatement(getQuery())) {</span>
+<span class="nc" id="L239">                    prepQ.executeUpdate();</span>
+<span class="nc" id="L240">                }catch (SQLException e)</span>
+                {
+<span class="nc" id="L242">                    Logger.getLogger(&quot;Test report daily view &quot;).log(Level.SEVERE, &quot;view giornali not created!&quot;);</span>
+
+<span class="nc" id="L244">                }</span>
+<span class="nc" id="L245">                reportFinale=leggiReport(GIORNALE);</span>
+<span class="nc" id="L246">            }</span>
+            case RIVISTA -&gt; {
+<span class="nc" id="L248">                setQuery(&quot;create or replace view reportRiviste (id,titolo,ricavoMassimo) as select idRivista,titolo,(copieRimanenti*prezzo) from RIVISTA&quot;);</span>
+<span class="nc" id="L249">                try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L250">                    PreparedStatement prepQ=conn.prepareStatement(getQuery())) {</span>
+<span class="nc" id="L251">                    prepQ.executeUpdate();</span>
+<span class="nc" id="L252">                }catch (SQLException e)</span>
+                {
+<span class="nc" id="L254">                    Logger.getLogger(&quot;Test report magazine view &quot;).log(Level.SEVERE, &quot;view magazine not created!&quot;);</span>
+
+<span class="nc" id="L256">                }</span>
+<span class="nc" id="L257">                reportFinale=leggiReport(RIVISTA);</span>
+<span class="nc" id="L258">            }</span>
+            case UTENTI -&gt; {
+
+<span class="nc" id="L261">                    setQuery(&quot;create or replace view reportUtenti (id,ruolo,nome,cognome) as select idUser,idRuolo,nome,cognome from USERS&quot;);</span>
+<span class="nc" id="L262">                    try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L263">                        PreparedStatement prepQ=conn.prepareStatement(getQuery())) {</span>
+<span class="nc" id="L264">                        prepQ.executeUpdate();</span>
+<span class="nc" id="L265">                    }catch (SQLException e)</span>
+                    {
+<span class="nc" id="L267">                        Logger.getLogger(&quot;Test report users view &quot;).log(Level.SEVERE, &quot;view users not created!&quot;);</span>
+
+<span class="nc" id="L269">                    }</span>
+<span class="nc" id="L270">                    reportFinale=leggiReport(UTENTI);</span>
+
+<span class="nc" id="L272">            }</span>
+<span class="nc" id="L273">            default -&gt; Logger.getLogger(&quot;getReportView&quot;).log(Level.INFO, &quot;choice for view is wrong&quot;);</span>
+        }
+<span class="nc" id="L275">        return reportFinale;</span>
+    }
+
+    private static void cleanUp(Path path) throws  IOException {
+<span class="nc" id="L279">        Files.delete(path);</span>
+<span class="nc" id="L280">    }</span>
+    private String leggiReport(String type) throws SQLException {
+<span class="nc" id="L282">        StringBuilder builder = new StringBuilder();</span>
+<span class="nc bnc" id="L283" title="All 5 branches missed.">        switch (type) {</span>
+<span class="nc" id="L284">            case LIBRO -&gt; setQuery(&quot;select * from reportLibri&quot;);</span>
+<span class="nc" id="L285">            case GIORNALE -&gt; setQuery(&quot;select * from reportGiornali&quot;);</span>
+<span class="nc" id="L286">            case RIVISTA -&gt; setQuery(&quot;select * from reportRiviste&quot;);</span>
+<span class="nc" id="L287">            case UTENTI -&gt; setQuery(&quot;select * from reportUtenti&quot;);</span>
+<span class="nc" id="L288">            default -&gt; Logger.getLogger(&quot;leggi report&quot;).log(Level.INFO, &quot;choice for view is wrong&quot;);</span>
+
+        }
+
+
+
+<span class="nc bnc" id="L294" title="All 6 branches missed.">            if(type.equals(LIBRO)||type.equals(GIORNALE)|| type.equals(RIVISTA)) {</span>
+<span class="nc" id="L295">                try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L296">                     PreparedStatement prepQ = conn.prepareStatement(getQuery())) {</span>
+<span class="nc" id="L297">                    ResultSet rs = prepQ.executeQuery();</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">                    while (rs.next()) {</span>
+<span class="nc" id="L299">                        builder.append(&quot;id :&quot;);</span>
+<span class="nc" id="L300">                        builder.append(rs.getInt(1));</span>
+<span class="nc" id="L301">                        builder.append(&quot;\t&quot;);</span>
+<span class="nc" id="L302">                        builder.append(&quot;titolo :&quot;);</span>
+<span class="nc" id="L303">                        builder.append(rs.getString(2));</span>
+<span class="nc" id="L304">                        builder.append(&quot;\t&quot;);</span>
+<span class="nc" id="L305">                        builder.append(&quot;ricavoMassimo :&quot;);</span>
+<span class="nc" id="L306">                        builder.append(rs.getInt(1));</span>
+<span class="nc" id="L307">                        builder.append(&quot;\n&quot;);</span>
+
+                    }
+
+                }
+            }
+<span class="nc bnc" id="L313" title="All 2 branches missed.">            if(type.equals(UTENTI)) {</span>
+<span class="nc" id="L314">                try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L315">                    PreparedStatement prepQ=conn.prepareStatement(getQuery()))</span>
+                {
+<span class="nc" id="L317">                    ResultSet rs= prepQ.executeQuery();</span>
+<span class="nc bnc" id="L318" title="All 2 branches missed.">                    while(rs.next())</span>
+                    {
+<span class="nc" id="L320">                        builder.append(&quot;nome :&quot;);</span>
+<span class="nc" id="L321">                        builder.append(rs.getString(3));</span>
+<span class="nc" id="L322">                        builder.append(&quot;\t&quot;);</span>
+<span class="nc" id="L323">                        builder.append(&quot;cognome :&quot;);</span>
+<span class="nc" id="L324">                        builder.append(rs.getString(4));</span>
+<span class="nc" id="L325">                        builder.append(&quot;\t&quot;);</span>
+<span class="nc" id="L326">                        builder.append(&quot;ruolo :&quot;);</span>
+<span class="nc" id="L327">                        builder.append(rs.getString(2));</span>
+<span class="nc" id="L328">                        builder.append(&quot;id :&quot;);</span>
+<span class="nc" id="L329">                        builder.append(rs.getInt(1));</span>
+<span class="nc" id="L330">                        builder.append(&quot;\t&quot;);</span>
+<span class="nc" id="L331">                        builder.append(&quot;\n&quot;);</span>
+
+                    }
+                }
+            }
+
+<span class="nc" id="L337">        return builder.toString();</span>
+    }
+
+    public int getIdMax(String type)
+    {
+<span class="nc" id="L342">        int idMax = 0;</span>
+<span class="nc bnc" id="L343" title="All 5 branches missed.">        switch (type) {</span>
+<span class="nc" id="L344">            case LIBRO -&gt; query = &quot;select count(*) as massimo from LIBRO&quot;;</span>
+<span class="nc" id="L345">            case GIORNALE -&gt; query = &quot;select count(*) as massimo from GIORNALE&quot;;</span>
+<span class="nc" id="L346">            case RIVISTA -&gt; query = &quot;select count(*) as massimo from RIVISTA&quot;;</span>
+<span class="nc" id="L347">            case UTENTI -&gt; query=&quot;select count(*) as massimo from USERS&quot;;</span>
+<span class="nc" id="L348">            default -&gt; Logger.getLogger(&quot;idMax&quot;).log(Level.INFO, &quot;id max not found&quot;);</span>
+
+        }
+<span class="nc" id="L351">        try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L352">            PreparedStatement prepQ=conn.prepareStatement(query)) {</span>
+            
+<span class="nc" id="L354">            ResultSet rs=prepQ.executeQuery();</span>
+<span class="nc bnc" id="L355" title="All 2 branches missed.">            while (rs.next())</span>
+<span class="nc" id="L356">               idMax=rs.getInt(&quot;massimo&quot;);</span>
+
+<span class="nc" id="L358">        } catch (SQLException e) {</span>
+<span class="nc" id="L359">            Logger.getLogger(&quot;get idMAx&quot;).log(Level.INFO, &quot;id max not avalaible&quot;);</span>
+
+<span class="nc" id="L361">        }</span>
+
+<span class="nc" id="L363">        return idMax;</span>
+    }
+    public void ripristinaOrdine(String type)
+    {
+
+<span class="nc bnc" id="L368" title="All 5 branches missed.">        switch (type)</span>
+        {
+<span class="nc" id="L370">            case LIBRO -&gt; query=&quot;ALTER TABLE LIBRO AUTO_INCREMENT = 1&quot;;</span>
+<span class="nc" id="L371">            case GIORNALE -&gt; query=&quot;ALTER TABLE GIORNALE AUTO_INCREMENT =1&quot;;</span>
+<span class="nc" id="L372">            case RIVISTA -&gt; query=&quot;ALTER TABLE RIVISTA AUTO_INCREMENT=1&quot;;</span>
+<span class="nc" id="L373">            case UTENTI -&gt; query=&quot;ALTER TABLE USERS AUTO_INCREMENT=1&quot;;</span>
+<span class="nc" id="L374">            default -&gt; Logger.getLogger(&quot;ripristino &quot;).log(Level.SEVERE,&quot; id restore failed&quot;);</span>
+
+        }
+<span class="nc" id="L377">        try (Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L378">            PreparedStatement prepQ=conn.prepareStatement(query)){</span>
+<span class="nc" id="L379">            prepQ.executeUpdate();</span>
+<span class="nc" id="L380">        } catch (SQLException e) {</span>
+<span class="nc" id="L381">            Logger.getLogger(&quot;ripristina ordine&quot;).log(Level.INFO, &quot;order managed&quot;);</span>
+
+<span class="nc" id="L383">        }</span>
+<span class="nc" id="L384">    }</span>
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

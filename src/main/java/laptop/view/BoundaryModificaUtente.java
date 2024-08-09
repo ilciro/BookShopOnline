@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,10 +22,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerModificaUtente;
+import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
 
 public class BoundaryModificaUtente implements Initializable {
 	
 	private ControllerModificaUtente cMU;
+	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 	@FXML
 	private Pane pane;
 	@FXML
@@ -81,20 +85,28 @@ public class BoundaryModificaUtente implements Initializable {
 	protected Scene scene;
 	
 	@FXML
-	private void visualizza() throws SQLException
-	{
-		vecchioNL.setText(cMU.prendi().getNome());
-		vecchioCL.setText(cMU.prendi().getCognome());
-		vecchiaEmailL.setText(cMU.prendi().getEmail());
-		vecchiaPwd.setText(cMU.prendi().getPassword());
-		vecchiaDescL.setText(cMU.prendi().getDescrizione());
-		vecchiaDNL.setText(cMU.prendi().getDataDiNascita().toString());
+	private void visualizza() throws SQLException, CsvValidationException, IOException {
+		if(vis.getTypeOfDb().equals("file"))
+		{
+			vecchioNL.setText(cMU.prendiCsv().getNome());
+			vecchioCL.setText(cMU.prendiCsv().getCognome());
+			vecchiaEmailL.setText(cMU.prendiCsv().getEmail());
+			vecchiaPwd.setText(cMU.prendiCsv().getPassword());
+			vecchiaDescL.setText(cMU.prendiCsv().getDescrizione());
+			vecchiaDNL.setText(cMU.prendiCsv().getDataDiNascita().toString());
+		}else {
+			vecchioNL.setText(cMU.prendi().getNome());
+			vecchioCL.setText(cMU.prendi().getCognome());
+			vecchiaEmailL.setText(cMU.prendi().getEmail());
+			vecchiaPwd.setText(cMU.prendi().getPassword());
+			vecchiaDescL.setText(cMU.prendi().getDescrizione());
+			vecchiaDNL.setText(cMU.prendi().getDataDiNascita().toString());
+		}
 		
 
 	}
 	@FXML
-	private void aggiorna() throws SQLException
-	{
+	private void aggiorna() throws SQLException, CsvValidationException, IOException, IdException {
 		if(cMU.aggiornaTot(nuovoNL.getText(),nuovoCL.getText(),
 				nuovaEmailL.getText(),nuovaPwd.getText(),
 				nuovaDescL.getText(),nuovaDNL.getValue(),vecchiaEmailL.getText()))

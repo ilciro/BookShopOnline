@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerRegistraUtente;
+import laptop.exception.IdException;
 
 
 public class BoundaryRegistraUtente implements Initializable {
@@ -70,7 +71,7 @@ public class BoundaryRegistraUtente implements Initializable {
 
 	
 	@FXML
-	private void procedi() throws IOException, SQLException, CsvValidationException {
+	private void procedi() throws IOException, SQLException, CsvValidationException, IdException {
 		LocalDate data=calendarL.getValue();
 		
 		

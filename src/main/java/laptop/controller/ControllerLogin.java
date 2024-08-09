@@ -3,13 +3,11 @@ package laptop.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
-import laptop.database.csvUsers.CsvUtente;
+import laptop.database.csvusers.CsvUtente;
 import laptop.model.User;
 
 public class ControllerLogin {
@@ -28,7 +26,7 @@ public class ControllerLogin {
 			user.setPassword(p);
 
 			if(vis.getTypeOfDb().equals("file")) {
-				if(csvU.getUserListNum(new File("report/reportUtente.csv"),user.getEmail(),user.getPassword())==0)
+				if(csvU.userList(user).isEmpty())
 
 				{
 					ControllerSystemState.getInstance().setIsLogged(false);
@@ -72,7 +70,7 @@ public class ControllerLogin {
 		String ruolo="";
 		user.setEmail(email);
 		if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
-			ruolo = csvU.getUserList(new File("report/reportUtente.csv"), user.getId(), user.getEmail(), user.getPassword()).getIdRuolo();
+			ruolo = csvU.userList(user).get(0).getIdRuolo();
 		}
 		else ruolo= UsersDao.getRuolo(user);
 		return ruolo;
