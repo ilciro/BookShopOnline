@@ -46,7 +46,7 @@ public class ControllerAggiungiUtente {
 	   if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
 		   state=csv.inserisciUtente(User.getInstance());
        else
-      	state= UsersDao.createUser(User.getInstance());
+		   state= UsersDao.createUser(User.getInstance());
 	   return state;
 		
 	}
