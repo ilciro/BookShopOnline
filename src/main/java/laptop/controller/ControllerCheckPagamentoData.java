@@ -29,6 +29,8 @@ public class ControllerCheckPagamentoData {
 	private final FatturaPagamentoCCredito csvFattura;
 	private final CsvOggettoDao csv;
 	private final GiornaleDao gD=new GiornaleDao();
+	private final String FATTURA="report/reportFattura.csv";
+	private final String PAGAMENTO="report/reportPagamento.csv";
 	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
 		String tipo=vis.getType();
 		
@@ -68,7 +70,7 @@ public class ControllerCheckPagamentoData {
 					pagD.inserisciPagamento(p);
 
 				}
-				csvFattura.copia(new File("report/reportFattura.csv"),new File("report/reportPagamento.csv"),p);
+				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);
 
 
 			}
@@ -91,7 +93,7 @@ public class ControllerCheckPagamentoData {
 					pagD.inserisciPagamento(p);
 
 				}
-				csvFattura.copia(new File("report/reportFattura.csv"),new File("report/reportPagamento.csv"),p);
+				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);
 
 
 			}
@@ -111,11 +113,11 @@ public class ControllerCheckPagamentoData {
 				}
 				else {
 
-					p.setTipo(lD.getData(l).getCategoria());
+					p.setTipo(rD.getData(r).getTipologia());
 					pagD.inserisciPagamento(p);
 
 				}
-				csvFattura.copia(new File("report/reportFattura.csv"),new File("report/reportPagamento.csv"),p);
+				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);
 
 
 

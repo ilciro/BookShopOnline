@@ -88,7 +88,12 @@ public class CsvOggettoDao implements DaoInterface {
     private final HashMap<String, Rivista> cacheRivista;
     private final File fdL=new File("report/reportLibro.csv");
     private final File fdG=new File("report/reportGiornale.csv");
-    private final File fdR=new File("report/reportRivitsa.csv");
+    private final File fdR=new File("report/reportRivista.csv");
+    private static final String APPOGGIO="report/appoggio.csv";
+    private static final String PERMESSI="rwx------";
+    private static final String PREFIX="prefix";
+    private static final String SUFFIX="suffix";
+
 
     public CsvOggettoDao() throws IOException {
         this.cacheLibro = new HashMap<>();
@@ -115,11 +120,11 @@ public class CsvOggettoDao implements DaoInterface {
                 duplicated = (!libroList.isEmpty());
             }catch (IdException e)
             {
-                duplicated=false;
+               e.getCause();
             }
 
         }
-        if (duplicated) throw new IdException(" id is duplicated:");
+        if (duplicated) throw new IdException(USERNOTFOUND);
 
         inserimentoLibro(this.fdL, l);
 
@@ -147,11 +152,11 @@ public class CsvOggettoDao implements DaoInterface {
                 duplicated = (!giornaleList.isEmpty());
             }catch (IdException e)
             {
-                duplicated=false;
+                e.getCause();
             }
 
         }
-        if (duplicated) throw new IdException(" id is duplicated:");
+        if (duplicated) throw new IdException(USERNOTFOUND);
 
         inserimentoGiornale(this.fdG, g);
 
@@ -179,11 +184,11 @@ public class CsvOggettoDao implements DaoInterface {
                 duplicated = (!rivistaList.isEmpty());
             }catch (IdException e)
             {
-                duplicated=false;
+                e.getCause();
             }
 
         }
-        if (duplicated) throw new IdException(" id is duplicated:");
+        if (duplicated) throw new IdException(USERNOTFOUND);
 
         inserimentoRivista(this.fdR, r);
     }
@@ -203,17 +208,95 @@ public class CsvOggettoDao implements DaoInterface {
 
     @Override
     public List<Libro> retrieveLibroData(File fd,Libro l) throws CsvValidationException, IOException, IdException {
-        return retrieveLibroById(fd,l);
+        List<Libro> list=new ArrayList<>();
+        synchronized (this.cacheLibro)
+        {
+            for(String id:this.cacheLibro.keySet())
+            {
+                Libro recordInCache=this.cacheLibro.get(id);
+                boolean recordFound=recordInCache.getTitolo().equals(l.getTitolo());
+                if(recordFound)
+                    list.add(recordInCache);
+            }
+        }
+        if(list.isEmpty())
+        {
+            list=retrieveLibroById(fd,l);
+            synchronized (this.cacheLibro)
+            {
+                for(Libro libro : list)
+                    this.cacheLibro.put(String.valueOf(l.getId()),libro);
+            }
+
+        }
+        return list;
     }
 
     @Override
     public List<Giornale> retriveGiornaleData(File fd, Giornale g) throws CsvValidationException, IOException, IdException {
-        return retrieveGiornaleById(fd,g);
+        List<Giornale> list=new ArrayList<>();
+        synchronized (this.cacheGiornale)
+        {
+            for(String id:this.cacheGiornale.keySet())
+            {
+                Giornale recordInCache=this.cacheGiornale.get(id);
+                boolean recordFound=recordInCache.getTitolo().equals(g.getTitolo());
+                if(recordFound)
+                    list.add(recordInCache);
+            }
+        }
+        if(list.isEmpty())
+        {
+            list=retrieveGiornaleById(fd,g);
+            synchronized (this.cacheGiornale)
+            {
+                for(Giornale giornale : list)
+                    this.cacheGiornale.put(String.valueOf(g.getId()),giornale);
+            }
+
+        }
+        return list;
     }
 
     @Override
     public List<Rivista> retrieveRivistaData(File fd, Rivista r) throws CsvValidationException, IOException, IdException {
-        return retrieveRivistaById(fd,r);
+        List<Rivista> list=new ArrayList<>();
+        synchronized (this.cacheRivista)
+        {
+            for(String id:this.cacheRivista.keySet())
+            {
+                Rivista recordInCache=this.cacheRivista.get(id);
+                boolean recordFound=recordInCache.getTitolo().equals(r.getTitolo());
+                if(recordFound)
+                    list.add(recordInCache);
+            }
+        }
+        if(list.isEmpty())
+        {
+            list=retrieveRivistaById(fd,r);
+            synchronized (this.cacheRivista)
+            {
+                for(Rivista rivista : list)
+                    this.cacheRivista.put(String.valueOf(r.getId()),rivista);
+            }
+
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<Libro> getLibroByIdTitoloAutore(File fd, Libro l) throws CsvValidationException, IOException, IdException {
+        return retrieveLibroByIdAutoreTitolo(fd,l);
+    }
+
+    @Override
+    public ObservableList<Giornale> getGiornaleByIdTitoloEditore(File fd, Giornale g) throws CsvValidationException, IOException, IdException {
+        return retrieveGiornaleByIdTitoloEditore(fd,g);
+    }
+
+    @Override
+    public ObservableList<Rivista> getRivistaByIdTitoloEditore(File fd, Rivista r) throws CsvValidationException, IOException, IdException {
+        return retrieveRivistaByIdTitoloEditore(fd,r);
     }
 
 
@@ -293,7 +376,8 @@ public class CsvOggettoDao implements DaoInterface {
             while ((gVector = csvReader.readNext()) != null) {
                 Libro l=new Libro();
 
-                boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));
+                boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()))
+                        ||gVector[GETINDEXTITOLOL].equals(libro.getTitolo());
                 if (recordFound) {
                     String titolo = gVector[GETINDEXTITOLOL];
                     String numeroPagine = gVector[GETINDEXNRPL];
@@ -335,11 +419,10 @@ public class CsvOggettoDao implements DaoInterface {
                 throw new IdException(USERNOTFOUND);
             }
 
-            System.out.println(" lunghezza lista :" + list.size());
             return list;
         }
     }
-    public synchronized static List<Giornale> retrieveGiornaleById(File fd,Giornale giornale) throws IOException, CsvValidationException, IdException {
+    public static synchronized List<Giornale> retrieveGiornaleById(File fd,Giornale giornale) throws IOException, CsvValidationException, IdException {
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector ;
 
@@ -347,7 +430,8 @@ public class CsvOggettoDao implements DaoInterface {
 
         while ((gVector = csvReader.readNext()) != null) {
             Giornale g = new Giornale();
-            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(giornale.getId())) || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId())) ;
+            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(giornale.getId())) || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
+                    || gVector[GETINDEXTITOLOG].equals(giornale.getTitolo());
             if (recordFound) {
                 String titolo = gVector[GETINDEXTITOLOG];
                 String tipologia = gVector[GETINDEXTIPOLOGIAG];
@@ -381,14 +465,15 @@ public class CsvOggettoDao implements DaoInterface {
         return list;
 
     }
-    public synchronized static List<Rivista> retrieveRivistaById(File fd,Rivista rivista) throws IOException, CsvValidationException, IdException{
+    public static synchronized List<Rivista> retrieveRivistaById(File fd,Rivista rivista) throws IOException, CsvValidationException, IdException{
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector ;
 
         List<Rivista> rivistaList = new ArrayList<>();
         while ((gVector = csvReader.readNext()) != null) {
             Rivista r = new Rivista();
-            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(rivista.getId())) || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId())) ;
+            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(rivista.getId())) || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
+                    || gVector[GETINDEXTITOLOR].equals(rivista.getTitolo());
             if (recordFound) {
                 String titolo = gVector[GETINDEXTITOLOR];
                 String tipologia = gVector[GETINDEXTIPOLOGIAR];
@@ -430,10 +515,10 @@ public class CsvOggettoDao implements DaoInterface {
     }
     private static synchronized void removeLibroId(File fd, Libro l) throws IOException, CsvValidationException {
         if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
-            Files.createTempFile("prefix", "suffix", attr); // Compliant
+            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
+            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
         }
-        File tmpFile = new File("report/appoggio.csv");
+        File tmpFile = new File(APPOGGIO);
         boolean found = false;
         CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector;
@@ -464,10 +549,10 @@ public class CsvOggettoDao implements DaoInterface {
     }
     private static synchronized void removeGiornaleId(File fd,Giornale g) throws IOException, CsvValidationException {
         if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
-            Files.createTempFile("prefix", "suffix", attr); // Compliant
+            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
+            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
         }
-        File tmpFile = new File("report/appoggio.csv");
+        File tmpFile = new File(APPOGGIO);
         boolean found = false;
         CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector;
@@ -497,10 +582,10 @@ public class CsvOggettoDao implements DaoInterface {
     }
     private static synchronized void removeRivistaId(File fd,Rivista r) throws IOException, CsvValidationException {
         if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
-            Files.createTempFile("prefix", "suffix", attr); // Compliant
+            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
+            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
         }
-        File tmpFile = new File("report/appoggio.csv");
+        File tmpFile = new File(APPOGGIO);
         boolean found = false;
         CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector;
@@ -558,34 +643,8 @@ public class CsvOggettoDao implements DaoInterface {
 
     }
 
-/*
 
-    @Override
-    public Libro retrieveAllLibroData(File fd, int id, String titolo) throws CsvValidationException, IOException, IdException {
-       return retrieveDataL(fd,id,titolo);
-    }
-
-    @Override
-    public Giornale retrieveAllGiornaleData(File fd, int id, String editore) throws CsvValidationException, IOException, IdException {
-
-
-        return retrieveDataG(fd,id,editore);
-    }
-
-    @Override
-    public Rivista retrieveAllRivistaData(File fd, int id, String editore, String autore) throws CsvValidationException, IOException, IdException {
-       return retrieveDataR(fd, id, editore, autore);
-
-    }
-
-    @Override
-    public ObservableList<Libro> retrieveAllDataLibro(File fd,Libro l) throws CsvValidationException, IOException, IdException {
-       return retrieveAllLibroTypeIdTitoloAutore(fd, l);
-
-    }
-
-*/
-    private synchronized ObservableList<Raccolta> retrieveData(File fd) throws CsvValidationException, IOException, IdException {
+    private static synchronized ObservableList<Raccolta> retrieveData(File fd) throws CsvValidationException, IOException, IdException {
         ObservableList<Raccolta> gList = FXCollections.observableArrayList();
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
          String[] gVector ;
@@ -678,7 +737,7 @@ public class CsvOggettoDao implements DaoInterface {
 
     }
 
-    private static Rivista getRivista(String[] gVector) {
+    private static synchronized Rivista getRivista(String[] gVector) {
         Rivista r=new Rivista();
 
         String titolo = gVector[GETINDEXTITOLOR];
@@ -708,7 +767,7 @@ public class CsvOggettoDao implements DaoInterface {
         return r;
     }
 
-    private static Giornale getGiornale(String[] gVector) {
+    private static synchronized Giornale getGiornale(String[] gVector) {
         Giornale g = new Giornale();
 
         String titolo = gVector[GETINDEXTITOLOG];
@@ -733,6 +792,154 @@ public class CsvOggettoDao implements DaoInterface {
         return g;
     }
 
-   }
+    private static synchronized ObservableList<Libro> retrieveLibroByIdAutoreTitolo(File fd,Libro libro) throws IOException, CsvValidationException, IdException {
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector;
+        ObservableList<Libro> list=FXCollections.observableArrayList();
+
+        {
+            while ((gVector = csvReader.readNext()) != null) {
+                Libro l=new Libro();
+
+                boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()))
+                        || gVector[GETINDEXTITOLOL].equals(libro.getTitolo())|| gVector[GETINDEXAUTOREL].equals(libro.getAutore());
+                if (recordFound) {
+                    String titolo = gVector[GETINDEXTITOLOL];
+                    String numeroPagine = gVector[GETINDEXNRPL];
+                    String isbn = gVector[GETINDEXISBNL];
+                    String editore = gVector[GETINDEXEDITOREL];
+                    String autore = gVector[GETINDEXAUTOREL];
+                    String lingua = gVector[GETINDEXLINGUAL];
+                    String categoria = gVector[GETINDEXCATEGORIAL];
+                    String data = gVector[GETINDEXDATAL];
+                    String recensione = gVector[GETINDEXRECENSIONEL];
+                    String copie = gVector[GETINDEXCOPIEL];
+                    String desc = gVector[GETINDEXDESCL];
+                    String disp = gVector[GETINDEXDISPL];
+                    String prezzo = gVector[GETINDEXPREZZOL];
+                    String id = gVector[GETINDEXIDL];
+
+                    l.setTitolo(titolo);
+                    l.setNrPagine(Integer.parseInt(numeroPagine));
+                    l.setCodIsbn(isbn);
+                    l.setEditore(editore);
+                    l.setAutore(autore);
+                    l.setLingua(lingua);
+                    l.setCategoria(categoria);
+                    l.setDataPubb(LocalDate.parse(data));
+                    l.setRecensione(recensione);
+                    l.setNrCopie(Integer.parseInt(copie));
+                    l.setDesc(desc);
+                    l.setDisponibilita(Integer.parseInt(disp));
+                    l.setPrezzo(Float.parseFloat(prezzo));
+                    l.setId(Integer.parseInt(id));
+
+                    list.add(l);
+
+                }
+
+            }
+            csvReader.close();
+            if (list.isEmpty()) {
+                throw new IdException(USERNOTFOUND);
+            }
+
+            return list;
+        }
+    }
+
+    private static synchronized ObservableList<Giornale> retrieveGiornaleByIdTitoloEditore(File fd,Giornale giornale) throws IOException, CsvValidationException, IdException {
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector ;
+
+        ObservableList<Giornale> list=FXCollections.observableArrayList();
+
+        while ((gVector = csvReader.readNext()) != null) {
+            Giornale g = new Giornale();
+            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(giornale.getId())) || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
+                    || gVector[GETINDEXTITOLOG].equals(giornale.getTitolo())|| gVector[GETINDEXEDITOREG].equals(giornale.getEditore());
+            if (recordFound) {
+                String titolo = gVector[GETINDEXTITOLOG];
+                String tipologia = gVector[GETINDEXTIPOLOGIAG];
+                String lingua = gVector[GETINDEXLINGUAG];
+                String ed = gVector[GETINDEXEDITOREG];
+                String data = gVector[GETINDEXDATAG];
+                String copie = gVector[GETINDEXCOPIERG];
+                String disp = gVector[GETINDEXDISPG];
+                String prezzo = gVector[GETINDEXPREZZOG];
+                String id = gVector[GETINDEXIDG];
+
+                g.setTitolo(titolo);
+                g.setTipologia(tipologia);
+                g.setLingua(lingua);
+                g.setEditore(ed);
+                g.setDataPubb(LocalDate.parse(data));
+                g.setCopieRimanenti(Integer.parseInt(copie));
+                g.setDisponibilita(Integer.parseInt(disp));
+                g.setPrezzo(Float.parseFloat(prezzo));
+                g.setId(Integer.parseInt(id));
+
+                list.add(g);
+            }
+        }
+        csvReader.close();
+        if (list.isEmpty()) {
+            throw new IdException(USERNOTFOUND);
+        }
+
+
+        return list;
+
+    }
+    private static synchronized ObservableList<Rivista> retrieveRivistaByIdTitoloEditore(File fd,Rivista rivista) throws CsvValidationException, IOException, IdException {
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector ;
+
+        ObservableList<Rivista> rivistaList =FXCollections.observableArrayList();
+        while ((gVector = csvReader.readNext()) != null) {
+            Rivista r = new Rivista();
+            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(rivista.getId())) || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
+                    || gVector[GETINDEXTITOLOR].equals(r.getTitolo())||gVector[GETINDEXAUTORER].equals(rivista.getAutore());
+            if (recordFound) {
+                String titolo = gVector[GETINDEXTITOLOR];
+                String tipologia = gVector[GETINDEXTIPOLOGIAR];
+                String aut = gVector[GETINDEXAUTORER];
+                String lingua = gVector[GETINDEXLINGUAR];
+                String ed = gVector[GETINDEXEDITORER];
+                String desc = gVector[GETINDEXDESCRIZIONER];
+                String data = gVector[GETINDEXDATAR];
+                String disp = gVector[GETINDEXDISPR];
+                String prezzo = gVector[GETINDEXPREZZOR];
+                String copieRim = gVector[GETINDEXCOPIER];
+                String id = gVector[GETINDEXIDR];
+
+                r.setTitolo(titolo);
+                r.setTipologia(tipologia);
+                r.setAutore(aut);
+                r.setLingua(lingua);
+                r.setEditore(ed);
+                r.setDescrizione(desc);
+                r.setDataPubb(LocalDate.parse(data));
+                r.setDisp(Integer.parseInt(disp));
+                r.setPrezzo(Float.parseFloat(prezzo));
+                r.setCopieRim(Integer.parseInt(copieRim));
+                r.setId(Integer.parseInt(id));
+
+                rivistaList.add(r);
+
+            }
+        }
+        csvReader.close();
+        if (rivistaList.isEmpty()) {
+            throw new IdException(USERNOTFOUND);
+        }
+
+        return rivistaList;
+
+
+    }
+
+
+}
 
 

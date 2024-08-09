@@ -56,16 +56,17 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private static final int GETINDEXIDCC=6;
 
 
-    private  final  File fileCC=new File("report/reportCartaCredito.csv");
+    private  final  File fileCC=new File(CARTACREDITO);
+
+    private static final String CARTACREDITO="report/reportCartaCredito.csv";
+    private static final String PAGAMENTO="report/reportPagamento.csv";
 
 
 
-    private  final File filePag=new File("report/reportPagamento.csv");
 
     private static final String IDNULL=" id is null !!";
 
     private final HashMap<String,Fattura> cacheFattura;
-    private final HashMap<String,Pagamento> cachePagamento;
     private final HashMap<String,CartaDiCredito> cacheCc;
     private static final String USERNOTFOUND = " user not found -> id null";
 
@@ -73,7 +74,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     public FatturaPagamentoCCredito()
     {
         this.cacheFattura=new HashMap<>();
-        this.cachePagamento=new HashMap<>();
         this.cacheCc=new HashMap<>();
     }
 
@@ -92,7 +92,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                 List<Fattura> listFattura = retrieveFatturaById(this.fileFattura,f);
                 duplicated = (!listFattura.isEmpty());
             }catch (IdException e) {
-                duplicated = false;
+                e.getCause();
             }
         }
                 creaFattura(this.fileFattura,f);
@@ -181,8 +181,8 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                 }
 
 
-            }  if (vis.getMetodoP().equalsIgnoreCase("cCredito")) {
-                reader = new CSVReader(new FileReader("report/reportPagamento.csv"));
+            } else if (vis.getMetodoP().equalsIgnoreCase("cCredito")) {
+                reader = new CSVReader(new FileReader(PAGAMENTO));
                 String lastLine="";
                 while ((gVector = reader.readNext()) != null) {
                     lastLine=reader.toString();
@@ -213,7 +213,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
     private static synchronized void creaCC(CartaDiCredito cc) throws IOException, CsvValidationException {
-        CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter("report/reportCartaCredito.csv",true)));
+        CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(CARTACREDITO,true)));
         String[] gVectore=new String[7];
         gVectore[GETINDEXNOMEPCC]=cc.getNomeUser();
         gVectore[GETINDEXCOGNOMEPCC]=cc.getCognomeUser();
@@ -228,7 +228,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
     private static synchronized void creaPagamento(Pagamento p) throws IOException, CsvValidationException {
-        CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter("report/reportPagamento.csv",true)));
+        CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(PAGAMENTO,true)));
         String[] gVectore=new String[8];
         //fare if su tipo pagamento
         gVectore[GETINDEXIDP]= String.valueOf(getIdMax()+1);
@@ -247,7 +247,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
     private static synchronized ObservableList<CartaDiCredito> listCarteCredito(String nome) throws CsvValidationException, IOException, IdException {
         ObservableList<CartaDiCredito> gList = FXCollections.observableArrayList();
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader("report/reportCartaCredito.csv")));
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(CARTACREDITO)));
         String[] gVEctor;
 
 

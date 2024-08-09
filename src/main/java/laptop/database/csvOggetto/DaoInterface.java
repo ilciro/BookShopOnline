@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface   DaoInterface {
-    //ObservableList<Raccolta> retrieveAllData(File fd) throws CsvValidationException, IOException, IdException;
     void inserisciLibro(Libro l) throws IOException, CsvValidationException, IdException;
     void removeLibroById(Libro l) throws CsvValidationException, IOException;
     void inserisciGiornale(Giornale g) throws IOException, CsvValidationException, IdException;
@@ -25,6 +24,9 @@ public interface   DaoInterface {
    List<Libro> retrieveLibroData(File fd,Libro l) throws CsvValidationException, IOException, IdException;
    List<Giornale> retriveGiornaleData(File fd,Giornale g) throws CsvValidationException, IOException, IdException;
    List<Rivista> retrieveRivistaData(File fd, Rivista r) throws CsvValidationException, IOException, IdException;
+    ObservableList<Libro> getLibroByIdTitoloAutore(File fd,Libro l) throws CsvValidationException, IOException, IdException;
+    ObservableList<Giornale> getGiornaleByIdTitoloEditore(File fd,Giornale g) throws CsvValidationException, IOException, IdException;
+    ObservableList<Rivista> getRivistaByIdTitoloEditore(File fd,Rivista r) throws CsvValidationException, IOException, IdException;
 }
 
 

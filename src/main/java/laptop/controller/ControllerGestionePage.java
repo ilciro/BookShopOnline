@@ -31,31 +31,60 @@ public class ControllerGestionePage {
 	private static final String GIORNALE="giornale";
 	private static final String RIVISTA="rivista";
 	private final CsvOggettoDao csvDao;
+	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 
 	public void cancella(int id) throws SQLException, CsvValidationException, IOException {
-		File fd = null;
-		if (ControllerSystemState.getInstance().getType().equals(LIBRO)) {
-			l.setId(id);
-			lD.cancella(l);
-		} else if (ControllerSystemState.getInstance().getType().equals(GIORNALE)) {
-			g.setId(id);
-			gD.cancella(g);
-		} else if (ControllerSystemState.getInstance().getType().equals(RIVISTA)) {
-			r.setId(id);
-			rD.cancella(r);
-		}
+
+
 		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
 		{
-			switch (ControllerSystemState.getInstance().getType())
+
+			switch (vis.getType())
 			{
-				case LIBRO -> fd=new File("report/reportLibro.csv");
-				case GIORNALE -> fd=new File("report/reportGiornale.csv");
-				case RIVISTA -> fd=new File("report/reportRivista.csv");
+				case LIBRO ->
+				{
+					l.setId(vis.getId());
+					csvDao.removeLibroById(l);
+				}
+				case GIORNALE ->
+				{
+					g.setId(vis.getId());
+					csvDao.removeGiornaleById(g);
+				}
+				case RIVISTA ->
+				{
+					r.setId(vis.getId());
+					csvDao.removeRivistaById(r);
+				}
 				default ->	java.util.logging.Logger.getLogger("cancella oggetto").log(Level.SEVERE, " type not correct !!\n");
 
 			}
-			//csvDao.eliminaOggetto(fd,l,g,r);
+
 		}
+		else {
+			switch (vis.getType())
+			{
+				case LIBRO ->
+				{
+					l.setId(vis.getId());
+					lD.cancella(l);
+				}
+				case GIORNALE ->
+				{
+					g.setId(vis.getId());
+					gD.cancella(g);
+				}
+				case RIVISTA ->
+				{
+					r.setId(vis.getId());
+					rD.cancella(r);
+				}
+				default ->	java.util.logging.Logger.getLogger("cancella oggetto").log(Level.SEVERE, " type not correct !!\n");
+
+			}
+			}
+
+
 	}
 
 
@@ -63,16 +92,16 @@ public class ControllerGestionePage {
 		ObservableList<Raccolta> catalogo = FXCollections.observableArrayList();
 		if(ControllerSystemState.getInstance().getTypeOfDb().equalsIgnoreCase("file"))
 		{
-			/*
+
 			switch (type) {
 				case LIBRO:
-					catalogo.addAll(csvDao.retrieveAllData(new File("report/reportLibro.csv")));
+					catalogo.addAll(csvDao.retrieveRaccoltaData(new File("report/reportLibro.csv")));
 					break;
 				case GIORNALE:
-					catalogo.addAll(csvDao.retrieveAllData(new File("report/reportGiornale.csv")));
+					catalogo.addAll(csvDao.retrieveRaccoltaData(new File("report/reportGiornale.csv")));
 					break;
 				case RIVISTA:
-					catalogo.addAll(csvDao.retrieveAllData(new File("report/reportRivista.csv")));
+					catalogo.addAll(csvDao.retrieveRaccoltaData(new File("report/reportRivista.csv")));
 					break;
 				default:
 					return catalogo;
@@ -81,7 +110,7 @@ public class ControllerGestionePage {
 
 			}
 
-			 */
+
 
 		}
 		else {

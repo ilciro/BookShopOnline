@@ -14,9 +14,7 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -71,7 +69,7 @@ public class CsvUtente implements UserInterface{
                 i.set(getNumOfUser(fd, mail, pwd));
             }catch (IOException | CsvValidationException e)
             {
-                System.out.println(e.getMessage());
+                e.getMessage();
             }
         }).start();
 

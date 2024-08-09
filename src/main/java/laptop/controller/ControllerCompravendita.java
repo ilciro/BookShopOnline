@@ -106,54 +106,20 @@ public class ControllerCompravendita {
 
 			l.setId(Integer.parseInt(i));
 			checkID(Integer.parseInt(i));
-
-			if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-			{
-
-				 Libro l1=csv.retrieveLibroData(new File("report/reportLibro.csv"),l).get(0);
-				vis.setId(l1.getId());
-				vis.setIdOggetto(vis.getId());
-				if(l1.getDisponibilita()>0)
-					status=true;
-			}
-			else {
+			status= disponibilitaLibro();
 
 
-				if (lD.getData(l).getDisponibilita() > 0)
-					status = true;
-			}
 		}
 			case GIORNALE-> {
 				g.setId(Integer.parseInt(i));
 				checkID(Integer.parseInt(i));
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-				{
-					Giornale g1=csv.retriveGiornaleData(new File(REPORTGIORNALE),g).get(0);
-					vis.setId(g1.getId());
-					vis.setIdOggetto(vis.getId());
-					if(g1.getDisponibilita()>0)
-						status=true;
-				}
-				else {
-					if (gD.getData(g).getDisponibilita() > 0)
-						status = true;
-				}
+				status=disponibilitaGiornale();
+
 			}
 			case RIVISTA-> {
 				r.setId(Integer.parseInt(i));
 				checkID(Integer.parseInt(i));
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-				{
-					Rivista  r1=csv.retrieveRivistaData(new File(REPORTRIVISTA),r).get(0);
-					vis.setId(r1.getId());
-					vis.setIdOggetto(vis.getId());
-					if(r1.getDisp()>0)
-						status=true;
-				}
-				else {
-					if(rD.getData(r).getDisp()>0)
-						return true;
-				}
+				status=disponibilitaRivista();
 			}
 			default-> checkID(Integer.parseInt(i));
 
@@ -177,7 +143,54 @@ public class ControllerCompravendita {
 	}
 
 
+	private boolean disponibilitaLibro() throws CsvValidationException, IOException, IdException {
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
 
+			Libro l1=csv.retrieveLibroData(new File(REPORTLIBRO),l).get(0);
+			vis.setId(l1.getId());
+			vis.setIdOggetto(vis.getId());
+			if(l1.getDisponibilita()>0)
+				status=true;
+		}
+		else {
+
+
+			if (lD.getData(l).getDisponibilita() > 0)
+				status = true;
+		}
+		return status;
+	}
+	private boolean disponibilitaGiornale() throws CsvValidationException, IOException, IdException {
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+			Giornale g1=csv.retriveGiornaleData(new File(REPORTGIORNALE),g).get(0);
+			vis.setId(g1.getId());
+			vis.setIdOggetto(vis.getId());
+			if(g1.getDisponibilita()>0)
+				status=true;
+		}
+		else {
+			if (gD.getData(g).getDisponibilita() > 0)
+				status = true;
+		}
+		return status;
+	}
+	private boolean disponibilitaRivista() throws CsvValidationException, IOException, IdException {
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+		{
+			Rivista  r1=csv.retrieveRivistaData(new File(REPORTRIVISTA),r).get(0);
+			vis.setId(r1.getId());
+			vis.setIdOggetto(vis.getId());
+			if(r1.getDisp()>0)
+				status=true;
+		}
+		else {
+			if(rD.getData(r).getDisp()>0)
+				return true;
+		}
+		return status;
+	}
 
 
 

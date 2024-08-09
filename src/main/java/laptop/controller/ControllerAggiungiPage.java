@@ -38,23 +38,25 @@ public class ControllerAggiungiPage {
 	//e verifica dei dati inseriti 
 	
 
-	public boolean checkDataG(Giornale g) throws SQLException, IOException, CsvValidationException {
+	public boolean checkDataG(Giornale g) throws SQLException, IOException, CsvValidationException, IdException {
 		if(g.getDataPubb()==null)
 			throw new SQLException(" data is wrong");
 
 
-		status = gD.creaGiornale(g);
+
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
-			//csv.inserisciGiornale(g);
+			csv.inserisciGiornale(g);
+			status=true;
 		}
+		else
 
+			status= gD.creaGiornale(g);
 		return status;
-
 	}
 	public boolean checkDataR(String [] info,  LocalDate data,
-			int dispo, float prezzo, int copie, String desc) throws SQLException, IOException, CsvValidationException {
+			int dispo, float prezzo, int copie, String desc) throws SQLException, IOException, CsvValidationException, IdException {
 		
 		if(data==null)
 		{
@@ -75,16 +77,16 @@ public class ControllerAggiungiPage {
 		r.setPrezzo(prezzo);
 		r.setCopieRim(copie);
 
-		rD.creaRivista(r);
-		
-		status = true ;
+
 
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
-			//csv.inserisciRivista(r);
+			csv.inserisciRivista(r);
+			status=true;
 		}
-		
+		else status= rD.creaRivista(r);
+
 		return status;
 	}
 
