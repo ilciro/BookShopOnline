@@ -61,6 +61,8 @@ public class ControllerCheckPagamentoData {
 				{
 					Libro l1=csv.retrieveLibroData(new File("report/reportLibro.csv"),l).get(0);
 					p.setTipo(l1.getCategoria());
+					csvFattura.copiaFiles(p);
+
 
 
 				}
@@ -70,7 +72,6 @@ public class ControllerCheckPagamentoData {
 					pagD.inserisciPagamento(p);
 
 				}
-				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);
 
 
 			}
@@ -84,6 +85,8 @@ public class ControllerCheckPagamentoData {
 				{
 					Giornale g1 =csv.retriveGiornaleData(new File("report/reportGiornale.csv"),g).get(0);
 					p.setTipo(g1.getTipologia());
+					csvFattura.copiaFiles(p);
+
 
 
 				}
@@ -93,7 +96,6 @@ public class ControllerCheckPagamentoData {
 					pagD.inserisciPagamento(p);
 
 				}
-				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);
 
 
 			}
@@ -107,7 +109,8 @@ public class ControllerCheckPagamentoData {
 				{
 					Rivista r1=csv.retrieveRivistaData(new File("report/reportRivista.csv"),r).get(0);
 					p.setTipo(r1.getTipologia());
-					//sistemare qui
+					csvFattura.copiaFiles(p);
+
 
 
 				}
@@ -117,7 +120,6 @@ public class ControllerCheckPagamentoData {
 					pagD.inserisciPagamento(p);
 
 				}
-				csvFattura.copia(new File(FATTURA),new File(PAGAMENTO),p);
 
 
 

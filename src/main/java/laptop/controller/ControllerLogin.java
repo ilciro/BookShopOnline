@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
 import laptop.database.csvusers.CsvUtente;
+import laptop.exception.IdException;
 import laptop.model.User;
 
 public class ControllerLogin {
@@ -18,7 +19,7 @@ public class ControllerLogin {
 	private static final CsvUtente csvU=new CsvUtente();
 
 	
-	public boolean controlla(String m, String p) throws SQLException, CsvValidationException, IOException {
+	public boolean controlla(String m, String p) throws SQLException, CsvValidationException, IOException, IdException {
 		
 		
 		
@@ -26,7 +27,7 @@ public class ControllerLogin {
 			user.setPassword(p);
 
 			if(vis.getTypeOfDb().equals("file")) {
-				if(csvU.userList(user).isEmpty())
+				if(csvU.userList(new File("report/reportUtente.csv"),user).isEmpty())
 
 				{
 					ControllerSystemState.getInstance().setIsLogged(false);
@@ -65,12 +66,12 @@ public class ControllerLogin {
 			}
 
 	
-	public String getRuoloTempUSer(String email) throws SQLException, CsvValidationException, IOException {
+	public String getRuoloTempUSer(String email) throws SQLException, CsvValidationException, IOException, IdException {
 
 		String ruolo="";
 		user.setEmail(email);
 		if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
-			ruolo = csvU.userList(user).get(0).getIdRuolo();
+			ruolo = csvU.userList(new File("report/reportUser.csv"),user).get(0).getIdRuolo();
 		}
 		else ruolo= UsersDao.getRuolo(user);
 		return ruolo;

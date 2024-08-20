@@ -15,26 +15,26 @@ import laptop.model.User;
 
 
 public class ControllerRegistraUtente {
-<span class="nc" id="L18">	private Boolean state=false;</span>
-<span class="nc" id="L19">	private final User u=User.getInstance();</span>
-<span class="nc" id="L20">	private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
-<span class="nc" id="L21">	private static final CsvUtente csv=new CsvUtente();</span>
+<span class="fc" id="L18">	private Boolean state=false;</span>
+<span class="fc" id="L19">	private final User u=User.getInstance();</span>
+<span class="fc" id="L20">	private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L21">	private static final CsvUtente csv=new CsvUtente();</span>
 	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException, CsvValidationException, IOException, IdException {
 		
 		
-<span class="nc" id="L25">		u.setEmail(email);</span>
-<span class="nc" id="L26">		u.setPassword(pwd);</span>
-<span class="nc" id="L27">		u.setDataDiNascita(localDate);</span>
+<span class="fc" id="L25">		u.setEmail(email);</span>
+<span class="fc" id="L26">		u.setPassword(pwd);</span>
+<span class="fc" id="L27">		u.setDataDiNascita(localDate);</span>
 
 
 		
-<span class="nc bnc" id="L31" title="All 2 branches missed.">		if(checkData ( n,c,email,pwd,pwdC) )</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">		if(checkData ( n,c,email,pwd,pwdC) )</span>
 		{
-<span class="nc bnc" id="L33" title="All 2 branches missed.">			if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">			if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
 
 
 
-<span class="nc bnc" id="L37" title="All 2 branches missed.">					if(csv.userList(u).isEmpty()) {</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">					if(csv.userList(new File(&quot;report/reportUtente.csv&quot;),u).isEmpty()) {</span>
 <span class="nc" id="L38">						u.setNome(n);</span>
 <span class="nc" id="L39">						u.setCognome(c);</span>
 <span class="nc" id="L40">						u.setEmail(email);</span>
@@ -46,12 +46,12 @@ public class ControllerRegistraUtente {
 
 
 				else {
-<span class="nc bnc" id="L49" title="All 2 branches missed.">					if (UsersDao.checkUser(u) == 0) {</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">					if (UsersDao.checkUser(u) == 0) {</span>
 						// nuovo utente creo l'account
-<span class="nc" id="L51">						u.setNome(n);</span>
-<span class="nc" id="L52">						u.setCognome(c);</span>
+<span class="fc" id="L51">						u.setNome(n);</span>
+<span class="fc" id="L52">						u.setCognome(c);</span>
 
-<span class="nc" id="L54">						state = UsersDao.createUser(u);</span>
+<span class="fc" id="L54">						state = UsersDao.createUser(u);</span>
 					} else {
 						// utente gia registrato o errore
 <span class="nc" id="L57">						state = false;</span>
@@ -62,7 +62,7 @@ public class ControllerRegistraUtente {
 		else {
 <span class="nc" id="L63">			state=false;</span>
 		}
-<span class="nc" id="L65">		return state;</span>
+<span class="fc" id="L65">		return state;</span>
 	}
 	
 	
@@ -70,11 +70,11 @@ public class ControllerRegistraUtente {
 	private boolean checkData (String n, String c, String email, String pwd, String pwdC)
 	// controll  all data
 	{
-<span class="nc bnc" id="L73" title="All 6 branches missed.">		if(checkEmail(email) &amp;&amp; checkPassword(pwd,pwdC) &amp;&amp; checkNomeCognome(n,c))</span>
+<span class="pc bpc" id="L73" title="3 of 6 branches missed.">		if(checkEmail(email) &amp;&amp; checkPassword(pwd,pwdC) &amp;&amp; checkNomeCognome(n,c))</span>
 		{
-<span class="nc" id="L75">			state=true;</span>
+<span class="fc" id="L75">			state=true;</span>
 		}
-<span class="nc" id="L77">		return state;</span>
+<span class="fc" id="L77">		return state;</span>
 	}
 
 	private boolean checkEmail(String email)
@@ -82,36 +82,36 @@ public class ControllerRegistraUtente {
 		 Pattern pattern;
 
 		String emailRegex;
-<span class="nc" id="L85">		emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;; </span>
+<span class="fc" id="L85">		emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;; </span>
                   
-<span class="nc" id="L87">		pattern = Pattern.compile(emailRegex); </span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">		if (email == null) </span>
+<span class="fc" id="L87">		pattern = Pattern.compile(emailRegex); </span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">		if (email == null) </span>
 <span class="nc" id="L89">			return false; </span>
-<span class="nc" id="L90">		return pattern.matcher(email).matches();</span>
+<span class="fc" id="L90">		return pattern.matcher(email).matches();</span>
 	}
 
 	private boolean checkPassword(String pwd, String pwdC )
 	{
-<span class="nc bnc" id="L95" title="All 6 branches missed.">		if(pwd.length()&gt;=8 &amp;&amp; pwdC.length()&gt;=8 &amp;&amp; pwd.equals(pwdC)) {</span>
-<span class="nc" id="L96">			state= true;</span>
+<span class="pc bpc" id="L95" title="3 of 6 branches missed.">		if(pwd.length()&gt;=8 &amp;&amp; pwdC.length()&gt;=8 &amp;&amp; pwd.equals(pwdC)) {</span>
+<span class="fc" id="L96">			state= true;</span>
 		}
-<span class="nc" id="L98">		return state;</span>
+<span class="fc" id="L98">		return state;</span>
 	}
 
 	private boolean checkNomeCognome(String n, String c)
 	{
-<span class="nc bnc" id="L103" title="All 4 branches missed.">		if (n != null &amp;&amp; c != null)</span>
+<span class="pc bpc" id="L103" title="2 of 4 branches missed.">		if (n != null &amp;&amp; c != null)</span>
 		{
-<span class="nc" id="L105">			state= true;</span>
+<span class="fc" id="L105">			state= true;</span>
 		}
-<span class="nc" id="L107">		return state;</span>
+<span class="fc" id="L107">		return state;</span>
 	}
 	
 	public ControllerRegistraUtente()
-<span class="nc" id="L111">	{</span>
-<span class="nc" id="L112">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO, &quot;Costruttore ControllerRegistaUtente&quot;);</span>
+<span class="fc" id="L111">	{</span>
+<span class="fc" id="L112">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO, &quot;Costruttore ControllerRegistaUtente&quot;);</span>
 
-<span class="nc" id="L114">	}</span>
+<span class="fc" id="L114">	}</span>
 	
 	// TO DO: checkData o lo facciamo diretti in mysql
 }

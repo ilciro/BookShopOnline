@@ -18,36 +18,38 @@ public class ControllerAggiungiUtente {
 	private final CsvUtente csv;
 	
 	
-<span class="nc" id="L21">	public ControllerAggiungiUtente() {</span>
-<span class="nc" id="L22">		csv=new CsvUtente();</span>
-<span class="nc" id="L23">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerAggiungiUtente&quot;);</span>
+<span class="fc" id="L21">	public ControllerAggiungiUtente() {</span>
+<span class="fc" id="L22">		csv=new CsvUtente();</span>
+<span class="fc" id="L23">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerAggiungiUtente&quot;);</span>
 
-<span class="nc" id="L25">	}</span>
+<span class="fc" id="L25">	}</span>
 
 	public boolean checkData(String nome, String cognome, String email, String pass, String dataN) throws ParseException, SQLException, CsvValidationException, IOException, IdException {
-<span class="nc" id="L28">		boolean state=false;</span>
+		boolean state;
 		Date sqlDate ;
 		java.util.Date utilDate;
 		
-<span class="nc" id="L32">		SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);</span>
+<span class="fc" id="L32">		SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);</span>
 
 	  
-<span class="nc" id="L35">		utilDate = format.parse(dataN);</span>
-<span class="nc" id="L36">	    sqlDate = new Date(utilDate.getTime());</span>
+<span class="fc" id="L35">		utilDate = format.parse(dataN);</span>
+<span class="fc" id="L36">	    sqlDate = new Date(utilDate.getTime());</span>
        
 
-<span class="nc" id="L39">		User.getInstance().setIdRuolo(&quot;U&quot;);</span>
+<span class="fc" id="L39">		User.getInstance().setIdRuolo(&quot;U&quot;);</span>
        
-<span class="nc" id="L41">       User.getInstance().setNome(nome);</span>
-<span class="nc" id="L42">       User.getInstance().setCognome(cognome);</span>
-<span class="nc" id="L43">       User.getInstance().setEmail(email);</span>
-<span class="nc" id="L44">       User.getInstance().setPassword(pass);</span>
-<span class="nc" id="L45">       User.getInstance().setDataDiNascita(sqlDate.toLocalDate());</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">	   if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
-<span class="nc" id="L47">		   state=csv.inserisciUtente(User.getInstance());</span>
+<span class="fc" id="L41">       User.getInstance().setNome(nome);</span>
+<span class="fc" id="L42">       User.getInstance().setCognome(cognome);</span>
+<span class="fc" id="L43">       User.getInstance().setEmail(email);</span>
+<span class="fc" id="L44">       User.getInstance().setPassword(pass);</span>
+<span class="fc" id="L45">       User.getInstance().setDataDiNascita(sqlDate.toLocalDate());</span>
+
+<span class="fc" id="L47">	   System.out.println(&quot;roba nel CAU :&quot; + User.getInstance().getEmail() +&quot; pass : &quot;+ User.getInstance().getPassword());</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">		if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
+<span class="fc" id="L49">		   state=csv.inserisciUtente(User.getInstance());</span>
        else
-<span class="nc" id="L49">		    state= UsersDao.createUser(User.getInstance());</span>
-<span class="nc" id="L50">	   return state;</span>
+<span class="fc" id="L51">		    state= UsersDao.createUser(User.getInstance());</span>
+<span class="fc" id="L52">	   return state;</span>
 		
 	}
 

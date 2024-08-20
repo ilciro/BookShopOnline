@@ -34,7 +34,7 @@ public class ControllerRegistraUtente {
 
 
 
-					if(csv.userList(u).isEmpty()) {
+					if(csv.userList(new File("report/reportUtente.csv"),u).isEmpty()) {
 						u.setNome(n);
 						u.setCognome(c);
 						u.setEmail(email);

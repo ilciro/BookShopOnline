@@ -91,6 +91,7 @@ public class BoundaryGestionePage implements Initializable {
 	@FXML
 	private void modifica() throws IOException {
 		vis.setId(Integer.parseInt(idL.getText()));
+		System.out.println(" id da mod :" + vis.getId());
 		Stage stage;
 		Parent root;
 		stage = (Stage) modB.getScene().getWindow();
@@ -103,10 +104,19 @@ public class BoundaryGestionePage implements Initializable {
 	}
 	@FXML
 	private void cancella() throws SQLException, CsvValidationException, IOException {
-		
-		
-		cGP.cancella(Integer.parseInt(idL.getText()));
+
 		vis.setId(Integer.parseInt(idL.getText()));
+		if(cGP.cancella(Integer.parseInt(idL.getText())))
+		{
+			Stage stage;
+			Parent root;
+			stage = (Stage) buttonDel.getScene().getWindow();
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("paginaGestione.fxml")));
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		}
+
 		
 	}
 	@FXML

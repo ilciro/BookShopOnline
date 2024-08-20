@@ -18,12 +18,11 @@ import laptop.model.raccolta.Rivista;
 
 public class ControllerModifPage {
 	private final LibroDao ld;
-	private Libro l;
+	private final Libro l;
 	private final Giornale g;
 	private final GiornaleDao gD;
 	private final Rivista r;
 	private final RivistaDao rD;
-	private final ControllerBookData cBD;
 	private final CsvOggettoDao csv;
 	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 	private static final String LOCATIONL="report/reportLibro.csv";
@@ -37,12 +36,10 @@ public class ControllerModifPage {
 			return csv.getLibroByIdTitoloAutore(new File(LOCATIONL),l);
 		else return ld.getLibroIdTitoloAutore(l);
 	}
-	
 	public ObservableList<Giornale> getGiornaliById(int id) throws SQLException, CsvValidationException, IOException, IdException {
 		g.setId(id);
 		if(vis.getTypeOfDb().equals("file"))
 			return csv.getGiornaleByIdTitoloEditore(new File(LOCATIONG),g);
-
 		else return gD.getGiornaleIdTitoloAutore(g);
 	}
 	public ObservableList<Rivista> getRivistaById(int id) throws SQLException, CsvValidationException, IOException, IdException {
@@ -53,61 +50,63 @@ public class ControllerModifPage {
 	}
 	
 		
-		public int checkDataG(String[] info, LocalDate d, int dispo, float prezzo,
-				int copie) throws SQLException, CsvValidationException, IOException, IdException {
-			
+		public boolean checkDataG(String[] info) throws SQLException, CsvValidationException, IOException, IdException {
+
+
 
 			g.setTitolo(info[0]);
 			g.setTipologia(info[1]);
 			g.setEditore(info[2]);
 			g.setLingua(info[3]);
-			g.setDataPubb(d);
-			g.setDisponibilita(dispo);
-			g.setPrezzo(prezzo);
-			g.setCopieRimanenti(copie);
-			g.setId(vis.getId());
-			if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+			g.setDataPubb(LocalDate.parse(info[4]));
+			g.setDisponibilita(Integer.parseInt(info[5]));
+			g.setPrezzo(Float.parseFloat(info[6]));
+			g.setCopieRimanenti(Integer.parseInt(info[7]));
+
+			if(vis.getTypeOfDb().equals("file"))
 			{
+
 				Giornale g1=csv.retriveGiornaleData(new File(LOCATIONG),g).get(0);
 				csv.removeGiornaleById(g1);
 				csv.inserisciGiornale(g);
-				return 1;
+
 
 			}
 			
-			else return gD.aggiornaGiornale(g);
+			else  gD.aggiornaGiornale(g);
 
+			return true;
 			
 		}
 
 		
 		
 
-		public int checkDataR(String [] info, LocalDate d,
-				int dispo, float prezzo, int copie, int id, String desc) throws SQLException, CsvValidationException, IOException, IdException {
+		public boolean checkDataR(String [] info) throws SQLException, CsvValidationException, IOException, IdException {
 
-			int state = 0;
+
 			r.setTitolo(info[0]);
 			r.setTipologia(info[1]);
 			r.setAutore(info[2]);
 			r.setLingua(info[3]);
 			r.setEditore(info[4]);
-			r.setDescrizione(desc);
-			r.setDataPubb(d);
-			r.setDisp(dispo);
-			r.setPrezzo(prezzo);
-			r.setCopieRim(copie);
-			r.setId(id);
+			r.setDescrizione(info[5]);
+			r.setDataPubb(LocalDate.parse(info[6]));
+			r.setDisp(Integer.parseInt(info[7]));
+			r.setPrezzo(Float.parseFloat(info[8]));
+			r.setCopieRim(Integer.parseInt(info[9]));
 
-			if (ControllerSystemState.getInstance().getTypeOfDb().equals("file")) {
+			if (vis.getTypeOfDb().equals("file")) {
 				Rivista r1=csv.retrieveRivistaData(new File(LOCATIONR),r).get(0);
 				csv.removeRivistaById(r1);
 				csv.inserisciRivista(r);
-				state = 1;
-			} else
-				state = rD.aggiornaRivista(r);
 
-			return state;
+			} else {
+				rD.aggiornaRivista(r);
+
+			}
+
+			return true;
 			
 		}
 		
@@ -120,18 +119,29 @@ public class ControllerModifPage {
 		gD=new GiornaleDao();
 		r=new Rivista();
 		rD=new RivistaDao();
-		cBD=new ControllerBookData();
 		csv=new CsvOggettoDao();
 	}
 	
 	
-	public boolean checkDataL(String []info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws NullPointerException, CsvValidationException, IOException, IdException {
+	public boolean checkDataL(String []data) throws NullPointerException, CsvValidationException, IOException, IdException {
 
-		boolean status=false;
+		boolean status;
+		l.setTitolo(data[0]);
+		l.setNrPagine(Integer.parseInt(data[1]));
+		l.setCodIsbn(data[2]);
+		l.setEditore(data[3]);
+		l.setAutore(data[4]);
+		l.setLingua(data[5]);
+		l.setCategoria(data[6]);
+		l.setDataPubb(LocalDate.parse(data[7]));
+		l.setRecensione(data[8]);
+		l.setNrCopie(Integer.parseInt(data[9]));
+		l.setDesc(data[10]);
+		l.setDisponibilita(Integer.parseInt(data[11]));
+		l.setPrezzo(Float.parseFloat(data[12]));
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
 
-			l = cBD.checkBookData(info, recensione, descrizione, data, infoCosti);
 			Libro l1=csv.retrieveLibroData(new File(LOCATIONL),l).get(0);
 			csv.removeLibroById(l1);
 			csv.inserisciLibro(l);
@@ -139,7 +149,7 @@ public class ControllerModifPage {
 
 		}
 		else
-			status=ld.aggiornaLibro(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));
+			status=ld.aggiornaLibro(l);
 
 
 		return status;

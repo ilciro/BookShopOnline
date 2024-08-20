@@ -33,133 +33,134 @@ public class ControllerGestionePage {
 	private final CsvOggettoDao csvDao;
 <span class="fc" id="L34">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 
-	public void cancella(int id) throws SQLException, CsvValidationException, IOException {
+	public boolean cancella(int id) throws SQLException, CsvValidationException, IOException {
 
+<span class="fc" id="L38">		boolean status=false;</span>
 
-<span class="nc bnc" id="L39" title="All 2 branches missed.">		if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">		if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
 		{
 
-<span class="nc bnc" id="L42" title="All 4 branches missed.">			switch (vis.getType())</span>
+<span class="nc bnc" id="L43" title="All 4 branches missed.">			switch (vis.getType())</span>
 			{
 				case LIBRO -&gt;
 				{
-<span class="nc" id="L46">					l.setId(id);</span>
-<span class="nc" id="L47">					csvDao.removeLibroById(l);</span>
-<span class="nc" id="L48">				}</span>
+<span class="nc" id="L47">					l.setId(id);</span>
+<span class="nc" id="L48">					csvDao.removeLibroById(l);</span>
+<span class="nc" id="L49">					status=true;</span>
+<span class="nc" id="L50">				}</span>
 				case GIORNALE -&gt;
 				{
-<span class="nc" id="L51">					g.setId(id);</span>
-<span class="nc" id="L52">					csvDao.removeGiornaleById(g);</span>
-<span class="nc" id="L53">				}</span>
+<span class="nc" id="L53">					g.setId(id);</span>
+<span class="nc" id="L54">					csvDao.removeGiornaleById(g);</span>
+<span class="nc" id="L55">					status=true;</span>
+<span class="nc" id="L56">				}</span>
 				case RIVISTA -&gt;
 				{
-<span class="nc" id="L56">					r.setId(id);</span>
-<span class="nc" id="L57">					csvDao.removeRivistaById(r);</span>
-<span class="nc" id="L58">				}</span>
-<span class="nc" id="L59">				default -&gt;	java.util.logging.Logger.getLogger(&quot;cancella oggetto&quot;).log(Level.SEVERE, &quot; type not correct !!\n&quot;);</span>
+<span class="nc" id="L59">					r.setId(id);</span>
+<span class="nc" id="L60">					csvDao.removeRivistaById(r);</span>
+<span class="nc" id="L61">					status=true;</span>
+<span class="nc" id="L62">				}</span>
+<span class="nc" id="L63">				default -&gt;	java.util.logging.Logger.getLogger(&quot;cancella oggetto&quot;).log(Level.SEVERE, &quot; type not correct !!\n&quot;);</span>
 
-<span class="nc" id="L61">			}</span>
+<span class="nc" id="L65">			}</span>
 
 		}
 		else {
-<span class="nc bnc" id="L65" title="All 4 branches missed.">			switch (vis.getType())</span>
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">			switch (vis.getType())</span>
 			{
 				case LIBRO -&gt;
 				{
-<span class="nc" id="L69">					l.setId(vis.getId());</span>
-<span class="nc" id="L70">					lD.cancella(l);</span>
-<span class="nc" id="L71">				}</span>
+<span class="fc" id="L73">					l.setId(vis.getId());</span>
+<span class="fc" id="L74">					lD.cancella(l);</span>
+<span class="fc" id="L75">					status=true;</span>
+<span class="fc" id="L76">				}</span>
 				case GIORNALE -&gt;
 				{
-<span class="nc" id="L74">					g.setId(vis.getId());</span>
-<span class="nc" id="L75">					gD.cancella(g);</span>
-<span class="nc" id="L76">				}</span>
+<span class="fc" id="L79">					g.setId(vis.getId());</span>
+<span class="fc" id="L80">					gD.cancella(g);</span>
+<span class="fc" id="L81">					status=true;</span>
+<span class="fc" id="L82">				}</span>
 				case RIVISTA -&gt;
 				{
-<span class="nc" id="L79">					r.setId(vis.getId());</span>
-<span class="nc" id="L80">					rD.cancella(r);</span>
-<span class="nc" id="L81">				}</span>
-<span class="nc" id="L82">				default -&gt;	java.util.logging.Logger.getLogger(&quot;cancella oggetto&quot;).log(Level.SEVERE, &quot; type not correct !!\n&quot;);</span>
+<span class="fc" id="L85">					r.setId(vis.getId());</span>
+<span class="fc" id="L86">					rD.cancella(r);</span>
+<span class="fc" id="L87">					status=true;</span>
+<span class="fc" id="L88">				}</span>
+<span class="nc" id="L89">				default -&gt;	java.util.logging.Logger.getLogger(&quot;cancella oggetto&quot;).log(Level.SEVERE, &quot; type not correct !!\n&quot;);</span>
 
 			}
 			}
 
+<span class="fc" id="L94">		return status;</span>
 
-<span class="nc" id="L88">	}</span>
+	}
 
 
 	public ObservableList&lt;Raccolta&gt; getLista(String type) throws CsvValidationException, IOException, IdException {
-<span class="nc" id="L92">		ObservableList&lt;Raccolta&gt; catalogo = FXCollections.observableArrayList();</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">		if(ControllerSystemState.getInstance().getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+<span class="fc" id="L100">		ObservableList&lt;Raccolta&gt; catalogo = FXCollections.observableArrayList();</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">		if(ControllerSystemState.getInstance().getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
 		{
 
-<span class="nc bnc" id="L96" title="All 4 branches missed.">			switch (type) {</span>
-				case LIBRO:
-<span class="nc" id="L98">					catalogo.addAll(csvDao.retrieveRaccoltaData(new File(&quot;report/reportLibro.csv&quot;)));</span>
-<span class="nc" id="L99">					break;</span>
-				case GIORNALE:
-<span class="nc" id="L101">					catalogo.addAll(csvDao.retrieveRaccoltaData(new File(&quot;report/reportGiornale.csv&quot;)));</span>
-<span class="nc" id="L102">					break;</span>
-				case RIVISTA:
-<span class="nc" id="L104">					catalogo.addAll(csvDao.retrieveRaccoltaData(new File(&quot;report/reportRivista.csv&quot;)));</span>
-<span class="nc" id="L105">					break;</span>
-				default:
-<span class="nc" id="L107">					return catalogo;</span>
+<span class="nc bnc" id="L104" title="All 4 branches missed.">			switch (type) {</span>
+<span class="nc" id="L105">				case LIBRO-&gt;catalogo.addAll(csvDao.retrieveRaccoltaData(new File(&quot;report/reportLibro.csv&quot;)));</span>
 
+				case GIORNALE-&gt;
+<span class="nc" id="L108">					catalogo.addAll(csvDao.retrieveRaccoltaData(new File(&quot;report/reportGiornale.csv&quot;)));</span>
 
+				case RIVISTA-&gt;
+<span class="nc" id="L111">					catalogo.addAll(csvDao.retrieveRaccoltaData(new File(&quot;report/reportRivista.csv&quot;)));</span>
 
-<span class="nc" id="L111">			}</span>
+<span class="nc" id="L113">				default-&gt; throw new IdException(&quot; id/type not valid&quot;);</span>
 
-
-
+<span class="nc" id="L115">			}</span>
 		}
 		else {
-<span class="nc bnc" id="L117" title="All 4 branches missed.">			switch (type) {</span>
-				case LIBRO:
-<span class="nc" id="L119">					catalogo.addAll(lD.getLibri());</span>
-<span class="nc" id="L120">					break;</span>
-				case GIORNALE:
-<span class="nc" id="L122">					catalogo.addAll(gD.getGiornali());</span>
-<span class="nc" id="L123">					break;</span>
-				case RIVISTA:
-<span class="nc" id="L125">					catalogo.addAll(rD.getRiviste());</span>
-<span class="nc" id="L126">					break;</span>
-				default:
-<span class="nc" id="L128">					return catalogo;</span>
+<span class="pc bpc" id="L118" title="1 of 4 branches missed.">			switch (type) {</span>
+				case LIBRO-&gt;
+<span class="fc" id="L120">					catalogo.addAll(lD.getLibri());</span>
+
+				case GIORNALE-&gt;
+<span class="fc" id="L123">					catalogo.addAll(gD.getGiornali());</span>
+
+				case RIVISTA-&gt;
+<span class="fc" id="L126">					catalogo.addAll(rD.getRiviste());</span>
+
+<span class="nc" id="L128">				default-&gt; throw new IdException( &quot; db : id / type not found&quot;);</span>
+
 
 			}
 		}
-<span class="nc" id="L132">		return catalogo;</span>
+<span class="fc" id="L133">		return catalogo;</span>
 	}
 
 
 	
-<span class="fc" id="L137">	public ControllerGestionePage() throws IOException {</span>
-<span class="fc" id="L138">		rD=new RivistaDao();</span>
-<span class="fc" id="L139">		gD=new GiornaleDao();</span>
-<span class="fc" id="L140">		lD=new LibroDao();</span>
-<span class="fc" id="L141">		l=new Libro();</span>
-<span class="fc" id="L142">		g=new Giornale();</span>
-<span class="fc" id="L143">		r=new Rivista();</span>
-<span class="fc" id="L144">		csvDao=new CsvOggettoDao();</span>
+<span class="fc" id="L138">	public ControllerGestionePage() throws IOException {</span>
+<span class="fc" id="L139">		rD=new RivistaDao();</span>
+<span class="fc" id="L140">		gD=new GiornaleDao();</span>
+<span class="fc" id="L141">		lD=new LibroDao();</span>
+<span class="fc" id="L142">		l=new Libro();</span>
+<span class="fc" id="L143">		g=new Giornale();</span>
+<span class="fc" id="L144">		r=new Rivista();</span>
+<span class="fc" id="L145">		csvDao=new CsvOggettoDao();</span>
 
-<span class="fc" id="L146">	}</span>
+<span class="fc" id="L147">	}</span>
 	public String settaHeader(String type) {
 		String s;
-<span class="nc bnc" id="L149" title="All 4 branches missed.">		switch (type) {</span>
+<span class="pc bpc" id="L150" title="1 of 4 branches missed.">		switch (type) {</span>
 			case LIBRO:
-<span class="nc" id="L151">				s = &quot;Benvenuto nella schermata dei libri&quot;;</span>
-<span class="nc" id="L152">				break;</span>
+<span class="fc" id="L152">				s = &quot;Benvenuto nella schermata dei libri&quot;;</span>
+<span class="fc" id="L153">				break;</span>
 			case RIVISTA:
-<span class="nc" id="L154">				s = &quot;Benvenuto nella schermata dele riviste&quot;;</span>
-<span class="nc" id="L155">				break;</span>
+<span class="fc" id="L155">				s = &quot;Benvenuto nella schermata dele riviste&quot;;</span>
+<span class="fc" id="L156">				break;</span>
 			case GIORNALE:
-<span class="nc" id="L157">				s = &quot;Benvenuto nella schermata dei giornali&quot;;</span>
-<span class="nc" id="L158">				break;</span>
+<span class="fc" id="L158">				s = &quot;Benvenuto nella schermata dei giornali&quot;;</span>
+<span class="fc" id="L159">				break;</span>
 			default:
-<span class="nc" id="L160">				return &quot;&quot;;</span>
+<span class="nc" id="L161">				return &quot;&quot;;</span>
 		}
-<span class="nc" id="L162">		return s;</span>
+<span class="fc" id="L163">		return s;</span>
 	}
 
 

@@ -135,6 +135,7 @@ public class BoundaryModificaPage implements Initializable {
 	private void aggiorna() throws SQLException, NullPointerException, CsvValidationException, IOException, IdException {
         switch (vis.getType()) {
             case "libro" -> {
+                String []dataL=new String[13];
                 String t = titoloT.getText();
                 np = Integer.parseInt(numeroPagineT.getText());
                 String cod = codeIsbnT.getText();
@@ -144,35 +145,33 @@ public class BoundaryModificaPage implements Initializable {
                 String c = categoriaTF.getSelectionModel().getSelectedItem();
                 LocalDate d = dataP.getValue();
                 String r = recensioneT.getText();
+                int dispo=0;
                 boolean disp = disponibilitaC.isSelected();
+                if(disp)
+                    dispo=1;
+
                 String desc = descrizioneT.getText();
 
-                if (disp) {
-                    infoCostoDisp[3] = String.valueOf(1);
-                    //
-                } else {
-                    infoCostoDisp[3] = String.valueOf(0);
-                }
+
                 prezzo = Float.parseFloat(prezzoT.getText());
                 copie = Integer.parseInt(copieRimanentiT.getText());
 
-                infoGen[0] = t;
-                infoGen[2] = a;
-                infoGen[3] = l;
-                infoGen[4] = ed;
-                infoGen[5] = c;
-                infoCostoDisp[0] = String.valueOf(np);
-                infoCostoDisp[1] = cod;
-                infoCostoDisp[4] = String.valueOf(prezzo);
-                infoCostoDisp[5] = String.valueOf(copie);
+                dataL[0]=t;
+                dataL[1]= String.valueOf(np);
+                dataL[2]=cod;
+                dataL[3]=ed;
+                dataL[4]=a;
+                dataL[5]=l;
+                dataL[6]=c;
+                dataL[7]= String.valueOf(d);
+                dataL[8]=r;
+                dataL[9]= String.valueOf(copie);
+                dataL[10]=desc;
+                dataL[11]= String.valueOf(dispo);
+                dataL[12]= String.valueOf(prezzo);
 
-				if(cMP.checkDataL(infoGen, r, desc, d, infoCostoDisp))
+				if(cMP.checkDataL(dataL))
 				{
-					java.util.logging.Logger.getLogger("Test modif book").log(Level.SEVERE,"\n not modified ");
-
-				}
-                else
-                {
                     Stage stage;
                     Parent root;
                     stage = (Stage) buttonC.getScene().getWindow();
@@ -180,34 +179,42 @@ public class BoundaryModificaPage implements Initializable {
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
+
+				}
+                else
+                {
+                    java.util.logging.Logger.getLogger("Test modif book").log(Level.SEVERE,"\n book not modified ");
+
                 }
             }
             case "giornale" -> {
+                String []dataG=new String[8];
                 String t = titoloT.getText();
                 String tipo = "QUOTIDIANO";
                 String ed = editoreT.getText();
                 String l = linguaT.getText();
-
                 LocalDate d = dataP.getValue();
                 boolean disp = disponibilitaC.isPressed();
-
                 int dispo;
-
                 if (disp) {
                     dispo = 1;
-                    //disponibile
                 } else {
                     dispo = 0;
                 }
                 prezzo = Float.parseFloat(prezzoT.getText());
                 copie = Integer.parseInt(copieRimanentiT.getText());
 
-                info[0] = t;
-                info[1] = tipo;
-                info[2] = ed;
-                info[3] = l;
+               dataG[0]=t;
+               dataG[1]=tipo;
+               dataG[2]=ed;
+                dataG[3]=l;
+                dataG[4]= String.valueOf(d);
+                dataG[5]= String.valueOf(dispo);
+                dataG[6]= String.valueOf(prezzo);
+                dataG[7]= String.valueOf(copie);
 
-                if(cMP.checkDataG(info, d, dispo, prezzo, copie)==1)
+
+                if(cMP.checkDataG(dataG))
                 {
                     Stage stage;
                     Parent root;
@@ -217,9 +224,15 @@ public class BoundaryModificaPage implements Initializable {
                     stage.setScene(scene);
                     stage.show();
                 }
+                else
+                {
+                    java.util.logging.Logger.getLogger("Test modif daily").log(Level.SEVERE,"\n daily not modified ");
+
+                }
 
             }
             case "rivista" -> {
+                String [] info=new String[10];
                 String t = titoloT.getText();
                 String tipologia = categoriaTF.getSelectionModel().getSelectedItem();
                 String autore = autoreT.getText();
@@ -246,8 +259,13 @@ public class BoundaryModificaPage implements Initializable {
                 info[2] = autore;
                 info[3] = l;
                 info[4] = e;
+                info[5] = desc;
+                info[6] = String.valueOf(d);
+                info[7] = String.valueOf(dispo);
+                info[8] = String.valueOf(prezzo);
+                info[9] = String.valueOf(copie);
 
-               if( cMP.checkDataR(info, d, dispo, prezzo, copie, vis.getId(), desc)==1)
+               if( cMP.checkDataR(info))
                {
                    Stage stage;
                    Parent root;
@@ -287,6 +305,7 @@ public class BoundaryModificaPage implements Initializable {
 
         try {
 			cMP=new ControllerModifPage();
+
             switch (vis.getType()) {
                 case "libro" -> {
                     labelT.setText(cMP.getLibriById(vis.getId()).get(0).getTitolo());
@@ -353,6 +372,8 @@ public class BoundaryModificaPage implements Initializable {
                     labelE.setText(cMP.getGiornaliById(vis.getId()).get(0).getEditore());
                     labelL.setText(cMP.getGiornaliById(vis.getId()).get(0).getLingua());
                     labelCat.setText("QUOTIDIANO");
+                    categoriaTF.setItems(items);
+                    items.add("QUOTIDIANO");
                     recensioneL.setVisible(false);
                     labelR.setVisible(false);
                     recensioneT.setVisible(false);
@@ -363,8 +384,9 @@ public class BoundaryModificaPage implements Initializable {
                     labelCopie.setText(String.valueOf(cMP.getGiornaliById(vis.getId()).get(0).getCopieRimanenti()));
                     labelD.setText(cMP.getGiornaliById(vis.getId()).get(0).getDataPubb().toString());
                     labelDisp.setText(String.valueOf(cMP.getGiornaliById(vis.getId()).get(0).getDisponibilita()));
+
                 }
-                case "rivista" -> {
+                case "rivista"-> {
 
                     numeroPagineL.setVisible(false);
                     labelNP.setVisible(false);

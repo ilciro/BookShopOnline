@@ -12,19 +12,21 @@ import laptop.database.RivistaDao;
 import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
 
 
 public class ControllerAggiungiPage {
 
 	private final GiornaleDao gD;
-<span class="fc" id="L21">	private boolean status = false;</span>
+<span class="fc" id="L22">	private boolean status = false;</span>
 	private final Rivista r;
 	private final RivistaDao rD;
 	private final LibroDao lD;
-	private final ControllerBookData cBD;
 <span class="fc" id="L26">	private static final ControllerSystemState vis= ControllerSystemState.getInstance();</span>
 	private  final CsvOggettoDao csv;
+	private final Libro l;
+	private final Giornale g;
 
 	
 	//funzione di aggiunta dei libri
@@ -32,88 +34,105 @@ public class ControllerAggiungiPage {
 	
 
 	public boolean checkDataG(Giornale g) throws SQLException, IOException, CsvValidationException, IdException {
-<span class="nc bnc" id="L35" title="All 2 branches missed.">		if(g.getDataPubb()==null)</span>
-<span class="nc" id="L36">			throw new SQLException(&quot; data is wrong&quot;);</span>
-
-
-
-
-<span class="nc bnc" id="L41" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">		if(g.getDataPubb()==null)</span>
+<span class="nc" id="L38">			throw new SQLException(&quot; data is wrong&quot;);</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
 		{
-<span class="nc" id="L43">			csv.inserisciGiornale(g);</span>
-<span class="nc" id="L44">			status=true;</span>
+
+<span class="nc" id="L42">			csv.inserisciGiornale(g);</span>
+<span class="nc" id="L43">			status=true;</span>
 		}
 		else
 
-<span class="nc" id="L48">			status= gD.creaGiornale(g);</span>
-<span class="nc" id="L49">		return status;</span>
+<span class="fc" id="L47">			status= gD.creaGiornale(g);</span>
+<span class="fc" id="L48">		return status;</span>
 	}
-	public boolean checkDataR(String [] info,  LocalDate data,
-			int dispo, float prezzo, int copie, String desc) throws SQLException, IOException, CsvValidationException, IdException {
+	public boolean checkDataR(String [] info) throws SQLException, IOException, CsvValidationException, IdException {
 		
-<span class="nc bnc" id="L54" title="All 2 branches missed.">		if(data==null)</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">		if(info[6]==null)</span>
 		{
-<span class="nc" id="L56">			throw new SQLException(&quot; data is null&quot;);</span>
+<span class="nc" id="L54">			throw new SQLException(&quot; data is null&quot;);</span>
 		}
 
 		
 
 			
-<span class="nc" id="L62">		r.setTitolo(info[0]);</span>
-<span class="nc" id="L63">		r.setTipologia(info[1]);</span>
-<span class="nc" id="L64">		r.setAutore(info[2]);</span>
-<span class="nc" id="L65">		r.setLingua(&quot;italiano&quot;);</span>
-<span class="nc" id="L66">		r.setEditore(info[4]);</span>
-<span class="nc" id="L67">		r.setDescrizione(desc);</span>
-<span class="nc" id="L68">		r.setDataPubb(data);</span>
-<span class="nc" id="L69">		r.setDisp(dispo);</span>
-<span class="nc" id="L70">		r.setPrezzo(prezzo);</span>
-<span class="nc" id="L71">		r.setCopieRim(copie);</span>
+<span class="fc" id="L60">		r.setTitolo(info[0]);</span>
+<span class="fc" id="L61">		r.setTipologia(info[1]);</span>
+<span class="fc" id="L62">		r.setAutore(info[2]);</span>
+<span class="fc" id="L63">		r.setLingua(info[3]);</span>
+<span class="fc" id="L64">		r.setEditore(info[4]);</span>
+<span class="fc" id="L65">		r.setDescrizione(info[5]);</span>
+<span class="fc" id="L66">		r.setDataPubb(LocalDate.parse(info[6]));</span>
+<span class="fc" id="L67">		r.setDisp(Integer.parseInt(info[7]));</span>
+<span class="fc" id="L68">		r.setPrezzo(Float.parseFloat(info[8]));</span>
+<span class="fc" id="L69">		r.setCopieRim(Integer.parseInt(info[9]));</span>
 
 
 
 
-<span class="nc bnc" id="L76" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
 		{
-<span class="nc" id="L78">			csv.inserisciRivista(r);</span>
-<span class="nc" id="L79">			status=true;</span>
+<span class="nc" id="L76">			csv.inserisciRivista(r);</span>
+<span class="nc" id="L77">			status=true;</span>
 		}
-<span class="nc" id="L81">		else status= rD.creaRivista(r);</span>
+<span class="fc" id="L79">		else status= rD.creaRivista(r);</span>
 
-<span class="nc" id="L83">		return status;</span>
+<span class="fc" id="L81">		return status;</span>
 	}
 
-	public boolean checkData(String[] info,String recensione,String descrizione,LocalDate data,String[] infoCosti) throws SQLException, CsvValidationException, IOException, IdException {
+	public boolean checkDataL(String [] data) throws CsvValidationException, IOException, IdException, SQLException {
 
+<span class="fc" id="L86">		l.setTitolo(data[0]);</span>
+<span class="fc" id="L87">		l.setNrPagine(Integer.parseInt(data[1]));</span>
+<span class="fc" id="L88">		l.setCodIsbn(data[2]);</span>
+<span class="fc" id="L89">		l.setEditore(data[3]);</span>
+<span class="fc" id="L90">		l.setAutore(data[4]);</span>
+<span class="fc" id="L91">		l.setLingua(data[5]);</span>
+<span class="fc" id="L92">		l.setCategoria(data[6]);</span>
+<span class="fc" id="L93">		l.setDataPubb(LocalDate.parse(data[7]));</span>
+<span class="fc" id="L94">		l.setRecensione(data[8]);</span>
+<span class="fc" id="L95">		l.setNrCopie(Integer.parseInt(data[9]));</span>
+<span class="fc" id="L96">		l.setDesc(data[10]);</span>
+<span class="fc" id="L97">		l.setDisponibilita(Integer.parseInt(data[11]));</span>
+<span class="fc" id="L98">		l.setPrezzo(Float.parseFloat(data[12]));</span>
+<span class="pc bpc" id="L99" title="2 of 4 branches missed.">		if (l.getCodIsbn().length() &lt;= 10 &amp;&amp; l.getDataPubb() != null) {</span>
 
-<span class="nc bnc" id="L89" title="All 4 branches missed.">		if (infoCosti[1].length() &lt;= 10 &amp;&amp; data != null) {</span>
+<span class="pc bpc" id="L101" title="2 of 3 branches missed.">			switch (vis.getTypeOfDb()) {</span>
+				case &quot;file&quot; -&gt; {
 
-<span class="nc bnc" id="L91" title="All 3 branches missed.">				switch (vis.getTypeOfDb()) {</span>
-					case &quot;file&quot; -&gt; {
-<span class="nc" id="L93">						csv.inserisciLibro(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));</span>
-<span class="nc" id="L94">						status = true;</span>
-<span class="nc" id="L95">					}</span>
-					case &quot;db&quot; -&gt;
-<span class="nc" id="L97">							status = lD.creaLibrio(cBD.checkBookData(info, recensione, descrizione, data, infoCosti));</span>
-<span class="nc" id="L98">					default -&gt; throw new SQLException(&quot; data not correct&quot;);</span>
-				}
+<span class="nc" id="L104">					csv.inserisciLibro(l);</span>
+<span class="nc" id="L105">					status = true;</span>
+<span class="nc" id="L106">				}</span>
 
-
+				case &quot;db&quot; -&gt;
+<span class="fc" id="L109">						status = lD.creaLibrio(l);</span>
+<span class="nc" id="L110">				default -&gt; throw new SQLException(&quot; data not correct&quot;);</span>
 			}
 
 
-<span class="nc" id="L105">		return status;</span>
+
+
+		}
+
+<span class="fc" id="L118">		return status;</span>
 	}
 
-<span class="fc" id="L108">	public ControllerAggiungiPage() throws IOException {</span>
-<span class="fc" id="L109">		gD=new GiornaleDao();</span>
-<span class="fc" id="L110">		r=new Rivista();</span>
-<span class="fc" id="L111">		rD=new RivistaDao();</span>
-<span class="fc" id="L112">		lD=new LibroDao();</span>
-<span class="fc" id="L113">		cBD=new ControllerBookData();</span>
-<span class="fc" id="L114">		csv=new CsvOggettoDao();</span>
 
-<span class="fc" id="L116">	}</span>
+
+
+<span class="fc" id="L124">	public ControllerAggiungiPage() throws IOException {</span>
+<span class="fc" id="L125">		gD=new GiornaleDao();</span>
+<span class="fc" id="L126">		r=new Rivista();</span>
+<span class="fc" id="L127">		rD=new RivistaDao();</span>
+<span class="fc" id="L128">		lD=new LibroDao();</span>
+<span class="fc" id="L129">		csv=new CsvOggettoDao();</span>
+<span class="fc" id="L130">		l=new Libro();</span>
+<span class="fc" id="L131">		g=new Giornale();</span>
+
+<span class="fc" id="L133">	}</span>
+
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -25,7 +25,7 @@ public class ControllerAggiungiUtente {
 	}
 
 	public boolean checkData(String nome, String cognome, String email, String pass, String dataN) throws ParseException, SQLException, CsvValidationException, IOException, IdException {
-		boolean state=false;
+		boolean state;
 		Date sqlDate ;
 		java.util.Date utilDate;
 		
@@ -43,7 +43,9 @@ public class ControllerAggiungiUtente {
        User.getInstance().setEmail(email);
        User.getInstance().setPassword(pass);
        User.getInstance().setDataDiNascita(sqlDate.toLocalDate());
-	   if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+
+	   System.out.println("roba nel CAU :" + User.getInstance().getEmail() +" pass : "+ User.getInstance().getPassword());
+		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
 		   state=csv.inserisciUtente(User.getInstance());
        else
 		    state= UsersDao.createUser(User.getInstance());

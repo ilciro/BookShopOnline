@@ -20,52 +20,52 @@ public class ControllerRicercaPage {
 	private final Libro l;
 	private final Giornale g;
 	private final Rivista riv;
-<span class="nc" id="L23">	public ControllerRicercaPage() throws IOException {</span>
-<span class="nc" id="L24">		lD = new LibroDao();</span>
-<span class="nc" id="L25">		gD = new GiornaleDao();</span>
-<span class="nc" id="L26">		rD =new RivistaDao();</span>
-<span class="nc" id="L27">		l=new Libro();</span>
-<span class="nc" id="L28">		g=new Giornale();</span>
-<span class="nc" id="L29">		riv=new Rivista();</span>
+<span class="fc" id="L23">	public ControllerRicercaPage() throws IOException {</span>
+<span class="fc" id="L24">		lD = new LibroDao();</span>
+<span class="fc" id="L25">		gD = new GiornaleDao();</span>
+<span class="fc" id="L26">		rD =new RivistaDao();</span>
+<span class="fc" id="L27">		l=new Libro();</span>
+<span class="fc" id="L28">		g=new Giornale();</span>
+<span class="fc" id="L29">		riv=new Rivista();</span>
 
-<span class="nc" id="L31">		ControllerSystemState.getInstance().setIsSearch(true);</span>
+<span class="fc" id="L31">		ControllerSystemState.getInstance().setIsSearch(true);</span>
 		
-<span class="nc" id="L33">	}</span>
+<span class="fc" id="L33">	}</span>
 	
 	public ObservableList&lt;Raccolta&gt; cercaPerTipo (String s)
 	{
-<span class="nc" id="L37">		ObservableList&lt;Raccolta&gt; r = null;</span>
+<span class="fc" id="L37">		ObservableList&lt;Raccolta&gt; r = null;</span>
 
-<span class="nc bnc" id="L39" title="All 4 branches missed.">		switch(returnType())</span>
+<span class="pc bpc" id="L39" title="1 of 4 branches missed.">		switch(returnType())</span>
 		{
 			case &quot;libro&quot;:
-<span class="nc" id="L42">				l.setTitolo(s);</span>
-<span class="nc" id="L43">				l.setAutore(s);</span>
-<span class="nc" id="L44">				r= lD.getLibriIdTitoloAutore(l);</span>
-<span class="nc" id="L45">				break;</span>
+<span class="fc" id="L42">				l.setTitolo(s);</span>
+<span class="fc" id="L43">				l.setAutore(s);</span>
+<span class="fc" id="L44">				r= lD.getLibriIdTitoloAutore(l);</span>
+<span class="fc" id="L45">				break;</span>
 			case &quot;giornale&quot;:
-<span class="nc" id="L47">				g.setEditore(s);</span>
-<span class="nc" id="L48">				g.setTitolo(s);</span>
-<span class="nc" id="L49">				r=gD.getGiornaliIdTitoloAutore(g);</span>
-<span class="nc" id="L50">				break;</span>
+<span class="fc" id="L47">				g.setEditore(s);</span>
+<span class="fc" id="L48">				g.setTitolo(s);</span>
+<span class="fc" id="L49">				r=gD.getGiornaliIdTitoloAutore(g);</span>
+<span class="fc" id="L50">				break;</span>
 			case &quot;rivista&quot;:
-<span class="nc" id="L52">				riv.setTitolo(s);</span>
-<span class="nc" id="L53">				riv.setAutore(s);</span>
-<span class="nc" id="L54">				r=rD.getRivisteIdTitoloAutore(riv);</span>
-<span class="nc" id="L55">				break;</span>
+<span class="fc" id="L52">				riv.setTitolo(s);</span>
+<span class="fc" id="L53">				riv.setAutore(s);</span>
+<span class="fc" id="L54">				r=rD.getRivisteIdTitoloAutore(riv);</span>
+<span class="fc" id="L55">				break;</span>
 <span class="nc" id="L56">			default:return r;</span>
 
 		}
 
 
 		
-<span class="nc" id="L62">		return r;</span>
+<span class="fc" id="L62">		return r;</span>
 		
 	}
 	
 	public String returnType()
 	{
-<span class="nc" id="L68">		return ControllerSystemState.getInstance().getType();</span>
+<span class="fc" id="L68">		return ControllerSystemState.getInstance().getType();</span>
 	}
 	
 	

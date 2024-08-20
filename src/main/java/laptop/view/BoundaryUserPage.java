@@ -141,18 +141,7 @@ public class BoundaryUserPage implements Initializable {
 		if(vis.getTypeOfDb().equals("file"))
 		{
 			elencoUtenti.clear();
-				try {
-					CSVReader reader=new CSVReader(new BufferedReader(new FileReader("report/reportUtente.csv")));
-					String[] gVector;
-					while((gVector=reader.readNext())!=null){
-						elencoUtenti.appendText(Arrays.toString(gVector));
-						elencoUtenti.appendText("\n");
-					}
-
-				}catch (CsvValidationException e)
-				{
-					e.getCause();
-				}
+			elencoUtenti.setText(cUP.getCsvData());
 		}
 		else {
 

@@ -106,108 +106,583 @@ public class CsvOggettoDao implements DaoInterface {
         Files.delete(path);
     }
 
-
     @Override
-    public void inserisciLibro(Libro l) throws CsvValidationException, IOException, IdException {
-        boolean duplicated;
-        synchronized (this.cacheLibro) {
-            duplicated = (this.cacheLibro.get(String.valueOf(l.getId())) != null);
-        }
-        if (!duplicated) {
-            try {
+    public void inserisciLibro(Libro l) throws IOException, CsvValidationException, IdException {
+        //provo con titolo ed autore ed editore
+        //visto che id non buono in quanto non gli e lo assegno
 
-                List<Libro> libroList = retrieveLibroById(this.fdL, l);
-                duplicated = (!libroList.isEmpty());
-            }catch (IdException e)
-            {
-               e.getCause();
-            }
+
+        boolean duplicatedL;
+        synchronized (this.cacheLibro)
+        {
+            boolean duplicatedT=(this.cacheLibro.get(l.getTitolo())!=null);
+            boolean duplicatedA=(this.cacheLibro.get(l.getAutore())!=null);
+            boolean duplicatedE=(this.cacheLibro.get(l.getEditore())!=null);
+            duplicatedL=duplicatedT&&duplicatedA&&duplicatedE;
 
         }
-        if (duplicated) throw new IdException(USERNOTFOUND);
+        if(!duplicatedL)
+        {
+            List<Libro> list=returnLibriByTAE(this.fdL,l.getTitolo(),l.getAutore(),l.getEditore(),l.getId());
+            duplicatedL=(!list.isEmpty());
+        }
+        if(duplicatedL) throw new IdException("id libro duplicated or zero ");
 
-        inserimentoLibro(this.fdL, l);
+        inserimentoLibro(this.fdL,l);
 
     }
 
-    @Override
+    private static synchronized List<Libro> returnLibriByTAE(File fd,String tit,String aut,String edit,int id) throws IOException, CsvValidationException, IdException {
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector;
+        List<Libro> list=new ArrayList<>();
+        boolean recordFound;
+
+        while ((gVector = csvReader.readNext()) != null) {
+
+                recordFound = gVector[GETINDEXTITOLOL].equals(tit) || gVector[GETINDEXAUTOREL].equals(aut) || gVector[GETINDEXEDITOREL].equals(edit)
+                || gVector[GETINDEXIDL].equals(String.valueOf(id)) || gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));
+
+            if (recordFound) {
+
+                String titolo = gVector[GETINDEXTITOLOL];
+                String numeroPagine = gVector[GETINDEXNRPL];
+                String isbn = gVector[GETINDEXISBNL];
+                String editore = gVector[GETINDEXEDITOREL];
+                String autore = gVector[GETINDEXAUTOREL];
+                String lingua = gVector[GETINDEXLINGUAL];
+                String categoria = gVector[GETINDEXCATEGORIAL];
+                String data = gVector[GETINDEXDATAL];
+                String recensione = gVector[GETINDEXRECENSIONEL];
+                String copie = gVector[GETINDEXCOPIEL];
+                String desc = gVector[GETINDEXDESCL];
+                String disp = gVector[GETINDEXDISPL];
+                String prezzo = gVector[GETINDEXPREZZOL];
+
+
+                Libro l=new Libro();
+
+                l.setTitolo(titolo);
+                l.setNrPagine(Integer.parseInt(numeroPagine));
+                l.setCodIsbn(isbn);
+                l.setEditore(editore);
+                l.setAutore(autore);
+                l.setLingua(lingua);
+                l.setCategoria(categoria);
+                l.setDataPubb(LocalDate.parse(data));
+                l.setRecensione(recensione);
+                l.setNrCopie(Integer.parseInt(copie));
+                l.setDesc(desc);
+                l.setDisponibilita(Integer.parseInt(disp));
+                l.setPrezzo(Float.parseFloat(prezzo));
+                list.add(l);
+
+            }
+
+
+        }
+        csvReader.close();
+
+        return list;
+
+
+    }
+    private static synchronized int getIdMax() throws IOException, CsvValidationException {
+        //used for insert correct idOgg
+        CSVReader reader ;
+        String []gVector;
+        int id=0;
+        switch (vis.getType())
+        {
+            case LIBRO->{
+                reader=new CSVReader(new FileReader(LOCATIONL));
+                while ((gVector=reader.readNext())!=null)
+                    id = Integer.parseInt(gVector[GETINDEXIDL]);
+            }
+            case GIORNALE ->
+            {
+                reader=new CSVReader(new FileReader(LOCATIONG));
+                while ((gVector=reader.readNext())!=null)
+                    id = Integer.parseInt(gVector[GETINDEXIDG]);
+            }
+            case RIVISTA -> {
+                reader=new CSVReader(new FileReader(LOCATIONR));
+                while ((gVector=reader.readNext())!=null)
+                    id = Integer.parseInt(gVector[GETINDEXIDR]);
+            }
+            default -> throw new IOException(" id/type is wrong");
+        }
+        reader.close();
+        return id;
+
+
+    }
+    private static synchronized void inserimentoLibro(File fd, Libro l) throws IOException, CsvValidationException {
+
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
+        String[] gVector = new String[14];
+
+
+        gVector[GETINDEXTITOLOL] = l.getTitolo();
+        gVector[GETINDEXNRPL] = String.valueOf(l.getNrPagine());
+        gVector[GETINDEXISBNL] = l.getCodIsbn();
+        gVector[GETINDEXEDITOREL] = l.getEditore();
+        gVector[GETINDEXAUTOREL] = l.getAutore();
+        gVector[GETINDEXLINGUAL] = l.getLingua();
+        gVector[GETINDEXCATEGORIAL] = l.getCategoria();
+        gVector[GETINDEXDATAL] = String.valueOf(l.getDataPubb());
+        gVector[GETINDEXRECENSIONEL] = l.getRecensione();
+        gVector[GETINDEXCOPIEL] = String.valueOf(l.getNrCopie());
+        gVector[GETINDEXDESCL] = l.getDesc();
+        gVector[GETINDEXDISPL] = String.valueOf(l.getDisponibilita());
+        gVector[GETINDEXPREZZOL] = String.valueOf(l.getPrezzo());
+        gVector[GETINDEXIDL] = String.valueOf(getIdMax()+1);
+        csvWriter.writeNext(gVector);
+        csvWriter.flush();
+        csvWriter.close();
+
+
+
+    }
+        @Override
     public void removeLibroById(Libro l) throws CsvValidationException, IOException {
+
         synchronized (this.cacheLibro) {
             this.cacheLibro.remove(String.valueOf(l.getId()));
         }
         removeLibroId(this.fdL, l);
     }
+    private static synchronized void removeLibroId(File fd, Libro l) throws IOException, CsvValidationException {
+        if (SystemUtils.IS_OS_UNIX) {
+            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
+            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
+        }
+        File tmpFile = new File(APPOGGIO);
+        boolean found = false;
+        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector;
+        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
+
+        while ((gVector = reader.readNext()) != null) {
+            boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(l.getId())) || gVector[GETINDEXTITOLOL].equals(l.getTitolo())
+                    || gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));
+
+            if (!recordFound)
+                writer.writeNext(gVector);
+            else
+                found = true;
+
+        }
+        writer.flush();
+        reader.close();
+        writer.close();
+
+
+        if (found) {
+            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
+        } else {
+            cleanUp(Path.of(tmpFile.toURI()));
+        }
+
+
+    }
+
+
 
     @Override
     public void inserisciGiornale(Giornale g) throws IOException, CsvValidationException, IdException {
 
-        boolean duplicated;
-        synchronized (this.cacheGiornale) {
-            duplicated = (this.cacheGiornale.get(String.valueOf(g.getId())) != null);
+        boolean duplicatedG;
+        synchronized (this.cacheGiornale)
+        {
+            boolean duplicatedT=(this.cacheGiornale.get(g.getTitolo())!=null);
+            boolean duplicatedE=(this.cacheGiornale.get(g.getEditore())!=null);
+            duplicatedG=duplicatedE&&duplicatedT;
         }
-        if (!duplicated) {
-            try {
-
-                List<Giornale> giornaleList = retrieveGiornaleById(this.fdG, g);
-                duplicated = (!giornaleList.isEmpty());
-            }catch (IdException e)
-            {
-                e.getCause();
-            }
-
+        if(!duplicatedG)
+        {
+            List<Giornale> list=returnGiornaleByTE(this.fdG,g.getTitolo(),g.getEditore(),g.getId());
+            duplicatedG=(!list.isEmpty());
         }
-        if (duplicated) throw new IdException(USERNOTFOUND);
+        if(duplicatedG) throw new IdException("id giornale not found ");
+        inserimentoGiornale(this.fdG,g);
+    }
+    private static synchronized void inserimentoGiornale(File fd,Giornale g) throws IOException, CsvValidationException {
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
+        String[] gVector = new String[9];
 
-        inserimentoGiornale(this.fdG, g);
 
+        gVector[GETINDEXTITOLOG] = g.getTitolo();
+        gVector[GETINDEXTIPOLOGIAG] = g.getTipologia();
+        gVector[GETINDEXLINGUAG] = g.getLingua();
+        gVector[GETINDEXEDITOREG] = g.getEditore();
+        gVector[GETINDEXDATAG] = String.valueOf(g.getDataPubb());
+        gVector[GETINDEXCOPIERG] = String.valueOf(g.getCopieRimanenti());
+        gVector[GETINDEXDISPG] = String.valueOf(g.getDisponibilita());
+        gVector[GETINDEXPREZZOG] = String.valueOf(g.getPrezzo());
+        gVector[GETINDEXIDG] = String.valueOf(getIdMax() + 1);
+        csvWriter.writeNext(gVector);
+        csvWriter.flush();
+        csvWriter.close();
     }
 
+
+    private static synchronized List<Giornale> returnGiornaleByTE(File fd,String tit,String edit,int id) throws IOException, CsvValidationException, IdException {
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector ;
+        boolean recordFound;
+
+        List<Giornale> list=new ArrayList<>();
+
+        while ((gVector = csvReader.readNext()) != null) {
+
+            recordFound = gVector[GETINDEXTITOLOG].equals(tit)|| gVector[GETINDEXEDITOREG].equals(edit) || gVector[GETINDEXIDG].equals(String.valueOf(id))
+            || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()));
+
+            if (recordFound) {
+
+                String titolo = gVector[GETINDEXTITOLOG];
+                String tipologia = gVector[GETINDEXTIPOLOGIAG];
+                String lingua = gVector[GETINDEXLINGUAG];
+                String ed = gVector[GETINDEXEDITOREG];
+                String data = gVector[GETINDEXDATAG];
+                String copie = gVector[GETINDEXCOPIERG];
+                String disp = gVector[GETINDEXDISPG];
+                String prezzo = gVector[GETINDEXPREZZOG];
+
+                Giornale g = new Giornale();
+
+                g.setTitolo(titolo);
+                g.setTipologia(tipologia);
+                g.setLingua(lingua);
+                g.setEditore(ed);
+                g.setDataPubb(LocalDate.parse(data));
+                g.setCopieRimanenti(Integer.parseInt(copie));
+                g.setDisponibilita(Integer.parseInt(disp));
+                g.setPrezzo(Float.parseFloat(prezzo));
+
+                list.add(g);
+            }
+        }
+        csvReader.close();
+
+        return list;
+
+    }
     @Override
     public void removeGiornaleById(Giornale g) throws CsvValidationException, IOException {
-
         synchronized (this.cacheGiornale) {
             this.cacheGiornale.remove(String.valueOf(g.getId()));
         }
         removeGiornaleId(this.fdG, g);
     }
-
-    @Override
-    public void inserisciRivista(Rivista r) throws IdException, CsvValidationException, IOException {
-        boolean duplicated;
-        synchronized (this.cacheRivista) {
-            duplicated = (this.cacheRivista.get(String.valueOf(r.getId())) != null);
+    private static synchronized void removeGiornaleId(File fd,Giornale g) throws IOException, CsvValidationException {
+        if (SystemUtils.IS_OS_UNIX) {
+            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
+            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
         }
-        if (!duplicated) {
-            try {
+        File tmpFile = new File(APPOGGIO);
+        boolean found = false;
+        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector;
+        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
 
-                List<Rivista> rivistaList = retrieveRivistaById(this.fdR, r);
-                duplicated = (!rivistaList.isEmpty());
-            }catch (IdException e)
-            {
-                e.getCause();
-            }
+        while ((gVector = reader.readNext()) != null) {
+            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()));
+            if (!recordFound)
+                writer.writeNext(gVector);
+            else
+                found = true;
 
         }
-        if (duplicated) throw new IdException(USERNOTFOUND);
+        writer.flush();
+        reader.close();
+        writer.close();
 
-        inserimentoRivista(this.fdR, r);
+
+        if (found) {
+            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
+        } else {
+            cleanUp(Path.of(tmpFile.toURI()));
+        }
+
     }
 
     @Override
+    public void inserisciRivista(Rivista r) throws IdException, CsvValidationException, IOException {
+
+        boolean duplicated;
+        synchronized (this.cacheRivista)
+        {
+            boolean duplicatedT=(this.cacheRivista.get(r.getTitolo())!=null);
+            boolean duplicatedA=(this.cacheRivista.get(r.getAutore())!=null);
+            boolean duplicatedE=(this.cacheRivista.get(r.getEditore())!=null);
+            duplicated=duplicatedT&&duplicatedA&&duplicatedE;
+
+        }
+        if(!duplicated)
+        {
+            List<Rivista> list=returnRivistaByTAE(this.fdR,r.getTitolo(),r.getAutore(),r.getEditore());
+            duplicated=(!list.isEmpty());
+        }
+        if(duplicated)
+            throw new IdException(" id rivista not found");
+        inserimentoRivista(this.fdR,r);
+    }
+    private static synchronized void inserimentoRivista(File fd,Rivista r) throws IOException, CsvValidationException {
+        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
+        String[] gVector = new String[11];
+
+
+
+        gVector[GETINDEXTITOLOR] = r.getTitolo();
+        gVector[GETINDEXTIPOLOGIAR] = r.getTipologia();
+        gVector[GETINDEXAUTORER] = r.getAutore();
+        gVector[GETINDEXLINGUAR] = r.getLingua();
+        gVector[GETINDEXEDITORER] = r.getEditore();
+        gVector[GETINDEXDESCRIZIONER] = r.getDescrizione();
+        gVector[GETINDEXDATAR] = String.valueOf(r.getDataPubb());
+        gVector[GETINDEXDISPR] = String.valueOf(r.getDisp());
+        gVector[GETINDEXPREZZOR] = String.valueOf(r.getPrezzo());
+        gVector[GETINDEXCOPIER] = String.valueOf(r.getCopieRim());
+        gVector[GETINDEXIDR] = String.valueOf(getIdMax() + 1);
+
+        csvWriter.writeNext(gVector);
+        csvWriter.flush();
+        csvWriter.close();
+    }
+
+    private static synchronized List<Rivista> returnRivistaByTAE(File fd,String tit,String autor,String edit) throws IOException, CsvValidationException, IdException{
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector ;
+        boolean recordFound;
+
+        List<Rivista> rivistaList = new ArrayList<>();
+        while ((gVector = csvReader.readNext()) != null) {
+
+            recordFound = gVector[GETINDEXTITOLOR].equals(tit)|| gVector[GETINDEXAUTORER].equals(autor)
+                    || gVector[GETINDEXEDITORER].equals(edit) || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()));
+            if (recordFound) {
+
+                String titolo = gVector[GETINDEXTITOLOR];
+                String tipologia = gVector[GETINDEXTIPOLOGIAR];
+                String aut = gVector[GETINDEXAUTORER];
+                String lingua = gVector[GETINDEXLINGUAR];
+                String ed = gVector[GETINDEXEDITORER];
+                String desc = gVector[GETINDEXDESCRIZIONER];
+                String data = gVector[GETINDEXDATAR];
+                String disp = gVector[GETINDEXDISPR];
+                String prezzo = gVector[GETINDEXPREZZOR];
+                String copieRim = gVector[GETINDEXCOPIER];
+
+                Rivista r = new Rivista();
+                r.setTitolo(titolo);
+                r.setTipologia(tipologia);
+                r.setAutore(aut);
+                r.setLingua(lingua);
+                r.setEditore(ed);
+                r.setDescrizione(desc);
+                r.setDataPubb(LocalDate.parse(data));
+                r.setDisp(Integer.parseInt(disp));
+                r.setPrezzo(Float.parseFloat(prezzo));
+                r.setCopieRim(Integer.parseInt(copieRim));
+
+
+                rivistaList.add(r);
+
+            }
+        }
+        csvReader.close();
+        return rivistaList;
+
+
+
+    }
+    @Override
     public void removeRivistaById(Rivista r) throws CsvValidationException, IOException {
+
         synchronized (this.cacheRivista) {
             this.cacheRivista.remove(String.valueOf(r.getId()));
         }
         removeRivistaId(this.fdR,r);
     }
+    private static synchronized void removeRivistaId(File fd,Rivista r) throws IOException, CsvValidationException {
+        if (SystemUtils.IS_OS_UNIX) {
+            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
+            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
+        }
+        File tmpFile = new File(APPOGGIO);
+        boolean found = false;
+        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector;
+        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
+
+        while ((gVector = reader.readNext()) != null) {
+            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()));
+
+
+            if (!recordFound)
+                writer.writeNext(gVector);
+            else
+                found = true;
+
+        }
+        writer.flush();
+        reader.close();
+        writer.close();
+
+
+        if (found) {
+            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
+        } else {
+            cleanUp(Path.of(tmpFile.toURI()));
+        }
+
+    }
+
+
 
     @Override
     public ObservableList<Raccolta> retrieveRaccoltaData(File fd) throws CsvValidationException, IOException, IdException {
         return retrieveData(fd);
+
     }
+    private static synchronized ObservableList<Raccolta> retrieveData(File fd) throws CsvValidationException, IOException, IdException {
+        ObservableList<Raccolta> gList = FXCollections.observableArrayList();
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector ;
+
+        switch (vis.getType()) {
+            case LIBRO -> {
+
+                while ((gVector = csvReader.readNext()) != null) {
+                    String titolo = gVector[GETINDEXTITOLOL];
+                    String numeroPagine = gVector[GETINDEXNRPL];
+                    String isbn = gVector[GETINDEXISBNL];
+                    String editore = gVector[GETINDEXEDITOREL];
+                    String autore = gVector[GETINDEXAUTOREL];
+                    String lingua = gVector[GETINDEXLINGUAL];
+                    String categoria = gVector[GETINDEXCATEGORIAL];
+                    String data = gVector[GETINDEXDATAL];
+                    String recensione = gVector[GETINDEXRECENSIONEL];
+                    String copie = gVector[GETINDEXCOPIEL];
+                    String desc = gVector[GETINDEXDESCL];
+                    String disp = gVector[GETINDEXDISPL];
+                    String prezzo = gVector[GETINDEXPREZZOL];
+                    String id = gVector[GETINDEXIDL];
+
+                    Libro l = new Libro();
+
+                    l.setTitolo(titolo);
+                    l.setNrPagine(Integer.parseInt(numeroPagine));
+                    l.setCodIsbn(isbn);
+                    l.setEditore(editore);
+                    l.setAutore(autore);
+                    l.setLingua(lingua);
+                    l.setCategoria(categoria);
+                    l.setDataPubb(LocalDate.parse(data));
+                    l.setRecensione(recensione);
+                    l.setNrCopie(Integer.parseInt(copie));
+                    l.setDesc(desc);
+                    l.setDisponibilita(Integer.parseInt(disp));
+                    l.setPrezzo(Float.parseFloat(prezzo));
+                    l.setId(Integer.parseInt(id));
+
+
+                    gList.add(l);
+
+                }
+                csvReader.close();
+                if (gList.isEmpty()) {
+                    throw new IdException("list libro is empty");
+                }
+            }
+
+            case GIORNALE -> {
+                while ((gVector = csvReader.readNext()) != null) {
+
+
+
+                    String titolo = gVector[GETINDEXTITOLOG];
+                    String tipologia = gVector[GETINDEXTIPOLOGIAG];
+                    String lingua = gVector[GETINDEXLINGUAG];
+                    String editore = gVector[GETINDEXEDITOREG];
+                    String data = gVector[GETINDEXDATAG];
+                    String copie = gVector[GETINDEXCOPIERG];
+                    String disp = gVector[GETINDEXDISPG];
+                    String prezzo = gVector[GETINDEXPREZZOG];
+                    String id = gVector[GETINDEXIDG];
+                    Giornale g = new Giornale();
+
+                    g.setTitolo(titolo);
+                    g.setTipologia(tipologia);
+                    g.setLingua(lingua);
+                    g.setEditore(editore);
+                    g.setDataPubb(LocalDate.parse(data));
+                    g.setCopieRimanenti(Integer.parseInt(copie));
+                    g.setDisponibilita(Integer.parseInt(disp));
+                    g.setPrezzo(Float.parseFloat(prezzo));
+                    g.setId(Integer.parseInt(id));
+
+
+
+                    gList.add(g);
+
+                }
+                csvReader.close();
+                if (gList.isEmpty()) {
+                    throw new IdException("lista giornale is empty");
+                }
+            }
+            case RIVISTA -> {
+                while ((gVector = csvReader.readNext()) != null) {
+
+                    String titolo = gVector[GETINDEXTITOLOR];
+                    String tipologia = gVector[GETINDEXTIPOLOGIAR];
+                    String autore = gVector[GETINDEXAUTORER];
+                    String lingua = gVector[GETINDEXLINGUAR];
+                    String editore = gVector[GETINDEXEDITORER];
+                    String desc = gVector[GETINDEXDESCRIZIONER];
+                    String data = gVector[GETINDEXDATAR];
+                    String disp = gVector[GETINDEXDISPR];
+                    String prezzo = gVector[GETINDEXPREZZOR];
+                    String copie = gVector[GETINDEXCOPIER];
+                    String id = gVector[GETINDEXIDR];
+
+                    Rivista r=new Rivista();
+
+                    r.setTitolo(titolo);
+                    r.setTipologia(tipologia);
+                    r.setAutore(autore);
+                    r.setLingua(lingua);
+                    r.setEditore(editore);
+                    r.setDescrizione(desc);
+                    r.setDataPubb(LocalDate.parse(data));
+                    r.setDisp(Integer.parseInt(disp));
+                    r.setPrezzo(Float.parseFloat(prezzo));
+                    r.setCopieRim(Integer.parseInt(copie));
+                    r.setId(Integer.parseInt(id));
+
+
+
+                    gList.add(r);
+
+                }
+                csvReader.close();
+                if (gList.isEmpty()) {
+                    throw new IdException("lista rivista is empty");
+                }
+
+            }
+            default -> throw new IdException("ogegtto sbagliato || lista empty");
+        }
+
+        return gList;
+
+}
 
     @Override
-    public List<Libro> retrieveLibroData(File fd,Libro l) throws CsvValidationException, IOException, IdException {
+    public List<Libro> retrieveLibroData(File fd, Libro l) throws CsvValidationException, IOException, IdException {
         List<Libro> list=new ArrayList<>();
         synchronized (this.cacheLibro)
         {
@@ -221,11 +696,11 @@ public class CsvOggettoDao implements DaoInterface {
         }
         if(list.isEmpty())
         {
-            list=retrieveLibroById(fd,l);
+            list=returnLibriByTAE(fd,l.getTitolo(),l.getAutore(),l.getEditore(),l.getId());
             synchronized (this.cacheLibro)
             {
                 for(Libro libro : list)
-                    this.cacheLibro.put(String.valueOf(l.getId()),libro);
+                    this.cacheLibro.put(String.valueOf(l.getTitolo()),libro);
             }
 
         }
@@ -247,11 +722,11 @@ public class CsvOggettoDao implements DaoInterface {
         }
         if(list.isEmpty())
         {
-            list=retrieveGiornaleById(fd,g);
+            list=returnGiornaleByTE(fd,g.getTitolo(),g.getEditore(),g.getId());
             synchronized (this.cacheGiornale)
             {
                 for(Giornale giornale : list)
-                    this.cacheGiornale.put(String.valueOf(g.getId()),giornale);
+                    this.cacheGiornale.put(String.valueOf(g.getTitolo()),giornale);
             }
 
         }
@@ -273,7 +748,7 @@ public class CsvOggettoDao implements DaoInterface {
         }
         if(list.isEmpty())
         {
-            list=retrieveRivistaById(fd,r);
+            list=returnRivistaByTAE(fd,r.getTitolo(),r.getAutore(),r.getEditore());
             synchronized (this.cacheRivista)
             {
                 for(Rivista rivista : list)
@@ -314,6 +789,63 @@ public class CsvOggettoDao implements DaoInterface {
 
 
     }
+    private static synchronized ObservableList<Libro> retrieveLibroByIdAutoreTitolo(File fd,Libro libro) throws IOException, CsvValidationException, IdException {
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector;
+        ObservableList<Libro> list=FXCollections.observableArrayList();
+
+
+        while ((gVector = csvReader.readNext()) != null) {
+
+
+            boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()))
+                    || gVector[GETINDEXTITOLOL].equals(libro.getTitolo())|| gVector[GETINDEXAUTOREL].equals(libro.getAutore());
+            if (recordFound) {
+                String titolo = gVector[GETINDEXTITOLOL];
+                String numeroPagine = gVector[GETINDEXNRPL];
+                String isbn = gVector[GETINDEXISBNL];
+                String editore = gVector[GETINDEXEDITOREL];
+                String autore = gVector[GETINDEXAUTOREL];
+                String lingua = gVector[GETINDEXLINGUAL];
+                String categoria = gVector[GETINDEXCATEGORIAL];
+                String data = gVector[GETINDEXDATAL];
+                String recensione = gVector[GETINDEXRECENSIONEL];
+                String copie = gVector[GETINDEXCOPIEL];
+                String desc = gVector[GETINDEXDESCL];
+                String disp = gVector[GETINDEXDISPL];
+                String prezzo = gVector[GETINDEXPREZZOL];
+                String id = gVector[GETINDEXIDL];
+
+                Libro l=new Libro();
+                l.setTitolo(titolo);
+                l.setNrPagine(Integer.parseInt(numeroPagine));
+                l.setCodIsbn(isbn);
+                l.setEditore(editore);
+                l.setAutore(autore);
+                l.setLingua(lingua);
+                l.setCategoria(categoria);
+                l.setDataPubb(LocalDate.parse(data));
+                l.setRecensione(recensione);
+                l.setNrCopie(Integer.parseInt(copie));
+                l.setDesc(desc);
+                l.setDisponibilita(Integer.parseInt(disp));
+                l.setPrezzo(Float.parseFloat(prezzo));
+                l.setId(Integer.parseInt(id));
+
+                list.add(l);
+
+            }
+
+        }
+        csvReader.close();
+        if (list.isEmpty()) {
+            throw new IdException(USERNOTFOUND);
+        }
+
+        return list;
+
+    }
+
 
     @Override
     public ObservableList<Giornale> getGiornaleByIdTitoloEditore(File fd, Giornale g) throws CsvValidationException, IOException, IdException {
@@ -341,6 +873,48 @@ public class CsvOggettoDao implements DaoInterface {
             }
 
         }
+        return list;
+
+    }
+    private static synchronized ObservableList<Giornale> retrieveGiornaleByIdTitoloEditore(File fd,Giornale giornale) throws IOException, CsvValidationException, IdException {
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        String[] gVector ;
+
+        ObservableList<Giornale> list=FXCollections.observableArrayList();
+
+        while ((gVector = csvReader.readNext()) != null) {
+
+            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(giornale.getId())) || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
+                    || gVector[GETINDEXTITOLOG].equals(giornale.getTitolo())|| gVector[GETINDEXEDITOREG].equals(giornale.getEditore());
+            if (recordFound) {
+                String titolo = gVector[GETINDEXTITOLOG];
+                String tipologia = gVector[GETINDEXTIPOLOGIAG];
+                String lingua = gVector[GETINDEXLINGUAG];
+                String ed = gVector[GETINDEXEDITOREG];
+                String data = gVector[GETINDEXDATAG];
+                String copie = gVector[GETINDEXCOPIERG];
+                String disp = gVector[GETINDEXDISPG];
+                String prezzo = gVector[GETINDEXPREZZOG];
+                Giornale g = new Giornale();
+
+                g.setTitolo(titolo);
+                g.setTipologia(tipologia);
+                g.setLingua(lingua);
+                g.setEditore(ed);
+                g.setDataPubb(LocalDate.parse(data));
+                g.setCopieRimanenti(Integer.parseInt(copie));
+                g.setDisponibilita(Integer.parseInt(disp));
+                g.setPrezzo(Float.parseFloat(prezzo));
+
+                list.add(g);
+            }
+        }
+        csvReader.close();
+        if (list.isEmpty()) {
+            throw new IdException(USERNOTFOUND);
+        }
+
+
         return list;
 
     }
@@ -372,600 +946,6 @@ public class CsvOggettoDao implements DaoInterface {
 
         }
         return list;
-
-    }
-
-
-    private static synchronized void inserimentoLibro(File fd, Libro l) throws IOException, CsvValidationException {
-
-
-        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
-        String[] gVector = new String[14];
-
-
-        gVector[GETINDEXTITOLOL] = l.getTitolo();
-        gVector[GETINDEXNRPL] = String.valueOf(l.getNrPagine());
-        gVector[GETINDEXISBNL] = l.getCodIsbn();
-        gVector[GETINDEXEDITOREL] = l.getEditore();
-        gVector[GETINDEXAUTOREL] = l.getAutore();
-        gVector[GETINDEXLINGUAL] = l.getLingua();
-        gVector[GETINDEXCATEGORIAL] = l.getCategoria();
-        gVector[GETINDEXDATAL] = String.valueOf(l.getDataPubb());
-        gVector[GETINDEXRECENSIONEL] = l.getRecensione();
-        gVector[GETINDEXCOPIEL] = String.valueOf(l.getNrCopie());
-        gVector[GETINDEXDESCL] = l.getDesc();
-        gVector[GETINDEXDISPL] = String.valueOf(l.getDisponibilita());
-        gVector[GETINDEXPREZZOL] = String.valueOf(l.getPrezzo());
-        gVector[GETINDEXIDL] = String.valueOf(getIdMax()+1);
-        csvWriter.writeNext(gVector);
-        csvWriter.flush();
-        csvWriter.close();
-
-
-    }
-    private static synchronized void inserimentoGiornale(File fd,Giornale g) throws IOException, CsvValidationException {
-        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
-        String[] gVector = new String[9];
-
-
-        gVector[GETINDEXTITOLOG] = g.getTitolo();
-        gVector[GETINDEXTIPOLOGIAG] = g.getTipologia();
-        gVector[GETINDEXLINGUAG] = g.getLingua();
-        gVector[GETINDEXEDITOREG] = g.getEditore();
-        gVector[GETINDEXDATAG] = String.valueOf(g.getDataPubb());
-        gVector[GETINDEXCOPIERG] = String.valueOf(g.getCopieRimanenti());
-        gVector[GETINDEXDISPG] = String.valueOf(g.getDisponibilita());
-        gVector[GETINDEXPREZZOG] = String.valueOf(g.getPrezzo());
-        gVector[GETINDEXIDG] = String.valueOf(getIdMax() + 1);
-        csvWriter.writeNext(gVector);
-        csvWriter.flush();
-        csvWriter.close();
-    }
-    private static synchronized void inserimentoRivista(File fd,Rivista r) throws IOException, CsvValidationException {
-        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
-        String[] gVector = new String[11];
-
-
-
-        gVector[GETINDEXTITOLOR] = r.getTitolo();
-        gVector[GETINDEXTIPOLOGIAR] = r.getTipologia();
-        gVector[GETINDEXAUTORER] = r.getAutore();
-        gVector[GETINDEXLINGUAR] = r.getLingua();
-        gVector[GETINDEXEDITORER] = r.getEditore();
-        gVector[GETINDEXDESCRIZIONER] = r.getDescrizione();
-        gVector[GETINDEXDATAR] = String.valueOf(r.getDataPubb());
-        gVector[GETINDEXDISPR] = String.valueOf(r.getDisp());
-        gVector[GETINDEXPREZZOR] = String.valueOf(r.getPrezzo());
-        gVector[GETINDEXCOPIER] = String.valueOf(r.getCopieRim());
-        gVector[GETINDEXIDR] = String.valueOf(getIdMax() + 1);
-
-        csvWriter.writeNext(gVector);
-        csvWriter.flush();
-        csvWriter.close();
-    }
-    public static synchronized List<Libro> retrieveLibroById(File fd, Libro libro) throws IOException, CsvValidationException, IdException {
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        List<Libro> list=new ArrayList<>();
-
-
-            while ((gVector = csvReader.readNext()) != null) {
-                Libro l=new Libro();
-
-                boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()))
-                        ||gVector[GETINDEXTITOLOL].equals(libro.getTitolo());
-                if (recordFound) {
-                    String titolo = gVector[GETINDEXTITOLOL];
-                    String numeroPagine = gVector[GETINDEXNRPL];
-                    String isbn = gVector[GETINDEXISBNL];
-                    String editore = gVector[GETINDEXEDITOREL];
-                    String autore = gVector[GETINDEXAUTOREL];
-                    String lingua = gVector[GETINDEXLINGUAL];
-                    String categoria = gVector[GETINDEXCATEGORIAL];
-                    String data = gVector[GETINDEXDATAL];
-                    String recensione = gVector[GETINDEXRECENSIONEL];
-                    String copie = gVector[GETINDEXCOPIEL];
-                    String desc = gVector[GETINDEXDESCL];
-                    String disp = gVector[GETINDEXDISPL];
-                    String prezzo = gVector[GETINDEXPREZZOL];
-                    String id = gVector[GETINDEXIDL];
-
-                    l.setTitolo(titolo);
-                    l.setNrPagine(Integer.parseInt(numeroPagine));
-                    l.setCodIsbn(isbn);
-                    l.setEditore(editore);
-                    l.setAutore(autore);
-                    l.setLingua(lingua);
-                    l.setCategoria(categoria);
-                    l.setDataPubb(LocalDate.parse(data));
-                    l.setRecensione(recensione);
-                    l.setNrCopie(Integer.parseInt(copie));
-                    l.setDesc(desc);
-                    l.setDisponibilita(Integer.parseInt(disp));
-                    l.setPrezzo(Float.parseFloat(prezzo));
-                    l.setId(Integer.parseInt(id));
-
-                    list.add(l);
-
-                }
-
-            }
-            csvReader.close();
-            if (list.isEmpty()) {
-                throw new IdException(USERNOTFOUND);
-            }
-
-            return list;
-
-    }
-    public static synchronized List<Giornale> retrieveGiornaleById(File fd,Giornale giornale) throws IOException, CsvValidationException, IdException {
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector ;
-
-        List<Giornale> list=new ArrayList<>();
-
-        while ((gVector = csvReader.readNext()) != null) {
-            Giornale g = new Giornale();
-            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(giornale.getId())) || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
-                    || gVector[GETINDEXTITOLOG].equals(giornale.getTitolo());
-            if (recordFound) {
-                String titolo = gVector[GETINDEXTITOLOG];
-                String tipologia = gVector[GETINDEXTIPOLOGIAG];
-                String lingua = gVector[GETINDEXLINGUAG];
-                String ed = gVector[GETINDEXEDITOREG];
-                String data = gVector[GETINDEXDATAG];
-                String copie = gVector[GETINDEXCOPIERG];
-                String disp = gVector[GETINDEXDISPG];
-                String prezzo = gVector[GETINDEXPREZZOG];
-                String id = gVector[GETINDEXIDG];
-
-                g.setTitolo(titolo);
-                g.setTipologia(tipologia);
-                g.setLingua(lingua);
-                g.setEditore(ed);
-                g.setDataPubb(LocalDate.parse(data));
-                g.setCopieRimanenti(Integer.parseInt(copie));
-                g.setDisponibilita(Integer.parseInt(disp));
-                g.setPrezzo(Float.parseFloat(prezzo));
-                g.setId(Integer.parseInt(id));
-
-                list.add(g);
-            }
-        }
-        csvReader.close();
-        if (list.isEmpty()) {
-            throw new IdException(USERNOTFOUND);
-        }
-
-
-        return list;
-
-    }
-    public static synchronized List<Rivista> retrieveRivistaById(File fd,Rivista rivista) throws IOException, CsvValidationException, IdException{
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector ;
-
-        List<Rivista> rivistaList = new ArrayList<>();
-        while ((gVector = csvReader.readNext()) != null) {
-            Rivista r = new Rivista();
-            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(rivista.getId())) || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
-                    || gVector[GETINDEXTITOLOR].equals(rivista.getTitolo());
-            if (recordFound) {
-                String titolo = gVector[GETINDEXTITOLOR];
-                String tipologia = gVector[GETINDEXTIPOLOGIAR];
-                String aut = gVector[GETINDEXAUTORER];
-                String lingua = gVector[GETINDEXLINGUAR];
-                String ed = gVector[GETINDEXEDITORER];
-                String desc = gVector[GETINDEXDESCRIZIONER];
-                String data = gVector[GETINDEXDATAR];
-                String disp = gVector[GETINDEXDISPR];
-                String prezzo = gVector[GETINDEXPREZZOR];
-                String copieRim = gVector[GETINDEXCOPIER];
-                String id = gVector[GETINDEXIDR];
-
-                r.setTitolo(titolo);
-                r.setTipologia(tipologia);
-                r.setAutore(aut);
-                r.setLingua(lingua);
-                r.setEditore(ed);
-                r.setDescrizione(desc);
-                r.setDataPubb(LocalDate.parse(data));
-                r.setDisp(Integer.parseInt(disp));
-                r.setPrezzo(Float.parseFloat(prezzo));
-                r.setCopieRim(Integer.parseInt(copieRim));
-                r.setId(Integer.parseInt(id));
-
-                rivistaList.add(r);
-
-            }
-        }
-        csvReader.close();
-        if (rivistaList.isEmpty()) {
-            throw new IdException(USERNOTFOUND);
-        }
-
-        return rivistaList;
-
-
-
-    }
-    private static synchronized void removeLibroId(File fd, Libro l) throws IOException, CsvValidationException {
-        if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
-            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
-        }
-        File tmpFile = new File(APPOGGIO);
-        boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
-
-        while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(l.getId()));
-
-
-            if (!recordFound)
-                writer.writeNext(gVector);
-            else
-                found = recordFound;
-
-        }
-        writer.flush();
-        reader.close();
-        writer.close();
-
-
-        if (found) {
-            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {
-            cleanUp(Path.of(tmpFile.toURI()));
-        }
-
-
-    }
-    private static synchronized void removeGiornaleId(File fd,Giornale g) throws IOException, CsvValidationException {
-        if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
-            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
-        }
-        File tmpFile = new File(APPOGGIO);
-        boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
-
-        while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()));
-
-
-            if (!recordFound)
-                writer.writeNext(gVector);
-            else
-                found = recordFound;
-
-        }
-        writer.flush();
-        reader.close();
-        writer.close();
-
-
-        if (found) {
-            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {
-            cleanUp(Path.of(tmpFile.toURI()));
-        }
-
-    }
-    private static synchronized void removeRivistaId(File fd,Rivista r) throws IOException, CsvValidationException {
-        if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
-            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
-        }
-        File tmpFile = new File(APPOGGIO);
-        boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
-
-        while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()));
-
-
-            if (!recordFound)
-                writer.writeNext(gVector);
-            else
-                found = recordFound;
-
-        }
-        writer.flush();
-        reader.close();
-        writer.close();
-
-
-        if (found) {
-            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {
-            cleanUp(Path.of(tmpFile.toURI()));
-        }
-
-    }
-    private static synchronized int getIdMax() throws IOException, CsvValidationException {
-        //used for insert correct idOgg
-        CSVReader reader ;
-        String []gVector;
-        int id=0;
-        switch (vis.getType())
-        {
-            case LIBRO->{
-                reader=new CSVReader(new FileReader(LOCATIONL));
-                while ((gVector=reader.readNext())!=null)
-                    id = Integer.parseInt(gVector[GETINDEXIDL]);
-            }
-            case GIORNALE ->
-            {
-                reader=new CSVReader(new FileReader(LOCATIONG));
-                while ((gVector=reader.readNext())!=null)
-                    id = Integer.parseInt(gVector[GETINDEXIDG]);
-            }
-            case RIVISTA -> {
-                reader=new CSVReader(new FileReader(LOCATIONR));
-                while ((gVector=reader.readNext())!=null)
-                    id = Integer.parseInt(gVector[GETINDEXIDR]);
-            }
-            default -> throw new IOException(" type is wrong");
-        }
-        return id;
-
-
-    }
-
-
-    private static synchronized ObservableList<Raccolta> retrieveData(File fd) throws CsvValidationException, IOException, IdException {
-        ObservableList<Raccolta> gList = FXCollections.observableArrayList();
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-         String[] gVector ;
-
-
-       
-                switch (vis.getType()) {
-                    case LIBRO -> {
-
-                        while ((gVector = csvReader.readNext()) != null) {
-                            Libro l = new Libro();
-                            String titolo = gVector[GETINDEXTITOLOL];
-                            String numeroPagine = gVector[GETINDEXNRPL];
-                            String isbn = gVector[GETINDEXISBNL];
-                            String editore = gVector[GETINDEXEDITOREL];
-                            String autore = gVector[GETINDEXAUTOREL];
-                            String lingua = gVector[GETINDEXLINGUAL];
-                            String categoria = gVector[GETINDEXCATEGORIAL];
-                            String data = gVector[GETINDEXDATAL];
-                            String recensione = gVector[GETINDEXRECENSIONEL];
-                            String copie = gVector[GETINDEXCOPIEL];
-                            String desc = gVector[GETINDEXDESCL];
-                            String disp = gVector[GETINDEXDISPL];
-                            String prezzo = gVector[GETINDEXPREZZOL];
-                            String id = gVector[GETINDEXIDL];
-
-
-                            l.setTitolo(titolo);
-                            l.setNrPagine(Integer.parseInt(numeroPagine));
-                            l.setCodIsbn(isbn);
-                            l.setEditore(editore);
-                            l.setAutore(autore);
-                            l.setLingua(lingua);
-                            l.setCategoria(categoria);
-                            l.setDataPubb(LocalDate.parse(data));
-                            l.setRecensione(recensione);
-                            l.setNrCopie(Integer.parseInt(copie));
-                            l.setDesc(desc);
-                            l.setDisponibilita(Integer.parseInt(disp));
-                            l.setPrezzo(Float.parseFloat(prezzo));
-                            l.setId(Integer.parseInt(id));
-
-
-                            gList.add(l);
-
-                        }
-                        csvReader.close();
-                        if (gList.isEmpty()) {
-                            throw new IdException(USERNOTFOUND);
-                        }
-                    }
-
-                    case GIORNALE -> {
-                        while ((gVector = csvReader.readNext()) != null) {
-
-                            Giornale g = getGiornale(gVector);
-
-
-                            gList.add(g);
-
-                        }
-                        csvReader.close();
-                        if (gList.isEmpty()) {
-                            throw new IdException(USERNOTFOUND);
-                        }
-                    }
-                    case RIVISTA -> {
-                        while ((gVector = csvReader.readNext()) != null) {
-                            Rivista r = getRivista(gVector);
-
-
-                            gList.add(r);
-
-                        }
-                        csvReader.close();
-                        if (gList.isEmpty()) {
-                            throw new IdException(USERNOTFOUND);
-                        }
-
-                    }
-                    default -> throw new IdException(USERNOTFOUND);
-                }
-
-
-
-
-
-
-        return gList;
-
-    }
-
-    private static synchronized Rivista getRivista(String[] gVector) {
-        Rivista r=new Rivista();
-
-        String titolo = gVector[GETINDEXTITOLOR];
-        String tipologia = gVector[GETINDEXTIPOLOGIAR];
-        String autore = gVector[GETINDEXAUTORER];
-        String lingua = gVector[GETINDEXLINGUAR];
-        String editore = gVector[GETINDEXEDITORER];
-        String desc = gVector[GETINDEXDESCRIZIONER];
-        String data = gVector[GETINDEXDATAR];
-        String disp = gVector[GETINDEXDISPR];
-        String prezzo = gVector[GETINDEXPREZZOR];
-        String copie = gVector[GETINDEXCOPIER];
-        String id = gVector[GETINDEXIDR];
-
-
-        r.setTitolo(titolo);
-        r.setTipologia(tipologia);
-        r.setAutore(autore);
-        r.setLingua(lingua);
-        r.setEditore(editore);
-        r.setDescrizione(desc);
-        r.setDataPubb(LocalDate.parse(data));
-        r.setDisp(Integer.parseInt(disp));
-        r.setPrezzo(Float.parseFloat(prezzo));
-        r.setCopieRim(Integer.parseInt(copie));
-        r.setId(Integer.parseInt(id));
-        return r;
-    }
-
-    private static synchronized Giornale getGiornale(String[] gVector) {
-        Giornale g = new Giornale();
-
-        String titolo = gVector[GETINDEXTITOLOG];
-        String tipologia = gVector[GETINDEXTIPOLOGIAG];
-        String lingua = gVector[GETINDEXLINGUAG];
-        String editore = gVector[GETINDEXEDITOREG];
-        String data = gVector[GETINDEXDATAG];
-        String copie = gVector[GETINDEXCOPIERG];
-        String disp = gVector[GETINDEXDISPG];
-        String prezzo = gVector[GETINDEXPREZZOG];
-        String id = gVector[GETINDEXIDG];
-
-        g.setTitolo(titolo);
-        g.setTipologia(tipologia);
-        g.setLingua(lingua);
-        g.setEditore(editore);
-        g.setDataPubb(LocalDate.parse(data));
-        g.setCopieRimanenti(Integer.parseInt(copie));
-        g.setDisponibilita(Integer.parseInt(disp));
-        g.setPrezzo(Float.parseFloat(prezzo));
-        g.setId(Integer.parseInt(id));
-        return g;
-    }
-
-    private static synchronized ObservableList<Libro> retrieveLibroByIdAutoreTitolo(File fd,Libro libro) throws IOException, CsvValidationException, IdException {
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        ObservableList<Libro> list=FXCollections.observableArrayList();
-
-
-            while ((gVector = csvReader.readNext()) != null) {
-                Libro l=new Libro();
-
-                boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()))
-                        || gVector[GETINDEXTITOLOL].equals(libro.getTitolo())|| gVector[GETINDEXAUTOREL].equals(libro.getAutore());
-                if (recordFound) {
-                    String titolo = gVector[GETINDEXTITOLOL];
-                    String numeroPagine = gVector[GETINDEXNRPL];
-                    String isbn = gVector[GETINDEXISBNL];
-                    String editore = gVector[GETINDEXEDITOREL];
-                    String autore = gVector[GETINDEXAUTOREL];
-                    String lingua = gVector[GETINDEXLINGUAL];
-                    String categoria = gVector[GETINDEXCATEGORIAL];
-                    String data = gVector[GETINDEXDATAL];
-                    String recensione = gVector[GETINDEXRECENSIONEL];
-                    String copie = gVector[GETINDEXCOPIEL];
-                    String desc = gVector[GETINDEXDESCL];
-                    String disp = gVector[GETINDEXDISPL];
-                    String prezzo = gVector[GETINDEXPREZZOL];
-                    String id = gVector[GETINDEXIDL];
-
-                    l.setTitolo(titolo);
-                    l.setNrPagine(Integer.parseInt(numeroPagine));
-                    l.setCodIsbn(isbn);
-                    l.setEditore(editore);
-                    l.setAutore(autore);
-                    l.setLingua(lingua);
-                    l.setCategoria(categoria);
-                    l.setDataPubb(LocalDate.parse(data));
-                    l.setRecensione(recensione);
-                    l.setNrCopie(Integer.parseInt(copie));
-                    l.setDesc(desc);
-                    l.setDisponibilita(Integer.parseInt(disp));
-                    l.setPrezzo(Float.parseFloat(prezzo));
-                    l.setId(Integer.parseInt(id));
-
-                    list.add(l);
-
-                }
-
-            }
-            csvReader.close();
-            if (list.isEmpty()) {
-                throw new IdException(USERNOTFOUND);
-            }
-
-            return list;
-
-    }
-
-    private static synchronized ObservableList<Giornale> retrieveGiornaleByIdTitoloEditore(File fd,Giornale giornale) throws IOException, CsvValidationException, IdException {
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector ;
-
-        ObservableList<Giornale> list=FXCollections.observableArrayList();
-
-        while ((gVector = csvReader.readNext()) != null) {
-            Giornale g = new Giornale();
-            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(giornale.getId())) || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
-                    || gVector[GETINDEXTITOLOG].equals(giornale.getTitolo())|| gVector[GETINDEXEDITOREG].equals(giornale.getEditore());
-            if (recordFound) {
-                String titolo = gVector[GETINDEXTITOLOG];
-                String tipologia = gVector[GETINDEXTIPOLOGIAG];
-                String lingua = gVector[GETINDEXLINGUAG];
-                String ed = gVector[GETINDEXEDITOREG];
-                String data = gVector[GETINDEXDATAG];
-                String copie = gVector[GETINDEXCOPIERG];
-                String disp = gVector[GETINDEXDISPG];
-                String prezzo = gVector[GETINDEXPREZZOG];
-                String id = gVector[GETINDEXIDG];
-
-                g.setTitolo(titolo);
-                g.setTipologia(tipologia);
-                g.setLingua(lingua);
-                g.setEditore(ed);
-                g.setDataPubb(LocalDate.parse(data));
-                g.setCopieRimanenti(Integer.parseInt(copie));
-                g.setDisponibilita(Integer.parseInt(disp));
-                g.setPrezzo(Float.parseFloat(prezzo));
-                g.setId(Integer.parseInt(id));
-
-                list.add(g);
-            }
-        }
-        csvReader.close();
-        if (list.isEmpty()) {
-            throw new IdException(USERNOTFOUND);
-        }
-
-
-        return list;
-
     }
     private static synchronized ObservableList<Rivista> retrieveRivistaByIdTitoloEditore(File fd,Rivista rivista) throws CsvValidationException, IOException, IdException {
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
@@ -973,9 +953,8 @@ public class CsvOggettoDao implements DaoInterface {
 
         ObservableList<Rivista> rivistaList =FXCollections.observableArrayList();
         while ((gVector = csvReader.readNext()) != null) {
-            Rivista r = new Rivista();
             boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(rivista.getId())) || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
-                    || gVector[GETINDEXTITOLOR].equals(r.getTitolo())||gVector[GETINDEXAUTORER].equals(rivista.getAutore());
+                    || gVector[GETINDEXTITOLOR].equals(rivista.getTitolo())||gVector[GETINDEXAUTORER].equals(rivista.getAutore());
             if (recordFound) {
                 String titolo = gVector[GETINDEXTITOLOR];
                 String tipologia = gVector[GETINDEXTIPOLOGIAR];
@@ -988,6 +967,8 @@ public class CsvOggettoDao implements DaoInterface {
                 String prezzo = gVector[GETINDEXPREZZOR];
                 String copieRim = gVector[GETINDEXCOPIER];
                 String id = gVector[GETINDEXIDR];
+                Rivista r = new Rivista();
+
 
                 r.setTitolo(titolo);
                 r.setTipologia(tipologia);
@@ -1014,6 +995,7 @@ public class CsvOggettoDao implements DaoInterface {
 
 
     }
+
 
 
 }

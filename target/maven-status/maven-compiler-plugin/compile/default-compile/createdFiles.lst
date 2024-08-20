@@ -55,7 +55,6 @@ laptop/controller/ControllerScelta.class
 laptop/view/BoundaryResetPwd.class
 web/bean/GiornaleBean.class
 web/servlet/RegistrazioneServlet.class
-laptop/controller/ControllerBookData.class
 laptop/controller/ControllerModifPage.class
 laptop/view/BoundaryVisualizzaProfilo.class
 laptop/model/raccolta/MatchParam.class

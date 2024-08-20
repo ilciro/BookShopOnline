@@ -105,7 +105,7 @@ public class ControllerPagamentoCC {
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 			{
-				csvFattura.inserisciCartaCredito(cc);
+				//csvFattura.inserisciCartaCredito(cc);
 
 				cCPD.checkPagamentoData(n);
 			}
@@ -127,7 +127,7 @@ public class ControllerPagamentoCC {
 
         if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
-            csvFattura.getAllDataCredito(nomeU);
+           // csvFattura.getAllDataCredito(nomeU);
         }
 
 		return cDao.getCarteCredito(nomeU);
@@ -156,7 +156,6 @@ public class ControllerPagamentoCC {
 					Libro l1 = csv.retrieveLibroData(new File("report/reportLibro.csv"),l).get(0);
 					p.setTipo(l1.getCategoria());
 					p.setIdOggetto(l1.getId());
-
 					csvFattura.inserisciPagamento(p);
 				} else {
 					cCPD.checkPagamentoData(nome);

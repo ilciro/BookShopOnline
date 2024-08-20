@@ -10,27 +10,27 @@ import laptop.database.csvusers.CsvUtente;
 import laptop.model.User;
 
 public class ControllerCancellaUser {
-<span class="nc" id="L13">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L13">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 	private final CsvUtente csvUtente;
 
 	public boolean cancellaUser() throws SQLException, CsvValidationException, IOException {
 		boolean state;
 
-<span class="nc" id="L19">		User.getInstance().setId(vis.getId());</span>
+<span class="fc" id="L19">		User.getInstance().setId(vis.getId());</span>
 
-<span class="nc bnc" id="L21" title="All 2 branches missed.">		if(vis.getTypeOfDb().equals(&quot;file&quot;)) {</span>
-<span class="nc" id="L22">			csvUtente.removeUserByIdEmailPwd(User.getInstance());</span>
-<span class="nc" id="L23">			state=true;</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">		if(vis.getTypeOfDb().equals(&quot;file&quot;)) {</span>
+<span class="fc" id="L22">			csvUtente.removeUserByIdEmailPwd(User.getInstance());</span>
+<span class="fc" id="L23">			state=true;</span>
 		}
 			else
-<span class="nc" id="L26">				state=UsersDao.deleteUser(User.getInstance());</span>
-<span class="nc" id="L27">			return state;</span>
+<span class="fc" id="L26">				state=UsersDao.deleteUser(User.getInstance());</span>
+<span class="fc" id="L27">			return state;</span>
 	}
 	public ControllerCancellaUser()
-<span class="nc" id="L30">	{</span>
-<span class="nc" id="L31">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerCancellaUser&quot;);</span>
-<span class="nc" id="L32">		csvUtente=new CsvUtente();</span>
-<span class="nc" id="L33">	}</span>
+<span class="fc" id="L30">	{</span>
+<span class="fc" id="L31">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerCancellaUser&quot;);</span>
+<span class="fc" id="L32">		csvUtente=new CsvUtente();</span>
+<span class="fc" id="L33">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

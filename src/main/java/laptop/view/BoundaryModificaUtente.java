@@ -85,7 +85,7 @@ public class BoundaryModificaUtente implements Initializable {
 	protected Scene scene;
 	
 	@FXML
-	private void visualizza() throws SQLException, CsvValidationException, IOException {
+	private void visualizza() throws SQLException, CsvValidationException, IOException, IdException {
 		if(vis.getTypeOfDb().equals("file"))
 		{
 			vecchioNL.setText(cMU.prendiCsv().getNome());

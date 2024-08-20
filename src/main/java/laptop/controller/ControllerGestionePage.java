@@ -33,8 +33,9 @@ public class ControllerGestionePage {
 	private final CsvOggettoDao csvDao;
 	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 
-	public void cancella(int id) throws SQLException, CsvValidationException, IOException {
+	public boolean cancella(int id) throws SQLException, CsvValidationException, IOException {
 
+		boolean status=false;
 
 		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
 		{
@@ -45,16 +46,19 @@ public class ControllerGestionePage {
 				{
 					l.setId(id);
 					csvDao.removeLibroById(l);
+					status=true;
 				}
 				case GIORNALE ->
 				{
 					g.setId(id);
 					csvDao.removeGiornaleById(g);
+					status=true;
 				}
 				case RIVISTA ->
 				{
 					r.setId(id);
 					csvDao.removeRivistaById(r);
+					status=true;
 				}
 				default ->	java.util.logging.Logger.getLogger("cancella oggetto").log(Level.SEVERE, " type not correct !!\n");
 
@@ -68,22 +72,26 @@ public class ControllerGestionePage {
 				{
 					l.setId(vis.getId());
 					lD.cancella(l);
+					status=true;
 				}
 				case GIORNALE ->
 				{
 					g.setId(vis.getId());
 					gD.cancella(g);
+					status=true;
 				}
 				case RIVISTA ->
 				{
 					r.setId(vis.getId());
 					rD.cancella(r);
+					status=true;
 				}
 				default ->	java.util.logging.Logger.getLogger("cancella oggetto").log(Level.SEVERE, " type not correct !!\n");
 
 			}
 			}
 
+		return status;
 
 	}
 
@@ -94,38 +102,31 @@ public class ControllerGestionePage {
 		{
 
 			switch (type) {
-				case LIBRO:
-					catalogo.addAll(csvDao.retrieveRaccoltaData(new File("report/reportLibro.csv")));
-					break;
-				case GIORNALE:
+				case LIBRO->catalogo.addAll(csvDao.retrieveRaccoltaData(new File("report/reportLibro.csv")));
+
+				case GIORNALE->
 					catalogo.addAll(csvDao.retrieveRaccoltaData(new File("report/reportGiornale.csv")));
-					break;
-				case RIVISTA:
+
+				case RIVISTA->
 					catalogo.addAll(csvDao.retrieveRaccoltaData(new File("report/reportRivista.csv")));
-					break;
-				default:
-					return catalogo;
 
-
+				default-> throw new IdException(" id/type not valid");
 
 			}
-
-
-
 		}
 		else {
 			switch (type) {
-				case LIBRO:
+				case LIBRO->
 					catalogo.addAll(lD.getLibri());
-					break;
-				case GIORNALE:
+
+				case GIORNALE->
 					catalogo.addAll(gD.getGiornali());
-					break;
-				case RIVISTA:
+
+				case RIVISTA->
 					catalogo.addAll(rD.getRiviste());
-					break;
-				default:
-					return catalogo;
+
+				default-> throw new IdException( " db : id / type not found");
+
 
 			}
 		}

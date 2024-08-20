@@ -13,7 +13,7 @@ import laptop.utilities.ConnToDb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-<span class="nc" id="L16">public class CartaCreditoDao {</span>
+<span class="fc" id="L16">public class CartaCreditoDao {</span>
 
 	private  String n;
 	private  String cog;
@@ -23,16 +23,16 @@ import javafx.collections.ObservableList;
 	public ObservableList&lt;CartaDiCredito&gt; getCarteCredito(String nome)
 	{
 		String cod;
-<span class="nc" id="L26">		query=&quot;select nomeP,cognomeP,codiceCarta from CARTACREDITO where nomeP=?&quot;;</span>
+<span class="fc" id="L26">		query=&quot;select nomeP,cognomeP,codiceCarta from CARTACREDITO where nomeP=?&quot;;</span>
 		
-<span class="nc" id="L28">		ObservableList&lt;CartaDiCredito&gt; catalogo=FXCollections.observableArrayList();</span>
+<span class="fc" id="L28">		ObservableList&lt;CartaDiCredito&gt; catalogo=FXCollections.observableArrayList();</span>
 
-<span class="nc" id="L30">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L31">				PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="fc" id="L30">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L31">				PreparedStatement prepQ=conn.prepareStatement(query))</span>
 		{
-<span class="nc" id="L33">			prepQ.setString(1, nome);</span>
-<span class="nc" id="L34">			ResultSet rs=prepQ.executeQuery();</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">			while(rs.next())</span>
+<span class="fc" id="L33">			prepQ.setString(1, nome);</span>
+<span class="fc" id="L34">			ResultSet rs=prepQ.executeQuery();</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">			while(rs.next())</span>
 			{
 <span class="nc" id="L37">				n=rs.getString(1);</span>
 <span class="nc" id="L38">				cog=rs.getString(2);</span>
@@ -46,10 +46,10 @@ import javafx.collections.ObservableList;
 <span class="nc" id="L46">		}catch(SQLException e)</span>
 		{
 <span class="nc" id="L48">						Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L49">		}</span>
+<span class="fc" id="L49">		}</span>
 			
 	
-<span class="nc" id="L52">		return catalogo;</span>
+<span class="fc" id="L52">		return catalogo;</span>
 
 
 	}	
@@ -57,44 +57,44 @@ import javafx.collections.ObservableList;
 	public void insCC(CartaDiCredito cc) {
 
 
-<span class="nc" id="L60">		query = &quot;insert into CARTACREDITO (nomeP,cognomeP,codiceCarta,scadenza,pin,ammontare)  values(?,?,?,?,?,?)&quot;;</span>
+<span class="fc" id="L60">		query = &quot;insert into CARTACREDITO (nomeP,cognomeP,codiceCarta,scadenza,pin,ammontare)  values(?,?,?,?,?,?)&quot;;</span>
 
 
-<span class="nc" id="L63">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L64">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
-<span class="nc" id="L65">			prepQ.setString(1, cc.getNomeUser());</span>
-<span class="nc" id="L66">			prepQ.setString(2, cc.getCognomeUser());</span>
-<span class="nc" id="L67">			prepQ.setString(3, cc.getNumeroCC());</span>
-<span class="nc" id="L68">			prepQ.setDate(4, (Date) cc.getScadenza());</span>
-<span class="nc" id="L69">			prepQ.setString(5, cc.getCiv());</span>
+<span class="fc" id="L63">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L64">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L65">			prepQ.setString(1, cc.getNomeUser());</span>
+<span class="fc" id="L66">			prepQ.setString(2, cc.getCognomeUser());</span>
+<span class="fc" id="L67">			prepQ.setString(3, cc.getNumeroCC());</span>
+<span class="fc" id="L68">			prepQ.setDate(4, (Date) cc.getScadenza());</span>
+<span class="fc" id="L69">			prepQ.setString(5, cc.getCiv());</span>
 			//in alternativa vis.getSpesa
-<span class="nc" id="L71">			prepQ.setFloat(6, cc.getPrezzoTransazine());</span>
-<span class="nc" id="L72">			 prepQ.executeLargeUpdate();</span>
+<span class="fc" id="L71">			prepQ.setFloat(6, cc.getPrezzoTransazine());</span>
+<span class="fc" id="L72">			 prepQ.executeLargeUpdate();</span>
 <span class="nc" id="L73">		} catch (SQLException e) {</span>
 <span class="nc" id="L74">			Logger.getLogger(&quot;report libro&quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta .&quot;, e);</span>
 
-<span class="nc" id="L76">		}</span>
-<span class="nc" id="L77">	}</span>
+<span class="fc" id="L76">		}</span>
+<span class="fc" id="L77">	}</span>
 
 	
 	public CartaDiCredito  popolaDati(CartaDiCredito cc)
 	{
 		String cod;
-<span class="nc" id="L83">		n = null;</span>
-<span class="nc" id="L84">		cog = null;</span>
-<span class="nc" id="L85">		cod = null;</span>
-<span class="nc" id="L86">		Date date = null;</span>
-<span class="nc" id="L87">		String civ = null;</span>
+<span class="fc" id="L83">		n = null;</span>
+<span class="fc" id="L84">		cog = null;</span>
+<span class="fc" id="L85">		cod = null;</span>
+<span class="fc" id="L86">		Date date = null;</span>
+<span class="fc" id="L87">		String civ = null;</span>
 
-<span class="nc" id="L89">		query=&quot;select distinct nomeP,cognomeP,codiceCarta,scadenza,pin from CARTACREDITO where codiceCarta=?&quot;;</span>
+<span class="fc" id="L89">		query=&quot;select distinct nomeP,cognomeP,codiceCarta,scadenza,pin from CARTACREDITO where codiceCarta=?&quot;;</span>
 
 		
-<span class="nc" id="L92">			try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L93">					PreparedStatement prepQ=conn.prepareStatement(query)){</span>
-<span class="nc" id="L94">				prepQ.setString(1, cc.getNumeroCC());</span>
-<span class="nc" id="L95">				ResultSet rs=prepQ.executeQuery();</span>
+<span class="fc" id="L92">			try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L93">					PreparedStatement prepQ=conn.prepareStatement(query)){</span>
+<span class="fc" id="L94">				prepQ.setString(1, cc.getNumeroCC());</span>
+<span class="fc" id="L95">				ResultSet rs=prepQ.executeQuery();</span>
 
-<span class="nc bnc" id="L97" title="All 2 branches missed.">				while(rs.next())</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">				while(rs.next())</span>
 				{
 <span class="nc" id="L99">					n=rs.getString(1);</span>
 <span class="nc" id="L100">					cog=rs.getString(2);</span>
@@ -105,20 +105,20 @@ import javafx.collections.ObservableList;
 
 				}
 
-<span class="nc" id="L108">				cc.setNomeUser(n);</span>
-<span class="nc" id="L109">				cc.setCognomeUser(cog);</span>
-<span class="nc" id="L110">				cc.setNumeroCC(cod);</span>
+<span class="fc" id="L108">				cc.setNomeUser(n);</span>
+<span class="fc" id="L109">				cc.setCognomeUser(cog);</span>
+<span class="fc" id="L110">				cc.setNumeroCC(cod);</span>
 
 
-<span class="nc bnc" id="L113" title="All 2 branches missed.">                if (date != null) {</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">                if (date != null) {</span>
 <span class="nc" id="L114">                    cc.setScadenza(Date.valueOf(date.toLocalDate()));</span>
                 }
-<span class="nc" id="L116">                cc.setCiv(civ);</span>
+<span class="fc" id="L116">                cc.setCiv(civ);</span>
 <span class="nc" id="L117">			} catch (SQLException  e) {</span>
 <span class="nc" id="L118">				Logger.getLogger(&quot;report libro&quot;).log(Level.SEVERE,&quot;\n eccezione ottenuta .&quot;,e);</span>
 
-<span class="nc" id="L120">			}</span>
-<span class="nc" id="L121">		return cc;</span>
+<span class="fc" id="L120">			}</span>
+<span class="fc" id="L121">		return cc;</span>
 
 	}
 

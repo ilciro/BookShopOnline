@@ -371,7 +371,6 @@ public class Libro implements Raccolta {
 		this.infoGenerali=info;
 		this.infoCostiDisp=prezzi;
 		this.descrizione=descrizione;
-
 		this.recensione=recensione;
 		this.dataPubb = dataPubb;
 
@@ -383,11 +382,15 @@ public class Libro implements Raccolta {
 		this.categoria=info[5];
 
 
+
+
+
 		this.nrPagine=Integer.parseInt(prezzi[0]);
+
 		this.nrCopie=Integer.parseInt(prezzi[1]);
 		this.disponibilita=Integer.parseInt(prezzi[2]);
 		this.prezzo=Float.parseFloat(prezzi[3]);
-		this.id=Integer.parseInt(prezzi[4]);
+		this.id= Integer.parseInt(prezzi[4]);
 
 
 

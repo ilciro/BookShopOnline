@@ -91,7 +91,7 @@ public class BoundaryPagamentoCash implements Initializable{
 
 			} else {
 
-				cPC.	controlla(n, c, v, com);
+				cPC.controlla(n, c, v, com);
 				
 				java.util.logging.Logger.getLogger("pagamento cash").log(Level.INFO,"\n pagamento avvenuto");
 

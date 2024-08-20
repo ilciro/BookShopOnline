@@ -12,57 +12,57 @@ import laptop.utilities.ConnToDb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-<span class="nc" id="L15">public class NegozioDao {</span>
+<span class="fc" id="L15">public class NegozioDao {</span>
 	private String query;
 	private static final String ECCEZIONE=&quot;eccezione ottenuta:&quot;;
 
 	public ObservableList&lt;Negozio&gt; getNegozi() {
 		Negozio shop;
 		 ObservableList&lt;Negozio&gt; listOfNegozi;
-<span class="nc" id="L22">		listOfNegozi=FXCollections.observableArrayList();</span>
+<span class="fc" id="L22">		listOfNegozi=FXCollections.observableArrayList();</span>
 
-<span class="nc" id="L24">		query=&quot;SELECT  nome,via,isValid,isOpen from NEGOZIO&quot;;</span>
+<span class="fc" id="L24">		query=&quot;SELECT  nome,via,isValid,isOpen from NEGOZIO&quot;;</span>
 				
 
-<span class="nc" id="L27">			 try(Connection conn= ConnToDb.connectionToDB();</span>
-<span class="nc" id="L28">			 PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="fc" id="L27">			 try(Connection conn= ConnToDb.connectionToDB();</span>
+<span class="fc" id="L28">			 PreparedStatement prepQ=conn.prepareStatement(query))</span>
 			 {
-<span class="nc" id="L30">	 			ResultSet rs=prepQ.executeQuery();</span>
+<span class="fc" id="L30">	 			ResultSet rs=prepQ.executeQuery();</span>
 			
-<span class="nc bnc" id="L32" title="All 2 branches missed.">				while (rs.next())</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">				while (rs.next())</span>
 				{
-<span class="nc" id="L34">					shop = new Negozio(rs.getString(1),rs.getString(2),rs.getBoolean(3),rs.getBoolean(4));</span>
-<span class="nc" id="L35">					listOfNegozi.add(shop);</span>
+<span class="fc" id="L34">					shop = new Negozio(rs.getString(1),rs.getString(2),rs.getBoolean(3),rs.getBoolean(4));</span>
+<span class="fc" id="L35">					listOfNegozi.add(shop);</span>
 				}
 <span class="nc" id="L37">			 }catch(SQLException e)</span>
 			 {
 <span class="nc" id="L39">				java.util.logging.Logger.getLogger(&quot;get negozi&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L40">			 }</span>
+<span class="fc" id="L40">			 }</span>
 		
-<span class="nc" id="L42">		return listOfNegozi;</span>
+<span class="fc" id="L42">		return listOfNegozi;</span>
 	}
 	
 	public Boolean setOpen(Negozio shop, boolean i)
 	{
 		// vanno messe  le query
 		
-<span class="nc" id="L49">		query=&quot;update NEGOZIO set isOpen =? where nome=?&quot;;</span>
+<span class="fc" id="L49">		query=&quot;update NEGOZIO set isOpen =? where nome=?&quot;;</span>
 		
 			
-<span class="nc" id="L52">				try(Connection conn= ConnToDb.connectionToDB();</span>
-<span class="nc" id="L53">				 PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="fc" id="L52">				try(Connection conn= ConnToDb.connectionToDB();</span>
+<span class="fc" id="L53">				 PreparedStatement prepQ=conn.prepareStatement(query))</span>
 				{
 				
-<span class="nc" id="L56">					prepQ.setBoolean(1, i);</span>
-<span class="nc" id="L57">					prepQ.setString(2, shop.getNome());</span>
-<span class="nc" id="L58">					prepQ.executeUpdate();</span>
+<span class="fc" id="L56">					prepQ.setBoolean(1, i);</span>
+<span class="fc" id="L57">					prepQ.setString(2, shop.getNome());</span>
+<span class="fc" id="L58">					prepQ.executeUpdate();</span>
 <span class="nc" id="L59">				}catch(SQLException e)</span>
 				{
 <span class="nc" id="L61">					java.util.logging.Logger.getLogger(&quot;set open&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L62">				}</span>
+<span class="fc" id="L62">				}</span>
 					
 			
-<span class="nc" id="L65">		return i;</span>
+<span class="fc" id="L65">		return i;</span>
 		
 		
 	}
@@ -70,66 +70,66 @@ import javafx.collections.ObservableList;
 	public boolean setRitiro(Negozio shop, boolean i ) throws SQLException
 	{
 		
-<span class="nc" id="L73">			query=&quot;update NEGOZIO set isValid =? where nome=?&quot;;</span>
-<span class="nc" id="L74">			try(Connection conn= ConnToDb.connectionToDB();</span>
-<span class="nc" id="L75">					PreparedStatement  prepQ=conn.prepareStatement(query);</span>
+<span class="fc" id="L73">			query=&quot;update NEGOZIO set isValid =? where nome=?&quot;;</span>
+<span class="fc" id="L74">			try(Connection conn= ConnToDb.connectionToDB();</span>
+<span class="fc" id="L75">					PreparedStatement  prepQ=conn.prepareStatement(query);</span>
 					)
 			{
-<span class="nc" id="L78">					prepQ.setBoolean(1, i);</span>
-<span class="nc" id="L79">					prepQ.setString(2, shop.getNome());</span>
-<span class="nc" id="L80">					prepQ.executeUpdate();</span>
+<span class="fc" id="L78">					prepQ.setBoolean(1, i);</span>
+<span class="fc" id="L79">					prepQ.setString(2, shop.getNome());</span>
+<span class="fc" id="L80">					prepQ.executeUpdate();</span>
 					
 			}
 		
-<span class="nc" id="L84">		return i;</span>
+<span class="fc" id="L84">		return i;</span>
 	}
 	
 	
 	// controllo che il negozio sia aperto
 	public boolean checkOpen(Negozio  shop) throws SQLException
 	{
-<span class="nc" id="L91">		int aperto=0;</span>
-<span class="nc" id="L92">		boolean state=false;</span>
-<span class="nc" id="L93">		query=&quot;select isOpen from NEGOZIO where nome=?&quot;;</span>
-<span class="nc" id="L94">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L95">				PreparedStatement prepQ=conn.prepareCall(query))</span>
+<span class="fc" id="L91">		int aperto=0;</span>
+<span class="fc" id="L92">		boolean state=false;</span>
+<span class="fc" id="L93">		query=&quot;select isOpen from NEGOZIO where nome=?&quot;;</span>
+<span class="fc" id="L94">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L95">				PreparedStatement prepQ=conn.prepareCall(query))</span>
 		{
-<span class="nc" id="L97">			prepQ.setString(1, shop.getNome());</span>
-<span class="nc" id="L98">			ResultSet rs=prepQ.executeQuery();</span>
-<span class="nc bnc" id="L99" title="All 2 branches missed.">			while(rs.next()){</span>
-<span class="nc" id="L100">				aperto=rs.getInt(1);</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">				if(aperto==1)</span>
+<span class="fc" id="L97">			prepQ.setString(1, shop.getNome());</span>
+<span class="fc" id="L98">			ResultSet rs=prepQ.executeQuery();</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">			while(rs.next()){</span>
+<span class="fc" id="L100">				aperto=rs.getInt(1);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">				if(aperto==1)</span>
 <span class="nc" id="L102">					state=true;</span>
 				
 			}
 <span class="nc" id="L105">		}catch(SQLException e)</span>
 		{
 <span class="nc" id="L107">			java.util.logging.Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L108">		}</span>
+<span class="fc" id="L108">		}</span>
 			 
 			
 		
-<span class="nc" id="L112">		return state;</span>
+<span class="fc" id="L112">		return state;</span>
 	}
 
 	
 	//controllo se il negozio fa PickUP
 	public boolean checkRitiro(Negozio shop) throws SQLException
 	{
-<span class="nc" id="L119">		query=&quot;select isValid from NEGOZIO where nome=?&quot;;</span>
-<span class="nc" id="L120">		boolean state=false;</span>
+<span class="fc" id="L119">		query=&quot;select isValid from NEGOZIO where nome=?&quot;;</span>
+<span class="fc" id="L120">		boolean state=false;</span>
 		int disp;
 		
-<span class="nc" id="L123">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L124">				PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="fc" id="L123">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L124">				PreparedStatement prepQ=conn.prepareStatement(query))</span>
 		{
-<span class="nc" id="L126">			prepQ.setString(1, shop.getNome());</span>
-<span class="nc" id="L127">			ResultSet rs=prepQ.executeQuery();</span>
-<span class="nc bnc" id="L128" title="All 2 branches missed.">			while ( rs.next() ) {</span>
+<span class="fc" id="L126">			prepQ.setString(1, shop.getNome());</span>
+<span class="fc" id="L127">			ResultSet rs=prepQ.executeQuery();</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">			while ( rs.next() ) {</span>
 
-<span class="nc" id="L130">					disp=rs.getInt(1);</span>
-<span class="nc bnc" id="L131" title="All 2 branches missed.">					if (disp==1)</span>
-<span class="nc" id="L132">						state=true;</span>
+<span class="fc" id="L130">					disp=rs.getInt(1);</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">					if (disp==1)</span>
+<span class="fc" id="L132">						state=true;</span>
 				
 						
 			}
@@ -137,9 +137,9 @@ import javafx.collections.ObservableList;
 <span class="nc" id="L137">		}catch(SQLException e)</span>
 		{
 <span class="nc" id="L139">			java.util.logging.Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L140">		}</span>
+<span class="fc" id="L140">		}</span>
 			
-<span class="nc" id="L142">		return state;</span>
+<span class="fc" id="L142">		return state;</span>
 	}
 	
 }

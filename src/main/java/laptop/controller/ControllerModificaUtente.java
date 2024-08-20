@@ -1,5 +1,6 @@
 package laptop.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -37,14 +38,16 @@ public class ControllerModificaUtente {
 
 	}
 
-	public User prendiCsv() throws CsvValidationException, IOException {
-		return csvUtente.userList(User.getInstance()).get(0);
+	public User prendiCsv() throws CsvValidationException, IOException, IdException {
+		return csvUtente.userList(new File("report/reportUtente.csv"),User.getInstance()).get(0);
 	}
 
 
 	public boolean aggiornaTot(String n, String c, String email1, String pass, String desc, LocalDate localDate, String ruolo) throws SQLException, CsvValidationException, IOException, IdException {
 		//sistemare anche qui
-		uT=prendi();
+		if(vis.getTypeOfDb().equals("file"))
+			uT=prendiCsv();
+		else uT=prendi();
 
 		uT.setNome(n);
 		uT.setCognome(c);

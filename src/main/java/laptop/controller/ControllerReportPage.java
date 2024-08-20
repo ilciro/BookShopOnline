@@ -51,7 +51,7 @@ public class ControllerReportPage {
 
 
 	/*
-	uso queste operazioni er leggere ogni singolo file
+	uso queste operazioni per leggere ogni singolo file
 	 */
 	public String leggiLibro() throws  IOException {
 		generaReportLibri();

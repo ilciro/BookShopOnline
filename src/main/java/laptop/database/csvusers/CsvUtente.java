@@ -5,7 +5,6 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.exception.IdException;
 import laptop.model.User;
-import laptop.model.raccolta.Libro;
 import org.apache.commons.lang.SystemUtils;
 
 import java.io.*;
@@ -33,8 +32,10 @@ public class CsvUtente implements UserInterface{
     private static final int GETINDEXDESC=6;
     private static final int GETINDEXDATAN=7;
     private static final String LOCATIONU="report/reportUtente.csv";
-    private final HashMap<String,User> cacheU;
+    private final HashMap<String, User> cacheU;
     private final File fdU=new File(LOCATIONU);
+
+
 
 
     public CsvUtente()
@@ -54,8 +55,9 @@ public class CsvUtente implements UserInterface{
         boolean duplicated;
         synchronized (this.cacheU) {
             boolean duplicatedM = (this.cacheU.get(u.getEmail()) != null);
-            boolean duplicatedP = (this.cacheU.get(u.getEmail()) != null);
+            boolean duplicatedP = (this.cacheU.get(u.getPassword()) != null);
             duplicated = duplicatedM && duplicatedP;
+
         }
         if(!duplicated)
         {
@@ -73,7 +75,7 @@ public class CsvUtente implements UserInterface{
     }
 
     @Override
-    public List<User> userList(User u) throws CsvValidationException, IOException {
+    public List<User> userList(File fd,User u) throws CsvValidationException, IOException {
         List<User> list=new ArrayList<>();
         synchronized (this.cacheU)
         {
@@ -223,7 +225,4 @@ public class CsvUtente implements UserInterface{
         }
 
     }
-
-
-
 }

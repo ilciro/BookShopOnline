@@ -130,7 +130,7 @@ public class BoundaryModificaUtentePage implements Initializable {
 
 	
 	@FXML
-	private void prendiDati() throws SQLException, CsvValidationException, IOException {
+	private void prendiDati() throws SQLException, CsvValidationException, IOException, IdException {
 		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file")) {
 
 			utenteL.setText(cMU.prendiCsv().getIdRuolo());

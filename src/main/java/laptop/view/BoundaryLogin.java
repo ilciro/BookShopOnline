@@ -21,8 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerLogin;
-
-
+import laptop.exception.IdException;
 
 
 public class BoundaryLogin implements Initializable {
@@ -66,7 +65,7 @@ public class BoundaryLogin implements Initializable {
 	}
 
 	@FXML
-	private void controllaCredenziali() throws IOException, SQLException, CsvValidationException {
+	private void controllaCredenziali() throws IOException, SQLException, CsvValidationException, IdException {
 		
 		String u;
 		String p;
