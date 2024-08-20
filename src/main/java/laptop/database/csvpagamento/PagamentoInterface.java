@@ -19,5 +19,4 @@ public interface PagamentoInterface {
 
      void inserisciPagamento(Pagamento p) throws IdException, CsvValidationException, IOException;
 
-     //List<Fattura> fatturaList(File fd,Fattura f) throws CsvValidationException, IOException, IdException;
 }

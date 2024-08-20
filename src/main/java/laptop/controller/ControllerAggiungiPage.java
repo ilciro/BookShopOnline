@@ -26,7 +26,6 @@ public class ControllerAggiungiPage {
 	private static final ControllerSystemState vis= ControllerSystemState.getInstance();
 	private  final CsvOggettoDao csv;
 	private final Libro l;
-	private final Giornale g;
 
 	
 	//funzione di aggiunta dei libri
@@ -128,7 +127,6 @@ public class ControllerAggiungiPage {
 		lD=new LibroDao();
 		csv=new CsvOggettoDao();
 		l=new Libro();
-		g=new Giornale();
 
 	}
 

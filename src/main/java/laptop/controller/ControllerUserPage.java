@@ -9,10 +9,8 @@ import java.util.logging.Level;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
-import laptop.database.csvusers.CsvUtente;
 
 public class ControllerUserPage {
-	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 
 	
 	public void getUtenti() throws IOException {

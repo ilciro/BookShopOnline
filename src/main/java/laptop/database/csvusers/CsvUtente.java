@@ -145,10 +145,11 @@ public class CsvUtente implements UserInterface{
         while ((gVector = reader.readNext()) != null) {
             if(id>0)
                 recordFound=gVector[GETINDEXIDUSER].equals(String.valueOf(id));
-            if(mail!=null)
-                if(pass!=null)
-                    recordFound=gVector[GETINDEXEMAIL].equals(mail) && gVector[GETINDEXPWD].equals(pass);
-                else recordFound=gVector[GETINDEXEMAIL].equals(mail);
+            if(mail!=null) {
+                if (pass != null)
+                    recordFound = gVector[GETINDEXEMAIL].equals(mail) && gVector[GETINDEXPWD].equals(pass);
+                else recordFound = gVector[GETINDEXEMAIL].equals(mail);
+            }
             if(recordFound)
             {
                 String idU=gVector[GETINDEXIDUSER];

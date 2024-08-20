@@ -105,7 +105,6 @@ public class ControllerPagamentoCC {
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 			{
-				//csvFattura.inserisciCartaCredito(cc);
 
 				cCPD.checkPagamentoData(n);
 			}
@@ -127,7 +126,7 @@ public class ControllerPagamentoCC {
 
         if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
-           // csvFattura.getAllDataCredito(nomeU);
+            return null;
         }
 
 		return cDao.getCarteCredito(nomeU);

@@ -29,8 +29,7 @@ public class ControllerCheckPagamentoData {
 	private final FatturaPagamentoCCredito csvFattura;
 	private final CsvOggettoDao csv;
 	private final GiornaleDao gD=new GiornaleDao();
-	private static final String FATTURA="report/reportFattura.csv";
-	private static final String PAGAMENTO="report/reportPagamento.csv";
+
 	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
 		String tipo=vis.getType();
 		

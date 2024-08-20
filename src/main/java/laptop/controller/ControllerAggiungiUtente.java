@@ -9,7 +9,6 @@ import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
-import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.database.csvusers.CsvUtente;
 import laptop.exception.IdException;
 import laptop.model.User;
@@ -44,10 +43,9 @@ public class ControllerAggiungiUtente {
        User.getInstance().setPassword(pass);
        User.getInstance().setDataDiNascita(sqlDate.toLocalDate());
 
-	   System.out.println("roba nel CAU :" + User.getInstance().getEmail() +" pass : "+ User.getInstance().getPassword());
-		if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+			if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
 		   state=csv.inserisciUtente(User.getInstance());
-       else
+        else
 		    state= UsersDao.createUser(User.getInstance());
 	   return state;
 		

@@ -9,40 +9,38 @@ import java.util.logging.Level;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
-import laptop.database.csvusers.CsvUtente;
 
 public class ControllerUserPage {
-<span class="fc" id="L15">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 
 	
 	public void getUtenti() throws IOException {
 
-<span class="nc" id="L20">		 UsersDao.getListaUtenti();</span>
-<span class="nc" id="L21">	}</span>
+<span class="nc" id="L18">		 UsersDao.getListaUtenti();</span>
+<span class="nc" id="L19">	}</span>
 	
 	public ControllerUserPage()
-<span class="fc" id="L24">	{</span>
+<span class="fc" id="L22">	{</span>
 
-<span class="fc" id="L26">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerUserPage&quot;);</span>
+<span class="fc" id="L24">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO,&quot;Costruttore ControllerUserPage&quot;);</span>
 
-<span class="fc" id="L28">	}</span>
+<span class="fc" id="L26">	}</span>
 
 	public String getCsvData()
 	{
-<span class="fc" id="L32">		StringBuilder builder=new StringBuilder();</span>
+<span class="fc" id="L30">		StringBuilder builder=new StringBuilder();</span>
 		try {
-<span class="fc" id="L34">			CSVReader reader=new CSVReader(new BufferedReader(new FileReader(&quot;report/reportUtente.csv&quot;)));</span>
+<span class="fc" id="L32">			CSVReader reader=new CSVReader(new BufferedReader(new FileReader(&quot;report/reportUtente.csv&quot;)));</span>
 			String[] gVector;
-<span class="fc bfc" id="L36" title="All 2 branches covered.">			while((gVector=reader.readNext())!=null){</span>
-<span class="fc" id="L37">				builder.append(Arrays.toString(gVector));</span>
-<span class="fc" id="L38">				builder.append(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">			while((gVector=reader.readNext())!=null){</span>
+<span class="fc" id="L35">				builder.append(Arrays.toString(gVector));</span>
+<span class="fc" id="L36">				builder.append(&quot;\n&quot;);</span>
 			}
 
-<span class="nc" id="L41">		}catch (CsvValidationException | IOException e)</span>
+<span class="nc" id="L39">		}catch (CsvValidationException | IOException e)</span>
 		{
-<span class="nc" id="L43">			e.getCause();</span>
-<span class="fc" id="L44">		}</span>
-<span class="fc" id="L45">		return builder.toString();</span>
+<span class="nc" id="L41">			e.getCause();</span>
+<span class="fc" id="L42">		}</span>
+<span class="fc" id="L43">		return builder.toString();</span>
 	}
 
 }
