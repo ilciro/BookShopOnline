@@ -18,13 +18,14 @@ import laptop.model.raccolta.Rivista;
 
 public class ControllerModifPage {
 	private final LibroDao ld;
-	private final Libro l;
+	private Libro l;
 	private final Giornale g;
 	private final GiornaleDao gD;
-	private final Rivista r;
+	private Rivista r;
 	private final RivistaDao rD;
 	private final CsvOggettoDao csv;
 	private final ControllerSystemState vis=ControllerSystemState.getInstance();
+	private final ControllerPassDataCAPCMP cpd;
 	private static final String LOCATIONL="report/reportLibro.csv";
 	private static final String LOCATIONG="report/reportGiornale.csv";
 	private static final String LOCATIONR="report/reportRivista.csv";
@@ -85,16 +86,7 @@ public class ControllerModifPage {
 		public boolean checkDataR(String [] info) throws SQLException, CsvValidationException, IOException, IdException {
 
 
-			r.setTitolo(info[0]);
-			r.setTipologia(info[1]);
-			r.setAutore(info[2]);
-			r.setLingua(info[3]);
-			r.setEditore(info[4]);
-			r.setDescrizione(info[5]);
-			r.setDataPubb(LocalDate.parse(info[6]));
-			r.setDisp(Integer.parseInt(info[7]));
-			r.setPrezzo(Float.parseFloat(info[8]));
-			r.setCopieRim(Integer.parseInt(info[9]));
+			r=cpd.getRivista(info);
 
 			if (vis.getTypeOfDb().equals("file")) {
 				Rivista r1=csv.retrieveRivistaData(new File(LOCATIONR),r).get(0);
@@ -120,25 +112,14 @@ public class ControllerModifPage {
 		r=new Rivista();
 		rD=new RivistaDao();
 		csv=new CsvOggettoDao();
+		cpd=new ControllerPassDataCAPCMP();
 	}
 	
 	
 	public boolean checkDataL(String []data) throws NullPointerException, CsvValidationException, IOException, IdException {
 
 		boolean status;
-		l.setTitolo(data[0]);
-		l.setNrPagine(Integer.parseInt(data[1]));
-		l.setCodIsbn(data[2]);
-		l.setEditore(data[3]);
-		l.setAutore(data[4]);
-		l.setLingua(data[5]);
-		l.setCategoria(data[6]);
-		l.setDataPubb(LocalDate.parse(data[7]));
-		l.setRecensione(data[8]);
-		l.setNrCopie(Integer.parseInt(data[9]));
-		l.setDesc(data[10]);
-		l.setDisponibilita(Integer.parseInt(data[11]));
-		l.setPrezzo(Float.parseFloat(data[12]));
+		l=cpd.getLibro(data);
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 		{
 

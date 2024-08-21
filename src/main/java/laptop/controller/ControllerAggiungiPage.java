@@ -20,12 +20,13 @@ public class ControllerAggiungiPage {
 
 	private final GiornaleDao gD;
 	private boolean status = false;
-	private final Rivista r;
+	private Rivista r;
 	private final RivistaDao rD;
 	private final LibroDao lD;
 	private static final ControllerSystemState vis= ControllerSystemState.getInstance();
 	private  final CsvOggettoDao csv;
-	private final Libro l;
+	private Libro l;
+	private final ControllerPassDataCAPCMP cpd;
 
 	
 	//funzione di aggiunta dei libri
@@ -55,19 +56,7 @@ public class ControllerAggiungiPage {
 
 		
 
-			
-		r.setTitolo(info[0]);
-		r.setTipologia(info[1]);
-		r.setAutore(info[2]);
-		r.setLingua(info[3]);
-		r.setEditore(info[4]);
-		r.setDescrizione(info[5]);
-		r.setDataPubb(LocalDate.parse(info[6]));
-		r.setDisp(Integer.parseInt(info[7]));
-		r.setPrezzo(Float.parseFloat(info[8]));
-		r.setCopieRim(Integer.parseInt(info[9]));
-
-
+		r=cpd.getRivista(info);
 
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
@@ -82,19 +71,7 @@ public class ControllerAggiungiPage {
 
 	public boolean checkDataL(String [] data) throws CsvValidationException, IOException, IdException, SQLException {
 
-		l.setTitolo(data[0]);
-		l.setNrPagine(Integer.parseInt(data[1]));
-		l.setCodIsbn(data[2]);
-		l.setEditore(data[3]);
-		l.setAutore(data[4]);
-		l.setLingua(data[5]);
-		l.setCategoria(data[6]);
-		l.setDataPubb(LocalDate.parse(data[7]));
-		l.setRecensione(data[8]);
-		l.setNrCopie(Integer.parseInt(data[9]));
-		l.setDesc(data[10]);
-		l.setDisponibilita(Integer.parseInt(data[11]));
-		l.setPrezzo(Float.parseFloat(data[12]));
+		l=cpd.getLibro(data);
 		if (l.getCodIsbn().length() <= 10 && l.getDataPubb() != null) {
 
 			switch (vis.getTypeOfDb()) {
@@ -127,6 +104,7 @@ public class ControllerAggiungiPage {
 		lD=new LibroDao();
 		csv=new CsvOggettoDao();
 		l=new Libro();
+		cpd=new ControllerPassDataCAPCMP();
 
 	}
 

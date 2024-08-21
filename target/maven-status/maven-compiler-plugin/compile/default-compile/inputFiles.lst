@@ -13,6 +13,7 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerModificaUtente.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerPagamentoCC.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerPagamentoCash.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerPassDataCAPCMP.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerPassword.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerRegistraUtente.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/laptop/controller/ControllerReportPage.java

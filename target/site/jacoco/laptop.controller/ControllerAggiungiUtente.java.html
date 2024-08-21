@@ -24,30 +24,32 @@ public class ControllerAggiungiUtente {
 <span class="fc" id="L24">	}</span>
 
 	public boolean checkData(String nome, String cognome, String email, String pass, String dataN) throws ParseException, SQLException, CsvValidationException, IOException, IdException {
-		boolean state;
-		Date sqlDate ;
-		java.util.Date utilDate;
-		
-<span class="fc" id="L31">		SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);</span>
+	boolean state;
+	Date sqlDate ;
+	java.util.Date utilDate;
 
-	  
-<span class="fc" id="L34">		utilDate = format.parse(dataN);</span>
-<span class="fc" id="L35">	    sqlDate = new Date(utilDate.getTime());</span>
-       
+<span class="fc" id="L31">	SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);</span>
 
-<span class="fc" id="L38">		User.getInstance().setIdRuolo(&quot;U&quot;);</span>
-       
-<span class="fc" id="L40">       User.getInstance().setNome(nome);</span>
-<span class="fc" id="L41">       User.getInstance().setCognome(cognome);</span>
-<span class="fc" id="L42">       User.getInstance().setEmail(email);</span>
-<span class="fc" id="L43">       User.getInstance().setPassword(pass);</span>
-<span class="fc" id="L44">       User.getInstance().setDataDiNascita(sqlDate.toLocalDate());</span>
 
-<span class="fc bfc" id="L46" title="All 2 branches covered.">			if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
-<span class="fc" id="L47">		   state=csv.inserisciUtente(User.getInstance());</span>
-        else
-<span class="fc" id="L49">		    state= UsersDao.createUser(User.getInstance());</span>
-<span class="fc" id="L50">	   return state;</span>
+<span class="fc" id="L34">	utilDate = format.parse(dataN);</span>
+<span class="fc" id="L35">	sqlDate = new Date(utilDate.getTime());</span>
+
+
+<span class="fc" id="L38">	User.getInstance().setIdRuolo(&quot;U&quot;);</span>
+
+<span class="fc" id="L40">	User.getInstance().setNome(nome);</span>
+<span class="fc" id="L41">	User.getInstance().setCognome(cognome);</span>
+<span class="fc" id="L42">	User.getInstance().setEmail(email);</span>
+<span class="fc" id="L43">	User.getInstance().setPassword(pass);</span>
+<span class="fc" id="L44">	User.getInstance().setDataDiNascita(sqlDate.toLocalDate());</span>
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">	if(ControllerSystemState.getInstance().getTypeOfDb().equals(&quot;file&quot;))</span>
+<span class="fc" id="L47">	   state=csv.inserisciUtente(User.getInstance());</span>
+	else
+	{
+<span class="fc" id="L50">	   state= UsersDao.createUser(User.getInstance());</span>
+	}
+<span class="fc" id="L52">	return state;</span>
 		
 	}
 

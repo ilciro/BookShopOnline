@@ -24,30 +24,32 @@ public class ControllerAggiungiUtente {
 	}
 
 	public boolean checkData(String nome, String cognome, String email, String pass, String dataN) throws ParseException, SQLException, CsvValidationException, IOException, IdException {
-		boolean state;
-		Date sqlDate ;
-		java.util.Date utilDate;
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+	boolean state;
+	Date sqlDate ;
+	java.util.Date utilDate;
 
-	  
-		utilDate = format.parse(dataN);
-	    sqlDate = new Date(utilDate.getTime());
-       
+	SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
-		User.getInstance().setIdRuolo("U");
-       
-       User.getInstance().setNome(nome);
-       User.getInstance().setCognome(cognome);
-       User.getInstance().setEmail(email);
-       User.getInstance().setPassword(pass);
-       User.getInstance().setDataDiNascita(sqlDate.toLocalDate());
 
-	   if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
-		   state=csv.inserisciUtente(User.getInstance());
-       else
-		   state= UsersDao.createUser(User.getInstance());
-	   return state;
+	utilDate = format.parse(dataN);
+	sqlDate = new Date(utilDate.getTime());
+
+
+	User.getInstance().setIdRuolo("U");
+
+	User.getInstance().setNome(nome);
+	User.getInstance().setCognome(cognome);
+	User.getInstance().setEmail(email);
+	User.getInstance().setPassword(pass);
+	User.getInstance().setDataDiNascita(sqlDate.toLocalDate());
+
+	if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+	   state=csv.inserisciUtente(User.getInstance());
+	else
+	{
+	   state= UsersDao.createUser(User.getInstance());
+	}
+	return state;
 		
 	}
 

@@ -105,6 +105,7 @@ laptop/model/Pagamento.class
 web/servlet/DownloadServletR.class
 laptop/view/BoundaryUserPage.class
 laptop/controller/ControllerGestionePage.class
+laptop/controller/ControllerPassDataCAPCMP.class
 web/bean/SystemBean.class
 laptop/controller/ControllerPagamentoCash.class
 laptop/model/raccolta/CategorieRivista.class

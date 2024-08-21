@@ -14,10 +14,7 @@ import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -79,7 +76,7 @@ public class CsvUtente implements UserInterface{
         List<User> list=new ArrayList<>();
         synchronized (this.cacheU)
         {
-            for(HashMap.Entry<String,User> entry:this.cacheU.entrySet())
+            for(Map.Entry <String,User> entry:this.cacheU.entrySet())
             {
                 User recordInCache=this.cacheU.get(entry.getKey());
                 boolean recordP=recordInCache.getEmail().equals(u.getEmail());
