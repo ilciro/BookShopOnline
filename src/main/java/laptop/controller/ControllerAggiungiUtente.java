@@ -43,10 +43,10 @@ public class ControllerAggiungiUtente {
        User.getInstance().setPassword(pass);
        User.getInstance().setDataDiNascita(sqlDate.toLocalDate());
 
-			if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
+	   if(ControllerSystemState.getInstance().getTypeOfDb().equals("file"))
 		   state=csv.inserisciUtente(User.getInstance());
-        else
-		    state= UsersDao.createUser(User.getInstance());
+       else
+		   state= UsersDao.createUser(User.getInstance());
 	   return state;
 		
 	}

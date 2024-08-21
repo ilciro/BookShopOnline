@@ -79,9 +79,9 @@ public class CsvUtente implements UserInterface{
         List<User> list=new ArrayList<>();
         synchronized (this.cacheU)
         {
-            for(String id:this.cacheU.keySet())
+            for(HashMap.Entry<String,User> entry:this.cacheU.entrySet())
             {
-                User recordInCache=this.cacheU.get(id);
+                User recordInCache=this.cacheU.get(entry.getKey());
                 boolean recordP=recordInCache.getEmail().equals(u.getEmail());
                 boolean recordM=recordInCache.getPassword().equals(u.getPassword());
                 boolean recordFound=recordP&&recordM;
@@ -200,7 +200,7 @@ public class CsvUtente implements UserInterface{
         String[] giornaleVector;
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));
         //check on path
-        boolean userVectorFound = false;
+        boolean userVectorFound ;
 
 
         while ((giornaleVector = csvReader.readNext()) != null) {

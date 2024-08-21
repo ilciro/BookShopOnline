@@ -12,6 +12,7 @@ import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
 import laptop.model.raccolta.Rivista;
 import org.apache.commons.lang.SystemUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -145,37 +146,8 @@ public class CsvOggettoDao implements DaoInterface {
 
             if (recordFound) {
 
-                String titolo = gVector[GETINDEXTITOLOL];
-                String numeroPagine = gVector[GETINDEXNRPL];
-                String isbn = gVector[GETINDEXISBNL];
-                String editore = gVector[GETINDEXEDITOREL];
-                String autore = gVector[GETINDEXAUTOREL];
-                String lingua = gVector[GETINDEXLINGUAL];
-                String categoria = gVector[GETINDEXCATEGORIAL];
-                String data = gVector[GETINDEXDATAL];
-                String recensione = gVector[GETINDEXRECENSIONEL];
-                String copie = gVector[GETINDEXCOPIEL];
-                String desc = gVector[GETINDEXDESCL];
-                String disp = gVector[GETINDEXDISPL];
-                String prezzo = gVector[GETINDEXPREZZOL];
-
-
-                Libro l=new Libro();
-
-                l.setTitolo(titolo);
-                l.setNrPagine(Integer.parseInt(numeroPagine));
-                l.setCodIsbn(isbn);
-                l.setEditore(editore);
-                l.setAutore(autore);
-                l.setLingua(lingua);
-                l.setCategoria(categoria);
-                l.setDataPubb(LocalDate.parse(data));
-                l.setRecensione(recensione);
-                l.setNrCopie(Integer.parseInt(copie));
-                l.setDesc(desc);
-                l.setDisponibilita(Integer.parseInt(disp));
-                l.setPrezzo(Float.parseFloat(prezzo));
-                list.add(l);
+               Libro l=getLibro(gVector);
+               list.add(l);
 
             }
 
@@ -341,25 +313,7 @@ public class CsvOggettoDao implements DaoInterface {
 
             if (recordFound) {
 
-                String titolo = gVector[GETINDEXTITOLOG];
-                String tipologia = gVector[GETINDEXTIPOLOGIAG];
-                String lingua = gVector[GETINDEXLINGUAG];
-                String ed = gVector[GETINDEXEDITOREG];
-                String data = gVector[GETINDEXDATAG];
-                String copie = gVector[GETINDEXCOPIERG];
-                String disp = gVector[GETINDEXDISPG];
-                String prezzo = gVector[GETINDEXPREZZOG];
-
-                Giornale g = new Giornale();
-
-                g.setTitolo(titolo);
-                g.setTipologia(tipologia);
-                g.setLingua(lingua);
-                g.setEditore(ed);
-                g.setDataPubb(LocalDate.parse(data));
-                g.setCopieRimanenti(Integer.parseInt(copie));
-                g.setDisponibilita(Integer.parseInt(disp));
-                g.setPrezzo(Float.parseFloat(prezzo));
+                Giornale g = getGiornale(gVector);
 
                 list.add(g);
             }
@@ -369,6 +323,67 @@ public class CsvOggettoDao implements DaoInterface {
         return list;
 
     }
+
+    private static @NotNull Libro getLibro(String[] gVector)
+    {
+        String titolo = gVector[GETINDEXTITOLOL];
+        String numeroPagine = gVector[GETINDEXNRPL];
+        String isbn = gVector[GETINDEXISBNL];
+        String editore = gVector[GETINDEXEDITOREL];
+        String autore = gVector[GETINDEXAUTOREL];
+        String lingua = gVector[GETINDEXLINGUAL];
+        String categoria = gVector[GETINDEXCATEGORIAL];
+        String data = gVector[GETINDEXDATAL];
+        String recensione = gVector[GETINDEXRECENSIONEL];
+        String copie = gVector[GETINDEXCOPIEL];
+        String desc = gVector[GETINDEXDESCL];
+        String disp = gVector[GETINDEXDISPL];
+        String prezzo = gVector[GETINDEXPREZZOL];
+
+
+        Libro l=new Libro();
+
+        l.setTitolo(titolo);
+        l.setNrPagine(Integer.parseInt(numeroPagine));
+        l.setCodIsbn(isbn);
+        l.setEditore(editore);
+        l.setAutore(autore);
+        l.setLingua(lingua);
+        l.setCategoria(categoria);
+        l.setDataPubb(LocalDate.parse(data));
+        l.setRecensione(recensione);
+        l.setNrCopie(Integer.parseInt(copie));
+        l.setDesc(desc);
+        l.setDisponibilita(Integer.parseInt(disp));
+        l.setPrezzo(Float.parseFloat(prezzo));
+
+        return l;
+    }
+
+
+    private static @NotNull Giornale getGiornale(String[] gVector) {
+        String titolo = gVector[GETINDEXTITOLOG];
+        String tipologia = gVector[GETINDEXTIPOLOGIAG];
+        String lingua = gVector[GETINDEXLINGUAG];
+        String ed = gVector[GETINDEXEDITOREG];
+        String data = gVector[GETINDEXDATAG];
+        String copie = gVector[GETINDEXCOPIERG];
+        String disp = gVector[GETINDEXDISPG];
+        String prezzo = gVector[GETINDEXPREZZOG];
+
+        Giornale g = new Giornale();
+
+        g.setTitolo(titolo);
+        g.setTipologia(tipologia);
+        g.setLingua(lingua);
+        g.setEditore(ed);
+        g.setDataPubb(LocalDate.parse(data));
+        g.setCopieRimanenti(Integer.parseInt(copie));
+        g.setDisponibilita(Integer.parseInt(disp));
+        g.setPrezzo(Float.parseFloat(prezzo));
+        return g;
+    }
+
     @Override
     public void removeGiornaleById(Giornale g) throws CsvValidationException, IOException {
         synchronized (this.cacheGiornale) {
