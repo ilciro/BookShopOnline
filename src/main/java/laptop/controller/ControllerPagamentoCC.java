@@ -124,10 +124,7 @@ public class ControllerPagamentoCC {
 
 	public ObservableList<CartaDiCredito> ritornaElencoCC(String nomeU) throws CsvValidationException, IOException, IdException {
 
-        if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-		{
-            return null;
-        }
+
 
 		return cDao.getCarteCredito(nomeU);
 

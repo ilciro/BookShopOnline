@@ -339,28 +339,28 @@ public class GenerateDaoReportClass {
 
     public int getIdMax(String type)
     {
-<span class="nc" id="L342">        int idMax = 0;</span>
-<span class="nc bnc" id="L343" title="All 5 branches missed.">        switch (type) {</span>
-<span class="nc" id="L344">            case LIBRO -&gt; query = &quot;select count(*) as massimo from LIBRO&quot;;</span>
-<span class="nc" id="L345">            case GIORNALE -&gt; query = &quot;select count(*) as massimo from GIORNALE&quot;;</span>
-<span class="nc" id="L346">            case RIVISTA -&gt; query = &quot;select count(*) as massimo from RIVISTA&quot;;</span>
-<span class="nc" id="L347">            case UTENTI -&gt; query=&quot;select count(*) as massimo from USERS&quot;;</span>
+<span class="fc" id="L342">        int idMax = 0;</span>
+<span class="pc bpc" id="L343" title="1 of 5 branches missed.">        switch (type) {</span>
+<span class="fc" id="L344">            case LIBRO -&gt; query = &quot;select count(*) as massimo from LIBRO&quot;;</span>
+<span class="fc" id="L345">            case GIORNALE -&gt; query = &quot;select count(*) as massimo from GIORNALE&quot;;</span>
+<span class="fc" id="L346">            case RIVISTA -&gt; query = &quot;select count(*) as massimo from RIVISTA&quot;;</span>
+<span class="fc" id="L347">            case UTENTI -&gt; query=&quot;select count(*) as massimo from USERS&quot;;</span>
 <span class="nc" id="L348">            default -&gt; Logger.getLogger(&quot;idMax&quot;).log(Level.INFO, &quot;id max not found&quot;);</span>
 
         }
-<span class="nc" id="L351">        try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L352">            PreparedStatement prepQ=conn.prepareStatement(query)) {</span>
+<span class="fc" id="L351">        try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L352">            PreparedStatement prepQ=conn.prepareStatement(query)) {</span>
             
-<span class="nc" id="L354">            ResultSet rs=prepQ.executeQuery();</span>
-<span class="nc bnc" id="L355" title="All 2 branches missed.">            while (rs.next())</span>
-<span class="nc" id="L356">               idMax=rs.getInt(&quot;massimo&quot;);</span>
+<span class="fc" id="L354">            ResultSet rs=prepQ.executeQuery();</span>
+<span class="fc bfc" id="L355" title="All 2 branches covered.">            while (rs.next())</span>
+<span class="fc" id="L356">               idMax=rs.getInt(&quot;massimo&quot;);</span>
 
 <span class="nc" id="L358">        } catch (SQLException e) {</span>
 <span class="nc" id="L359">            Logger.getLogger(&quot;get idMAx&quot;).log(Level.INFO, &quot;id max not avalaible&quot;);</span>
 
-<span class="nc" id="L361">        }</span>
+<span class="fc" id="L361">        }</span>
 
-<span class="nc" id="L363">        return idMax;</span>
+<span class="fc" id="L363">        return idMax;</span>
     }
     public void ripristinaOrdine(String type)
     {

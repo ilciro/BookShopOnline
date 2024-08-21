@@ -37,3 +37,14 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/dao/ControllerVisualizzaProfiloTest.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/dao/ControllerVisualizzaTest.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/dao/TestControllerScelta.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestDownloadLibro.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestEditoreRicerca.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestLoginRaccoltaGiornale.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestLoginRaccoltaLibro.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestLoginRaccoltaRivista.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestLoginRaccoltaUtenti.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestLoginReport.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestLoginUserLibro.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestPagamentoAnnullato.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestPagamentoCartaCredito.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestScrittoreRicerca.java

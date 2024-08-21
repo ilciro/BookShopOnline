@@ -124,83 +124,80 @@ public class ControllerPagamentoCC {
 
 	public ObservableList&lt;CartaDiCredito&gt; ritornaElencoCC(String nomeU) throws CsvValidationException, IOException, IdException {
 
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
-		{
-<span class="nc" id="L129">            return null;</span>
-        }
 
-<span class="fc" id="L132">		return cDao.getCarteCredito(nomeU);</span>
+
+<span class="fc" id="L129">		return cDao.getCarteCredito(nomeU);</span>
 
 
 	}
 	
 	public CartaDiCredito tornaDalDb(String codiceCarta)
 	{
-<span class="fc" id="L139">		cc=new CartaDiCredito();</span>
-<span class="fc" id="L140">		cc.setNumeroCC(codiceCarta);</span>
-<span class="fc" id="L141">		return cDao.popolaDati(cc);</span>
+<span class="fc" id="L136">		cc=new CartaDiCredito();</span>
+<span class="fc" id="L137">		cc.setNumeroCC(codiceCarta);</span>
+<span class="fc" id="L138">		return cDao.popolaDati(cc);</span>
 	}
 
 	public void pagamentoCC(String nome) throws SQLException, IdException, IOException, CsvValidationException {
-<span class="fc" id="L145">		Pagamento p = new Pagamento(0, &quot;cCredito&quot;, 0, nome, vis.getSpesaT(), null);</span>
+<span class="fc" id="L142">		Pagamento p = new Pagamento(0, &quot;cCredito&quot;, 0, nome, vis.getSpesaT(), null);</span>
 
 
-<span class="pc bpc" id="L148" title="1 of 4 branches missed.">		switch (vis.getType()) {</span>
+<span class="pc bpc" id="L145" title="1 of 4 branches missed.">		switch (vis.getType()) {</span>
 			case &quot;libro&quot; -&gt; {
 
 
-<span class="pc bpc" id="L152" title="1 of 2 branches missed.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
-<span class="fc" id="L153">					Libro l=new Libro();</span>
-<span class="fc" id="L154">					l.setId(vis.getId());</span>
-<span class="fc" id="L155">					Libro l1 = csv.retrieveLibroData(new File(&quot;report/reportLibro.csv&quot;),l).get(0);</span>
-<span class="fc" id="L156">					p.setTipo(l1.getCategoria());</span>
-<span class="fc" id="L157">					p.setIdOggetto(l1.getId());</span>
-<span class="fc" id="L158">					csvFattura.inserisciPagamento(p);</span>
-<span class="fc" id="L159">				} else {</span>
-<span class="nc" id="L160">					cCPD.checkPagamentoData(nome);</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+<span class="fc" id="L150">					Libro l=new Libro();</span>
+<span class="fc" id="L151">					l.setId(vis.getId());</span>
+<span class="fc" id="L152">					Libro l1 = csv.retrieveLibroData(new File(&quot;report/reportLibro.csv&quot;),l).get(0);</span>
+<span class="fc" id="L153">					p.setTipo(l1.getCategoria());</span>
+<span class="fc" id="L154">					p.setIdOggetto(l1.getId());</span>
+<span class="fc" id="L155">					csvFattura.inserisciPagamento(p);</span>
+<span class="fc" id="L156">				} else {</span>
+<span class="nc" id="L157">					cCPD.checkPagamentoData(nome);</span>
 				}
-<span class="nc" id="L162">			}</span>
+<span class="nc" id="L159">			}</span>
 			case &quot;giornale&quot; -&gt; {
 
 
-<span class="pc bpc" id="L166" title="1 of 2 branches missed.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
-<span class="fc" id="L167">					Giornale g=new Giornale();</span>
-<span class="fc" id="L168">					g.setId(vis.getId());</span>
-<span class="fc" id="L169">					Giornale g1 = csv.retriveGiornaleData(new File(&quot;report/reportGiornale.csv&quot;), g).get(0);</span>
-<span class="fc" id="L170">					p.setTipo(g1.getTipologia());</span>
-<span class="fc" id="L171">					p.setIdOggetto(g1.getId());</span>
-<span class="fc" id="L172">					csvFattura.inserisciPagamento(p);</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+<span class="fc" id="L164">					Giornale g=new Giornale();</span>
+<span class="fc" id="L165">					g.setId(vis.getId());</span>
+<span class="fc" id="L166">					Giornale g1 = csv.retriveGiornaleData(new File(&quot;report/reportGiornale.csv&quot;), g).get(0);</span>
+<span class="fc" id="L167">					p.setTipo(g1.getTipologia());</span>
+<span class="fc" id="L168">					p.setIdOggetto(g1.getId());</span>
+<span class="fc" id="L169">					csvFattura.inserisciPagamento(p);</span>
 
-<span class="fc" id="L174">				} else {</span>
-<span class="nc" id="L175">					cCPD.checkPagamentoData(nome);</span>
+<span class="fc" id="L171">				} else {</span>
+<span class="nc" id="L172">					cCPD.checkPagamentoData(nome);</span>
 				}
 
-<span class="nc" id="L178">			}</span>
+<span class="nc" id="L175">			}</span>
 			case &quot;rivista&quot; -&gt; {
 
 
-<span class="fc bfc" id="L182" title="All 2 branches covered.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
-<span class="fc" id="L183">					Rivista r=new Rivista();</span>
-<span class="fc" id="L184">					r.setId(vis.getId());</span>
-<span class="fc" id="L185">					Rivista r1 = csv.retrieveRivistaData(new File(&quot;report/reportRivista.csv&quot;),r).get(0);</span>
-<span class="fc" id="L186">					p.setTipo(r1.getTipologia());</span>
-<span class="fc" id="L187">					p.setIdOggetto(r1.getId());</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+<span class="fc" id="L180">					Rivista r=new Rivista();</span>
+<span class="fc" id="L181">					r.setId(vis.getId());</span>
+<span class="fc" id="L182">					Rivista r1 = csv.retrieveRivistaData(new File(&quot;report/reportRivista.csv&quot;),r).get(0);</span>
+<span class="fc" id="L183">					p.setTipo(r1.getTipologia());</span>
+<span class="fc" id="L184">					p.setIdOggetto(r1.getId());</span>
 
-<span class="fc" id="L189">					csvFattura.inserisciPagamento(p);</span>
+<span class="fc" id="L186">					csvFattura.inserisciPagamento(p);</span>
 
-<span class="fc" id="L191">				} else {</span>
-<span class="fc" id="L192">					cCPD.checkPagamentoData(nome);</span>
+<span class="fc" id="L188">				} else {</span>
+<span class="fc" id="L189">					cCPD.checkPagamentoData(nome);</span>
 				}
-<span class="fc" id="L194">			}</span>
-<span class="nc" id="L195">			default -&gt; throw new IdException(&quot; id not found&quot;);</span>
+<span class="fc" id="L191">			}</span>
+<span class="nc" id="L192">			default -&gt; throw new IdException(&quot; id not found&quot;);</span>
 
 		}
 
 
 
-<span class="fc" id="L201">		java.util.logging.Logger.getLogger(&quot;Pagamento effettuato&quot;).log(Level.INFO, &quot;info {0}&quot;,p.getAmmontare()+p.getTipo()+p.getId());</span>
+<span class="fc" id="L198">		java.util.logging.Logger.getLogger(&quot;Pagamento effettuato&quot;).log(Level.INFO, &quot;info {0}&quot;,p.getAmmontare()+p.getTipo()+p.getId());</span>
 
-<span class="fc" id="L203">	}</span>
+<span class="fc" id="L200">	}</span>
 
 }
 
