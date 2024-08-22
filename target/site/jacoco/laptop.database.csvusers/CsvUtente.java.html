@@ -171,57 +171,59 @@ public class CsvUtente implements UserInterface{
 <span class="fc" id="L171">            }</span>
 
         }
-<span class="fc" id="L174">        return list;</span>
+<span class="fc" id="L174">        reader.close();</span>
+<span class="fc" id="L175">        return list;</span>
     }
 
     private static synchronized int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
-<span class="fc" id="L179">        CSVReader reader = new CSVReader(new FileReader(LOCATIONU));</span>
+<span class="fc" id="L180">        CSVReader reader = new CSVReader(new FileReader(LOCATIONU));</span>
         String[] gVector;
-<span class="fc" id="L181">        int id = 0;</span>
-<span class="fc bfc" id="L182" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null)</span>
-<span class="fc" id="L183">            id = Integer.parseInt(gVector[GETINDEXIDUSER]);</span>
+<span class="fc" id="L182">        int id = 0;</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null)</span>
+<span class="fc" id="L184">            id = Integer.parseInt(gVector[GETINDEXIDUSER]);</span>
+<span class="fc" id="L185">        reader.close();</span>
 
-<span class="fc" id="L185">        return id;</span>
+<span class="fc" id="L187">        return id;</span>
 
     }
     private static synchronized  void cancellaUserById(File fd,User u1) throws IOException, CsvValidationException {
-<span class="pc bpc" id="L189" title="1 of 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
-<span class="fc" id="L190">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
-<span class="fc" id="L191">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="fc" id="L192">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
+<span class="fc" id="L193">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
         }
-<span class="fc" id="L193">        File tmpFD = new File(&quot;report/appoggioUser.csv&quot;);</span>
-<span class="fc" id="L194">        boolean found = false;</span>
+<span class="fc" id="L195">        File tmpFD = new File(&quot;report/appoggioUser.csv&quot;);</span>
+<span class="fc" id="L196">        boolean found = false;</span>
         // create csvReader object passing file reader as a parameter
-<span class="fc" id="L196">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+<span class="fc" id="L198">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
         String[] giornaleVector;
-<span class="fc" id="L198">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
+<span class="fc" id="L200">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
         //check on path
         boolean userVectorFound ;
 
 
-<span class="fc bfc" id="L203" title="All 2 branches covered.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
 
-<span class="fc bfc" id="L205" title="All 4 branches covered.">            userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());</span>
+<span class="fc bfc" id="L207" title="All 4 branches covered.">            userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());</span>
 
 
-<span class="fc bfc" id="L208" title="All 2 branches covered.">            if (!userVectorFound) {</span>
-<span class="fc" id="L209">                csvWriter.writeNext(giornaleVector);</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">            if (!userVectorFound) {</span>
+<span class="fc" id="L211">                csvWriter.writeNext(giornaleVector);</span>
             } else {
-<span class="fc" id="L211">                found = userVectorFound;</span>
+<span class="fc" id="L213">                found = userVectorFound;</span>
             }
         }
 
 
-<span class="fc" id="L216">        csvWriter.flush();</span>
-<span class="fc" id="L217">        csvReader.close();</span>
-<span class="fc" id="L218">        csvWriter.close();</span>
-<span class="pc bpc" id="L219" title="1 of 2 branches missed.">        if (found) {</span>
-<span class="fc" id="L220">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
+<span class="fc" id="L218">        csvWriter.flush();</span>
+<span class="fc" id="L219">        csvReader.close();</span>
+<span class="fc" id="L220">        csvWriter.close();</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">        if (found) {</span>
+<span class="fc" id="L222">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
         } else {
-<span class="nc" id="L222">            cleanUp(Path.of(tmpFD.toURI()));</span>
+<span class="nc" id="L224">            cleanUp(Path.of(tmpFD.toURI()));</span>
         }
 
-<span class="fc" id="L225">    }</span>
+<span class="fc" id="L227">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

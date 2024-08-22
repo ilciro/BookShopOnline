@@ -61,7 +61,7 @@ public class TestGestioneLibroCsv {
         vis.setMetodoP("cCredito");
         cCV.getLista(vis.getType());
         //controllo e mostro
-        l.setId(2);
+        l.setId(3);
         cCV.disponibilita(vis.getType(), String.valueOf(l.getId()));
         //mostro oggetto
         cV.getDataL(l.getId());

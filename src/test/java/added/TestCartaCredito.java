@@ -7,9 +7,12 @@ import org.junit.jupiter.api.Test;
 import web.bean.CartaCreditoBean;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
  class TestCartaCredito {
@@ -19,6 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
      @BeforeAll
      static void init() throws IOException {
          ConnToDb.creaPopolaDb();
+         Files.copy(Path.of("src/main/resources/csvfiles/utente.csv"), Path.of("report/reportUtente.csv"), REPLACE_EXISTING);
+         Files.copy(Path.of("src/main/resources/csvfiles/libro.csv"), Path.of("report/reportLibro.csv"), REPLACE_EXISTING);
+         Files.copy(Path.of("src/main/resources/csvfiles/giornale.csv"), Path.of("report/reportGiornale.csv"), REPLACE_EXISTING);
+         Files.copy(Path.of("src/main/resources/csvfiles/rivista.csv"), Path.of("report/reportRivista.csv"), REPLACE_EXISTING);
+
+
+
      }
     @Test
     void setters()

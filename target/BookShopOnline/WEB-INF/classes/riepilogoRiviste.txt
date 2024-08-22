@@ -1,4 +1,4 @@
-Id :	1titolo :	Focusricavo totale :	5.0
+Id :	1titolo :	Focusricavo totale :	615.0
 Id :	2titolo :	Focus Juniorricavo totale :	2468.0
 Id :	3titolo :	Tv Sorrisi e canzoniricavo totale :	200.0
 Id :	4titolo :	titolo rivista aggiornatoricavo totale :	225.0

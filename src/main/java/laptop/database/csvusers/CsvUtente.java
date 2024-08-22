@@ -171,6 +171,7 @@ public class CsvUtente implements UserInterface{
             }
 
         }
+        reader.close();
         return list;
     }
 
@@ -181,6 +182,7 @@ public class CsvUtente implements UserInterface{
         int id = 0;
         while ((gVector = reader.readNext()) != null)
             id = Integer.parseInt(gVector[GETINDEXIDUSER]);
+        reader.close();
 
         return id;
 

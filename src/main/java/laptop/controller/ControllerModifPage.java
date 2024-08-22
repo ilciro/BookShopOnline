@@ -57,12 +57,12 @@ public class ControllerModifPage {
 
 			g.setTitolo(info[0]);
 			g.setTipologia(info[1]);
-			g.setEditore(info[2]);
-			g.setLingua(info[3]);
+			g.setLingua(info[2]);
+			g.setEditore(info[3]);
 			g.setDataPubb(LocalDate.parse(info[4]));
-			g.setDisponibilita(Integer.parseInt(info[5]));
-			g.setPrezzo(Float.parseFloat(info[6]));
-			g.setCopieRimanenti(Integer.parseInt(info[7]));
+			g.setDisponibilita(Integer.parseInt(info[6]));
+			g.setPrezzo(Float.parseFloat(info[7]));
+			g.setCopieRimanenti(Integer.parseInt(info[5]));
 
 			if(vis.getTypeOfDb().equals("file"))
 			{

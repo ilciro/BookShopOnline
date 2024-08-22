@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -96,12 +98,16 @@ public class CsvOggettoDao implements DaoInterface {
     private static final String SUFFIX="suffix";
 
 
+
     public CsvOggettoDao() throws IOException {
         this.cacheLibro = new HashMap<>();
         this.cacheGiornale = new HashMap<>();
         this.cacheRivista = new HashMap<>();
 
+
     }
+
+
 
     private static void cleanUp(Path path) throws IOException {
         Files.delete(path);
@@ -111,7 +117,6 @@ public class CsvOggettoDao implements DaoInterface {
     public void inserisciLibro(Libro l) throws IOException, CsvValidationException, IdException {
         //provo con titolo ed autore ed editore
         //visto che id non buono in quanto non gli e lo assegno
-
 
         boolean duplicatedL;
         synchronized (this.cacheLibro)
@@ -127,8 +132,18 @@ public class CsvOggettoDao implements DaoInterface {
             List<Libro> list=returnLibriByTAE(this.fdL,l.getTitolo(),l.getAutore(),l.getEditore(),l.getId());
             duplicatedL=(!list.isEmpty());
         }
-        if(duplicatedL) throw new IdException("id libro duplicated or zero ");
-
+        if(duplicatedL)
+        {
+            try{
+                Logger.getLogger("try libro").log(Level.INFO,"id sbagliato !!");
+                throw new IdException(" id libro sbagliato or duplicated");
+            }catch (IdException e)
+            {
+                Logger.getLogger("catch libro").log(Level.SEVERE,"remove libro...");
+                //rimuovo e se lista vuota
+                removeLibroById(l);
+            }
+        }
         inserimentoLibro(this.fdL,l);
 
     }
@@ -276,7 +291,16 @@ public class CsvOggettoDao implements DaoInterface {
             List<Giornale> list=returnGiornaleByTE(this.fdG,g.getTitolo(),g.getEditore(),g.getId());
             duplicatedG=(!list.isEmpty());
         }
-        if(duplicatedG) throw new IdException("id giornale not found ");
+        if(duplicatedG)
+            try{
+                Logger.getLogger("try giornale").log(Level.INFO,"id giornale sbagliato !!");
+                throw new IdException(" id giornale sbagliato or duplicated");
+            }catch (IdException e)
+            {
+                Logger.getLogger("catch giornale").log(Level.SEVERE,"remove giornale...");
+                //rimuovo e se lista vuota
+                removeGiornaleById(g);
+            }
         inserimentoGiornale(this.fdG,g);
     }
     private static synchronized void inserimentoGiornale(File fd,Giornale g) throws IOException, CsvValidationException {
@@ -403,7 +427,9 @@ public class CsvOggettoDao implements DaoInterface {
         CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
 
         while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()));
+            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()))
+                    || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
+                    ||gVector[GETINDEXTITOLOG].equals(g.getTitolo());
             if (!recordFound)
                 writer.writeNext(gVector);
             else
@@ -441,7 +467,15 @@ public class CsvOggettoDao implements DaoInterface {
             duplicated=(!list.isEmpty());
         }
         if(duplicated)
-            throw new IdException(" id rivista not found");
+            try{
+                Logger.getLogger("try rivista").log(Level.INFO,"id rivista sbagliato !!");
+                throw new IdException(" id rivista sbagliato or duplicated");
+            }catch (IdException e)
+            {
+                Logger.getLogger("catch rivista").log(Level.SEVERE,"remove rivista...");
+                //rimuovo e se lista vuota
+                removeRivistaById(r);
+            }
         inserimentoRivista(this.fdR,r);
     }
     private static synchronized void inserimentoRivista(File fd,Rivista r) throws IOException, CsvValidationException {
@@ -533,7 +567,9 @@ public class CsvOggettoDao implements DaoInterface {
         CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
 
         while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()));
+            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()))
+                    || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
+                    || gVector[GETINDEXTITOLOR].equals(r.getTitolo());
 
 
             if (!recordFound)

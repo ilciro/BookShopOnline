@@ -3,11 +3,10 @@ package laptop.database.csvpagamento;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import laptop.controller.ControllerSystemState;
 import laptop.exception.IdException;
-import laptop.model.CartaDiCredito;
+
 import laptop.model.Fattura;
 import laptop.model.Pagamento;
 import laptop.model.User;
@@ -16,12 +15,7 @@ import laptop.model.User;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

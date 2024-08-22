@@ -6,26 +6,31 @@ import laptop.model.raccolta.Rivista;
 import java.time.LocalDate;
 
 public class ControllerPassDataCAPCMP {
+
+    /*
+        this class used for reduce duplication
+     */
     private final Libro l=new Libro();
     private final Rivista r=new Rivista();
+
 
 
 
     public Libro getLibro(String [] data)
     {
         l.setTitolo(data[0]);
-        l.setNrPagine(Integer.parseInt(data[1]));
-        l.setCodIsbn(data[2]);
-        l.setEditore(data[3]);
-        l.setAutore(data[4]);
-        l.setLingua(data[5]);
-        l.setCategoria(data[6]);
-        l.setDataPubb(LocalDate.parse(data[7]));
-        l.setRecensione(data[8]);
-        l.setNrCopie(Integer.parseInt(data[9]));
-        l.setDesc(data[10]);
-        l.setDisponibilita(Integer.parseInt(data[11]));
-        l.setPrezzo(Float.parseFloat(data[12]));
+        l.setCodIsbn(data[1]);
+        l.setEditore(data[2]);
+        l.setAutore(data[3]);
+        l.setLingua(data[4]);
+        l.setCategoria(data[5]);
+        l.setNrPagine(Integer.parseInt(data[6]));
+        l.setDataPubb(LocalDate.parse(data[10]));
+        l.setRecensione(data[11]);
+        l.setNrCopie(Integer.parseInt(data[7]));
+        l.setDesc(data[12]);
+        l.setDisponibilita(Integer.parseInt(data[8]));
+        l.setPrezzo(Float.parseFloat(data[9]));
         return l;
     }
     public Rivista getRivista(String []info)

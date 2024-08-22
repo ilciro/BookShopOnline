@@ -72,9 +72,6 @@ public class Main  extends Application {
 
 
 
-
-
-
 		} catch (FileNotFoundException eFile) {
 			Logger.getLogger("crwa db").log(Level.SEVERE, "\n eccezione ottenuta .", eFile);
 
