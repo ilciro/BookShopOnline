@@ -240,7 +240,7 @@ public class CsvOggettoDao implements DaoInterface {
         removeLibroId(this.fdL, l);
     }
     private static synchronized void removeLibroId(File fd, Libro l) throws IOException, CsvValidationException {
-         deleteByType("libro",l,null,null,fd);
+         deleteByType(LIBRO,l,null,null,fd);
     }
 
 
@@ -377,6 +377,38 @@ public class CsvOggettoDao implements DaoInterface {
         return g;
     }
 
+    private static @NotNull Rivista getRivista(String[] gVector)
+    {
+        String titolo = gVector[GETINDEXTITOLOR];
+        String tipologia = gVector[GETINDEXTIPOLOGIAR];
+        String autore = gVector[GETINDEXAUTORER];
+        String lingua = gVector[GETINDEXLINGUAR];
+        String editore = gVector[GETINDEXEDITORER];
+        String desc = gVector[GETINDEXDESCRIZIONER];
+        String data = gVector[GETINDEXDATAR];
+        String disp = gVector[GETINDEXDISPR];
+        String prezzo = gVector[GETINDEXPREZZOR];
+        String copie = gVector[GETINDEXCOPIER];
+        String id = gVector[GETINDEXIDR];
+
+        Rivista r=new Rivista();
+
+        r.setTitolo(titolo);
+        r.setTipologia(tipologia);
+        r.setAutore(autore);
+        r.setLingua(lingua);
+        r.setEditore(editore);
+        r.setDescrizione(desc);
+        r.setDataPubb(LocalDate.parse(data));
+        r.setDisp(Integer.parseInt(disp));
+        r.setPrezzo(Float.parseFloat(prezzo));
+        r.setCopieRim(Integer.parseInt(copie));
+        r.setId(Integer.parseInt(id));
+
+        return r;
+
+    }
+
     @Override
     public void removeGiornaleById(Giornale g) throws CsvValidationException, IOException {
         synchronized (this.cacheGiornale) {
@@ -385,7 +417,7 @@ public class CsvOggettoDao implements DaoInterface {
         removeGiornaleId(this.fdG, g);
     }
     private static synchronized void removeGiornaleId(File fd,Giornale g) throws IOException, CsvValidationException {
-        deleteByType("giornale",null,g,null,fd);
+        deleteByType(GIORNALE,null,g,null,fd);
 
     }
 
@@ -496,7 +528,7 @@ public class CsvOggettoDao implements DaoInterface {
         removeRivistaId(this.fdR,r);
     }
     private static synchronized void removeRivistaId(File fd,Rivista r) throws IOException, CsvValidationException {
-       deleteByType("rivista",null,null,r,fd);
+       deleteByType(RIVISTA,null,null,r,fd);
     }
 
     @Override
@@ -513,40 +545,8 @@ public class CsvOggettoDao implements DaoInterface {
             case LIBRO -> {
 
                 while ((gVector = csvReader.readNext()) != null) {
-                    String titolo = gVector[GETINDEXTITOLOL];
-                    String numeroPagine = gVector[GETINDEXNRPL];
-                    String isbn = gVector[GETINDEXISBNL];
-                    String editore = gVector[GETINDEXEDITOREL];
-                    String autore = gVector[GETINDEXAUTOREL];
-                    String lingua = gVector[GETINDEXLINGUAL];
-                    String categoria = gVector[GETINDEXCATEGORIAL];
-                    String data = gVector[GETINDEXDATAL];
-                    String recensione = gVector[GETINDEXRECENSIONEL];
-                    String copie = gVector[GETINDEXCOPIEL];
-                    String desc = gVector[GETINDEXDESCL];
-                    String disp = gVector[GETINDEXDISPL];
-                    String prezzo = gVector[GETINDEXPREZZOL];
-                    String id = gVector[GETINDEXIDL];
 
-                    Libro l = new Libro();
-
-                    l.setTitolo(titolo);
-                    l.setNrPagine(Integer.parseInt(numeroPagine));
-                    l.setCodIsbn(isbn);
-                    l.setEditore(editore);
-                    l.setAutore(autore);
-                    l.setLingua(lingua);
-                    l.setCategoria(categoria);
-                    l.setDataPubb(LocalDate.parse(data));
-                    l.setRecensione(recensione);
-                    l.setNrCopie(Integer.parseInt(copie));
-                    l.setDesc(desc);
-                    l.setDisponibilita(Integer.parseInt(disp));
-                    l.setPrezzo(Float.parseFloat(prezzo));
-                    l.setId(Integer.parseInt(id));
-
-
-                    gList.add(l);
+                    gList.add(getLibro(gVector));
 
                 }
                 csvReader.close();
@@ -557,33 +557,7 @@ public class CsvOggettoDao implements DaoInterface {
 
             case GIORNALE -> {
                 while ((gVector = csvReader.readNext()) != null) {
-
-
-
-                    String titolo = gVector[GETINDEXTITOLOG];
-                    String tipologia = gVector[GETINDEXTIPOLOGIAG];
-                    String lingua = gVector[GETINDEXLINGUAG];
-                    String editore = gVector[GETINDEXEDITOREG];
-                    String data = gVector[GETINDEXDATAG];
-                    String copie = gVector[GETINDEXCOPIERG];
-                    String disp = gVector[GETINDEXDISPG];
-                    String prezzo = gVector[GETINDEXPREZZOG];
-                    String id = gVector[GETINDEXIDG];
-                    Giornale g = new Giornale();
-
-                    g.setTitolo(titolo);
-                    g.setTipologia(tipologia);
-                    g.setLingua(lingua);
-                    g.setEditore(editore);
-                    g.setDataPubb(LocalDate.parse(data));
-                    g.setCopieRimanenti(Integer.parseInt(copie));
-                    g.setDisponibilita(Integer.parseInt(disp));
-                    g.setPrezzo(Float.parseFloat(prezzo));
-                    g.setId(Integer.parseInt(id));
-
-
-
-                    gList.add(g);
+                    gList.add(getGiornale(gVector));
 
                 }
                 csvReader.close();
@@ -593,36 +567,7 @@ public class CsvOggettoDao implements DaoInterface {
             }
             case RIVISTA -> {
                 while ((gVector = csvReader.readNext()) != null) {
-
-                    String titolo = gVector[GETINDEXTITOLOR];
-                    String tipologia = gVector[GETINDEXTIPOLOGIAR];
-                    String autore = gVector[GETINDEXAUTORER];
-                    String lingua = gVector[GETINDEXLINGUAR];
-                    String editore = gVector[GETINDEXEDITORER];
-                    String desc = gVector[GETINDEXDESCRIZIONER];
-                    String data = gVector[GETINDEXDATAR];
-                    String disp = gVector[GETINDEXDISPR];
-                    String prezzo = gVector[GETINDEXPREZZOR];
-                    String copie = gVector[GETINDEXCOPIER];
-                    String id = gVector[GETINDEXIDR];
-
-                    Rivista r=new Rivista();
-
-                    r.setTitolo(titolo);
-                    r.setTipologia(tipologia);
-                    r.setAutore(autore);
-                    r.setLingua(lingua);
-                    r.setEditore(editore);
-                    r.setDescrizione(desc);
-                    r.setDataPubb(LocalDate.parse(data));
-                    r.setDisp(Integer.parseInt(disp));
-                    r.setPrezzo(Float.parseFloat(prezzo));
-                    r.setCopieRim(Integer.parseInt(copie));
-                    r.setId(Integer.parseInt(id));
-
-
-
-                    gList.add(r);
+                    gList.add(getRivista(gVector));
 
                 }
                 csvReader.close();
@@ -969,15 +914,16 @@ public class CsvOggettoDao implements DaoInterface {
        while ((gVector = reader.readNext()) != null) {
 
            switch (type) {
-               case "libro" -> recordFound = gVector[GETINDEXIDL].equals(String.valueOf(l.getId())) ||
+               case LIBRO -> recordFound = gVector[GETINDEXIDL].equals(String.valueOf(l.getId())) ||
                        gVector[GETINDEXTITOLOL].equals(l.getTitolo()) ||
                        gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));
-               case "giornale" -> recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()))
+               case GIORNALE -> recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()))
                        || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
                        || gVector[GETINDEXTITOLOG].equals(g.getTitolo());
-               case "rivista" -> recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()))
+               case RIVISTA -> recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()))
                        || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
                        || gVector[GETINDEXTITOLOR].equals(r.getTitolo());
+               default -> throw new IOException(" wrong type of object");
            }
            if (!recordFound)
                writer.writeNext(gVector);

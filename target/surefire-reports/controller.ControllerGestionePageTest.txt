@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: controller.ControllerGestionePageTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.463 s - in controller.ControllerGestionePageTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.303 s - in controller.ControllerGestionePageTest
