@@ -240,38 +240,7 @@ public class CsvOggettoDao implements DaoInterface {
         removeLibroId(this.fdL, l);
     }
     private static synchronized void removeLibroId(File fd, Libro l) throws IOException, CsvValidationException {
-        if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
-            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
-        }
-        File tmpFile = new File(APPOGGIO);
-        boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
-
-        while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(l.getId())) || gVector[GETINDEXTITOLOL].equals(l.getTitolo())
-                    || gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));
-
-            if (!recordFound)
-                writer.writeNext(gVector);
-            else
-                found = true;
-
-        }
-        writer.flush();
-        reader.close();
-        writer.close();
-
-
-        if (found) {
-            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {
-            cleanUp(Path.of(tmpFile.toURI()));
-        }
-
-
+         deleteByType("libro",l,null,null,fd);
     }
 
 
@@ -416,36 +385,7 @@ public class CsvOggettoDao implements DaoInterface {
         removeGiornaleId(this.fdG, g);
     }
     private static synchronized void removeGiornaleId(File fd,Giornale g) throws IOException, CsvValidationException {
-        if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
-            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
-        }
-        File tmpFile = new File(APPOGGIO);
-        boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
-
-        while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()))
-                    || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
-                    ||gVector[GETINDEXTITOLOG].equals(g.getTitolo());
-            if (!recordFound)
-                writer.writeNext(gVector);
-            else
-                found = true;
-
-        }
-        writer.flush();
-        reader.close();
-        writer.close();
-
-
-        if (found) {
-            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {
-            cleanUp(Path.of(tmpFile.toURI()));
-        }
+        deleteByType("giornale",null,g,null,fd);
 
     }
 
@@ -556,42 +496,8 @@ public class CsvOggettoDao implements DaoInterface {
         removeRivistaId(this.fdR,r);
     }
     private static synchronized void removeRivistaId(File fd,Rivista r) throws IOException, CsvValidationException {
-        if (SystemUtils.IS_OS_UNIX) {
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
-            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
-        }
-        File tmpFile = new File(APPOGGIO);
-        boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
-
-        while ((gVector = reader.readNext()) != null) {
-            boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()))
-                    || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
-                    || gVector[GETINDEXTITOLOR].equals(r.getTitolo());
-
-
-            if (!recordFound)
-                writer.writeNext(gVector);
-            else
-                found = true;
-
-        }
-        writer.flush();
-        reader.close();
-        writer.close();
-
-
-        if (found) {
-            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
-        } else {
-            cleanUp(Path.of(tmpFile.toURI()));
-        }
-
+       deleteByType("rivista",null,null,r,fd);
     }
-
-
 
     @Override
     public ObservableList<Raccolta> retrieveRaccoltaData(File fd) throws CsvValidationException, IOException, IdException {
@@ -1048,6 +954,46 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
 
+    //used for reduce duplication
+   private static synchronized  void deleteByType(String type,Libro l,Giornale g,Rivista r,File fd) throws IOException, CsvValidationException {
+       if (SystemUtils.IS_OS_UNIX) {
+           FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
+           Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
+       }
+       File tmpFile = new File(APPOGGIO);
+       boolean found = false;
+       CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
+       String[] gVector;
+       CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
+       boolean recordFound = false;
+       while ((gVector = reader.readNext()) != null) {
+
+           switch (type) {
+               case "libro" -> recordFound = gVector[GETINDEXIDL].equals(String.valueOf(l.getId())) ||
+                       gVector[GETINDEXTITOLOL].equals(l.getTitolo()) ||
+                       gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()));
+               case "giornale" -> recordFound = gVector[GETINDEXIDG].equals(String.valueOf(g.getId()))
+                       || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
+                       || gVector[GETINDEXTITOLOG].equals(g.getTitolo());
+               case "rivista" -> recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()))
+                       || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
+                       || gVector[GETINDEXTITOLOR].equals(r.getTitolo());
+           }
+           if (!recordFound)
+               writer.writeNext(gVector);
+           else
+               found = true;
+       }
+       writer.flush();
+       reader.close();
+       writer.close();
+       if (found) {
+           Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
+       } else {
+           cleanUp(Path.of(tmpFile.toURI()));
+       }
+
+   }
 
 }
 

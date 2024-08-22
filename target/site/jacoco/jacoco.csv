@@ -23,7 +23,7 @@ BookShopOnline Maven Webapp,laptop.model.raccolta,CategorieRivista,0,87,0,0,0,5,
 BookShopOnline Maven Webapp,laptop.model.raccolta,Libro,158,608,16,44,18,170,16,78,0,39
 BookShopOnline Maven Webapp,laptop.model.raccolta,CategorieLibro,0,177,0,0,0,10,0,1,0,1
 BookShopOnline Maven Webapp,laptop.model.raccolta,Rivista,12,352,1,18,3,109,1,45,0,30
-BookShopOnline Maven Webapp,laptop.database.csvpagamento,FatturaPagamentoCCredito,27,285,4,10,5,62,4,11,0,8
+BookShopOnline Maven Webapp,laptop.database.csvpagamento,FatturaPagamentoCCredito,0,312,1,13,0,67,1,14,0,8
 BookShopOnline Maven Webapp,web.bean,SystemBean,32,54,0,2,14,23,9,15,9,14
 BookShopOnline Maven Webapp,web.bean,RivistaBean,45,145,1,16,15,46,11,31,10,17
 BookShopOnline Maven Webapp,web.bean,UserBean,75,70,7,7,20,26,17,14,11,12
@@ -73,5 +73,5 @@ BookShopOnline Maven Webapp,laptop.controller,ControllerUserPage,6,42,0,2,4,10,1
 BookShopOnline Maven Webapp,laptop.controller,ControllerCompravendita,28,338,9,27,7,70,11,19,2,7
 BookShopOnline Maven Webapp,laptop.controller,ControllerCancellaUser,0,39,0,2,0,11,0,3,0,2
 BookShopOnline Maven Webapp,laptop.controller,ControllerPagamentoCC,26,361,13,19,8,67,13,10,0,6
-BookShopOnline Maven Webapp,laptop.database.csvoggetto,CsvOggettoDao,213,2634,97,161,37,571,84,79,1,31
+BookShopOnline Maven Webapp,laptop.database.csvoggetto,CsvOggettoDao,205,2503,94,152,35,543,81,78,1,32
 BookShopOnline Maven Webapp,laptop.utilities,ConnToDb,9,150,1,5,3,46,1,10,0,8
