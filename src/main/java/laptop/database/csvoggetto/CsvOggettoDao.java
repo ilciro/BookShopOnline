@@ -703,38 +703,9 @@ public class CsvOggettoDao implements DaoInterface {
             boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()))
                     || gVector[GETINDEXTITOLOL].equals(libro.getTitolo())|| gVector[GETINDEXAUTOREL].equals(libro.getAutore());
             if (recordFound) {
-                String titolo = gVector[GETINDEXTITOLOL];
-                String numeroPagine = gVector[GETINDEXNRPL];
-                String isbn = gVector[GETINDEXISBNL];
-                String editore = gVector[GETINDEXEDITOREL];
-                String autore = gVector[GETINDEXAUTOREL];
-                String lingua = gVector[GETINDEXLINGUAL];
-                String categoria = gVector[GETINDEXCATEGORIAL];
-                String data = gVector[GETINDEXDATAL];
-                String recensione = gVector[GETINDEXRECENSIONEL];
-                String copie = gVector[GETINDEXCOPIEL];
-                String desc = gVector[GETINDEXDESCL];
-                String disp = gVector[GETINDEXDISPL];
-                String prezzo = gVector[GETINDEXPREZZOL];
-                String id = gVector[GETINDEXIDL];
 
-                Libro l=new Libro();
-                l.setTitolo(titolo);
-                l.setNrPagine(Integer.parseInt(numeroPagine));
-                l.setCodIsbn(isbn);
-                l.setEditore(editore);
-                l.setAutore(autore);
-                l.setLingua(lingua);
-                l.setCategoria(categoria);
-                l.setDataPubb(LocalDate.parse(data));
-                l.setRecensione(recensione);
-                l.setNrCopie(Integer.parseInt(copie));
-                l.setDesc(desc);
-                l.setDisponibilita(Integer.parseInt(disp));
-                l.setPrezzo(Float.parseFloat(prezzo));
-                l.setId(Integer.parseInt(id));
 
-                list.add(l);
+                list.add(getLibro(gVector));
 
             }
 
@@ -789,26 +760,9 @@ public class CsvOggettoDao implements DaoInterface {
             boolean recordFound = gVector[GETINDEXIDG].equals(String.valueOf(giornale.getId())) || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))
                     || gVector[GETINDEXTITOLOG].equals(giornale.getTitolo())|| gVector[GETINDEXEDITOREG].equals(giornale.getEditore());
             if (recordFound) {
-                String titolo = gVector[GETINDEXTITOLOG];
-                String tipologia = gVector[GETINDEXTIPOLOGIAG];
-                String lingua = gVector[GETINDEXLINGUAG];
-                String ed = gVector[GETINDEXEDITOREG];
-                String data = gVector[GETINDEXDATAG];
-                String copie = gVector[GETINDEXCOPIERG];
-                String disp = gVector[GETINDEXDISPG];
-                String prezzo = gVector[GETINDEXPREZZOG];
-                Giornale g = new Giornale();
 
-                g.setTitolo(titolo);
-                g.setTipologia(tipologia);
-                g.setLingua(lingua);
-                g.setEditore(ed);
-                g.setDataPubb(LocalDate.parse(data));
-                g.setCopieRimanenti(Integer.parseInt(copie));
-                g.setDisponibilita(Integer.parseInt(disp));
-                g.setPrezzo(Float.parseFloat(prezzo));
 
-                list.add(g);
+                list.add(getGiornale(gVector));
             }
         }
         csvReader.close();
@@ -858,33 +812,8 @@ public class CsvOggettoDao implements DaoInterface {
             boolean recordFound = gVector[GETINDEXIDR].equals(String.valueOf(rivista.getId())) || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))
                     || gVector[GETINDEXTITOLOR].equals(rivista.getTitolo())||gVector[GETINDEXAUTORER].equals(rivista.getAutore());
             if (recordFound) {
-                String titolo = gVector[GETINDEXTITOLOR];
-                String tipologia = gVector[GETINDEXTIPOLOGIAR];
-                String aut = gVector[GETINDEXAUTORER];
-                String lingua = gVector[GETINDEXLINGUAR];
-                String ed = gVector[GETINDEXEDITORER];
-                String desc = gVector[GETINDEXDESCRIZIONER];
-                String data = gVector[GETINDEXDATAR];
-                String disp = gVector[GETINDEXDISPR];
-                String prezzo = gVector[GETINDEXPREZZOR];
-                String copieRim = gVector[GETINDEXCOPIER];
-                String id = gVector[GETINDEXIDR];
-                Rivista r = new Rivista();
 
-
-                r.setTitolo(titolo);
-                r.setTipologia(tipologia);
-                r.setAutore(aut);
-                r.setLingua(lingua);
-                r.setEditore(ed);
-                r.setDescrizione(desc);
-                r.setDataPubb(LocalDate.parse(data));
-                r.setDisp(Integer.parseInt(disp));
-                r.setPrezzo(Float.parseFloat(prezzo));
-                r.setCopieRim(Integer.parseInt(copieRim));
-                r.setId(Integer.parseInt(id));
-
-                rivistaList.add(r);
+                rivistaList.add(getRivista(gVector));
 
             }
         }

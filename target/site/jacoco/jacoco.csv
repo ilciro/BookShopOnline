@@ -73,5 +73,5 @@ BookShopOnline Maven Webapp,laptop.controller,ControllerUserPage,6,42,0,2,4,10,1
 BookShopOnline Maven Webapp,laptop.controller,ControllerCompravendita,28,338,9,27,7,70,11,19,2,7
 BookShopOnline Maven Webapp,laptop.controller,ControllerCancellaUser,0,39,0,2,0,11,0,3,0,2
 BookShopOnline Maven Webapp,laptop.controller,ControllerPagamentoCC,26,361,13,19,8,67,13,10,0,6
-BookShopOnline Maven Webapp,laptop.database.csvoggetto,CsvOggettoDao,210,2329,94,152,36,493,81,79,1,33
+BookShopOnline Maven Webapp,laptop.database.csvoggetto,CsvOggettoDao,210,2074,94,152,36,424,81,79,1,33
 BookShopOnline Maven Webapp,laptop.utilities,ConnToDb,9,150,1,5,3,46,1,10,0,8
