@@ -332,6 +332,8 @@ public class CsvOggettoDao implements DaoInterface {
         String desc = gVector[GETINDEXDESCL];
         String disp = gVector[GETINDEXDISPL];
         String prezzo = gVector[GETINDEXPREZZOL];
+        String idL=gVector[GETINDEXIDL];
+
 
 
         Libro l=new Libro();
@@ -349,6 +351,7 @@ public class CsvOggettoDao implements DaoInterface {
         l.setDesc(desc);
         l.setDisponibilita(Integer.parseInt(disp));
         l.setPrezzo(Float.parseFloat(prezzo));
+        l.setId(Integer.parseInt(idL));
 
         return l;
     }
@@ -363,6 +366,7 @@ public class CsvOggettoDao implements DaoInterface {
         String copie = gVector[GETINDEXCOPIERG];
         String disp = gVector[GETINDEXDISPG];
         String prezzo = gVector[GETINDEXPREZZOG];
+        String id=gVector[GETINDEXIDG];
 
         Giornale g = new Giornale();
 
@@ -374,6 +378,7 @@ public class CsvOggettoDao implements DaoInterface {
         g.setCopieRimanenti(Integer.parseInt(copie));
         g.setDisponibilita(Integer.parseInt(disp));
         g.setPrezzo(Float.parseFloat(prezzo));
+        g.setId(Integer.parseInt(id));
         return g;
     }
 

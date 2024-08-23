@@ -206,12 +206,12 @@ public class BoundaryModificaPage implements Initializable {
 
                dataG[0]=t;
                dataG[1]=tipo;
-               dataG[2]=ed;
-                dataG[3]=l;
+               dataG[3]=ed;
+                dataG[2]=l;
                 dataG[4]= String.valueOf(d);
-                dataG[5]= String.valueOf(dispo);
-                dataG[6]= String.valueOf(prezzo);
-                dataG[7]= String.valueOf(copie);
+                dataG[6]= String.valueOf(dispo);
+                dataG[7]= String.valueOf(prezzo);
+                dataG[5]= String.valueOf(copie);
 
 
                 if(cMP.checkDataG(dataG))

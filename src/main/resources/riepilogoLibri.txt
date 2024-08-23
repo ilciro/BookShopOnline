@@ -1,4 +1,4 @@
-Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	4794.0
+Id :	1titolo :	Apocalypse town: Cronache dalla fine della civilta urbanaricavo totale :	7.99
 Id :	2titolo :	Andrea Baranes : contro i falsi mitiricavo totale :	599.0
 Id :	3titolo :	Il libro dello splendorericavo totale :	7450.0
 Id :	4titolo :	Come i servizi segreti usano i mediaricavo totale :	259.59998
