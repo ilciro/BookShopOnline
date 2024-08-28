@@ -62,9 +62,6 @@ public class ControllerModificaUtente {
 		uT.setIdRuolo(ruolo);
 		uT.setId(vis.getId());
 
-
-		System.out.println(" nome user :" + uT.getNome() + "nome " + n);
-
 		if(vis.getTypeOfDb().equals("file"))
 		{
 			csvUtente.removeUserByIdEmailPwd(uT);
