@@ -90,7 +90,7 @@ public class BoundaryVisualizzaProfilo implements Initializable  {
 		Stage stage;
 		Parent root;
 		stage = (Stage) modificaB.getScene().getWindow();
-		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("modificaUtente.fxml")));
+		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("modificaUtentePage.fxml")));
 		stage.setTitle("Benvenuto nella schermata di modifica Utente");
 		scene = new Scene(root);
 		stage.setScene(scene);

@@ -51,7 +51,7 @@ public class BoundaryRicercaPage  implements Initializable{
 	@FXML
 	private Button buttonB;
 	
-	private static final String TITLE = "Benvenuto nella schermata del riepilogo ordine";
+	private static final String TITLE = "Benvenuto nella schermata della ricerca per tipo";
     private final ControllerRicercaPage cRP;
 	private final ControllerVisualizza cV;
 	protected Scene scene;
@@ -74,9 +74,7 @@ public class BoundaryRicercaPage  implements Initializable{
 	@FXML
 	private void apri() throws IOException
 	{
-		String i;
-
-		i = idT.getText();
+		String i= idT.getText();
 		if(cRP.returnType().equals("libro") || (cRP.returnType().equals("giornale") || (cRP.returnType().equals("rivista"))))
 		{
 			//cV.setID(i);

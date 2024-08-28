@@ -91,6 +91,7 @@ public class BoundaryRicercaPerTipo implements Initializable {
 	@FXML
 	private void cercaG() throws IOException
 	{
+		ControllerSystemState.getInstance().setTypeAsDaily();
 		if(cRPT.setRicerca(ControllerSystemState.getInstance().getType()))
 		{
 			Stage stage;
@@ -110,6 +111,7 @@ public class BoundaryRicercaPerTipo implements Initializable {
 	@FXML 
 	private void cercaR() throws IOException
 	{
+		ControllerSystemState.getInstance().setTypeAsMagazine();
 		if(cRPT.setRicerca(ControllerSystemState.getInstance().getType()))
 		{
 			Stage stage;

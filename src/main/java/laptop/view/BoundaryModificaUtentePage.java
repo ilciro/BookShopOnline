@@ -94,23 +94,18 @@ public class BoundaryModificaUtentePage implements Initializable {
 	@FXML
 	private void aggiorna() throws SQLException, IOException, ParseException, CsvValidationException, IdException {
 		//buttonM
-		System.out.println("id di vis in bmup: " + ControllerSystemState.getInstance().getId());
-		User.getInstance().setId(ControllerSystemState.getInstance().getId());
-		User.getInstance().setDescrizione(descTA.getText());
-		
 		Date sqlDate;
 		java.util.Date utilDate;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		utilDate = format.parse(dataTF.getText());
+	    sqlDate = new Date(utilDate.getTime());
 
-	  
-	         utilDate = format.parse(dataTF.getText());
-	         sqlDate = new Date(utilDate.getTime());
 		if(cMU.aggiornaTot( nomeTF.getText(), cognomeTF.getText(), emailTF.getText(),passF.getText(), descTA.getText(), sqlDate.toLocalDate(), utenteTF.getText()))
 		{
 			Stage stage;
 			Parent root;
 			stage = (Stage) buttonI.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("adminPage.fxml")));
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("visualizzaProfilo.fxml")));
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
@@ -126,6 +121,8 @@ public class BoundaryModificaUtentePage implements Initializable {
 			stage.show();
 			
 		}
+
+
 	}
 
 	
@@ -157,7 +154,7 @@ public class BoundaryModificaUtentePage implements Initializable {
 		Stage stage;
 		Parent root;
 		stage = (Stage) buttonI.getScene().getWindow();
-		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("userPage.fxml")));
+		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("visualizzaProfilo.fxml")));
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();

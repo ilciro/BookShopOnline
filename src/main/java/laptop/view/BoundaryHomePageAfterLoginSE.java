@@ -41,6 +41,8 @@ public class BoundaryHomePageAfterLoginSE {
 	@FXML
 	private ImageView imageU;
 	@FXML
+	private ImageView imageC;
+	@FXML
 	private Button buttonLogin;
 	@FXML
 	private Button buttonLogout;
@@ -133,8 +135,6 @@ public class BoundaryHomePageAfterLoginSE {
 		else
 		{
 			java.util.logging.Logger.getLogger("logout").log(Level.SEVERE,"\n eccezione logout",new LogoutException("errore nel logout"));
-
-			
 
 		}
 	

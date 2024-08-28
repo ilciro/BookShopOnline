@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerRicercaPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerRicercaPage.java</span></div><h1>ControllerRicercaPage.java</h1><pre class="source lang-java linenums">package laptop.controller;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import laptop.database.GiornaleDao;
@@ -20,52 +22,51 @@ public class ControllerRicercaPage {
 	private final Libro l;
 	private final Giornale g;
 	private final Rivista riv;
-<span class="fc" id="L23">	public ControllerRicercaPage() throws IOException {</span>
-<span class="fc" id="L24">		lD = new LibroDao();</span>
-<span class="fc" id="L25">		gD = new GiornaleDao();</span>
-<span class="fc" id="L26">		rD =new RivistaDao();</span>
-<span class="fc" id="L27">		l=new Libro();</span>
-<span class="fc" id="L28">		g=new Giornale();</span>
-<span class="fc" id="L29">		riv=new Rivista();</span>
+<span class="fc" id="L25">	public ControllerRicercaPage() throws IOException {</span>
+<span class="fc" id="L26">		lD = new LibroDao();</span>
+<span class="fc" id="L27">		gD = new GiornaleDao();</span>
+<span class="fc" id="L28">		rD =new RivistaDao();</span>
+<span class="fc" id="L29">		l=new Libro();</span>
+<span class="fc" id="L30">		g=new Giornale();</span>
+<span class="fc" id="L31">		riv=new Rivista();</span>
 
-<span class="fc" id="L31">		ControllerSystemState.getInstance().setIsSearch(true);</span>
+<span class="fc" id="L33">		ControllerSystemState.getInstance().setIsSearch(true);</span>
 		
-<span class="fc" id="L33">	}</span>
+<span class="fc" id="L35">	}</span>
 	
 	public ObservableList&lt;Raccolta&gt; cercaPerTipo (String s)
 	{
-<span class="fc" id="L37">		ObservableList&lt;Raccolta&gt; r = null;</span>
+<span class="fc" id="L39">		ObservableList&lt;Raccolta&gt; r = null;</span>
 
-<span class="pc bpc" id="L39" title="1 of 4 branches missed.">		switch(returnType())</span>
-		{
-			case &quot;libro&quot;:
-<span class="fc" id="L42">				l.setTitolo(s);</span>
-<span class="fc" id="L43">				l.setAutore(s);</span>
-<span class="fc" id="L44">				r= lD.getLibriIdTitoloAutore(l);</span>
-<span class="fc" id="L45">				break;</span>
-			case &quot;giornale&quot;:
-<span class="fc" id="L47">				g.setEditore(s);</span>
-<span class="fc" id="L48">				g.setTitolo(s);</span>
-<span class="fc" id="L49">				r=gD.getGiornaliIdTitoloAutore(g);</span>
-<span class="fc" id="L50">				break;</span>
-			case &quot;rivista&quot;:
-<span class="fc" id="L52">				riv.setTitolo(s);</span>
-<span class="fc" id="L53">				riv.setAutore(s);</span>
-<span class="fc" id="L54">				r=rD.getRivisteIdTitoloAutore(riv);</span>
-<span class="fc" id="L55">				break;</span>
-<span class="nc" id="L56">			default:return r;</span>
+<span class="pc bpc" id="L41" title="1 of 4 branches missed.">		switch(returnType()) {</span>
+			case &quot;libro&quot; -&gt; {
+<span class="fc" id="L43">			l.setTitolo(s);</span>
+<span class="fc" id="L44">			l.setAutore(s);</span>
+<span class="fc" id="L45">			r = lD.getLibriIdTitoloAutore(l);</span>
+<span class="fc" id="L46">			}</span>
+			case &quot;giornale&quot;-&gt; {
+<span class="fc" id="L48">				g.setEditore(s);</span>
+<span class="fc" id="L49">				g.setTitolo(s);</span>
+<span class="fc" id="L50">				r = gD.getGiornaliIdTitoloAutore(g);</span>
+<span class="fc" id="L51">			}</span>
+			case &quot;rivista&quot;-&gt; {
+<span class="fc" id="L53">				riv.setTitolo(s);</span>
+<span class="fc" id="L54">				riv.setAutore(s);</span>
+<span class="fc" id="L55">				r = rD.getRivisteIdTitoloAutore(riv);</span>
+<span class="fc" id="L56">			}</span>
+<span class="nc" id="L57">			default-&gt; Logger.getLogger(&quot;cerca per tipo&quot;).log(Level.SEVERE,&quot; type is not correct&quot;);</span>
 
 		}
 
 
 		
-<span class="fc" id="L62">		return r;</span>
+<span class="fc" id="L63">		return r;</span>
 		
 	}
 	
 	public String returnType()
 	{
-<span class="fc" id="L68">		return ControllerSystemState.getInstance().getType();</span>
+<span class="fc" id="L69">		return ControllerSystemState.getInstance().getType();</span>
 	}
 	
 	

@@ -34,20 +34,24 @@ public class ControllerModificaUtente {
 
 	public User prendi() throws SQLException{
 
-	return UsersDao.pickData(User.getInstance());
+	return UsersDao.pickData(uT);
 
 	}
 
 	public User prendiCsv() throws CsvValidationException, IOException, IdException {
-		return csvUtente.userList(new File("report/reportUtente.csv"),User.getInstance()).get(0);
+		return csvUtente.userList(new File("report/reportUtente.csv"),uT).get(0);
 	}
 
 
 	public boolean aggiornaTot(String n, String c, String email1, String pass, String desc, LocalDate localDate, String ruolo) throws SQLException, CsvValidationException, IOException, IdException {
 		//sistemare anche qui
-		if(vis.getTypeOfDb().equals("file"))
-			uT=prendiCsv();
-		else uT=prendi();
+		if (vis.getTypeOfDb().equals("file"))
+			uT = prendiCsv();
+		else uT = prendi();
+
+		String email=uT.getEmail();
+
+
 
 		uT.setNome(n);
 		uT.setCognome(c);
@@ -56,19 +60,26 @@ public class ControllerModificaUtente {
 		uT.setDescrizione(desc);
 		uT.setDataDiNascita(localDate);
 		uT.setIdRuolo(ruolo);
+		uT.setId(vis.getId());
+
+
+		System.out.println(" nome user :" + uT.getNome() + "nome " + n);
+
 		if(vis.getTypeOfDb().equals("file"))
 		{
-			csvUtente.removeUserByIdEmailPwd(User.getInstance());
+			csvUtente.removeUserByIdEmailPwd(uT);
 			csvUtente.inserisciUtente(uT);
 			state=true;
 		}
-		else {
-			if(UsersDao.aggiornaUtente(uT,email1) != null)
+
+		if(UsersDao.aggiornaUtente(uT, email) != null)
 			{
 				state=true;
 			}
-		}
+
 		return state;
 	}
+
+
 
 }

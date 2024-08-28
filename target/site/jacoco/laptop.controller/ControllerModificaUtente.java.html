@@ -34,42 +34,53 @@ public class ControllerModificaUtente {
 
 	public User prendi() throws SQLException{
 
-<span class="fc" id="L37">	return UsersDao.pickData(User.getInstance());</span>
+<span class="fc" id="L37">	return UsersDao.pickData(uT);</span>
 
 	}
 
 	public User prendiCsv() throws CsvValidationException, IOException, IdException {
-<span class="fc" id="L42">		return csvUtente.userList(new File(&quot;report/reportUtente.csv&quot;),User.getInstance()).get(0);</span>
+<span class="fc" id="L42">		return csvUtente.userList(new File(&quot;report/reportUtente.csv&quot;),uT).get(0);</span>
 	}
 
 
 	public boolean aggiornaTot(String n, String c, String email1, String pass, String desc, LocalDate localDate, String ruolo) throws SQLException, CsvValidationException, IOException, IdException {
 		//sistemare anche qui
-<span class="fc bfc" id="L48" title="All 2 branches covered.">		if(vis.getTypeOfDb().equals(&quot;file&quot;))</span>
-<span class="fc" id="L49">			uT=prendiCsv();</span>
-<span class="fc" id="L50">		else uT=prendi();</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">		if (vis.getTypeOfDb().equals(&quot;file&quot;))</span>
+<span class="fc" id="L49">			uT = prendiCsv();</span>
+<span class="fc" id="L50">		else uT = prendi();</span>
 
-<span class="fc" id="L52">		uT.setNome(n);</span>
-<span class="fc" id="L53">		uT.setCognome(c);</span>
-<span class="fc" id="L54">		uT.setEmail(email1);</span>
-<span class="fc" id="L55">		uT.setPassword(pass);</span>
-<span class="fc" id="L56">		uT.setDescrizione(desc);</span>
-<span class="fc" id="L57">		uT.setDataDiNascita(localDate);</span>
-<span class="fc" id="L58">		uT.setIdRuolo(ruolo);</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">		if(vis.getTypeOfDb().equals(&quot;file&quot;))</span>
+<span class="fc" id="L52">		String email=uT.getEmail();</span>
+
+
+
+<span class="fc" id="L56">		uT.setNome(n);</span>
+<span class="fc" id="L57">		uT.setCognome(c);</span>
+<span class="fc" id="L58">		uT.setEmail(email1);</span>
+<span class="fc" id="L59">		uT.setPassword(pass);</span>
+<span class="fc" id="L60">		uT.setDescrizione(desc);</span>
+<span class="fc" id="L61">		uT.setDataDiNascita(localDate);</span>
+<span class="fc" id="L62">		uT.setIdRuolo(ruolo);</span>
+<span class="fc" id="L63">		uT.setId(vis.getId());</span>
+
+
+<span class="fc" id="L66">		System.out.println(&quot; nome user :&quot; + uT.getNome() + &quot;nome &quot; + n);</span>
+
+<span class="fc bfc" id="L68" title="All 2 branches covered.">		if(vis.getTypeOfDb().equals(&quot;file&quot;))</span>
 		{
-<span class="fc" id="L61">			csvUtente.removeUserByIdEmailPwd(User.getInstance());</span>
-<span class="fc" id="L62">			csvUtente.inserisciUtente(uT);</span>
-<span class="fc" id="L63">			state=true;</span>
+<span class="fc" id="L70">			csvUtente.removeUserByIdEmailPwd(uT);</span>
+<span class="fc" id="L71">			csvUtente.inserisciUtente(uT);</span>
+<span class="fc" id="L72">			state=true;</span>
 		}
-		else {
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">			if(UsersDao.aggiornaUtente(uT,email1) != null)</span>
+
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">		if(UsersDao.aggiornaUtente(uT, email) != null)</span>
 			{
-<span class="fc" id="L68">				state=true;</span>
+<span class="fc" id="L77">				state=true;</span>
 			}
-		}
-<span class="fc" id="L71">		return state;</span>
+
+<span class="fc" id="L80">		return state;</span>
 	}
+
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

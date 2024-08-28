@@ -1,6 +1,8 @@
 package laptop.controller;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import laptop.database.GiornaleDao;
@@ -36,24 +38,23 @@ public class ControllerRicercaPage {
 	{
 		ObservableList<Raccolta> r = null;
 
-		switch(returnType())
-		{
-			case "libro":
-				l.setTitolo(s);
-				l.setAutore(s);
-				r= lD.getLibriIdTitoloAutore(l);
-				break;
-			case "giornale":
+		switch(returnType()) {
+			case "libro" -> {
+			l.setTitolo(s);
+			l.setAutore(s);
+			r = lD.getLibriIdTitoloAutore(l);
+			}
+			case "giornale"-> {
 				g.setEditore(s);
 				g.setTitolo(s);
-				r=gD.getGiornaliIdTitoloAutore(g);
-				break;
-			case "rivista":
+				r = gD.getGiornaliIdTitoloAutore(g);
+			}
+			case "rivista"-> {
 				riv.setTitolo(s);
 				riv.setAutore(s);
-				r=rD.getRivisteIdTitoloAutore(riv);
-				break;
-			default:return r;
+				r = rD.getRivisteIdTitoloAutore(riv);
+			}
+			default-> Logger.getLogger("cerca per tipo").log(Level.SEVERE," type is not correct");
 
 		}
 

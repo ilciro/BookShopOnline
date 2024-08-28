@@ -3,6 +3,7 @@ package web;
 
 import laptop.database.LibroDao;
 import laptop.model.raccolta.Libro;
+import laptop.utilities.ConnToDb;
 import org.apache.commons.beanutils.PropertyUtils;
 
 
@@ -15,9 +16,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import web.bean.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.Duration;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -39,7 +45,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     private final FatturaBean fB=new FatturaBean();
 
     @Test
-    void testLoginUserLibro() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    void testLoginUserLibro() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, FileNotFoundException {
+
+        //cancello db e lo ricreo
+
+        cancellaDB();
+
+        ConnToDb.creaPopolaDb();
         driver=new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 
@@ -51,6 +63,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         PropertyUtils.setProperty(uB,"emailB",driver.findElement(By.id("emailL")).getAttribute("value"));
         PropertyUtils.setProperty(uB,"passB",driver.findElement(By.id("passL")).getAttribute("value"));
         driver.findElement(By.id("loginB")).click();
+
+
         //schermata utente: libro , giornale , rivista , logout,ricerca
         driver.findElement(By.id("buttonL")).click();
 
@@ -115,13 +129,38 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 
+
+
     }
+
     @AfterEach
     void chiudiTest()
     {
         driver.close();
 
     }
+    private void cancellaDB()
+    {
+        String query="drop schema ISPW";
+        int row=0;
+        try(Connection conn=ConnToDb.generalConnection();
+            PreparedStatement prepQ=conn.prepareStatement(query);)
+        {
+            row=prepQ.executeUpdate();
+        }catch(SQLException e)
+        {
+            java.util.logging.Logger.getLogger("cancella db").log(Level.INFO,"errore nel db \n");
+
+        }
+        java.util.logging.Logger.getLogger("righe canellate").log(Level.INFO,"row{0} \n",row);
+
+
+
+
+
+ }
+
+
 
 
 }

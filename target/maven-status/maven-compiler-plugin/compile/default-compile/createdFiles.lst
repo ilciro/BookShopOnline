@@ -130,7 +130,6 @@ laptop/database/csvusers/UserInterface.class
 laptop/view/BoundaryRegistraUtente.class
 laptop/utilities/ConnToDb.class
 laptop/controller/ControllerRegistraUtente.class
-laptop/view/BoundaryModificaUtente.class
 laptop/database/UsersDao.class
 laptop/controller/ControllerAggiungiPage.class
 laptop/model/raccolta/Libro.class

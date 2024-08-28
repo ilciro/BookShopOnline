@@ -10,7 +10,7 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryModificaUtentePage">
    <children>
-      <Label fx:id="header" layoutX="202.0" layoutY="31.0" prefHeight="32.0" prefWidth="196.0" text="scegliere i campi da modificare" textFill="#27ff01" />
+      <Label fx:id="header" layoutX="202.0" layoutY="31.0" prefHeight="32.0" prefWidth="235.0" text="scegliere i campi da modificare" textFill="#27ff01" />
       <Label fx:id="tipo" layoutX="15.0" layoutY="100.0" prefHeight="20.0" prefWidth="100.0" text="tipo utente" />
       <Label fx:id="nome" layoutX="15.0" layoutY="150.0" prefHeight="20.0" prefWidth="100.0" text="nome utente" />
       <Label fx:id="cognome" layoutX="15.0" layoutY="200.0" prefHeight="20.0" prefWidth="100.0" text="cognome utente" />
@@ -33,6 +33,6 @@
       <ListView fx:id="ruoli" layoutX="583.0" layoutY="86.0" onMouseClicked="#ritornaUtente" prefHeight="129.0" prefWidth="121.0" />
       <TextField fx:id="utenteTF" layoutX="360.0" layoutY="100.0" />
       <Button fx:id="buttonM" layoutX="601.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#aggiorna" text="modifica dati" textFill="#199010" />
-      <TextArea fx:id="descTA" layoutX="330.0" layoutY="410.0" prefHeight="130.0" prefWidth="200.0" />
+      <TextArea fx:id="descTA" layoutX="330.0" layoutY="410.0" prefHeight="130.0" prefWidth="200.0" promptText="inserire descrizione" />
    </children>
 </Pane>

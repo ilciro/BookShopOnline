@@ -88,10 +88,10 @@ public class ConnToDb
 <span class="fc" id="L88">			java.util.logging.Logger.getLogger(&quot;Test connection to my db&quot;).log(Level.INFO, &quot;Connesso standard a ISPW........\n&quot;);</span>
 <span class="fc" id="L89">			setStatusConnDB(true);</span>
 		}
-<span class="nc" id="L91">		catch (SQLException | ClassNotFoundException e1)</span>
+<span class="fc" id="L91">		catch (SQLException | ClassNotFoundException e1)</span>
 		{
-<span class="nc" id="L93">			java.util.logging.Logger.getLogger(&quot;TTest connection to my db error&quot;).log(Level.INFO, ERRORE, e1);</span>
-<span class="nc" id="L94">			setStatusConnDB(false);</span>
+<span class="fc" id="L93">			java.util.logging.Logger.getLogger(&quot;TTest connection to my db error&quot;).log(Level.INFO, ERRORE, e1);</span>
+<span class="fc" id="L94">			setStatusConnDB(false);</span>
 
 <span class="fc" id="L96">		}</span>
 
@@ -106,13 +106,13 @@ public class ConnToDb
 <span class="fc" id="L106">		ConnToDb.connectionToDB();</span>
 <span class="fc" id="L107">		boolean statusSys=ConnToDb.getStatusConnSys();</span>
 <span class="fc" id="L108">		boolean statusDb=ConnToDb.getStatusConnDB();</span>
-<span class="pc bpc" id="L109" title="2 of 4 branches missed.">		boolean status=statusSys&amp;&amp;statusDb;</span>
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">		if(Boolean.FALSE.equals(status)) {</span>
-<span class="nc" id="L111">			Reader reader = new BufferedReader(new FileReader(&quot;FileSql/export-db.sql&quot;));</span>
-<span class="nc" id="L112">			ScriptRunner sr = new ScriptRunner(conn);</span>
-<span class="nc" id="L113">			sr.setSendFullScript(false);</span>
-<span class="nc" id="L114">			sr.runScript(reader);</span>
-<span class="nc" id="L115">		}</span>
+<span class="pc bpc" id="L109" title="1 of 4 branches missed.">		boolean status=statusSys&amp;&amp;statusDb;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">		if(Boolean.FALSE.equals(status)) {</span>
+<span class="fc" id="L111">			Reader reader = new BufferedReader(new FileReader(&quot;FileSql/export-db.sql&quot;));</span>
+<span class="fc" id="L112">			ScriptRunner sr = new ScriptRunner(conn);</span>
+<span class="fc" id="L113">			sr.setSendFullScript(false);</span>
+<span class="fc" id="L114">			sr.runScript(reader);</span>
+<span class="fc" id="L115">		}</span>
 		else {
 <span class="fc" id="L117">			java.util.logging.Logger.getLogger(&quot;creaPopolaDB&quot;).log(Level.INFO, &quot;entrambi popolati&quot;);</span>
 
