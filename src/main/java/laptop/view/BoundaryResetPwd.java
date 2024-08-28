@@ -61,7 +61,25 @@ public class BoundaryResetPwd implements Initializable{
 		email=emailTF.getText();
 		vecchiaP=vecchiaPF.getText();
 		nuovaP=nuovaPF.getText();
-		cP.aggiornaPass(email,vecchiaP,nuovaP);
+		if(cP.aggiornaPass(email,vecchiaP,nuovaP))
+		{
+			Stage stage;
+			Parent root;
+			stage = (Stage) buttonC.getScene().getWindow();
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("loginPage.fxml")));
+			stage.setTitle("Benvenuto nella home page");
+			scene = new Scene(root);
+			stage.setScene(scene);
+		}
+		else{
+			Stage stage;
+			Parent root;
+			stage = (Stage) buttonC.getScene().getWindow();
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resetPwd.fxml")));
+			stage.setTitle("Benvenuto nella home page");
+			scene = new Scene(root);
+			stage.setScene(scene);
+		}
 		
 		
 	}
@@ -72,7 +90,7 @@ public class BoundaryResetPwd implements Initializable{
 		Parent root;
 		stage = (Stage) buttonH.getScene().getWindow();
 		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePage.fxml")));
-		stage.setTitle("Benvenuto nella schermata del login");
+		stage.setTitle("Benvenuto nella home page");
 		scene = new Scene(root);
 		stage.setScene(scene);
 

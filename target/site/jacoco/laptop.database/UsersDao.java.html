@@ -142,25 +142,25 @@ public class UsersDao {
 	// this function check if you have changed password successfully 
 	public static boolean checkResetpass(User u, String pwd, String email) throws SQLException {
 
-<span class="nc" id="L145">		query = &quot;Update USERS SET pwd = ?  where Email = ?&quot;;</span>
-<span class="nc" id="L146">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L147">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L145">		query = &quot;Update USERS SET pwd = ?  where Email = ?&quot;;</span>
+<span class="fc" id="L146">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L147">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
 
-<span class="nc" id="L150">			prepQ.setString(1, pwd);</span>
-<span class="nc" id="L151">			prepQ.setString(2, email);</span>
-<span class="nc" id="L152">			row = prepQ.executeUpdate();</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">			if (row == 1)</span>
-<span class="nc" id="L154">				state = true;</span>
+<span class="fc" id="L150">			prepQ.setString(1, pwd);</span>
+<span class="fc" id="L151">			prepQ.setString(2, email);</span>
+<span class="fc" id="L152">			row = prepQ.executeUpdate();</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">			if (row == 1)</span>
+<span class="fc" id="L154">				state = true;</span>
 
 <span class="nc" id="L156">		} catch (SQLException e) {</span>
 <span class="nc" id="L157">			Logger.getLogger(&quot;check reset pwd&quot;).log(Level.INFO, ECCEZIONE, e);</span>
 
-<span class="nc" id="L159">		}</span>
+<span class="fc" id="L159">		}</span>
 
 
-<span class="nc" id="L162">		Logger.getLogger(&quot;Reset pwd&quot;).log(Level.INFO, &quot;row affected{0}&quot;, u.getEmail());</span>
-<span class="nc" id="L163">		return state;</span>
+<span class="fc" id="L162">		Logger.getLogger(&quot;Reset pwd&quot;).log(Level.INFO, &quot;row affected{0}&quot;, u.getEmail());</span>
+<span class="fc" id="L163">		return state;</span>
 	}
 
 

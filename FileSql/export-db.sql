@@ -247,8 +247,6 @@ USE `ISPW`;
 
 DELIMITER $$
 
-
-
 USE `ISPW`$$
 DROP TRIGGER IF EXISTS `ISPW`.`insert_user` $$
 CREATE
@@ -258,15 +256,13 @@ AFTER INSERT ON `ISPW`.`USERS`
 FOR EACH ROW
 begin
     if (new.idRuolo ="A")
-	then insert into ISPW.AMMINISTRATORE values (0,new.idUser);
-    else if (new.idRuolo="W")
-    then insert into ISPW.SCRITTORE values(0,new.idUser,new.nome);
-    else if (new.idRuolo="E")
-    then insert into ISPW.EDITORE values(0,new.idUser,new.nome);
+	    then insert into ISPW.AMMINISTRATORE values (0,new.idUser);
+    elseif (new.idRuolo="W")
+        then insert into ISPW.SCRITTORE values(0,new.idUser,new.nome);
+    elseif (new.idRuolo="E")
+        then insert into ISPW.EDITORE values(0,new.idUser,new.nome);
     end if;
- end$$
-
-
+ end $$
 DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -196,6 +196,7 @@ public class BoundaryPagamentoCC implements Initializable {
 		    }
 		cPCC.aggiungiCartaDB(nome, cognome, codice, sqlDate, civ, vis.getSpesaT());
 
+
 		
 		 
 		 

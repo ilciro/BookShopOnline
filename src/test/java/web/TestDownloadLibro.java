@@ -154,10 +154,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         }
         java.util.logging.Logger.getLogger("righe canellate").log(Level.INFO,"row{0} \n",row);
 
-
-
-
-
  }
 
 

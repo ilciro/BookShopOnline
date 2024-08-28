@@ -43,11 +43,11 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
 <span class="fc" id="L44">    public FatturaPagamentoCCredito() throws IOException {</span>
 <span class="fc" id="L45">        this.fileFattura=new File(&quot;report/reportFattura.csv&quot;);</span>
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if(!this.fileFattura.exists())</span>
-<span class="nc" id="L47">            Files.createFile(Path.of(this.fileFattura.toURI()));</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if(!this.fileFattura.exists())</span>
+<span class="fc" id="L47">            Files.createFile(Path.of(this.fileFattura.toURI()));</span>
 <span class="fc" id="L48">        this.filePagamento=new File(&quot;report/reportPagamento.csv&quot;);</span>
-<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if(!this.filePagamento.exists())</span>
-<span class="nc" id="L50">            Files.createFile(Path.of(this.filePagamento.toURI()));</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if(!this.filePagamento.exists())</span>
+<span class="fc" id="L50">            Files.createFile(Path.of(this.filePagamento.toURI()));</span>
 <span class="fc" id="L51">    }</span>
 
 
@@ -152,13 +152,13 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
             }
 
-<span class="pc bpc" id="L155" title="1 of 2 branches missed.">            if (id == 0)</span>
-<span class="nc" id="L156">                throw new IdException(&quot;id ==0 &quot;);</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">            if (id == 0)</span>
+<span class="fc" id="L156">                throw new IdException(&quot;id ==0 &quot;);</span>
 
-<span class="nc" id="L158">        }catch (IdException  e)</span>
+<span class="fc" id="L158">        }catch (IdException  e)</span>
         {
 
-<span class="nc" id="L161">            Logger.getLogger(&quot;id worng&quot;).log(Level.SEVERE, &quot;id error!!!........\n&quot;);</span>
+<span class="fc" id="L161">            Logger.getLogger(&quot;id worng&quot;).log(Level.SEVERE, &quot;id error!!!........\n&quot;);</span>
 
 
 <span class="fc" id="L164">        }</span>

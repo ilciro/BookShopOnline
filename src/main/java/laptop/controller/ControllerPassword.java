@@ -27,8 +27,6 @@ public class ControllerPassword {
 		u.setPassword(vecchiaP);
 		if(u.getPassword().equals(vecchiaP) && (nuovaP.length()>=8 || !email.isEmpty()) )
 		{
-			
-				u.setPassword(nuovaP);
 
 				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 				{
