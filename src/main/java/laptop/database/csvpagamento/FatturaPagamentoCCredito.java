@@ -123,24 +123,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
 
-    private static synchronized List<Fattura> returnFatturaByNomeCognome(File fd, String nome, String cognome) throws IOException, CsvValidationException {
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        List<Fattura> list = new ArrayList<>();
-        boolean recordFound;
-        while ((gVector = reader.readNext()) != null) {
-
-            recordFound = gVector[GETINDEXNOMEF].equals(nome) || gVector[GETINDEXCOGNOMEF].equals(cognome);
-            if(recordFound)
-            {
-                Fattura f = getFattura(gVector);
-                list.add(f);
-
-            }
-        }
-        reader.close();
-        return list;
-    }
 
     private static @NotNull Fattura getFattura(String[] gVector) {
         String nomeF= gVector[GETINDEXNOMEF];
@@ -203,41 +185,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
     }
 
-    private static  synchronized List<Pagamento> returnPagamentoByNome(File fd, String nomeUtente) throws IOException, CsvValidationException, IdException {
-        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fd)));
-        List<Pagamento> list=new ArrayList<>();
-        String []gVector;
-        boolean recordFound;
-        while((gVector=reader.readNext())!=null)
-        {
-            recordFound=gVector[GETINDEXNOMEP].equals(nomeUtente);
-
-           if(recordFound) {
-               String idP = gVector[GETINDEXIDP];
-               String metodo = gVector[GETINDEXMETODOP];
-               String esito = gVector[GETINDEXESITOP];
-               String nome = gVector[GETINDEXNOMEP];
-               String spesa = gVector[GETINDEXSPESAP];
-               String email = gVector[GETINDEXEIAMILP];
-               String tipo = gVector[GETINDEXACQUISTOP];
-               String idPa = gVector[GETINDEXIDPRODOTTOP];
-
-               Pagamento p = new Pagamento();
-               p.setId(Integer.parseInt(idP));
-               p.setMetodo(metodo);
-               p.setEsito(Integer.parseInt(esito));
-               p.setNomeUtente(nome);
-               p.setAmmontare(Float.parseFloat(spesa));
-               User.getInstance().setEmail(email);
-               p.setTipo(tipo);
-               p.setIdOggetto(Integer.parseInt(idPa));
-               list.add(p);
-           }
-
-        }
-        reader.close();
-        return list;
-    }
 
 
 

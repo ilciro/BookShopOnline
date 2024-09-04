@@ -190,10 +190,12 @@ public class ControllerDownload {
 						csvOggetto.removeRivistaById(r);
 						csvOggetto.inserisciRivista(r1);
 					}
+					default -> 	Logger.getLogger("Test incrementa").log(Level.SEVERE,"type not found");
+
 				}
+
 			}
 
-			default -> 	Logger.getLogger("Test incrementa").log(Level.SEVERE,"type not found");
 
 		}
 	}

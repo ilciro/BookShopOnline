@@ -29,7 +29,7 @@ public class TestGestionePagamentoCsv {
         vis.setTypeOfDb("file");
         vis.setMetodoP("cCredito");
         vis.setSpesaT(36.52f);
-        cPCC.aggiungiCartaDB(" arnaldo","indaco","8521-9632-5551-1111", new Date(System.currentTimeMillis()),"852",vis.getSpesaT());
+        cPCC.aggiungiCartaDB("arnaldo","indaco","8521-9632-5551-1111", new Date(System.currentTimeMillis()),"852",vis.getSpesaT());
     }
     @Test
     void getLista() throws  CsvValidationException, IOException, IdException {

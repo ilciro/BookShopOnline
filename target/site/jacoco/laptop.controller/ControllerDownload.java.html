@@ -189,14 +189,16 @@ public class ControllerDownload {
 <span class="nc" id="L189">						Rivista r1=csvOggetto.retrieveRivistaData(new File(&quot;report/reportRivista.csv&quot;),r).get(0);</span>
 <span class="nc" id="L190">						csvOggetto.removeRivistaById(r);</span>
 <span class="nc" id="L191">						csvOggetto.inserisciRivista(r1);</span>
-					}
-				}
-<span class="nc" id="L194">			}</span>
+<span class="nc" id="L192">					}</span>
+<span class="nc" id="L193">					default -&gt; 	Logger.getLogger(&quot;Test incrementa&quot;).log(Level.SEVERE,&quot;type not found&quot;);</span>
 
-<span class="nc" id="L196">			default -&gt; 	Logger.getLogger(&quot;Test incrementa&quot;).log(Level.SEVERE,&quot;type not found&quot;);</span>
+				}
+
+			}
+
 
 		}
-<span class="fc" id="L199">	}</span>
+<span class="fc" id="L201">	}</span>
 
 
 	}
