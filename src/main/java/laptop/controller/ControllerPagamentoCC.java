@@ -106,7 +106,10 @@ public class ControllerPagamentoCC {
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 			{
 
+				csvFattura.inserisciCartaCredito(cc);
 				cCPD.checkPagamentoData(n);
+				//inserisciCartaCredito
+
 			}
 			else
 		{
@@ -124,9 +127,12 @@ public class ControllerPagamentoCC {
 
 	public ObservableList<CartaDiCredito> ritornaElencoCC(String nomeU) throws CsvValidationException, IOException, IdException {
 
+		ObservableList<CartaDiCredito> lista;
 
-
-		return cDao.getCarteCredito(nomeU);
+		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+			lista= csvFattura.getListaCartaCreditoByNome(new File("report/reportCartaCredito.csv"),new CartaDiCredito());
+		else  lista= cDao.getCarteCredito(nomeU);
+		return lista;
 
 
 	}

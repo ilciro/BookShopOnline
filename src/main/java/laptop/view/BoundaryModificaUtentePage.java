@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import laptop.controller.ControllerModificaUtente;
 import laptop.controller.ControllerSystemState;
 import laptop.exception.IdException;
-import laptop.model.User;
 
 public class BoundaryModificaUtentePage implements Initializable {
 	@FXML

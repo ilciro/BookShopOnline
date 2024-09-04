@@ -102,7 +102,7 @@ public class BoundaryAggiungiPage implements Initializable {
 	protected float prezzo;
 	protected int copie;
 	private final ObservableList<String> items = FXCollections.observableArrayList();
-		private final ControllerSystemState vis=ControllerSystemState.getInstance();
+	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 
 
 	@FXML
@@ -281,7 +281,6 @@ public class BoundaryAggiungiPage implements Initializable {
 			java.util.logging.Logger.getLogger("Test initialize").log(Level.SEVERE, "eccezione ottenuta",e);
 
 		}
-		System.out.println(" type of obj: " + vis.getType());
 		switch (vis.getType())
 		{
 			case "libro"->

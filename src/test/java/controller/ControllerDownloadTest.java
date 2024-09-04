@@ -1,8 +1,10 @@
 package controller;
 
 import com.itextpdf.text.DocumentException;
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.controller.ControllerDownload;
 import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -45,21 +47,21 @@ class ControllerDownloadTest {
         assertEquals(1,vis.getId());
     }
     @Test
-    void annullaOrdineL() throws SQLException {
+    void annullaOrdineL() throws SQLException, CsvValidationException, IOException, IdException {
         vis.setMetodoP("cash");
         vis.setTypeAsBook();
         cD.annullaOrdine();
         assertEquals("libro",vis.getType());
     }
     @Test
-    void annullaOrdineG() throws SQLException {
+    void annullaOrdineG() throws SQLException, CsvValidationException, IOException, IdException {
         vis.setMetodoP("cash");
         vis.setTypeAsDaily();
         cD.annullaOrdine();
         assertEquals("giornale",vis.getType());
     }
     @Test
-    void annullaOrdineR() throws SQLException {
+    void annullaOrdineR() throws SQLException, CsvValidationException, IOException, IdException {
         vis.setMetodoP("cCredito");
         vis.setTypeAsMagazine();
         cD.annullaOrdine();

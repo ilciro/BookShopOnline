@@ -844,7 +844,7 @@ public class CsvOggettoDao implements DaoInterface {
 <span class="fc" id="L844">       CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
        String[] gVector;
 <span class="fc" id="L846">       CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));</span>
-<span class="fc" id="L847">       boolean recordFound = false;</span>
+       boolean recordFound;
 <span class="fc bfc" id="L848" title="All 2 branches covered.">       while ((gVector = reader.readNext()) != null) {</span>
 
 <span class="pc bpc" id="L850" title="1 of 4 branches missed.">           switch (type) {</span>

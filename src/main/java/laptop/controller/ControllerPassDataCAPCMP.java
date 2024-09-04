@@ -13,9 +13,6 @@ public class ControllerPassDataCAPCMP {
     private final Libro l=new Libro();
     private final Rivista r=new Rivista();
 
-
-
-
     public Libro getLibro(String [] data)
     {
         l.setTitolo(data[0]);

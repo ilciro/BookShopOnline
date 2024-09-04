@@ -844,7 +844,7 @@ public class CsvOggettoDao implements DaoInterface {
        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
        String[] gVector;
        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
-       boolean recordFound = false;
+       boolean recordFound;
        while ((gVector = reader.readNext()) != null) {
 
            switch (type) {

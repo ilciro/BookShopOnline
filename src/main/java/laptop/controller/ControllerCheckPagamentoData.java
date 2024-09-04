@@ -33,20 +33,13 @@ public class ControllerCheckPagamentoData {
 	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
 		String tipo=vis.getType();
 		
-		Pagamento p;
-		
-		p=new Pagamento(0,"", 0, "",0, null);
+		Pagamento p=new Pagamento(0,"", 0, "",0, null);
 			
 		//inserire qui
 		if(vis.getMetodoP().equals("cash"))
 			p.setMetodo("cash");
 		else p.setMetodo("cCredito");
 		p.setNomeUtente(nome);
-
-
-		p.setId(vis.getId());
-		
-
 
 
 		switch (tipo){
@@ -60,7 +53,7 @@ public class ControllerCheckPagamentoData {
 				{
 					Libro l1=csv.retrieveLibroData(new File("report/reportLibro.csv"),l).get(0);
 					p.setTipo(l1.getCategoria());
-					csvFattura.copiaFiles(p);
+					csvFattura.inserisciPagamento(p);
 
 
 
@@ -84,7 +77,7 @@ public class ControllerCheckPagamentoData {
 				{
 					Giornale g1 =csv.retriveGiornaleData(new File("report/reportGiornale.csv"),g).get(0);
 					p.setTipo(g1.getTipologia());
-					csvFattura.copiaFiles(p);
+					csvFattura.inserisciPagamento(p);
 
 
 
@@ -108,7 +101,7 @@ public class ControllerCheckPagamentoData {
 				{
 					Rivista r1=csv.retrieveRivistaData(new File("report/reportRivista.csv"),r).get(0);
 					p.setTipo(r1.getTipologia());
-					csvFattura.copiaFiles(p);
+					csvFattura.inserisciPagamento(p);
 
 
 

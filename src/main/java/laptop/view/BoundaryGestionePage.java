@@ -91,7 +91,6 @@ public class BoundaryGestionePage implements Initializable {
 	@FXML
 	private void modifica() throws IOException {
 		vis.setId(Integer.parseInt(idL.getText()));
-		System.out.println(" id da mod :" + vis.getId());
 		Stage stage;
 		Parent root;
 		stage = (Stage) modB.getScene().getWindow();

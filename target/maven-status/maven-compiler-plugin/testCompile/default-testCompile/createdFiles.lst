@@ -23,14 +23,15 @@ controller/ControllerModifPageTest.class
 controller/ControllerCheckPagamentoDataTest.class
 web/TestDownloadLibro.class
 added/TestRicerca.class
+controller/csv/TestGestionePagamentoCsv.class
 controller/ControllerGestionePageTest.class
+controller/csv/TestGestioneRivistaCsv.class
 added/TestGiornale.class
 controller/ControllerRicercaPageTest.class
 added/TestPagamento.class
 added/TestLibro.class
 controller/ControllerAcquistaTest.class
 controller/csv/TestGestioneUtenteCsv.class
-controller/csv/TestGestioneRivistaCSV.class
 controller/TestControllerScelta.class
 controller/ControllerLoginTest.class
 web/TestEditoreRicerca.class

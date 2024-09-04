@@ -13,41 +13,38 @@ import java.time.LocalDate;
 <span class="fc" id="L13">    private final Libro l=new Libro();</span>
 <span class="fc" id="L14">    private final Rivista r=new Rivista();</span>
 
-
-
-
     public Libro getLibro(String [] data)
     {
-<span class="fc" id="L21">        l.setTitolo(data[0]);</span>
-<span class="fc" id="L22">        l.setCodIsbn(data[1]);</span>
-<span class="fc" id="L23">        l.setEditore(data[2]);</span>
-<span class="fc" id="L24">        l.setAutore(data[3]);</span>
-<span class="fc" id="L25">        l.setLingua(data[4]);</span>
-<span class="fc" id="L26">        l.setCategoria(data[5]);</span>
-<span class="fc" id="L27">        l.setNrPagine(Integer.parseInt(data[6]));</span>
-<span class="fc" id="L28">        l.setDataPubb(LocalDate.parse(data[10]));</span>
-<span class="fc" id="L29">        l.setRecensione(data[11]);</span>
-<span class="fc" id="L30">        l.setNrCopie(Integer.parseInt(data[7]));</span>
-<span class="fc" id="L31">        l.setDesc(data[12]);</span>
-<span class="fc" id="L32">        l.setDisponibilita(Integer.parseInt(data[8]));</span>
-<span class="fc" id="L33">        l.setPrezzo(Float.parseFloat(data[9]));</span>
-<span class="fc" id="L34">        return l;</span>
+<span class="fc" id="L18">        l.setTitolo(data[0]);</span>
+<span class="fc" id="L19">        l.setCodIsbn(data[1]);</span>
+<span class="fc" id="L20">        l.setEditore(data[2]);</span>
+<span class="fc" id="L21">        l.setAutore(data[3]);</span>
+<span class="fc" id="L22">        l.setLingua(data[4]);</span>
+<span class="fc" id="L23">        l.setCategoria(data[5]);</span>
+<span class="fc" id="L24">        l.setNrPagine(Integer.parseInt(data[6]));</span>
+<span class="fc" id="L25">        l.setDataPubb(LocalDate.parse(data[10]));</span>
+<span class="fc" id="L26">        l.setRecensione(data[11]);</span>
+<span class="fc" id="L27">        l.setNrCopie(Integer.parseInt(data[7]));</span>
+<span class="fc" id="L28">        l.setDesc(data[12]);</span>
+<span class="fc" id="L29">        l.setDisponibilita(Integer.parseInt(data[8]));</span>
+<span class="fc" id="L30">        l.setPrezzo(Float.parseFloat(data[9]));</span>
+<span class="fc" id="L31">        return l;</span>
     }
     public Rivista getRivista(String []info)
     {
 
-<span class="fc" id="L39">        r.setTitolo(info[0]);</span>
-<span class="fc" id="L40">        r.setTipologia(info[1]);</span>
-<span class="fc" id="L41">        r.setAutore(info[2]);</span>
-<span class="fc" id="L42">        r.setLingua(info[3]);</span>
-<span class="fc" id="L43">        r.setEditore(info[4]);</span>
-<span class="fc" id="L44">        r.setDescrizione(info[5]);</span>
-<span class="fc" id="L45">        r.setDataPubb(LocalDate.parse(info[6]));</span>
-<span class="fc" id="L46">        r.setDisp(Integer.parseInt(info[7]));</span>
-<span class="fc" id="L47">        r.setPrezzo(Float.parseFloat(info[8]));</span>
-<span class="fc" id="L48">        r.setCopieRim(Integer.parseInt(info[9]));</span>
+<span class="fc" id="L36">        r.setTitolo(info[0]);</span>
+<span class="fc" id="L37">        r.setTipologia(info[1]);</span>
+<span class="fc" id="L38">        r.setAutore(info[2]);</span>
+<span class="fc" id="L39">        r.setLingua(info[3]);</span>
+<span class="fc" id="L40">        r.setEditore(info[4]);</span>
+<span class="fc" id="L41">        r.setDescrizione(info[5]);</span>
+<span class="fc" id="L42">        r.setDataPubb(LocalDate.parse(info[6]));</span>
+<span class="fc" id="L43">        r.setDisp(Integer.parseInt(info[7]));</span>
+<span class="fc" id="L44">        r.setPrezzo(Float.parseFloat(info[8]));</span>
+<span class="fc" id="L45">        r.setCopieRim(Integer.parseInt(info[9]));</span>
 
-<span class="fc" id="L50">        return r;</span>
+<span class="fc" id="L47">        return r;</span>
 
     }
 }

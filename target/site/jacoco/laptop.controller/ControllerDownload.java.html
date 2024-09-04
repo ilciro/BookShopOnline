@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerDownload.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerDownload.java</span></div><h1>ControllerDownload.java</h1><pre class="source lang-java linenums">package laptop.controller;
 
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 import com.itextpdf.text.DocumentException;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.ContrassegnoDao;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.PagamentoDao;
 import laptop.database.RivistaDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.exception.IdException;
+import laptop.model.Fattura;
+import laptop.model.Pagamento;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
+import org.apache.commons.lang.SystemUtils;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 
 public class ControllerDownload {
-<span class="fc" id="L24">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L41">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 	private final ContrassegnoDao cDao;
 	private final PagamentoDao pDao;
 	private final LibroDao lD;
@@ -34,105 +51,156 @@ public class ControllerDownload {
 	private static final String LIBRO=&quot;libro&quot;;
 	private static final String GIORNALE=&quot;giornale&quot;;
 	private static final String RIVISTA=&quot;rivista&quot;;
-	
+<span class="fc" id="L54">	private static  FatturaPagamentoCCredito csv = null;</span>
 
-	
-	
-	
 
-	public void annullaOrdine() throws SQLException 	{
+<span class="fc" id="L57">    private static CsvOggettoDao csvOggetto = null;</span>
+
+    static {
+        try {
+<span class="fc" id="L61">            csvOggetto = new CsvOggettoDao();</span>
+<span class="fc" id="L62">            csv = new FatturaPagamentoCCredito();</span>
+<span class="nc" id="L63">        } catch (IOException e) {</span>
+<span class="nc" id="L64">            Logger.getLogger(&quot;initialize&quot;).log(Level.SEVERE,&quot; error in intialize&quot;);</span>
+<span class="fc" id="L65">        }</span>
+<span class="fc" id="L66">    }</span>
+
+
+    public void annullaOrdine() throws SQLException, CsvValidationException, IOException, IdException {
 		/*
 		 * MEtodo usato per cancellare pafamento e fatture.. ma con una query di ritardo
 		 */
-		boolean statusF;
-		boolean statusP;
-<span class="fc" id="L49">		String typeP=vis.getMetodoP(); //tipo pagamento</span>
-<span class="fc" id="L50">		String typeO=vis.getType(); //tipo oggetto</span>
-		
-<span class="fc" id="L52">		int idF=cDao.retUltimoOrdineF(); //ultimo elemento (preso con count)</span>
-<span class="fc" id="L53">		statusF=cDao.annullaOrdineF(idF);</span>
-		
-<span class="fc" id="L55">		int idP=pDao.retUltimoOrdinePag();</span>
-<span class="fc" id="L56">		statusP=pDao.annullaOrdinePag(idP);</span>
-		
-		
-<span class="pc bpc" id="L59" title="7 of 16 branches missed.">		if(((typeP.equals(&quot;cash&quot;) &amp;&amp;(statusF &amp;&amp; statusP))||(typeP.equals(&quot;cCredito&quot;) &amp;&amp; statusP) )&amp;&amp; (typeO.equals(LIBRO)|| typeO.equals(GIORNALE)|| typeO.equals(RIVISTA  )))</span>
-		{
-<span class="fc" id="L61">			incrementaOggetto(typeO);</span>
-		}
-		// messo su come condizione		
 
-<span class="fc" id="L65">	}</span>
+		//fare versione db
+<span class="fc" id="L75">		boolean statusF = false;</span>
+<span class="fc" id="L76">		boolean statusP=false;</span>
+<span class="fc" id="L77">		String typeP=vis.getMetodoP(); //tipo pagamento</span>
+<span class="fc" id="L78">		String typeO=vis.getType(); //tipo oggetto</span>
+
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">		 if(vis.getTypeOfDb().equals(&quot;file&quot;))</span>
+		 {
+
+
+<span class="nc" id="L84">			 csv.cancellaFattura(new Fattura());</span>
+<span class="nc" id="L85">			 csv.cancellaPagamento(new Pagamento());</span>
+
+
+		 }
+		 else {
+<span class="fc" id="L90">			 int idF = cDao.retUltimoOrdineF(); //ultimo elemento (preso con count)</span>
+<span class="fc" id="L91">			 statusF = cDao.annullaOrdineF(idF);</span>
+
+<span class="fc" id="L93">			 int idP = pDao.retUltimoOrdinePag();</span>
+<span class="fc" id="L94">			 statusP = pDao.annullaOrdinePag(idP);</span>
+
+
+<span class="pc bpc" id="L97" title="4 of 10 branches missed.">			 if (((typeP.equals(&quot;cash&quot;) &amp;&amp; (statusF &amp;&amp; statusP)) || (typeP.equals(&quot;cCredito&quot;) &amp;&amp; statusP)) ) {</span>
+<span class="fc" id="L98">				 incrementaOggetto(typeO);</span>
+			 }
+		 }
+<span class="fc" id="L101">	}</span>
 	public void scarica(String type) throws  IOException, URISyntaxException,  DocumentException {
-<span class="pc bpc" id="L67" title="1 of 4 branches missed.">		switch (type)</span>
+<span class="pc bpc" id="L103" title="1 of 4 branches missed.">		switch (type)</span>
 		{
 			case LIBRO-&gt;
 			{
 
-<span class="fc" id="L72">				l.setId(vis.getId());</span>
-<span class="fc" id="L73">				l.scarica(vis.getId());</span>
-<span class="fc" id="L74">				l.leggi(vis.getId());</span>
+<span class="fc" id="L108">				l.setId(vis.getId());</span>
+<span class="fc" id="L109">				l.scarica(vis.getId());</span>
+<span class="fc" id="L110">				l.leggi(vis.getId());</span>
 
-<span class="fc" id="L76">			}</span>
+<span class="fc" id="L112">			}</span>
 			case GIORNALE-&gt;
 			{
-<span class="fc" id="L79">				g.setId(vis.getId());</span>
-<span class="fc" id="L80">				g.scarica(vis.getId());</span>
-<span class="fc" id="L81">				g.leggi(vis.getId());</span>
+<span class="fc" id="L115">				g.setId(vis.getId());</span>
+<span class="fc" id="L116">				g.scarica(vis.getId());</span>
+<span class="fc" id="L117">				g.leggi(vis.getId());</span>
 
-<span class="fc" id="L83">			}</span>
+<span class="fc" id="L119">			}</span>
 			case RIVISTA -&gt;
 			{
-<span class="fc" id="L86">				r.setId(vis.getId());</span>
-<span class="fc" id="L87">				r.scarica(vis.getId());</span>
-<span class="fc" id="L88">				r.leggi(vis.getId());</span>
+<span class="fc" id="L122">				r.setId(vis.getId());</span>
+<span class="fc" id="L123">				r.scarica(vis.getId());</span>
+<span class="fc" id="L124">				r.leggi(vis.getId());</span>
 
-<span class="fc" id="L90">			}</span>
-<span class="nc" id="L91">			default -&gt; 	Logger.getLogger(&quot;Test scarica&quot;).log(Level.SEVERE,&quot;download error&quot;);</span>
+<span class="fc" id="L126">			}</span>
+<span class="nc" id="L127">			default -&gt; 	Logger.getLogger(&quot;Test scarica&quot;).log(Level.SEVERE,&quot;download error&quot;);</span>
 
 		}
-<span class="fc" id="L94">	}</span>
+<span class="fc" id="L130">	}</span>
 
 
-<span class="fc" id="L97">	public ControllerDownload() throws IOException {</span>
-
-<span class="fc" id="L99">		l = new Libro();</span>
-<span class="fc" id="L100">		cDao=new ContrassegnoDao();</span>
-<span class="fc" id="L101">		pDao=new PagamentoDao();</span>
-<span class="fc" id="L102">		lD=new LibroDao();</span>
-<span class="fc" id="L103">		g=new Giornale();</span>
-<span class="fc" id="L104">		gD=new GiornaleDao();</span>
-<span class="fc" id="L105">		r=new Rivista();</span>
-<span class="fc" id="L106">		rD=new RivistaDao();</span>
-<span class="fc" id="L107">	}</span>
+<span class="fc" id="L133">	public ControllerDownload() throws IOException {</span>
 
 
+<span class="fc" id="L136">        l = new Libro();</span>
+<span class="fc" id="L137">		cDao=new ContrassegnoDao();</span>
+<span class="fc" id="L138">		pDao=new PagamentoDao();</span>
+<span class="fc" id="L139">		lD=new LibroDao();</span>
+<span class="fc" id="L140">		g=new Giornale();</span>
+<span class="fc" id="L141">		gD=new GiornaleDao();</span>
+<span class="fc" id="L142">		r=new Rivista();</span>
+<span class="fc" id="L143">		rD=new RivistaDao();</span>
+<span class="fc" id="L144">	}</span>
 
 
-	private void incrementaOggetto(String type)
-	{
-<span class="pc bpc" id="L114" title="3 of 4 branches missed.">		switch (type)</span>
+
+
+	private void incrementaOggetto(String type) throws CsvValidationException, IOException, IdException {
+<span class="pc bpc" id="L150" title="2 of 3 branches missed.">		switch (vis.getTypeOfDb())</span>
 		{
-			case LIBRO-&gt;{
-<span class="nc" id="L117">				l.setId(vis.getId());</span>
-<span class="nc" id="L118">				lD.incrementaDisponibilita(l);</span>
-<span class="nc" id="L119">			}</span>
-			case GIORNALE-&gt;{
-<span class="nc" id="L121">				g.setId(vis.getId());</span>
-<span class="nc" id="L122">				gD.incrementaDisponibilita(g);</span>
-<span class="nc" id="L123">			}</span>
-			case RIVISTA-&gt;
+			case &quot;db&quot;-&gt;
 			{
+<span class="pc bpc" id="L154" title="3 of 4 branches missed.">				switch (type) {</span>
+					case LIBRO -&gt; {
+<span class="nc" id="L156">						l.setId(vis.getId());</span>
+<span class="nc" id="L157">						lD.incrementaDisponibilita(l);</span>
+<span class="nc" id="L158">					}</span>
+					case GIORNALE -&gt; {
+<span class="nc" id="L160">						g.setId(vis.getId());</span>
+<span class="nc" id="L161">						gD.incrementaDisponibilita(g);</span>
+<span class="nc" id="L162">					}</span>
+					case RIVISTA -&gt; {
 
-<span class="fc" id="L127">				r.setId(vis.getId());</span>
-<span class="fc" id="L128">				rD.incrementaDisponibilita(r);</span>
-<span class="fc" id="L129">			}</span>
-<span class="nc" id="L130">			default -&gt; 	Logger.getLogger(&quot;Test incrementa&quot;).log(Level.SEVERE,&quot;type not found&quot;);</span>
+<span class="fc" id="L165">						r.setId(vis.getId());</span>
+<span class="fc" id="L166">						rD.incrementaDisponibilita(r);</span>
+					}
+				}
+
+<span class="fc" id="L170">			}</span>
+			case &quot;file&quot;-&gt;
+			{
+<span class="nc bnc" id="L173" title="All 4 branches missed.">				switch (type) {</span>
+					case LIBRO -&gt; {
+<span class="nc" id="L175">						l.setId(vis.getId());</span>
+<span class="nc" id="L176">						Libro l1=csvOggetto.retrieveLibroData(new File(&quot;report/reportLibro.csv&quot;),l).get(0);</span>
+<span class="nc" id="L177">						csvOggetto.removeLibroById(l);</span>
+<span class="nc" id="L178">						csvOggetto.inserisciLibro(l1);</span>
+<span class="nc" id="L179">					}</span>
+					case GIORNALE -&gt; {
+<span class="nc" id="L181">						g.setId(vis.getId());</span>
+<span class="nc" id="L182">						Giornale g1=csvOggetto.retriveGiornaleData(new File(&quot;report/reportGiornale.csv&quot;),g).get(0);</span>
+<span class="nc" id="L183">						csvOggetto.removeGiornaleById(g);</span>
+<span class="nc" id="L184">						csvOggetto.inserisciGiornale(g1);</span>
+<span class="nc" id="L185">					}</span>
+					case RIVISTA -&gt; {
+
+<span class="nc" id="L188">						r.setId(vis.getId());</span>
+<span class="nc" id="L189">						Rivista r1=csvOggetto.retrieveRivistaData(new File(&quot;report/reportRivista.csv&quot;),r).get(0);</span>
+<span class="nc" id="L190">						csvOggetto.removeRivistaById(r);</span>
+<span class="nc" id="L191">						csvOggetto.inserisciRivista(r1);</span>
+					}
+				}
+<span class="nc" id="L194">			}</span>
+
+<span class="nc" id="L196">			default -&gt; 	Logger.getLogger(&quot;Test incrementa&quot;).log(Level.SEVERE,&quot;type not found&quot;);</span>
 
 		}
-<span class="fc" id="L133">	}</span>
-	
+<span class="fc" id="L199">	}</span>
 
 
-}
+	}
+
+
+
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

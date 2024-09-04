@@ -35,7 +35,8 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/TestControllerScelta.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/csv/TestGestioneGiornaleCsv.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/csv/TestGestioneLibroCsv.java
-/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/csv/TestGestioneRivistaCSV.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/csv/TestGestionePagamentoCsv.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/csv/TestGestioneRivistaCsv.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/csv/TestGestioneUtenteCsv.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/controller/csv/TestOggettoCSV.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/TestDownloadLibro.java

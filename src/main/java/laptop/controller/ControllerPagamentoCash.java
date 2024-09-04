@@ -15,7 +15,7 @@ public class ControllerPagamentoCash {
 
 	private final ControllerSystemState vis= ControllerSystemState.getInstance();
 	private final ControllerCheckPagamentoData cCPD;
-	private FatturaPagamentoCCredito fCsv;
+	private final FatturaPagamentoCCredito fCsv;
 	private final Fattura f;
 
 

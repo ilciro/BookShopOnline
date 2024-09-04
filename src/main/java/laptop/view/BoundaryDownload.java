@@ -11,6 +11,7 @@ import java.util.logging.Level;
 
 import com.itextpdf.text.DocumentException;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerDownload;
 import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
 
 public class BoundaryDownload implements Initializable {
 	@FXML
@@ -64,7 +66,6 @@ public class BoundaryDownload implements Initializable {
 
 	            //passo 0 per evitare il NullPointer
 
-				System.out.println(" id in buondary download " + vis.getId());
 
 				cD.scarica(vis.getType());
 
@@ -80,7 +81,7 @@ public class BoundaryDownload implements Initializable {
 	}
 
 	@FXML
-	private void pulisci() throws IOException, SQLException {
+	private void pulisci() throws IOException, SQLException, CsvValidationException, IdException {
 		cD.annullaOrdine();
 		if( vis.getIsLogged()) 
 		{
