@@ -2,6 +2,7 @@ package controller.csv;
 
 import com.itextpdf.xmp.XMPException;
 import com.opencsv.exceptions.CsvValidationException;
+import laptop.controller.ControllerDownload;
 import laptop.controller.ControllerPagamentoCC;
 import laptop.controller.ControllerSystemState;
 import laptop.exception.IdException;
@@ -18,6 +19,7 @@ public class TestGestionePagamentoCsv {
 
     private final ControllerPagamentoCC cPCC = new ControllerPagamentoCC();
     private final ControllerSystemState vis=ControllerSystemState.getInstance();
+    private final ControllerDownload cD=new ControllerDownload();
 
 
     public TestGestionePagamentoCsv() throws IOException {
@@ -36,6 +38,13 @@ public class TestGestionePagamentoCsv {
         vis.setTypeOfDb("file");
         vis.setMetodoP("cCredito");
         assertNotNull(cPCC.ritornaElencoCC("arnaldo"));
+    }
+    @Test
+    void annullaPagamento() throws CsvValidationException, SQLException, IOException, IdException {
+        vis.setTypeAsBook();
+        vis.setMetodoP("cash");
+        vis.setTypeOfDb("file");
+        cD.annullaOrdine();
     }
 
 

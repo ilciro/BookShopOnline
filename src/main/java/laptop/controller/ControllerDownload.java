@@ -72,8 +72,8 @@ public class ControllerDownload {
 		 */
 
 		//fare versione db
-		boolean statusF = false;
-		boolean statusP=false;
+		boolean statusF;
+		boolean statusP;
 		String typeP=vis.getMetodoP(); //tipo pagamento
 		String typeO=vis.getType(); //tipo oggetto
 

@@ -128,57 +128,57 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
     @Override
     public void cancellaFattura(Fattura f) throws CsvValidationException, IOException {
-<span class="nc" id="L131">        synchronized (this.cacheFattura) {</span>
-<span class="nc" id="L132">            this.cacheFattura.remove(String.valueOf(f.getNome()));</span>
-<span class="nc" id="L133">        }</span>
-<span class="nc" id="L134">        removeFattura(this.fileFattura);</span>
+<span class="fc" id="L131">        synchronized (this.cacheFattura) {</span>
+<span class="fc" id="L132">            this.cacheFattura.remove(String.valueOf(f.getNome()));</span>
+<span class="fc" id="L133">        }</span>
+<span class="fc" id="L134">        removeFattura(this.fileFattura);</span>
 
-<span class="nc" id="L136">    }</span>
+<span class="fc" id="L136">    }</span>
 
     private static synchronized void removeFattura(File fileFattura) throws IOException, CsvValidationException {
-<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
-<span class="nc" id="L140">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));</span>
-<span class="nc" id="L141">            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="fc" id="L140">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));</span>
+<span class="fc" id="L141">            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant</span>
         }
-<span class="nc" id="L143">        File tmpFile = new File(APPOGGIO);</span>
-<span class="nc" id="L144">        boolean found = false;</span>
-<span class="nc" id="L145">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fileFattura)));</span>
+<span class="fc" id="L143">        File tmpFile = new File(APPOGGIO);</span>
+<span class="fc" id="L144">        boolean found = false;</span>
+<span class="fc" id="L145">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fileFattura)));</span>
         String[] gVector;
-<span class="nc" id="L147">        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));</span>
+<span class="fc" id="L147">        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));</span>
         boolean recordFound;
-<span class="nc bnc" id="L149" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null) {</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
 
-<span class="nc" id="L151">            recordFound=gVector[GETINDEXIDF].equals(String.valueOf(getIdMax()));</span>
+<span class="fc" id="L151">            recordFound=gVector[GETINDEXIDF].equals(String.valueOf(getIdMax()));</span>
 
 
-<span class="nc bnc" id="L154" title="All 2 branches missed.">            if (!recordFound)</span>
-<span class="nc" id="L155">                writer.writeNext(gVector);</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">            if (!recordFound)</span>
+<span class="fc" id="L155">                writer.writeNext(gVector);</span>
             else
-<span class="nc" id="L157">                found = true;</span>
+<span class="fc" id="L157">                found = true;</span>
         }
-<span class="nc" id="L159">        writer.flush();</span>
-<span class="nc" id="L160">        reader.close();</span>
-<span class="nc" id="L161">        writer.close();</span>
-<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (found) {</span>
-<span class="nc" id="L163">            Files.move(tmpFile.toPath(), fileFattura.toPath(), REPLACE_EXISTING);</span>
+<span class="fc" id="L159">        writer.flush();</span>
+<span class="fc" id="L160">        reader.close();</span>
+<span class="fc" id="L161">        writer.close();</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        if (found) {</span>
+<span class="fc" id="L163">            Files.move(tmpFile.toPath(), fileFattura.toPath(), REPLACE_EXISTING);</span>
         } else {
 <span class="nc" id="L165">            cleanUp(Path.of(tmpFile.toURI()));</span>
         }
 
 
-<span class="nc" id="L169">    }</span>
+<span class="fc" id="L169">    }</span>
 
 
 
 
     @Override
     public void cancellaPagamento(Pagamento p) throws CsvValidationException, IOException {
-<span class="nc" id="L176">        synchronized (this.cachePagamento) {</span>
-<span class="nc" id="L177">            this.cachePagamento.remove(String.valueOf(p.getNomeUtente()));</span>
-<span class="nc" id="L178">        }</span>
-<span class="nc" id="L179">        removePagamento(this.filePagamento);</span>
+<span class="fc" id="L176">        synchronized (this.cachePagamento) {</span>
+<span class="fc" id="L177">            this.cachePagamento.remove(String.valueOf(p.getNomeUtente()));</span>
+<span class="fc" id="L178">        }</span>
+<span class="fc" id="L179">        removePagamento(this.filePagamento);</span>
 
-<span class="nc" id="L181">    }</span>
+<span class="fc" id="L181">    }</span>
 
     @Override
     public void inserisciCartaCredito(CartaDiCredito cc) throws IOException, CsvValidationException {
@@ -257,36 +257,36 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
     private static synchronized void removePagamento(File filePagamento) throws IOException, CsvValidationException {
-<span class="nc bnc" id="L260" title="All 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
-<span class="nc" id="L261">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));</span>
-<span class="nc" id="L262">            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant</span>
+<span class="pc bpc" id="L260" title="1 of 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="fc" id="L261">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));</span>
+<span class="fc" id="L262">            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant</span>
         }
-<span class="nc" id="L264">        File tmpFile = new File(APPOGGIO);</span>
-<span class="nc" id="L265">        boolean found = false;</span>
-<span class="nc" id="L266">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(filePagamento)));</span>
+<span class="fc" id="L264">        File tmpFile = new File(APPOGGIO);</span>
+<span class="fc" id="L265">        boolean found = false;</span>
+<span class="fc" id="L266">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(filePagamento)));</span>
         String[] gVector;
-<span class="nc" id="L268">        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));</span>
+<span class="fc" id="L268">        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));</span>
         boolean recordFound;
-<span class="nc bnc" id="L270" title="All 2 branches missed.">        while ((gVector = reader.readNext()) != null) {</span>
+<span class="fc bfc" id="L270" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
 
-<span class="nc" id="L272">            recordFound=gVector[GETINDEXIDP].equals(String.valueOf(getIdMax()+2));</span>
+<span class="fc" id="L272">            recordFound=gVector[GETINDEXIDP].equals(String.valueOf(getIdMax()+2));</span>
 
 
-<span class="nc bnc" id="L275" title="All 2 branches missed.">            if (!recordFound)</span>
-<span class="nc" id="L276">                writer.writeNext(gVector);</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">            if (!recordFound)</span>
+<span class="fc" id="L276">                writer.writeNext(gVector);</span>
             else
-<span class="nc" id="L278">                found = true;</span>
+<span class="fc" id="L278">                found = true;</span>
         }
-<span class="nc" id="L280">        writer.flush();</span>
-<span class="nc" id="L281">        reader.close();</span>
-<span class="nc" id="L282">        writer.close();</span>
-<span class="nc bnc" id="L283" title="All 2 branches missed.">        if (found) {</span>
-<span class="nc" id="L284">            Files.move(tmpFile.toPath(), filePagamento.toPath(), REPLACE_EXISTING);</span>
+<span class="fc" id="L280">        writer.flush();</span>
+<span class="fc" id="L281">        reader.close();</span>
+<span class="fc" id="L282">        writer.close();</span>
+<span class="pc bpc" id="L283" title="1 of 2 branches missed.">        if (found) {</span>
+<span class="fc" id="L284">            Files.move(tmpFile.toPath(), filePagamento.toPath(), REPLACE_EXISTING);</span>
         } else {
 <span class="nc" id="L286">            cleanUp(Path.of(tmpFile.toURI()));</span>
         }
 
-<span class="nc" id="L289">    }</span>
+<span class="fc" id="L289">    }</span>
 
 
     private void creaPagamento(Pagamento p) throws IOException, CsvValidationException {
