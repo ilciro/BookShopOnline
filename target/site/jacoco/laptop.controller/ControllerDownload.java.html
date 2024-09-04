@@ -147,58 +147,57 @@ public class ControllerDownload {
 
 
 	private void incrementaOggetto(String type) throws CsvValidationException, IOException, IdException {
-<span class="pc bpc" id="L150" title="2 of 3 branches missed.">		switch (vis.getTypeOfDb())</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
 		{
-			case &quot;db&quot;-&gt;
-			{
-<span class="pc bpc" id="L154" title="3 of 4 branches missed.">				switch (type) {</span>
+<span class="pc bpc" id="L152" title="3 of 4 branches missed.">				switch (type) {</span>
 					case LIBRO -&gt; {
-<span class="nc" id="L156">						l.setId(vis.getId());</span>
-<span class="nc" id="L157">						lD.incrementaDisponibilita(l);</span>
-<span class="nc" id="L158">					}</span>
+<span class="nc" id="L154">						l.setId(vis.getId());</span>
+<span class="nc" id="L155">						lD.incrementaDisponibilita(l);</span>
+<span class="nc" id="L156">					}</span>
 					case GIORNALE -&gt; {
-<span class="nc" id="L160">						g.setId(vis.getId());</span>
-<span class="nc" id="L161">						gD.incrementaDisponibilita(g);</span>
-<span class="nc" id="L162">					}</span>
+<span class="nc" id="L158">						g.setId(vis.getId());</span>
+<span class="nc" id="L159">						gD.incrementaDisponibilita(g);</span>
+<span class="nc" id="L160">					}</span>
 					case RIVISTA -&gt; {
 
-<span class="fc" id="L165">						r.setId(vis.getId());</span>
-<span class="fc" id="L166">						rD.incrementaDisponibilita(r);</span>
-					}
-				}
+<span class="fc" id="L163">						r.setId(vis.getId());</span>
+<span class="fc" id="L164">						rD.incrementaDisponibilita(r);</span>
+<span class="fc" id="L165">					}</span>
+<span class="nc" id="L166">					default -&gt; 	Logger.getLogger(&quot;Test incre&quot;).log(Level.SEVERE,&quot;type of object is wrong&quot;);</span>
 
-<span class="fc" id="L170">			}</span>
-			case &quot;file&quot;-&gt;
-			{
-<span class="nc bnc" id="L173" title="All 4 branches missed.">				switch (type) {</span>
+<span class="fc" id="L168">				}</span>
+
+			}
+		else{
+<span class="nc bnc" id="L172" title="All 4 branches missed.">				switch (type) {</span>
 					case LIBRO -&gt; {
-<span class="nc" id="L175">						l.setId(vis.getId());</span>
-<span class="nc" id="L176">						Libro l1=csvOggetto.retrieveLibroData(new File(&quot;report/reportLibro.csv&quot;),l).get(0);</span>
-<span class="nc" id="L177">						csvOggetto.removeLibroById(l);</span>
-<span class="nc" id="L178">						csvOggetto.inserisciLibro(l1);</span>
-<span class="nc" id="L179">					}</span>
+<span class="nc" id="L174">						l.setId(vis.getId());</span>
+<span class="nc" id="L175">						Libro l1=csvOggetto.retrieveLibroData(new File(&quot;report/reportLibro.csv&quot;),l).get(0);</span>
+<span class="nc" id="L176">						csvOggetto.removeLibroById(l);</span>
+<span class="nc" id="L177">						csvOggetto.inserisciLibro(l1);</span>
+<span class="nc" id="L178">					}</span>
 					case GIORNALE -&gt; {
-<span class="nc" id="L181">						g.setId(vis.getId());</span>
-<span class="nc" id="L182">						Giornale g1=csvOggetto.retriveGiornaleData(new File(&quot;report/reportGiornale.csv&quot;),g).get(0);</span>
-<span class="nc" id="L183">						csvOggetto.removeGiornaleById(g);</span>
-<span class="nc" id="L184">						csvOggetto.inserisciGiornale(g1);</span>
-<span class="nc" id="L185">					}</span>
+<span class="nc" id="L180">						g.setId(vis.getId());</span>
+<span class="nc" id="L181">						Giornale g1=csvOggetto.retriveGiornaleData(new File(&quot;report/reportGiornale.csv&quot;),g).get(0);</span>
+<span class="nc" id="L182">						csvOggetto.removeGiornaleById(g);</span>
+<span class="nc" id="L183">						csvOggetto.inserisciGiornale(g1);</span>
+<span class="nc" id="L184">					}</span>
 					case RIVISTA -&gt; {
 
-<span class="nc" id="L188">						r.setId(vis.getId());</span>
-<span class="nc" id="L189">						Rivista r1=csvOggetto.retrieveRivistaData(new File(&quot;report/reportRivista.csv&quot;),r).get(0);</span>
-<span class="nc" id="L190">						csvOggetto.removeRivistaById(r);</span>
-<span class="nc" id="L191">						csvOggetto.inserisciRivista(r1);</span>
-<span class="nc" id="L192">					}</span>
-<span class="nc" id="L193">					default -&gt; 	Logger.getLogger(&quot;Test incrementa&quot;).log(Level.SEVERE,&quot;type not found&quot;);</span>
+<span class="nc" id="L187">						r.setId(vis.getId());</span>
+<span class="nc" id="L188">						Rivista r1=csvOggetto.retrieveRivistaData(new File(&quot;report/reportRivista.csv&quot;),r).get(0);</span>
+<span class="nc" id="L189">						csvOggetto.removeRivistaById(r);</span>
+<span class="nc" id="L190">						csvOggetto.inserisciRivista(r1);</span>
+<span class="nc" id="L191">					}</span>
+<span class="nc" id="L192">					default -&gt; 	Logger.getLogger(&quot;Test incrementa&quot;).log(Level.SEVERE,&quot;type not found&quot;);</span>
 
 				}
 
 			}
 
 
-		}
-<span class="fc" id="L201">	}</span>
+
+<span class="fc" id="L200">	}</span>
 
 
 	}

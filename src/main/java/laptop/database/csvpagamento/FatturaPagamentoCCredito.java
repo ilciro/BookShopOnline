@@ -124,23 +124,6 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
 
 
-    private static @NotNull Fattura getFattura(String[] gVector) {
-        String nomeF= gVector[GETINDEXNOMEF];
-        String cognomeF= gVector[GETINDEXCOGNOMEF];
-        String via= gVector[GETINDEXVIAF];
-        String com= gVector[GETINDEXCOMF];
-        String ammontare= gVector[GETINDEXAMMONTAREF];
-        String id= gVector[GETINDEXIDF];
-
-        Fattura f=new Fattura();
-        f.setNome(nomeF);
-        f.setCognome(cognomeF);
-        f.setVia(via);
-        f.setCom(com);
-        f.setAmmontare(Float.parseFloat(ammontare));
-        f.setNumero(id);
-        return f;
-    }
 
 
     @Override
@@ -234,7 +217,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         }
         if(list.isEmpty())
         {
-            list=retrieveCartaCreditoByName(this.fileCartaCredito,cc);
+            list=retrieveCartaCreditoByName(fd,cc);
             synchronized (this.cacheCC)
             {
                 for(CartaDiCredito carta : list)

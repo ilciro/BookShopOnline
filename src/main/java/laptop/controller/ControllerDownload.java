@@ -147,10 +147,8 @@ public class ControllerDownload {
 
 
 	private void incrementaOggetto(String type) throws CsvValidationException, IOException, IdException {
-		switch (vis.getTypeOfDb())
+		if(vis.getTypeOfDb().equalsIgnoreCase("db"))
 		{
-			case "db"->
-			{
 				switch (type) {
 					case LIBRO -> {
 						l.setId(vis.getId());
@@ -165,11 +163,12 @@ public class ControllerDownload {
 						r.setId(vis.getId());
 						rD.incrementaDisponibilita(r);
 					}
+					default -> 	Logger.getLogger("Test incre").log(Level.SEVERE,"type of object is wrong");
+
 				}
 
 			}
-			case "file"->
-			{
+		else{
 				switch (type) {
 					case LIBRO -> {
 						l.setId(vis.getId());
@@ -197,7 +196,7 @@ public class ControllerDownload {
 			}
 
 
-		}
+
 	}
 
 
