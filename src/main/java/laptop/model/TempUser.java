@@ -3,6 +3,7 @@ package laptop.model;
 import java.time.LocalDate;
 
 
+// this class is not singleton
 
 
 public class TempUser {
@@ -87,19 +88,7 @@ public class TempUser {
 	private String r;
 
 	
-	private static TempUser userInstance = null;
 
-    private TempUser() {}
-
-    public static TempUser getInstance() {
-        if (userInstance == null) {
-          
-        	userInstance = new TempUser();
-                }
-       
-        return userInstance;
-    }
-	
 
 	
 public String getIdRuolo()  {

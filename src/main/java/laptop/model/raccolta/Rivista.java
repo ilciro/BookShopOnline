@@ -20,7 +20,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class Rivista implements Raccolta  {
 	
 	private String titolo;
-	private String tipologia;
+	private String categoria;
 	private String autore;
 	private String lingua;
 	private String editore;
@@ -48,7 +48,7 @@ public class Rivista implements Raccolta  {
 		this.copieRim = copieRim;
 		this.id = id;
 		this.titolo=info[0];
-		this.tipologia=info[5];
+		this.categoria=info[5];
 		this.editore=info[2];
 		this.lingua=info[4];
 		this.autore=info[3];
@@ -59,9 +59,6 @@ public class Rivista implements Raccolta  {
 	
 	public String getTitolo() {
 		return this.titolo;
-	}
-	public String getTipologia() {
-		return this.tipologia;
 	}
 	public String getAutore() {
 		return this.autore;
@@ -78,6 +75,7 @@ public class Rivista implements Raccolta  {
 	public LocalDate getDataPubb() {
 		return this.dataPubb;
 	}
+	public String getCategoria(){return this.categoria;}
 	public int getDisp() {
 		return this.disp;
 	}
@@ -93,67 +91,67 @@ public class Rivista implements Raccolta  {
 	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}
-	public void setTipologia(String tipologia) {
-		switch (tipologia){
+	public void setCategoria(String categoria) {
+		switch (categoria){
 		
 		case "SETTIMANALE": 
-			this.tipologia = CategorieRivista.SETTIMANALE.toString();  
+			this.categoria = CategorieRivista.SETTIMANALE.toString();
 			break;
 
 		case "BISETTIMANALE": 
-			this.tipologia = CategorieRivista.BISETTIMANALE.toString();  
+			this.categoria = CategorieRivista.BISETTIMANALE.toString();
 			break;
 
 		case "MENSILE" : 
-			this.tipologia = CategorieRivista.MENSILE.toString();  
+			this.categoria = CategorieRivista.MENSILE.toString();
 			break;
 
 		case "BIMESTRALE" : 
-			this.tipologia = CategorieRivista.BIMESTRALE.toString();  
+			this.categoria = CategorieRivista.BIMESTRALE.toString();
 			break;
 
 		case "TRIMESTRALE" : 
-			this.tipologia = CategorieRivista.TRIMESTRALE.toString();  
+			this.categoria = CategorieRivista.TRIMESTRALE.toString();
 			break;
 
 		case "ANNUALE" : 
-			this.tipologia = CategorieRivista.ANNUALE.toString();  
+			this.categoria = CategorieRivista.ANNUALE.toString();
 			break;
 
 		case "ESTIVO" : 
-			this.tipologia = CategorieRivista.ESTIVO.toString();  
+			this.categoria = CategorieRivista.ESTIVO.toString();
 			break;
 
 		case "INVERNALE" : 
-			this.tipologia = CategorieRivista.INVERNALE.toString();  
+			this.categoria = CategorieRivista.INVERNALE.toString();
 			break;
 
 		case "SPORTIVO" : 
-			this.tipologia = CategorieRivista.SPORTIVO.toString();  
+			this.categoria = CategorieRivista.SPORTIVO.toString();
 			break;
 
 		case "CINEMATOGRAFICA" : 
-			this.tipologia = CategorieRivista.CINEMATOGRAFICA.toString();  
+			this.categoria = CategorieRivista.CINEMATOGRAFICA.toString();
 			break;
 
 		case "GOSSIP" : 
-			this.tipologia = CategorieRivista.GOSSIP.toString();  
+			this.categoria = CategorieRivista.GOSSIP.toString();
 			break;
 
 		case "TELEVISIVO" : 
-			this.tipologia = CategorieRivista.TELEVISIVO.toString();  
+			this.categoria = CategorieRivista.TELEVISIVO.toString();
 			break;
 
 		case "MILITARE" : 
-			this.tipologia = CategorieRivista.MILITARE.toString();  
+			this.categoria = CategorieRivista.MILITARE.toString();
 			break;
 
 		case "INFORMATICA" : 
-			this.tipologia = CategorieRivista.INFORMATICA.toString();  
+			this.categoria = CategorieRivista.INFORMATICA.toString();
 			break;
 
 		default :
-			this.tipologia = null;
+			this.categoria = null;
 			break;
 		}
 	}

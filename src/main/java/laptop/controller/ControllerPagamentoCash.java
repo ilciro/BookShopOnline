@@ -8,6 +8,7 @@ import laptop.database.ContrassegnoDao;
 import laptop.database.csvpagamento.FatturaPagamentoCCredito;
 import laptop.exception.IdException;
 import laptop.model.Fattura;
+import laptop.model.User;
 
 
 public class ControllerPagamentoCash {
@@ -16,7 +17,7 @@ public class ControllerPagamentoCash {
 	private final ControllerSystemState vis= ControllerSystemState.getInstance();
 	private final ControllerCheckPagamentoData cCPD;
 	private final FatturaPagamentoCCredito fCsv;
-	private final Fattura f;
+
 
 
 	
@@ -25,14 +26,8 @@ public class ControllerPagamentoCash {
 
 
 
-			float spesa=vis.getSpesaT();
+			Fattura f=new Fattura(nome,cognome,via,com,vis.getSpesaT(),0);
 
-
-			this.f.setNome(nome);
-			this.f.setCognome(cognome);
-			this.f.setVia(via);
-			this.f.setCom(com);
-			this.f.setAmmontare(spesa);
 
 
 
@@ -62,10 +57,19 @@ public class ControllerPagamentoCash {
 		cCPD=new ControllerCheckPagamentoData();
 		fCsv=new FatturaPagamentoCCredito();
 
-		this.f=new Fattura();
+
+
 
 
 		
+	}
+
+	public String[] getInfo()
+	{
+		String [] dati=new String[2];
+		dati[0]= User.getInstance().getNome();
+		dati[1]=User.getInstance().getCognome();
+		return dati;
 	}
 
 

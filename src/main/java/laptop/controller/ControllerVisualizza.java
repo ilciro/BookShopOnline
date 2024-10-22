@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
@@ -39,51 +41,56 @@ public class ControllerVisualizza {
 	}
 
 
-	public void setID(String i)
-	{		
-		
-		vis.setId(Integer.parseInt(i));
-	}
+
 	public int getID()
 	{
 		java.util.logging.Logger.getLogger("Test getId").log(Level.INFO, "id {0}",vis.getId());
 
 		return vis.getId();
 	}
-	public Libro getDataL(int i) throws SQLException, CsvValidationException, IOException, IdException {
-		// imposto che è un libro nel controller
-		vis.setId(i);
-		l.setId(vis.getId());
-		Libro l2;
 
-		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+	public ObservableList<Libro> getListLibro() throws CsvValidationException, IOException, IdException {
+		ObservableList<Libro> list;
+		l.setId(getID());
+		if(vis.getTypeOfDb().equalsIgnoreCase("db"))
 		{
-            l2= csv.retrieveLibroData(new File("report/reportLibro.csv"),l).get(0);
+			list=lD.getLibroByIdTitoloAutoreLibro(l);
 		}
-		else 		l2= lD.getData(l);
-		return l2;
+		else{
+			list=csv.getLibroByIdTitoloAutore(l);
+		}
+		return list;
 	}
-	public Giornale getDataG(int i) throws SQLException, CsvValidationException, IOException, IdException {
-		// imposto che è un libro nel controller
-		vis.setId(i);
-		g.setId(vis.getId());
-		Giornale g2;
-		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+
+	public ObservableList<Giornale> getListGiornale() throws CsvValidationException, IOException, IdException {
+		ObservableList<Giornale> list;
+		g.setId(getID());
+		if(vis.getTypeOfDb().equalsIgnoreCase("db"))
 		{
-			g2= csv.retriveGiornaleData(new File("report/reportGiornale.csv"),g).get(0);
+
+			list=gD.getGiornaleIdTitoloAutore(g);
+
 		}
-		else 		g2= gD.getData(g);
-		return g2;
+		else{
+			list=csv.getGiornaleByIdTitoloEditore(g);
+		}
+		return list;
 	}
-	public Rivista getDataR(int i) throws SQLException, CsvValidationException, IOException, IdException {
-		// imposto che è un libro nel controller
-		vis.setId(i);
-		r.setId(vis.getId());
-		Rivista r2;
-		if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-			r2 = csv.retrieveRivistaData(new File("report/reportRivista.csv"), r).get(0);
-		} else r2 = rD.getData(r);
-		return r2;
+
+	public ObservableList<Rivista> getListRivista() throws CsvValidationException, IOException, IdException {
+		ObservableList<Rivista> list;
+		r.setId(getID());
+		if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+		{
+
+			list=rD.getRivistaIdTitoloAutore(r);
+
+		}
+		else{
+			list=csv.getRivistaByIdTitoloEditore(r);
+		}
+		return list;
+
 	}
 
 }

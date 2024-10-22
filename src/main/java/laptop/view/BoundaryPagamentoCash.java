@@ -49,8 +49,7 @@ public class BoundaryPagamentoCash implements Initializable{
 	private TextArea eventualiArea;
 	@FXML
 	private Button buttonI;
-	@FXML
-	private Button buttonA;
+
 
 	private ControllerPagamentoCash cPC;
 
@@ -123,18 +122,7 @@ public class BoundaryPagamentoCash implements Initializable{
 
 	}
 
-	@FXML
-	private void annullaCash() throws IOException {
-		Stage stage;
-		Parent root;
-		stage = (Stage) buttonA.getScene().getWindow();
-		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("acquista.fxml")));
-		stage.setTitle("benvenuto nella schermata del riepilogo ordine");
 
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-	}
 
 	
 	@Override
@@ -147,6 +135,13 @@ public class BoundaryPagamentoCash implements Initializable{
 
 
 					
+				}
+				if(vis.getIsLogged())
+				{
+					nomeTF.setText(cPC.getInfo()[0]);
+					cognomeTF.setText(cPC.getInfo()[1]);
+					nomeTF.setEditable(false);
+					cognomeTF.setEditable(false);
 				}
 
 	}

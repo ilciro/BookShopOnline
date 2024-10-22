@@ -123,15 +123,7 @@ public class Factory {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public Raccolta creaLibro(String[] info,LocalDate dataPubb,String recensione,String desc,String []infoCosti)
 	{
 

@@ -6,14 +6,13 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
-import laptop.database.GiornaleDao;
-import laptop.database.LibroDao;
-import laptop.database.PagamentoDao;
-import laptop.database.RivistaDao;
+import laptop.database.*;
 import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.database.csvreport.CsvReport;
 import laptop.exception.IdException;
 import laptop.model.Pagamento;
+import laptop.model.Report;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
@@ -29,99 +28,85 @@ public class ControllerCheckPagamentoData {
 	private final FatturaPagamentoCCredito csvFattura;
 	private final CsvOggettoDao csv;
 	private final GiornaleDao gD=new GiornaleDao();
+	private final ReportDao rDao;
+	private final CsvReport csvReport;
 
 	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
-		String tipo=vis.getType();
-		
-		Pagamento p=new Pagamento(0,"", 0, "",0, null);
-			
-		//inserire qui
-		if(vis.getMetodoP().equals("cash"))
-			p.setMetodo("cash");
-		else p.setMetodo("cCredito");
-		p.setNomeUtente(nome);
 
 
-		switch (tipo){
+		Pagamento p=new Pagamento(0,vis.getMetodoP(),nome,vis.getSpesaT(),null,null, vis.getId());
+
+		Report report=new Report();
+		switch (vis.getType())
+		{
 			case "libro"->
 			{
 				l.setId(vis.getId());
-				checkID(vis.getId());
-				p.setAmmontare(vis.getSpesaT());
-				p.setIdOggetto(l.getId());
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-				{
-					Libro l1=csv.retrieveLibroData(new File("report/reportLibro.csv"),l).get(0);
-					p.setTipo(l1.getCategoria());
-					csvFattura.inserisciPagamento(p);
-
-
+				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
+					p.setTipo(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getCategoria());
+					pagD.inserisciPagamento(p);
+					rDao.insertInReport();
 
 				}
 				else {
+					p.setTipo(csv.getLibroByIdTitoloAutore(l).get(0).getCategoria());
+					csvFattura.inserisciPagamento(p);
 
-					p.setTipo(lD.getData(l).getCategoria());
-					pagD.inserisciPagamento(p);
+					report.setIdReport(0);
+					report.setTipologiaOggetto(vis.getType());
+					report.setTitoloOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getTitolo());
+					report.setNrPezzi(vis.getQuantita());
+					report.setPrezzo(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo());
+					report.setTotale(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo()*vis.getQuantita());
+
+					csvReport.inserisciReport(report);
 
 				}
-
-
 			}
-			case "giornale" ->
+			case "giornale"->
 			{
 				g.setId(vis.getId());
-				checkID(vis.getId());
-				p.setAmmontare(vis.getSpesaT());
-				p.setIdOggetto(g.getId());
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-				{
-					Giornale g1 =csv.retriveGiornaleData(new File("report/reportGiornale.csv"),g).get(0);
-					p.setTipo(g1.getTipologia());
-					csvFattura.inserisciPagamento(p);
-
-
-
-				}
-				else {
-
-					p.setTipo(gD.getData(g).getTipologia());
+				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
+					p.setTipo(gD.getGiornaleIdTitoloAutore(g).get(0).getCategoria());
 					pagD.inserisciPagamento(p);
-
+					rDao.insertInReport();
 				}
-
-
+				else{
+					p.setTipo(vis.getType());
+					csvFattura.inserisciPagamento(p);
+					report.setIdReport(0);
+					report.setTipologiaOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getCategoria());
+					report.setTitoloOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getTitolo());
+					report.setNrPezzi(vis.getQuantita());
+					report.setPrezzo(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo());
+					report.setTotale(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo()*vis.getQuantita());
+					csvReport.inserisciReport(report);
+				}
 			}
-			case "rivista"->
-			{
+			case "rivista"->{
 				r.setId(vis.getId());
-				checkID(vis.getId());
-				p.setAmmontare(vis.getSpesaT());
-				p.setIdOggetto(r.getId());
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-				{
-					Rivista r1=csv.retrieveRivistaData(new File("report/reportRivista.csv"),r).get(0);
-					p.setTipo(r1.getTipologia());
-					csvFattura.inserisciPagamento(p);
-
-
-
+				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
+					p.setTipo(rD.getRivistaIdTitoloAutore(r).get(0).getCategoria());
+					pagD.inserisciPagamento(p);
+					rDao.insertInReport();
 				}
 				else {
-
-					p.setTipo(rD.getData(r).getTipologia());
-					pagD.inserisciPagamento(p);
-
+					p.setTipo(vis.getType());
+					csvFattura.inserisciPagamento(p);
+					report.setIdReport(0);
+					report.setTipologiaOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getCategoria());
+					report.setTitoloOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getTitolo());
+					report.setNrPezzi(vis.getQuantita());
+					report.setPrezzo(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo());
+					report.setTotale(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo()*vis.getQuantita());
+					csvReport.inserisciReport(report);
 				}
-
-
-
 			}
-			default->java.util.logging.Logger.getLogger("Test checkPagamento Data").log(Level.SEVERE," type not correct");
-
+			default -> java.util.logging.Logger.getLogger("pagamento").log(Level.SEVERE," error in payment");
 		}
 
-		
 	}
+
 	public ControllerCheckPagamentoData() throws IOException {
 		l=new Libro();
 		g=new Giornale();
@@ -131,17 +116,11 @@ public class ControllerCheckPagamentoData {
 		pagD=new PagamentoDao();
 		csv=new CsvOggettoDao();
 		csvFattura=new FatturaPagamentoCCredito();
-		
-	}
-	private void checkID(int id) throws IdException {
-
-		if (id<=0 || id>25)
-		{
-
-			throw new IdException("id not correct");
-		}
+		rDao=new ReportDao();
+		csvReport=new CsvReport();
 
 	}
+
 
 
 }

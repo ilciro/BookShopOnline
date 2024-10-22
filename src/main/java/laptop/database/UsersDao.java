@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import laptop.utilities.ConnToDb;
 import laptop.model.TempUser;
 import laptop.model.User;
@@ -28,6 +30,7 @@ public class UsersDao {
 
 	private static final String UTENTI="utenti";
 	private static final GenerateDaoReportClass gRC=new GenerateDaoReportClass(UTENTI);
+
 
 
 
@@ -117,10 +120,11 @@ public class UsersDao {
 	public static String getRuolo(User u) throws SQLException {
 
 		String r = "";
-		query = "SELECT idRuolo FROM USERS where Email = ?";
+		query = "SELECT idRuolo FROM USERS where Email = ? and pwd=?";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 			prepQ.setString(1, u.getEmail());
+			prepQ.setString(2,u.getPassword());
 
 			ResultSet rs = prepQ.executeQuery();
 			while (rs.next()) {
@@ -140,15 +144,15 @@ public class UsersDao {
 	}
 
 	// this function check if you have changed password successfully 
-	public static boolean checkResetpass(User u, String pwd, String email) throws SQLException {
+	public static boolean checkResetpass(User u) throws SQLException {
 
 		query = "Update USERS SET pwd = ?  where Email = ?";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 
 
-			prepQ.setString(1, pwd);
-			prepQ.setString(2, email);
+			prepQ.setString(1, u.getPassword());
+			prepQ.setString(2, u.getEmail());
 			row = prepQ.executeUpdate();
 			if (row == 1)
 				state = true;
@@ -167,29 +171,31 @@ public class UsersDao {
 	// delete a user from db  terzo caso d'uso
 
 	public static boolean deleteUser(User user) throws SQLException {
-		String email = user.getEmail();
-		int id= user.getId();
 
-		query = "DELETE FROM USERS WHERE Email = ? or idUser=?";
+
+		query = "DELETE FROM USERS WHERE Email = ? or idUser=? ";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 
 
-			prepQ.setString(1, email);
-			prepQ.setInt(2, id);
+			prepQ.setString(1, user.getEmail());
+			prepQ.setInt(2, user.getId());
 			row = prepQ.executeUpdate();
-			if (row == 1)
-				state = true;
+
+
+
 
 		} catch (SQLException e) {
 			Logger.getLogger("delete user").log(Level.INFO, ECCEZIONE, e);
 
 		}
 
-		gRC.ripristinaOrdine(UTENTI);
-		Logger.getLogger("delete user ruolo").log(Level.INFO, "cancello user id{0}", id);
+		//gRC.ripristinaOrdine(UTENTI);
+		Logger.getLogger("delete user ruolo").log(Level.INFO, "cancello user id{0}", user.getId());
 
 
+		if (row == 1)
+			state = true;
 		return state;
 
 	}
@@ -224,7 +230,7 @@ public class UsersDao {
 	public static User pickData(User u) throws SQLException {
 
 
-		query = "SELECT idRuolo,Nome,Cognome,Email,descrizione,dataNascita from USERS where Email=? or idUser=?";
+		query = "SELECT idUser,idRuolo,Nome,Cognome,Email,pwd,descrizione,dataNascita from USERS where Email=? or idUser=? ";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 			prepQ.setString(1, u.getEmail());
@@ -236,9 +242,11 @@ public class UsersDao {
 
 				// setto i vari dati
 
+				u.setId(rs.getInt("idUser"));
 				u.setIdRuolo(rs.getString("idRuolo"));
 				u.setNome(rs.getString("Nome"));
 				u.setCognome(rs.getString("Cognome"));
+				u.setPassword(rs.getString("pwd"));
 				u.setDescrizione(rs.getString("descrizione"));
 				u.setDataDiNascita(rs.getDate("dataNascita").toLocalDate());
 
@@ -344,40 +352,40 @@ public class UsersDao {
 	private UsersDao() {
 	}
 
-	public static String getUserList() throws SQLException {
-		query = "select * from USERS";
-		StringBuilder s = new StringBuilder();
+	public static ObservableList<TempUser> getUserList() throws SQLException {
+
+
+		query = "select  * from USERS";
+		ObservableList<TempUser> list= FXCollections.observableArrayList();
+
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 			ResultSet rs = prepQ.executeQuery();
 			while (rs.next()) {
-				s.append("\n Id User \t");
-				s.append("Id Ruolo \t");
-				s.append("Nome \t");
-				s.append("Cognome \t");
-				s.append("Email \t");
-				s.append("Data di nascita \n");
+				TempUser tu=new TempUser();
 
-				s.append(rs.getInt(1));
-				s.append("\t");
-				s.append(rs.getInt(1));
-				s.append("\t");
-				s.append(rs.getString(2));
-				s.append("\t");
-				s.append(rs.getString(3));
-				s.append("\t");
-				s.append(rs.getString(4));
-				s.append("\t");
-				s.append(rs.getString(5));
-				s.append("\t");
-				s.append(rs.getDate(8).toLocalDate());
-				s.append("\n");
+				tu.setId(rs.getInt(1));
+				tu.setIdRuolo(rs.getString(2));
+				tu.setNomeT(rs.getString(3));
+				tu.setCognomeT(rs.getString(4));
+				tu.setEmailT(rs.getString(5));
+				tu.setPasswordT(rs.getString(6));
+				tu.setDescrizioneT(rs.getString(7));
+				tu.setDataDiNascitaT((rs.getDate(8).toLocalDate()));
+
+
+
+
+				list.add(tu);
+
+
+
 			}
 		} catch (SQLException e) {
 			Logger.getLogger("user list").log(Level.INFO, "user list {0}.", e.toString());
 
 		}
-		return s.toString();
+		return list;
 	}
 
 	public static int aggiornaTempUser(TempUser uT) throws SQLException {

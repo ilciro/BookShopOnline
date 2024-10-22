@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryHomePage">
+   <children>
+      <Label fx:id="header" layoutX="38.0" layoutY="43.0" prefHeight="24.0" prefWidth="490.0" text="Benvenuto nel Book Shop Online" textFill="#0553fc" />
+      <HBox fx:id="hbox1" layoutX="38.0" layoutY="90.0" prefHeight="70.0" prefWidth="760.0" spacing="50.0">
+         <children>
+            <ImageView fx:id="imageL" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@libro.png_860.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageG" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@newspaper-284-542534.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageR" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@una-rivista_318-1607.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRicerca" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Search-icon-13.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLogin" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@vector-users-icon-png_302626.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageVisualizza" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@png-clipart-paper-agenda-computer-icons-diary-agenda-rectangle-technology-thumbnail.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageGestione" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@lovepik-tool-management-icon-png-image_401130939_wh1200.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="hbox2" layoutX="38.0" layoutY="219.0" prefHeight="28.0" prefWidth="816.0" spacing="50.0">
+         <children>
+            <Button fx:id="buttonL" mnemonicParsing="false" onAction="#getListaLibri" prefHeight="25.0" prefWidth="66.0" text="Libro" textFill="#5ed925" />
+            <Button fx:id="buttonG" mnemonicParsing="false" onAction="#getListaGiornali" prefHeight="25.0" prefWidth="83.0" text="Giornale" textFill="#4d05f5" />
+            <Button fx:id="buttonR" mnemonicParsing="false" onAction="#getListaRiviste" prefHeight="25.0" prefWidth="78.0" text="Rivista" textFill="#fc07a2" />
+            <Button fx:id="buttonRicerca" mnemonicParsing="false" onAction="#cerca" prefHeight="25.0" prefWidth="66.0" text="Cerca" textFill="#fa9302" />
+            <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="60.0" text="Login" textFill="#fff608" />
+            <Button fx:id="buttonVisualizza" mnemonicParsing="false" onAction="#ordini" prefHeight="25.0" prefWidth="92.0" text="Ordini" textFill="#10dbf2" />
+            <Button fx:id="buttonGestione" mnemonicParsing="false" onAction="#gestione" prefHeight="25.0" prefWidth="82.0" text="Gestione" textFill="#de0000" />
+         </children>
+      </HBox>
+      <Label fx:id="labelScelta" layoutX="46.0" layoutY="314.0" text="scegliere tipologia db" />
+      <TextArea fx:id="tArea" layoutX="11.0" layoutY="347.0" prefHeight="100.0" prefWidth="816.0" />
+      <Button fx:id="buttonI" layoutX="528.0" layoutY="310.0" mnemonicParsing="false" onAction="#indietro" text="Logout" textFill="RED" />
+      <RadioButton fx:id="checkDataBase" layoutX="283.0" layoutY="310.0" mnemonicParsing="false" text="database">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="checkFile" layoutX="394.0" layoutY="310.0" mnemonicParsing="false" text="file" toggleGroup="$toggleGroup" />
+   </children>
+</Pane>

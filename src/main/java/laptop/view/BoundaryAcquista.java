@@ -68,165 +68,90 @@ public class BoundaryAcquista implements Initializable {
 	private Button link;
 
 	protected Scene scene;
-	private final ControllerAcquista cA;
+	private  ControllerAcquista cA;
 	private final ControllerSystemState vis = ControllerSystemState.getInstance() ;
 
-	
-	
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		cA=new ControllerAcquista();
+
+        try {
+            nome.setText(cA.getNomeCostoDisp()[0]);
+			costo.setText(cA.getNomeCostoDisp()[1]);
+			copieLabel.setText(cA.getNomeCostoDisp()[2]);
+			if(Integer.parseInt(copieLabel.getText())<=0)
+			{
+				buttonCC.setDisable(true);
+				buttonCash.setDisable(true);
+				ritiroN.setDisable(true);
+				calcola.setDisable(true);
+			}
+
+        } catch (CsvValidationException |IOException |IdException e) {
+            java.util.logging.Logger.getLogger("initialize").log(Level.SEVERE," data is wrong!!");
+        }
+
+    }
 	@FXML
-
-	private void pagaCC() throws IOException {
-		
-		if(ritiroN.isSelected()) {
-			vis.setPickup(true);
-		}
-		else if (!ritiroN.isSelected())
-		{
-			vis.setPickup(false);
-		}
-		if(Integer.parseInt(quantita.getText())>Integer.parseInt(copieLabel.getText()))
-		{
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonCC.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("acquista.fxml")));
-			stage.setTitle("Benvenuto nella schermata di acquisto");
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			java.util.logging.Logger.getLogger("Test pagacc").log(Level.SEVERE,"\n Non vi e sufficiente disponibilita");
-		}
-		else {
-			vis.setMetodoP("cCredito");
-
-			Stage stage;
+	private void indietro() throws IOException {
+		Stage stage;
 		Parent root;
-		stage = (Stage) buttonCC.getScene().getWindow();
-		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pagamentoCC.fxml")));
-		stage.setTitle("Benvenuto nella schermata dell'acquisto con carta credito");
+		stage = (Stage) link.getScene().getWindow();
+		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("compravendita.fxml")));
+		stage.setTitle("Benvenuto nella schermata della compravendita");
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		}
-
-
 	}
 
 	@FXML
-	private void pagaCash() throws IOException {
-		if(ritiroN.isSelected()) {
+	private void pagaCC() throws IOException {
+		vis.setMetodoP("cCredito");
+		vis.setQuantita(Integer.parseInt(quantita.getText()));
+		if(ritiroN.isSelected())
 			vis.setPickup(true);
-		}
-		else if (!ritiroN.isSelected())
-		{
-			vis.setPickup(false);
-		}
-		if(Integer.parseInt(quantita.getText())>Integer.parseInt(copieLabel.getText()))
-		{
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonCC.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("acquista.fxml")));
-			stage.setTitle("Benvenuto nella schermata di acquisto");
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			java.util.logging.Logger.getLogger("Test pagacc").log(Level.SEVERE,"\n Non vi e sufficiente disponibilita");
+		Stage stage;
+		Parent root;
+		stage = (Stage) buttonCC.getScene().getWindow();
+		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pagamentoCCFinale.fxml")));
+		stage.setTitle("Benvenuto nella schermata del riepilogo cartaCredito");
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 
+	}
+	@FXML
+	private void pagaCash() throws IOException {
+		vis.setMetodoP("cash");
+		vis.setQuantita(Integer.parseInt(quantita.getText()));
 
-
-		}
-		else {
-
-			vis.setMetodoP("cash");
-
+		if(ritiroN.isSelected())
+			vis.setPickup(true);
 		Stage stage;
 		Parent root;
 		stage = (Stage) buttonCash.getScene().getWindow();
 		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pagamentoContrassegno.fxml")));
-		stage.setTitle("Benvenuto nella schermata dell'acquisto in contanti");
-
+		stage.setTitle("Benvenuto nella schermata del riepilogo fattura");
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		}
-
 	}
-
-	
-
 	@FXML
-	private void importo() throws SQLException, NumberFormatException, IdException, AcquistaException, CsvValidationException, IOException {
-		
-		if (!nome.getText().isEmpty()) {
+	private void importo() throws CsvValidationException, IOException, IdException, AcquistaException {
+		//invalido l'importo.
+		if(Integer.parseInt(quantita.getText())>Integer.parseInt(cA.getNomeCostoDisp()[2]))
+		{
+			buttonCC.setDisable(true);
+			buttonCash.setDisable(true);
+			ritiroN.setDisable(true);
+			throw new AcquistaException(" not enough capacity");
+		}
+		else{
 			buttonCC.setDisable(false);
 			buttonCash.setDisable(false);
-
-
-
-
-			float x = cA.totale1(vis.getType(),labelT.getText(), Integer.parseInt(copieLabel.getText()),Integer.parseInt(quantita.getText()));
-			costo.setText(String.valueOf(x));
-			float tot;
-			tot = x * (Float.parseFloat(quantita.getText()));
-			totale.setText(String.valueOf( tot));
-
-			cA.inserisciAmmontare(vis.getType());
-			vis.setSpesaT(tot);
-			vis.setQuantita(Integer.parseInt(quantita.getText()));
-			
-			// qui mettere un controllo dal db oer il tipo di prodotto scelto usando l'istanza visualizza
-
-
+			ritiroN.setDisable(false);
 		}
-		
-
+		totale.setText(String.valueOf(cA.getPrezzo(quantita.getText())));
 	}
-
-	public BoundaryAcquista() throws  IOException {
-		cA = new ControllerAcquista();
-	}
-
-	@FXML
-	private void indietro() throws IOException {
-		if( vis.getIsLogged()) {
-		Stage stage;
-		Parent root;
-		stage = (Stage) link.getScene().getWindow();
-		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageAfterLogin.fxml")));
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-		}
-		else
-		{
-			Stage stage;
-			Parent root;
-			stage = (Stage) link.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePage.fxml")));
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		}
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources)   {
-		
-		buttonCC.setDisable(true);
-		buttonCash.setDisable(true);
-		
-			try {
-			nome.setText(cA.getNomeById());
-
-			copieLabel.setText(String.valueOf(cA.getDisp(vis.getType())));
-		
-				costo.setText(String.valueOf(cA.getCosto(vis.getType())));
-			} catch (SQLException | IdException |CsvValidationException |IOException e) {
-				java.util.logging.Logger.getLogger("Test initialize").log(Level.SEVERE, " eccezione ottenuta {0}.", e.toString());
-
-			}
-
-    }
-
 }

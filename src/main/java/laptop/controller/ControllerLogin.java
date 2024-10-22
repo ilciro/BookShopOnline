@@ -1,81 +1,114 @@
 package laptop.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.database.UsersDao;
 import laptop.database.csvusers.CsvUtente;
-import laptop.exception.IdException;
 import laptop.model.User;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Objects;
+import java.util.logging.Level;
+
 public class ControllerLogin {
-	
-	private static final User user = User.getInstance();
-	protected boolean esito;
-	private static final ControllerSystemState vis=ControllerSystemState.getInstance();
-	private static final CsvUtente csvU=new CsvUtente();
+    private final ControllerSystemState vis=ControllerSystemState.getInstance();
+    private final User u= User.getInstance();
+    private final CsvUtente csv;
 
-	
-	public boolean controlla(String m, String p) throws SQLException, CsvValidationException, IOException, IdException {
-		
-		
-		
-			user.setEmail(m);
-			user.setPassword(p);
+    public String login(String email,String pwd) throws SQLException, CsvValidationException, IOException {
 
-			if(vis.getTypeOfDb().equals("file")) {
-				if(csvU.userList(new File("report/reportUtente.csv"),user).isEmpty())
+        String ruolo ;
+        u.setEmail(email);
+        u.setPassword(pwd);
+        String nome;
+        String cognome;
+        int id;
 
-				{
-					ControllerSystemState.getInstance().setIsLogged(false);
-					esito=false;
-				}
-				else esito=true;
+        if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+        {
+
+            ruolo=UsersDao.getRuolo(u);
+            //added nome and cognome for fattuta
+             nome=UsersDao.pickData(u).getNome();
+             cognome=UsersDao.pickData(u).getCognome();
+             id=UsersDao.pickData(u).getId();
+        }
+        else {
+            ruolo = csv.userList(u).get(0).getIdRuolo();
+            nome = csv.userList(u).get(0).getNome();
+            cognome=csv.userList(u).get(0).getCognome();
+            id=csv.userList(u).get(0).getId();
+        }
+        u.setNome(nome);
+        u.setCognome(cognome);
 
 
+        switch (ruolo)
+        {
+            case "U","u","utente","UTENTE"->
+            {
+                ruolo="UTENTE";
+                vis.setIsLogged(true);
+                u.setId(id);
             }
-			else {
+            case "A","a","admin","ADMIN"-> {
+                ruolo = "ADMIN";
+                vis.setIsLogged(true);
+                u.setId(id);
+            }
+            case "S","s","W","w","SCRITTORE"-> {
+                ruolo = "SCRITTORE";
+                vis.setIsLogged(true);
+                u.setId(id);
+            }
+            case "E","e","EDITORE"-> {
+                ruolo = "EDITORE";
+                vis.setIsLogged(true);
+                u.setId(id);
+            }
+            default ->
+            {
+                ruolo="NONVALIDO";
+                java.util.logging.Logger.getLogger(" login").log(Level.SEVERE, " user not found!!");
+                vis.setIsLogged(false);
+            }
+        }
+        return ruolo;
+
+    }
+
+    public boolean userPresente(String email,String pwd) throws SQLException, CsvValidationException, IOException {
+        boolean status=false;
+        u.setEmail(email);
+        u.setPassword(pwd);
 
 
-				if (UsersDao.checkUser(user) == 1) {
-					// utente trovato
-					// vai col login
-					// vai con la specializzazione prendendo i dati dal dao
+        if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+        {
 
-					// qui prendo il ruolo in base ala mail dell'utente
-					String r = UsersDao.getRuolo(user);
-					// predno e li assegno all'oggetto user
-					UsersDao.pickData(user);
-					java.util.logging.Logger.getLogger("Test log").log(Level.INFO, "loggato come {0}", r);
+            if(!Objects.equals(UsersDao.pickData(u).getNome(), ""))
+            {
+                status=true;
+            }
 
-					ControllerSystemState.getInstance().setIsLogged(true);
-					esito = true;
-				} else {
-					esito = false;
-				}
-			}
+        }else {
+            if(!csv.userList(u).get(0).getNome().equalsIgnoreCase(""))
+            {
+                status=true;
+            }
 
 
 
+        }
 
-				return esito;
 
-			}
+        return status;
+    }
 
-	
-	public String getRuoloTempUSer(String email) throws SQLException, CsvValidationException, IOException, IdException {
 
-		String ruolo="";
-		user.setEmail(email);
-		if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
-			ruolo = csvU.userList(new File("report/reportUser.csv"),user).get(0).getIdRuolo();
-		}
-		else ruolo= UsersDao.getRuolo(user);
-		return ruolo;
-		
-	}
-		
+    public ControllerLogin()
+    {
+        csv=new CsvUtente();
+    }
+
 }

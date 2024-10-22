@@ -1,6 +1,7 @@
 package laptop.model;
 
 
+import java.time.LocalDate;
 
 public class Fattura {
 
@@ -8,22 +9,31 @@ public class Fattura {
 	private String cognome;
 	private String via;
 	private String com;
-	private String numero;
 	private float ammontare;
+	private int idFattura;
 
-	public Fattura() {
-		super();
- 
+	public int getIdFattura() {
+		return idFattura;
 	}
+
+	public void setIdFattura(int idFattura) {
+		this.idFattura = idFattura;
+	}
+
+	public Fattura (){}
+
+
+
 	
-	public Fattura(String nome, String cognome, String via, String com, String numero, float ammontare) {
+	public Fattura(String nome, String cognome, String via, String com, float ammontare,int idFattura) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.via = via;
 		this.com = com;
-		this.numero = numero;
+
 		this.ammontare = ammontare;
+		this.idFattura=idFattura;
 	}
 	
 	public String getNome() {
@@ -54,12 +64,7 @@ public class Fattura {
 
 		this.com = com;
 	}
-	public String getNumero() {
-		return numero;
-	}
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
+
 	public float getAmmontare() {
 		return ammontare;
 	}
@@ -71,12 +76,10 @@ public class Fattura {
 	
 	@Override
 	public String toString() {
-		return "Fattura [nome=" + nome + ", cognome=" + cognome + ", via=" + via + ", com=" + com + ", numero=" + numero
+		return "Fattura [nome=" + nome + ", cognome=" + cognome + ", via=" + via + ", com=" + com + ", numero=" + idFattura
 				+ ", ammontare=" + ammontare + "]";
 	}
 
-	
 
-	
-	
+
 }

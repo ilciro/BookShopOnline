@@ -14,19 +14,19 @@ import java.io.IOException;
 import java.util.List;
 
 public interface   DaoInterface {
-    void inserisciLibro(Libro l) throws IOException, CsvValidationException, IdException;
-    void removeLibroById(Libro l) throws CsvValidationException, IOException;
-    void inserisciGiornale(Giornale g) throws IOException, CsvValidationException, IdException;
-    void removeGiornaleById(Giornale g) throws CsvValidationException,IOException;
-    void inserisciRivista(Rivista r) throws IdException, CsvValidationException, IOException;
-    void removeRivistaById(Rivista r) throws CsvValidationException, IOException;
+    boolean inserisciLibro(Libro l) throws IOException, CsvValidationException, IdException;
+    boolean removeLibroById(Libro l) throws CsvValidationException, IOException;
+    boolean inserisciGiornale(Giornale g) throws IOException, CsvValidationException, IdException;
+    boolean removeGiornaleById(Giornale g) throws CsvValidationException,IOException;
+    boolean inserisciRivista(Rivista r) throws IdException, CsvValidationException, IOException;
+    boolean removeRivistaById(Rivista r) throws CsvValidationException, IOException;
    ObservableList<Raccolta> retrieveRaccoltaData(File fd) throws CsvValidationException, IOException, IdException;
-   List<Libro> retrieveLibroData(File fd,Libro l) throws CsvValidationException, IOException, IdException;
-   List<Giornale> retriveGiornaleData(File fd,Giornale g) throws CsvValidationException, IOException, IdException;
-   List<Rivista> retrieveRivistaData(File fd, Rivista r) throws CsvValidationException, IOException, IdException;
-    ObservableList<Libro> getLibroByIdTitoloAutore(File fd,Libro l) throws CsvValidationException, IOException, IdException;
-    ObservableList<Giornale> getGiornaleByIdTitoloEditore(File fd,Giornale g) throws CsvValidationException, IOException, IdException;
-    ObservableList<Rivista> getRivistaByIdTitoloEditore(File fd,Rivista r) throws CsvValidationException, IOException, IdException;
+   List<Libro> retrieveLibroData(Libro l) throws CsvValidationException, IOException, IdException;
+   List<Giornale> retriveGiornaleData(Giornale g) throws CsvValidationException, IOException, IdException;
+   List<Rivista> retrieveRivistaData( Rivista r) throws CsvValidationException, IOException, IdException;
+    ObservableList<Libro> getLibroByIdTitoloAutore(Libro l) throws CsvValidationException, IOException, IdException;
+    ObservableList<Giornale> getGiornaleByIdTitoloEditore(Giornale g) throws CsvValidationException, IOException, IdException;
+    ObservableList<Rivista> getRivistaByIdTitoloEditore(Rivista r) throws CsvValidationException, IOException, IdException;
 }
 
 

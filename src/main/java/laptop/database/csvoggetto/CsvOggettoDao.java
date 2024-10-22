@@ -114,7 +114,7 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
     @Override
-    public void inserisciLibro(Libro l) throws IOException, CsvValidationException, IdException {
+    public boolean inserisciLibro(Libro l) throws IOException, CsvValidationException, IdException {
         //provo con titolo ed autore ed editore
         //visto che id non buono in quanto non gli e lo assegno
 
@@ -144,7 +144,7 @@ public class CsvOggettoDao implements DaoInterface {
                 removeLibroById(l);
             }
         }
-        inserimentoLibro(this.fdL,l);
+        return inserimentoLibro(this.fdL,l);
 
     }
 
@@ -204,7 +204,7 @@ public class CsvOggettoDao implements DaoInterface {
 
 
     }
-    private static synchronized void inserimentoLibro(File fd, Libro l) throws IOException, CsvValidationException {
+    private static synchronized boolean inserimentoLibro(File fd, Libro l) throws IOException, CsvValidationException {
 
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
         String[] gVector = new String[14];
@@ -228,25 +228,24 @@ public class CsvOggettoDao implements DaoInterface {
         csvWriter.flush();
         csvWriter.close();
 
-
+        return getIdMax()!=0;
 
     }
         @Override
-    public void removeLibroById(Libro l) throws CsvValidationException, IOException {
+    public boolean removeLibroById(Libro l) throws CsvValidationException, IOException {
 
         synchronized (this.cacheLibro) {
             this.cacheLibro.remove(String.valueOf(l.getId()));
         }
-        removeLibroId(this.fdL, l);
-    }
-    private static synchronized void removeLibroId(File fd, Libro l) throws IOException, CsvValidationException {
-         deleteByType(LIBRO,l,null,null,fd);
-    }
+        return removeLibroId(this.fdL, l);
 
-
+        }
+    private static synchronized boolean removeLibroId(File fd, Libro l) throws IOException, CsvValidationException {
+         return deleteByType(LIBRO,l,null,null,fd);
+    }
 
     @Override
-    public void inserisciGiornale(Giornale g) throws IOException, CsvValidationException, IdException {
+    public boolean inserisciGiornale(Giornale g) throws IOException, CsvValidationException, IdException {
 
         boolean duplicatedG;
         synchronized (this.cacheGiornale)
@@ -270,15 +269,15 @@ public class CsvOggettoDao implements DaoInterface {
                 //rimuovo e se lista vuota
                 removeGiornaleById(g);
             }
-        inserimentoGiornale(this.fdG,g);
+        return inserimentoGiornale(this.fdG,g);
     }
-    private static synchronized void inserimentoGiornale(File fd,Giornale g) throws IOException, CsvValidationException {
+    private static synchronized boolean inserimentoGiornale(File fd,Giornale g) throws IOException, CsvValidationException {
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
         String[] gVector = new String[9];
 
 
         gVector[GETINDEXTITOLOG] = g.getTitolo();
-        gVector[GETINDEXTIPOLOGIAG] = g.getTipologia();
+        gVector[GETINDEXTIPOLOGIAG] = g.getCategoria();
         gVector[GETINDEXLINGUAG] = g.getLingua();
         gVector[GETINDEXEDITOREG] = g.getEditore();
         gVector[GETINDEXDATAG] = String.valueOf(g.getDataPubb());
@@ -289,6 +288,7 @@ public class CsvOggettoDao implements DaoInterface {
         csvWriter.writeNext(gVector);
         csvWriter.flush();
         csvWriter.close();
+        return getIdMax()!=0;
     }
 
 
@@ -371,7 +371,7 @@ public class CsvOggettoDao implements DaoInterface {
         Giornale g = new Giornale();
 
         g.setTitolo(titolo);
-        g.setTipologia(tipologia);
+        g.setCategoria(tipologia);
         g.setLingua(lingua);
         g.setEditore(ed);
         g.setDataPubb(LocalDate.parse(data));
@@ -399,7 +399,7 @@ public class CsvOggettoDao implements DaoInterface {
         Rivista r=new Rivista();
 
         r.setTitolo(titolo);
-        r.setTipologia(tipologia);
+        r.setCategoria(tipologia);
         r.setAutore(autore);
         r.setLingua(lingua);
         r.setEditore(editore);
@@ -415,19 +415,20 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
     @Override
-    public void removeGiornaleById(Giornale g) throws CsvValidationException, IOException {
+    public boolean removeGiornaleById(Giornale g) throws CsvValidationException, IOException {
         synchronized (this.cacheGiornale) {
             this.cacheGiornale.remove(String.valueOf(g.getId()));
         }
-        removeGiornaleId(this.fdG, g);
+        return removeGiornaleId(this.fdG, g);
+
     }
-    private static synchronized void removeGiornaleId(File fd,Giornale g) throws IOException, CsvValidationException {
-        deleteByType(GIORNALE,null,g,null,fd);
+    private static synchronized boolean removeGiornaleId(File fd,Giornale g) throws IOException, CsvValidationException {
+        return deleteByType(GIORNALE,null,g,null,fd);
 
     }
 
     @Override
-    public void inserisciRivista(Rivista r) throws IdException, CsvValidationException, IOException {
+    public boolean inserisciRivista(Rivista r) throws IdException, CsvValidationException, IOException {
 
         boolean duplicated;
         synchronized (this.cacheRivista)
@@ -453,16 +454,16 @@ public class CsvOggettoDao implements DaoInterface {
                 //rimuovo e se lista vuota
                 removeRivistaById(r);
             }
-        inserimentoRivista(this.fdR,r);
+        return inserimentoRivista(this.fdR,r);
     }
-    private static synchronized void inserimentoRivista(File fd,Rivista r) throws IOException, CsvValidationException {
+    private static synchronized boolean inserimentoRivista(File fd,Rivista r) throws IOException, CsvValidationException {
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)));
         String[] gVector = new String[11];
 
 
 
         gVector[GETINDEXTITOLOR] = r.getTitolo();
-        gVector[GETINDEXTIPOLOGIAR] = r.getTipologia();
+        gVector[GETINDEXTIPOLOGIAR] = r.getCategoria();
         gVector[GETINDEXAUTORER] = r.getAutore();
         gVector[GETINDEXLINGUAR] = r.getLingua();
         gVector[GETINDEXEDITORER] = r.getEditore();
@@ -476,6 +477,7 @@ public class CsvOggettoDao implements DaoInterface {
         csvWriter.writeNext(gVector);
         csvWriter.flush();
         csvWriter.close();
+        return getIdMax()!=0;
     }
 
     private static synchronized List<Rivista> returnRivistaByTAE(File fd,String tit,String autor,String edit) throws IOException, CsvValidationException, IdException{
@@ -503,7 +505,7 @@ public class CsvOggettoDao implements DaoInterface {
 
                 Rivista r = new Rivista();
                 r.setTitolo(titolo);
-                r.setTipologia(tipologia);
+                r.setCategoria(tipologia);
                 r.setAutore(aut);
                 r.setLingua(lingua);
                 r.setEditore(ed);
@@ -525,15 +527,15 @@ public class CsvOggettoDao implements DaoInterface {
 
     }
     @Override
-    public void removeRivistaById(Rivista r) throws CsvValidationException, IOException {
+    public  boolean removeRivistaById(Rivista r) throws CsvValidationException, IOException {
 
         synchronized (this.cacheRivista) {
             this.cacheRivista.remove(String.valueOf(r.getId()));
         }
-        removeRivistaId(this.fdR,r);
+       return removeRivistaId(this.fdR,r);
     }
-    private static synchronized void removeRivistaId(File fd,Rivista r) throws IOException, CsvValidationException {
-       deleteByType(RIVISTA,null,null,r,fd);
+    private static synchronized boolean removeRivistaId(File fd,Rivista r) throws IOException, CsvValidationException {
+       return deleteByType(RIVISTA,null,null,r,fd);
     }
 
     @Override
@@ -589,7 +591,7 @@ public class CsvOggettoDao implements DaoInterface {
 }
 
     @Override
-    public List<Libro> retrieveLibroData(File fd, Libro l) throws CsvValidationException, IOException, IdException {
+    public List<Libro> retrieveLibroData(Libro l) throws CsvValidationException, IOException, IdException {
         List<Libro> list=new ArrayList<>();
         synchronized (this.cacheLibro)
         {
@@ -603,7 +605,7 @@ public class CsvOggettoDao implements DaoInterface {
         }
         if(list.isEmpty())
         {
-            list=returnLibriByTAE(fd,l.getTitolo(),l.getAutore(),l.getEditore(),l.getId());
+            list=returnLibriByTAE(this.fdL,l.getTitolo(),l.getAutore(),l.getEditore(),l.getId());
             synchronized (this.cacheLibro)
             {
                 for(Libro libro : list)
@@ -615,7 +617,7 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
     @Override
-    public List<Giornale> retriveGiornaleData(File fd, Giornale g) throws CsvValidationException, IOException, IdException {
+    public List<Giornale> retriveGiornaleData(Giornale g) throws CsvValidationException, IOException, IdException {
         List<Giornale> list=new ArrayList<>();
         synchronized (this.cacheGiornale)
         {
@@ -629,7 +631,7 @@ public class CsvOggettoDao implements DaoInterface {
         }
         if(list.isEmpty())
         {
-            list=returnGiornaleByTE(fd,g.getTitolo(),g.getEditore(),g.getId());
+            list=returnGiornaleByTE(this.fdG,g.getTitolo(),g.getEditore(),g.getId());
             synchronized (this.cacheGiornale)
             {
                 for(Giornale giornale : list)
@@ -641,7 +643,7 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
     @Override
-    public List<Rivista> retrieveRivistaData(File fd, Rivista r) throws CsvValidationException, IOException, IdException {
+    public List<Rivista> retrieveRivistaData( Rivista r) throws CsvValidationException, IOException, IdException {
         List<Rivista> list=new ArrayList<>();
         synchronized (this.cacheRivista)
         {
@@ -655,7 +657,7 @@ public class CsvOggettoDao implements DaoInterface {
         }
         if(list.isEmpty())
         {
-            list=returnRivistaByTAE(fd,r.getTitolo(),r.getAutore(),r.getEditore());
+            list=returnRivistaByTAE(this.fdR,r.getTitolo(),r.getAutore(),r.getEditore());
             synchronized (this.cacheRivista)
             {
                 for(Rivista rivista : list)
@@ -667,7 +669,7 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
     @Override
-    public ObservableList<Libro> getLibroByIdTitoloAutore(File fd, Libro l) throws CsvValidationException, IOException, IdException {
+    public ObservableList<Libro> getLibroByIdTitoloAutore(Libro l) throws CsvValidationException, IOException, IdException {
         ObservableList<Libro> list=FXCollections.observableArrayList();
         synchronized (this.cacheLibro)
         {
@@ -726,7 +728,7 @@ public class CsvOggettoDao implements DaoInterface {
 
 
     @Override
-    public ObservableList<Giornale> getGiornaleByIdTitoloEditore(File fd, Giornale g) throws CsvValidationException, IOException, IdException {
+    public ObservableList<Giornale> getGiornaleByIdTitoloEditore( Giornale g) throws CsvValidationException, IOException, IdException {
         ObservableList<Giornale> list=FXCollections.observableArrayList();
         synchronized (this.cacheGiornale)
         {
@@ -781,7 +783,7 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
     @Override
-    public ObservableList<Rivista> getRivistaByIdTitoloEditore(File fd, Rivista r) throws CsvValidationException, IOException, IdException {
+    public ObservableList<Rivista> getRivistaByIdTitoloEditore( Rivista r) throws CsvValidationException, IOException, IdException {
         ObservableList<Rivista> list=FXCollections.observableArrayList();
         synchronized (this.cacheRivista)
         {
@@ -834,8 +836,9 @@ public class CsvOggettoDao implements DaoInterface {
 
 
     //used for reduce duplication
-   private static synchronized  void deleteByType(String type,Libro l,Giornale g,Rivista r,File fd) throws IOException, CsvValidationException {
-       if (SystemUtils.IS_OS_UNIX) {
+   private static synchronized  boolean deleteByType(String type,Libro l,Giornale g,Rivista r,File fd) throws IOException, CsvValidationException {
+       boolean status=false;
+        if (SystemUtils.IS_OS_UNIX) {
            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
        }
@@ -869,9 +872,12 @@ public class CsvOggettoDao implements DaoInterface {
        writer.close();
        if (found) {
            Files.move(tmpFile.toPath(), fd.toPath(), REPLACE_EXISTING);
+           status=true;
+
        } else {
            cleanUp(Path.of(tmpFile.toURI()));
        }
+       return status;
 
    }
 

@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import laptop.controller.ControllerCompravendita;
 import laptop.controller.ControllerSystemState;
 import laptop.exception.IdException;
+import laptop.exception.PersistenzaException;
 import laptop.model.raccolta.Raccolta;
 
 public class BoundaryCompravendita implements Initializable {
@@ -75,33 +76,20 @@ public class BoundaryCompravendita implements Initializable {
 
 	@FXML
 	private void verifica() throws IOException, SQLException, IdException, CsvValidationException {
-		
+
+		try {
 			String i = entryText.getText();
+
+			if (i == null || i.isEmpty())
+				throw new IdException(" id is incorrect !!");
+			vis.setId(Integer.parseInt(i));
+		}catch (IdException e)
+		{
+			java.util.logging.Logger.getLogger("get id").log(Level.SEVERE, "id is wrong",e);
+
+		}
 			
 
-			if(i==null || i.isEmpty())
-			{
-				try {
-					throw new IdException("id null or empty");
-					
-				}catch(IdException idE)
-				{
-					java.util.logging.Logger.getLogger("boundary compravendita").log(Level.SEVERE,"\n eccezione ottenuta {0}.",idE.toString());
-
-				}
-			}	
-			
-			
-			
-			
-			
-			if( cCV.disponibilita(vis.getType(),i) )
-			{
-
-                assert i != null;
-                vis.setId(Integer.parseInt(i));
-				
-			}
 
 			
 			Stage stage;
@@ -125,18 +113,11 @@ public class BoundaryCompravendita implements Initializable {
 	@FXML
 	private void procedi() throws IOException, SQLException, IdException, CsvValidationException {
 		String i = entryText.getText();
-		
-		
+		vis.setId(Integer.parseInt(i));
 
-		if( cCV.disponibilita(vis.getType(),i) )
-		{
-			
-		
 
-			vis.setId(Integer.parseInt(i));
-			
-		}
-		
+
+
 
 			Stage stage;
 			Parent root;
@@ -153,10 +134,12 @@ public class BoundaryCompravendita implements Initializable {
 	}
 
 	@FXML
-	private void vediLista() throws IOException, CsvValidationException, IdException {
+	private void vediLista() throws IOException, CsvValidationException, IdException, PersistenzaException {
 		//vedere if anche qui
 
 				table.setItems(cCV.getLista(vis.getType()));
+
+
 
 	}
 
@@ -195,6 +178,8 @@ public class BoundaryCompravendita implements Initializable {
 	}
 
 
+
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -226,7 +211,7 @@ public class BoundaryCompravendita implements Initializable {
 			// giornale not have autore attr
 			autore.setCellValueFactory(new PropertyValueFactory<>(EDITORES));
 			editore.setCellValueFactory(new PropertyValueFactory<>(EDITORES));
-			categoria.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+			categoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 			prezzo.setCellValueFactory(new PropertyValueFactory<>(PREZZOS));
 			idLibro.setCellValueFactory(new PropertyValueFactory<>("id"));
 		}
@@ -236,7 +221,7 @@ public class BoundaryCompravendita implements Initializable {
 			titolo.setCellValueFactory(new PropertyValueFactory<>(TITOLOS));
 			editore.setCellValueFactory(new PropertyValueFactory<>(EDITORES));
 			autore.setCellValueFactory(new PropertyValueFactory<>("autore"));
-			categoria.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+			categoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 			prezzo.setCellValueFactory(new PropertyValueFactory<>(PREZZOS));
 			idLibro.setCellValueFactory(new PropertyValueFactory<>("id"));
 		}
@@ -248,52 +233,17 @@ public class BoundaryCompravendita implements Initializable {
 
 	@FXML
 	private void torna() throws IOException {
-		
-		/*
-		 * Si vede utente "generico " loggato 
-		 * se non � loggato si inposta come tipo "Utente"
-		 * qui viene usato utente "UTENtE" come quello che non puo fare nulla (utente base)
-		 * per restituire tipo vedere controllerCompravenditaLibri
-		 * 
-		 * FATTO QUESTO per aggirare il problema del nullPointer EXcoeption di cCV.retTipoUser
-		 * 
-		 */
-		
-		if(!vis.getIsLogged())
-			cCV.setTipoUser("UTENTE");
-		
-		String tipoU=cCV.retTipoUser();
-		
-		if( vis.getIsLogged() &&  tipoU.equalsIgnoreCase("ADMIN")) {
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonI.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageAfterLogin.fxml")));
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		}
-		else if( vis.getIsLogged() && (tipoU.equalsIgnoreCase("SCRITTORE") || tipoU.equalsIgnoreCase("EDITORE")) ) {
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonI.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageAfterLoginES.fxml")));
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		}	
-		else if((tipoU.equalsIgnoreCase("UTENTE") ) )
-		{
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonI.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePage.fxml")));
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		}
 
+			Stage stage;
+			Parent root;
+			stage = (Stage) buttonI.getScene().getWindow();
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageFinale.fxml")));
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
 
+		
+		
 	}
 }
 

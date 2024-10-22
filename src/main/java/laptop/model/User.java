@@ -1,7 +1,8 @@
 package laptop.model;
 
 import java.time.LocalDate;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class User {
@@ -10,11 +11,12 @@ public class User {
 		ADMIN,
 		UTENTE,
 		SCRITTORE,
-		EDITORE;
+		EDITORE,
+		NONVALIDO;
  }
 	@Override
 	public String toString() {
-		return "User [nome=" + nome + ", Cognome=" + cognome + ", email=" + email + ", idRuolo=" + r + "]";
+		return "User [nome=" + nome + ", Cognome=" + cognome + ", email=" + email + " , pass=" + password +", idRuolo=" + r + ", id=" + id +"]";
 	}
 	
 		
@@ -96,14 +98,32 @@ public class User {
 	public void setIdRuolo(String ruolo) {
 
 		 switch (ruolo){
-			case "ADMIN", "A"-> r = Ruoli.ADMIN.toString();
-			case "EDITORE", "E"->r = Ruoli.EDITORE.toString();
-			case "SCRITTORE", "W"->r = Ruoli.SCRITTORE.toString();
-             default->r= Ruoli.UTENTE.toString();
+			case "ADMIN", "A"-> r = Ruoli.ADMIN.toString().substring(0,1);
+			case "EDITORE", "E"->r = Ruoli.EDITORE.toString().substring(0,1);
+			case "SCRITTORE", "W", "S"->r = Ruoli.SCRITTORE.toString().substring(0,1);
+			case "UTENTE","U"->r=Ruoli.UTENTE.toString().substring(0,1);
+             default->r= Ruoli.NONVALIDO.toString().substring(0,1);
 
 			}
 		
 
+	}
+	//usato per "pulire" utente dopo modifica
+	public boolean annullaUtente()
+	{
+		boolean status = false;
+		setId(0);
+		setNome("");
+		setCognome("");
+		setEmail("");
+		setPassword("");
+		setDescrizione("");
+		setDataDiNascita(LocalDate.of(1900,1,1));
+		setIdRuolo("NONVALIDO");
+		Logger.getLogger("annulla utente").log(Level.INFO," user data is cleaned");
+		if(nome.isEmpty())
+			status=true;
+		return status;
 	}
 
 

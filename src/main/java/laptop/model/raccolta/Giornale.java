@@ -20,7 +20,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 	public class Giornale implements Raccolta{
 
 	private String  titolo;
-	private String tipologia;
+	private String categoria;
 	private String lingua;
 	private String editore;
 	private LocalDate dataPubb;
@@ -55,7 +55,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 		this.prezzo=prezzo;
 		this.id=id;
 		this.titolo=info[0];
-		this.tipologia=info[1];
+		this.categoria=info[5];
 		this.editore=info[2];
 		this.lingua=info[4];
 		
@@ -72,13 +72,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 		this.titolo = titolo;
 	}
 
-	public String getTipologia() {
-		return tipologia;
-	}
 
-	public void setTipologia(String tipologia) {
-		this.tipologia = tipologia;
-	}
 
 	public String getLingua() {
 		return lingua;
@@ -216,6 +210,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 	}
 
 
-	
-	
-}
+        public String getCategoria() {
+            return categoria;
+        }
+
+        public void setCategoria(String categoria) {
+            this.categoria = categoria;
+        }
+    }

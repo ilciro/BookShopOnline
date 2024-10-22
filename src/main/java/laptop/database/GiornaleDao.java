@@ -12,10 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import laptop.controller.ControllerSystemState;
 import laptop.model.raccolta.Factory;
 import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
 import laptop.utilities.ConnToDb;
 import javafx.collections.FXCollections;
@@ -74,13 +76,14 @@ public class GiornaleDao {
 
 	public ObservableList<Raccolta> getGiornali(){
 		ObservableList<Raccolta> catalogo=FXCollections.observableArrayList();
-		query = "select * from GIORNALE ";
+		query = "select * from GIORNALE";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 
 			ResultSet rs = prepQ.executeQuery();
 			while (rs.next()) {
-				f.createRaccoltaFinale1(GIORNALE, rs.getString(1), null, rs.getString(4), null, rs.getString(4), rs.getString(3));
+
+				f.createRaccoltaFinale1(GIORNALE, rs.getString(1), null, rs.getString(4), null, rs.getString(4), rs.getString(2));
 
 
 				f.createRaccoltaFinale2(GIORNALE, 0, rs.getInt(6), rs.getInt(7), rs.getFloat(8), rs.getInt(9));
@@ -131,9 +134,13 @@ public class GiornaleDao {
 		return catalogo;
 	}
 
+
+
 	public ObservableList<Giornale> getGiornaleIdTitoloAutore(Giornale g) {
 		ObservableList<Giornale> catalogo = FXCollections.observableArrayList();
 		String[] info = new String[7];
+
+		System.out.println(" id degl giornale :"+ g.getId());
 
 
 		query = "select * from GIORNALE where idGiornale=? or idGiornale=? or titolo=? or editore=?";
@@ -150,7 +157,7 @@ public class GiornaleDao {
 				info[0] = rs.getString("titolo");
 				info[2] = rs.getString("editore");
 				info[4] = rs.getString("lingua");
-				info[5] = rs.getString("tipologia");
+				info[5] = rs.getString("categoria");
 				catalogo.add((Giornale) f.creaGiornale(info, rs.getDate("dataPubblicazione").toLocalDate(), rs.getInt("copieRimanenti"), rs.getInt("disp"), rs.getFloat("prezzo"), rs.getInt("idGiornale")));
 
 			}
@@ -189,7 +196,7 @@ public class GiornaleDao {
 
 		query = "INSERT INTO `GIORNALE`"
 				+ "(`titolo`,"
-				+ "`tipologia`,"
+				+ "`categoria`,"
 				+ "`lingua`,"
 				+ "`editore`,"
 				+ "`dataPubblicazione`,"
@@ -202,7 +209,7 @@ public class GiornaleDao {
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 
 			prepQ.setString(1, g.getTitolo());
-			prepQ.setString(2, g.getTipologia());
+			prepQ.setString(2, g.getCategoria());
 			prepQ.setString(3, g.getLingua());
 			prepQ.setString(4, g.getEditore());
 			prepQ.setDate(5, Date.valueOf(g.getDataPubb().toString()));
@@ -241,14 +248,15 @@ public class GiornaleDao {
 
 	}
 
-	public int aggiornaGiornale(Giornale g) throws SQLException {
+	public boolean aggiornaGiornale(Giornale g) throws SQLException {
+		boolean status=false;
 		int row = 0;
 
 
 		query = " UPDATE `GIORNALE`"
 				+ "SET"
 				+ "`titolo` =?,"
-				+ "`tipologia` = ?,"
+				+ "`categoria` = ?,"
 				+ "`lingua` = ?,"
 				+ "`editore` = ?,"
 				+ "`dataPubblicazione` = ?,"
@@ -259,7 +267,7 @@ public class GiornaleDao {
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 			prepQ.setString(1, g.getTitolo());
-			prepQ.setString(2, g.getTipologia());
+			prepQ.setString(2, g.getCategoria());
 			prepQ.setString(3, g.getLingua());
 			prepQ.setString(4, g.getEditore());
 			prepQ.setString(5, g.getDataPubb().toString());
@@ -274,8 +282,10 @@ public class GiornaleDao {
 		} catch (SQLException e) {
 			java.util.logging.Logger.getLogger("update g").log(Level.INFO, ECCEZIONE, e);
 		}
+		if(row==1)
+			status= true;
 
-		return row;
+		return status;
 
 	}
 
@@ -341,6 +351,27 @@ public class GiornaleDao {
 
 	public int getIdMax() {
 		return gRC.getIdMax(GIORNALE);
+	}
+
+	public boolean eliminaGiornale(Giornale g)
+	{
+		int row = 0;
+		boolean status=false;
+		query="delete from GIORNALE where idGiornale=? or idGiornale=?";
+		try (Connection conn=ConnToDb.connectionToDB();
+			 PreparedStatement prepQ= conn.prepareStatement(query)){
+
+			prepQ.setInt(1,g.getId());
+			prepQ.setInt(2,vis.getId());
+
+			row= prepQ.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger("elimina").log(Level.SEVERE," error in mysql delete", e);
+		}
+		if(row==1)
+			status=true;
+		return status;
 	}
 }
 

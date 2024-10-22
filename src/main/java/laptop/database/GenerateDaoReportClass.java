@@ -166,7 +166,7 @@ public class GenerateDaoReportClass {
 
 
                 while (rs.next()) {
-
+/*
                     TempUser.getInstance().setId(rs.getInt(1));
                     TempUser.getInstance().setIdRuolo(rs.getString(2));
                     TempUser.getInstance().setNomeT(rs.getString(3));
@@ -177,6 +177,8 @@ public class GenerateDaoReportClass {
                     b.write(TempUser.getInstance().getId() + "\t" + TempUser.getInstance().getIdRuolo() + "\t" + TempUser.getInstance().getNomeT() + "\t" + TempUser.getInstance().getCognomeT() +
                             "\t" + TempUser.getInstance().getEmailT() + "\t" + TempUser.getInstance().getDescrizioneT() + "\t" + TempUser.getInstance().getDataDiNascitaT().toString() + "\n");
 
+
+ */
                 }
             } catch (SQLException e1) {
                 Logger.getLogger("lista utenti").log(Level.SEVERE, "\n eccezione ottenuta .", e1);

@@ -72,7 +72,7 @@ public class NegozioDao {
 		
 			query="update NEGOZIO set isValid =? where nome=?";
 			try(Connection conn= ConnToDb.connectionToDB();
-					PreparedStatement  prepQ=conn.prepareStatement(query);
+					PreparedStatement  prepQ=conn.prepareStatement(query)
 					)
 			{
 					prepQ.setBoolean(1, i);
@@ -88,7 +88,7 @@ public class NegozioDao {
 	// controllo che il negozio sia aperto
 	public boolean checkOpen(Negozio  shop) throws SQLException
 	{
-		int aperto=0;
+		int aperto;
 		boolean state=false;
 		query="select isOpen from NEGOZIO where nome=?";
 		try(Connection conn=ConnToDb.connectionToDB();

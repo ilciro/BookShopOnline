@@ -20,7 +20,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerSystemState;
 import laptop.controller.ControllerVisualizza;
+import laptop.database.GiornaleDao;
+import laptop.database.LibroDao;
 import laptop.exception.IdException;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
 
 public class BoundaryVisualizza implements Initializable {
 	
@@ -124,8 +128,7 @@ public class BoundaryVisualizza implements Initializable {
 			Stage stage;
 			Parent root;
 			stage = (Stage) buttonBack.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ricercaPage.fxml")));
-
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ricerca.fxml")));
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
@@ -134,71 +137,84 @@ public class BoundaryVisualizza implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+
 		i = cV.getID();
 		String tipo=vis.getType();
-		
+		String indisponibile="";
+
 		try {
-            String indisponibile = "not found";
-            switch (tipo) {
-                case "libro" -> {
+			switch (tipo)
+			{
+				case "libro"->
+				{
+					labelTitolo.setText(cV.getListLibro().get(0).getTitolo());
+					labelNumeroPagine.setText(String.valueOf(cV.getListLibro().get(0).getNrPagine()));
+					labelCodiceISBN.setText(cV.getListLibro().get(0).getCodIsbn());
+					labelEditore.setText(cV.getListLibro().get(0).getEditore());
+					labelAutore.setText(cV.getListLibro().get(0).getAutore());
+					labelLingua.setText(cV.getListLibro().get(0).getLingua());
+					labelCategoria.setText(cV.getListLibro().get(0).getCategoria());
+					labelDate.setText(String.valueOf(cV.getListLibro().get(0).getDataPubb()));
+					labelRecensione.setText(cV.getListLibro().get(0).getRecensione());
+					labelDescrizione.setText(cV.getListLibro().get(0).getDesc());
+					labelDisp.setText(String.valueOf(cV.getListLibro().get(0).getDisponibilita()));
+					labelPrezzo.setText(String.valueOf(cV.getListLibro().get(0).getPrezzo()));
+					labelCopieRimanenti.setText(String.valueOf(cV.getListLibro().get(0).getNrCopie()));
 
-                    labelTitolo.setText(cV.getDataL(i).getTitolo());
-                    labelNumeroPagine.setText(String.valueOf(cV.getDataL(i).getNrPagine()));
-                    labelCodiceISBN.setText(cV.getDataL(i).getCodIsbn());
-                    labelEditore.setText(cV.getDataL(i).getEditore());
-                    labelAutore.setText(cV.getDataL(i).getAutore());
-                    labelLingua.setText(cV.getDataL(i).getLingua());
-                    labelCategoria.setText(cV.getDataL(i).getCategoria());
-                    labelDate.setText(String.valueOf(cV.getDataL(i).getDataPubb()));
-                    labelRecensione.setText(cV.getDataL(i).getRecensione());
-                    labelDescrizione.setText(cV.getDataL(i).getDesc());
-                    labelDisp.setText(String.valueOf(cV.getDataL(i).getDisponibilita()));
-                    labelPrezzo.setText(String.valueOf(cV.getDataL(i).getPrezzo()));
-                    labelCopieRimanenti.setText(String.valueOf(cV.getDataL(i).getNrCopie()));
-                }
-                case "giornale" -> {
-                    labelTitolo.setText(cV.getDataG(i).getTitolo());
-                    labelNumeroPagine.setText(String.valueOf(0));
-                    labelCodiceISBN.setText(indisponibile);
-                    labelEditore.setText(cV.getDataG(i).getEditore());
-                    labelAutore.setText(indisponibile);
-                    labelLingua.setText(cV.getDataG(i).getLingua());
-                    labelCategoria.setText(indisponibile);
-                    labelDate.setText(String.valueOf(cV.getDataG(i).getDataPubb()));
-                    labelRecensione.setText(indisponibile);
-                    labelDescrizione.setText(indisponibile);
-                    labelDisp.setText(String.valueOf(cV.getDataG(i).getDisponibilita()));
-                    labelPrezzo.setText(String.valueOf(cV.getDataG(i).getPrezzo()));
-                    labelCopieRimanenti.setText(String.valueOf(0));
-                }
-                case "rivista" -> {
-                    labelTitolo.setText(cV.getDataR(i).getTitolo());
-                    labelNumeroPagine.setText(String.valueOf(0));
-                    labelCodiceISBN.setText(String.valueOf(0));
-                    labelEditore.setText(cV.getDataR(i).getEditore());
-                    labelAutore.setText(cV.getDataR(i).getAutore());
-                    labelLingua.setText(cV.getDataL(i).getLingua());
-                    labelCategoria.setText(indisponibile);
-                    labelDate.setText(String.valueOf(cV.getDataR(i).getDataPubb()));
-                    labelRecensione.setText(indisponibile);
-                    labelDescrizione.setText(cV.getDataR(i).getDescrizione());
-                    labelDisp.setText(String.valueOf(cV.getDataL(i).getDisponibilita()));
-                    labelPrezzo.setText(String.valueOf(cV.getDataL(i).getPrezzo()));
-                    labelCopieRimanenti.setText(String.valueOf(cV.getDataL(i).getNrCopie()));
-                }
-				default -> java.util.logging.Logger.getLogger("Test initialize").log(Level.SEVERE, "type is wrong");
+				}
+				case "giornale"->
+				{
 
+					labelTitolo.setText(cV.getListGiornale().get(0).getTitolo());
+					labelNumeroPagine.setText(String.valueOf(0));
+					labelCodiceISBN.setText(indisponibile);
+					labelEditore.setText(cV.getListGiornale().get(0).getEditore());
+					labelAutore.setText(indisponibile);
+					labelLingua.setText(cV.getListGiornale().get(0).getLingua());
+					labelCategoria.setText(indisponibile);
+					labelDate.setText(String.valueOf(cV.getListGiornale().get(0).getDataPubb()));
+					labelRecensione.setText(indisponibile);
+					labelDescrizione.setText(indisponibile);
+					labelDisp.setText(String.valueOf(cV.getListGiornale().get(0).getDisponibilita()));
+					labelPrezzo.setText(String.valueOf(cV.getListGiornale().get(0).getPrezzo()));
+					labelCopieRimanenti.setText(String.valueOf(0));
+				}
+				case "rivista" -> {
+					labelTitolo.setText(cV.getListRivista().get(0).getTitolo());
+					labelNumeroPagine.setText(String.valueOf(0));
+					labelCodiceISBN.setText(String.valueOf(0));
+					labelEditore.setText(cV.getListRivista().get(0).getEditore());
+					labelAutore.setText(cV.getListRivista().get(0).getAutore());
+					labelLingua.setText(cV.getListRivista().get(0).getLingua());
+					labelCategoria.setText(cV.getListRivista().get(0).getCategoria());
+					labelDate.setText(String.valueOf(cV.getListRivista().get(0).getDataPubb()));
+					labelRecensione.setText(indisponibile);
+					labelDescrizione.setText(cV.getListRivista().get(0).getDescrizione());
+					labelDisp.setText(String.valueOf(cV.getListRivista().get(0).getDisp()));
+					labelPrezzo.setText(String.valueOf(cV.getListRivista().get(0).getPrezzo()));
+					labelCopieRimanenti.setText(String.valueOf(cV.getListRivista().get(0).getCopieRim()));
+				}
+				default -> java.util.logging.Logger.getLogger("initialize").log(Level.SEVERE," type is not correct");
 			}
-		} catch (SQLException |CsvValidationException|IOException |IdException e) {
-			e.getMessage();
 
-			
+
+		}catch (IOException|IdException|CsvValidationException e)
+		{
+			java.util.logging.Logger.getLogger("initialize").log(Level.SEVERE," eccezione ottenuta");
 		}
 
 
 
 
-    }
+
+
+
+		}
+
+
+
+
+
 	
 
 }

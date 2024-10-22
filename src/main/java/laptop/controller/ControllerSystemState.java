@@ -18,7 +18,11 @@ public class ControllerSystemState {
 
 	private int idOggetto; //usato nel pagamento
 
+	private boolean populated; // usato per vedere se db è popolato;
+
 	private String typeOfDb;
+
+	private String tipoModifica;
 	 
 	 private static ControllerSystemState instance = null;
 
@@ -122,4 +126,20 @@ public class ControllerSystemState {
 	public void setTypeOfDb(String typeOfDb) {
 		this.typeOfDb = typeOfDb;
 	}
+
+    public boolean isPopulated() {
+        return populated;
+    }
+
+    public void setPopulated(boolean populated) {
+        this.populated = populated;
+    }
+
+    public String getTipoModifica() {
+        return tipoModifica;
+    }
+
+    public void setTipoModifica(String tipoModifica) {
+        this.tipoModifica = tipoModifica;
+    }
 }

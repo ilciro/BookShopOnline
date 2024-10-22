@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryReport">
+   <children>
+      <Label fx:id="header" layoutX="43.0" layoutY="33.0" prefHeight="30.0" prefWidth="500.0" text="Benvenuto nella schermata di report" textFill="#0022fc" />
+      <HBox fx:id="hbox" layoutX="43.0" layoutY="74.0" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <RadioButton fx:id="totaleRadio" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" text="Totale" textFill="#eb6702">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="libriRadio" mnemonicParsing="false" prefHeight="30.0" text="Libri" textFill="#44ff00" toggleGroup="$toggleGroup">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="giornaliRadio" mnemonicParsing="false" prefHeight="30.0" text="Giornali" textFill="#0022ff" toggleGroup="$toggleGroup">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="rivisteRadio" mnemonicParsing="false" prefHeight="30.0" text="Riviste" textFill="#ff00c3" toggleGroup="$toggleGroup">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="utentiRadio" mnemonicParsing="false" prefHeight="30.0" text="Utenti" textFill="#b9ad07" toggleGroup="$toggleGroup">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </RadioButton>
+            <Button fx:id="generaButton" mnemonicParsing="false" onAction="#genera" prefHeight="30.0" text="Genera" textFill="#bf0028">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="buttonI" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" text="Indietro" textFill="RED">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="tableViewReport" layoutX="43.0" layoutY="140.0" prefHeight="200.0" prefWidth="563.0">
+        <columns>
+          <TableColumn fx:id="idReport" prefWidth="90.0" text="idOggetto" />
+          <TableColumn fx:id="tipologiaOggetto" prefWidth="139.0" text="tipologiaOggetto" />
+            <TableColumn fx:id="titoloOggetto" minWidth="0.0" prefWidth="117.0" text="titoloOggetto" />
+            <TableColumn fx:id="nrPezzi" prefWidth="62.0" text="nrPezzi" />
+            <TableColumn fx:id="prezzo" prefWidth="57.0" text="prezzo" />
+            <TableColumn fx:id="totale" prefWidth="97.0" text="totale" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tableViewUtenti" layoutX="43.0" layoutY="353.0" prefHeight="200.0" prefWidth="227.0">
+        <columns>
+          <TableColumn fx:id="idUser" prefWidth="75.0" text="idUtente" />
+          <TableColumn fx:id="nome" prefWidth="75.0" text="nome" />
+            <TableColumn fx:id="cognome" prefWidth="75.0" text="cognome" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

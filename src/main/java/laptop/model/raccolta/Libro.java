@@ -24,7 +24,6 @@ public class Libro implements Raccolta {
 	private String descrizione;
 	private LocalDate dataPubb;
 	private String recensione;
-
 	private int nrPagine;
 	private int nrCopie; // numero copie vendute
 	private int disponibilita;
@@ -332,8 +331,6 @@ public class Libro implements Raccolta {
 	@Override
 	public void leggi(int i) throws IOException, DocumentException, URISyntaxException {
 
-
-
 		switch (i) {
 			case 1 -> this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo1"));
 			case 2->this.f=new File(rbTitoli.getString(DSTPATH) + rbTitoli.getString("titolo2"));
@@ -403,9 +400,6 @@ public class Libro implements Raccolta {
 	public void setInfoGenerali(String[] infoGenerali) {
 		this.infoGenerali = infoGenerali;
 	}
-
-
-
 
 	public String[] getInfoCostiDisp() {
 		return infoCostiDisp;

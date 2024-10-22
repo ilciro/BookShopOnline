@@ -18,18 +18,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 
 public class Main  extends Application {
-	private static final String LIBROP="src/main/resources/csvfiles/libro.csv";
-	private static final String GIORNALEP="src/main/resources/csvfiles/giornale.csv";
-	private static final String RIVISTAP="src/main/resources/csvfiles/rivista.csv";
-	private static final String LIBROFINALE="report/reportLibro.csv";
-	private static final String GIORNALEFINALE="report/reportGiornale.csv";
-	private static final String RIVISTAFINALE="report/reportRivista.csv";
-	private static final String UTENTEP="src/main/resources/csvfiles/utente.csv";
-	private static final String UTENTEFINALE="report/reportUtente.csv";
-	private static final String FATTURAP="src/main/resources/csvfiles/utente.csv";
-	private static final String FATTURAFINALE="report/reportUtente.csv";
-	private static final String PAGAMENTOP="src/main/resources/csvfiles/utente.csv";
-	private static final String PAGAMENTOFINALE="report/reportUtente.csv";
+
 
 
 
@@ -40,7 +29,7 @@ public class Main  extends Application {
 		Scene scene;
 
 		try {
-			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("scelta.fxml")));
+			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageFinale.fxml")));
 			scene = new Scene(root);
 			primaryStage.setTitle("Benvenuto nella homePage");
 			primaryStage.setScene(scene);
@@ -58,24 +47,6 @@ public class Main  extends Application {
 	public static void main(String[] args) throws Exception {
 
 
-
-		try {
-
-
-			Files.copy(Path.of(LIBROP), Path.of(LIBROFINALE),REPLACE_EXISTING);
-			Files.copy(Path.of(GIORNALEP), Path.of(GIORNALEFINALE),REPLACE_EXISTING);
-			Files.copy(Path.of(RIVISTAP), Path.of(RIVISTAFINALE),REPLACE_EXISTING);
-			Files.copy(Path.of(UTENTEP), Path.of(UTENTEFINALE),REPLACE_EXISTING);
-			Files.copy(Path.of(FATTURAP), Path.of(FATTURAFINALE),REPLACE_EXISTING);
-			Files.copy(Path.of(PAGAMENTOP), Path.of(PAGAMENTOFINALE),REPLACE_EXISTING);
-
-
-
-
-		} catch (FileNotFoundException eFile) {
-			Logger.getLogger("crwa db").log(Level.SEVERE, "\n eccezione ottenuta .", eFile);
-
-		}
 
 
 

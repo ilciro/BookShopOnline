@@ -21,8 +21,13 @@ public interface PagamentoInterface {
 
 
      void cancellaFattura( Fattura f) throws CsvValidationException, IOException;
-     void cancellaPagamento(Pagamento p) throws CsvValidationException, IOException;
+     boolean cancellaPagamento(Pagamento p) throws CsvValidationException, IOException;
 
      void inserisciCartaCredito(CartaDiCredito cc) throws IOException, CsvValidationException;
-     ObservableList<CartaDiCredito> getListaCartaCreditoByNome(File fd,CartaDiCredito cc) throws CsvValidationException, IOException;
+     ObservableList<CartaDiCredito> getListaCartaCreditoByNome(CartaDiCredito cc) throws CsvValidationException, IOException;
+
+     Pagamento ultimoPagamento() throws IOException, CsvValidationException;
+     Fattura ultimaFattura() throws CsvValidationException, IOException;
+
+     ObservableList<Pagamento> getPagamenti(Pagamento p) throws CsvValidationException, IOException;
 }

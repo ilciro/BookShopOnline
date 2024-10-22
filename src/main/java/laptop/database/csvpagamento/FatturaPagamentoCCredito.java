@@ -14,7 +14,6 @@ import laptop.model.Fattura;
 import laptop.model.Pagamento;
 import laptop.model.User;
 import org.apache.commons.lang.SystemUtils;
-import org.jetbrains.annotations.NotNull;
 
 
 import java.io.*;
@@ -25,9 +24,7 @@ import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,12 +45,11 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private final File fileCartaCredito;
     private static final int GETINDEXIDP=0;
     private static final int GETINDEXMETODOP=1;
-    private static final int GETINDEXESITOP=2;
-    private static final int GETINDEXNOMEP=3;
-    private static final int GETINDEXSPESAP=4;
-    private static final int GETINDEXEIAMILP=5;
-    private static final int GETINDEXACQUISTOP=6;
-    private static final int GETINDEXIDPRODOTTOP=7;
+    private static final int GETINDEXNOMEP=2;
+    private static final int GETINDEXSPESAP=3;
+    private static final int GETINDEXEIAMILP=4;
+    private static final int GETINDEXACQUISTOP=5;
+    private static final int GETINDEXIDPRODOTTOP=6;
     private static final int GETINDEXNOMEPCC=0;
     private static final int GETINDEXCOGNOMEPCC=1;
     private static final int GETINDEXCODICECARTA=2;
@@ -69,12 +65,14 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private static final String PERMESSI="rwx------";
     private static final String PREFIX="prefix";
     private static final String SUFFIX="suffix";
+    private static final String PAGAMENTO="report/reportPagamento.csv";
+    private static final String FATTURA="report/reportFattura.csv";
 
     public FatturaPagamentoCCredito() throws IOException {
-        this.fileFattura=new File("report/reportFattura.csv");
+        this.fileFattura=new File(FATTURA);
         if(!this.fileFattura.exists())
             Files.createFile(Path.of(this.fileFattura.toURI()));
-        this.filePagamento=new File("report/reportPagamento.csv");
+        this.filePagamento=new File(PAGAMENTO);
         if(!this.filePagamento.exists())
             Files.createFile(Path.of(this.filePagamento.toURI()));
         this.fileCartaCredito=new File("report/reportCartaCredito.csv");
@@ -91,7 +89,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
     @Override
-    public void inserisciFattura(Fattura f) throws CsvValidationException, IOException, IdException {
+    public void inserisciFattura(Fattura f) throws CsvValidationException, IOException{
 
        //sembra funzionare
         CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(this.fileFattura, true)));
@@ -131,24 +129,24 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         synchronized (this.cacheFattura) {
             this.cacheFattura.remove(String.valueOf(f.getNome()));
         }
-        removeFattura(this.fileFattura);
+        removeFattura(f);
 
     }
 
-    private static synchronized void removeFattura(File fileFattura) throws IOException, CsvValidationException {
+    private static synchronized void removeFattura(Fattura f) throws IOException, CsvValidationException {
         if (SystemUtils.IS_OS_UNIX) {
             FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
             Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
         }
         File tmpFile = new File(APPOGGIO);
         boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fileFattura)));
+        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(FATTURA)));
         String[] gVector;
         CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
         boolean recordFound;
         while ((gVector = reader.readNext()) != null) {
 
-            recordFound=gVector[GETINDEXIDF].equals(String.valueOf(getIdMax()));
+            recordFound=gVector[GETINDEXIDF].equals(String.valueOf(f.getIdFattura()));
 
 
             if (!recordFound)
@@ -160,7 +158,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         reader.close();
         writer.close();
         if (found) {
-            Files.move(tmpFile.toPath(), fileFattura.toPath(), REPLACE_EXISTING);
+            Files.move(tmpFile.toPath(), Path.of(FATTURA), REPLACE_EXISTING);
         } else {
             cleanUp(Path.of(tmpFile.toURI()));
         }
@@ -172,11 +170,12 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
 
     @Override
-    public void cancellaPagamento(Pagamento p) throws CsvValidationException, IOException {
+    public boolean cancellaPagamento(Pagamento p) throws CsvValidationException, IOException {
         synchronized (this.cachePagamento) {
             this.cachePagamento.remove(String.valueOf(p.getNomeUtente()));
+            this.cachePagamento.remove(String.valueOf(p.getEmail()));
         }
-        removePagamento(this.filePagamento);
+        return removePagamento(p);
 
     }
 
@@ -203,7 +202,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     }
 
     @Override
-    public ObservableList<CartaDiCredito> getListaCartaCreditoByNome(File fd, CartaDiCredito cc) throws CsvValidationException, IOException {
+    public ObservableList<CartaDiCredito> getListaCartaCreditoByNome(CartaDiCredito cc) throws CsvValidationException, IOException {
         ObservableList<CartaDiCredito> list= FXCollections.observableArrayList();
         synchronized (this.cacheCC)
         {
@@ -217,7 +216,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         }
         if(list.isEmpty())
         {
-            list=retrieveCartaCreditoByName(fd,cc);
+            list=retrieveCartaCreditoByName(this.fileCartaCredito,cc);
             synchronized (this.cacheCC)
             {
                 for(CartaDiCredito carta : list)
@@ -226,6 +225,103 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
         }
         return list;
+
+    }
+
+    @Override
+    public Pagamento ultimoPagamento() throws IOException, CsvValidationException {
+        ObservableList<Pagamento> list=FXCollections.observableArrayList();
+        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(this.filePagamento)));
+        String []gVector;
+
+        while ((gVector = reader.readNext()) != null) {
+            Pagamento p=new Pagamento();
+            p.setIdPag(Integer.parseInt(gVector[GETINDEXIDP]));
+            p.setMetodo(gVector[GETINDEXMETODOP]);
+            p.setNomeUtente(gVector[GETINDEXNOMEP]);
+            p.setAmmontare(Float.parseFloat(gVector[GETINDEXSPESAP]));
+            p.setEmail(gVector[GETINDEXEIAMILP]);
+            p.setTipo(gVector[GETINDEXACQUISTOP]);
+            p.setIdOggetto(Integer.parseInt(gVector[GETINDEXIDPRODOTTOP]));
+            list.add(p);
+
+
+        }
+
+        return list.get(list.size()-1);
+    }
+
+    @Override
+    public Fattura ultimaFattura() throws CsvValidationException, IOException {
+       CSVReader reader = new CSVReader(new BufferedReader(new FileReader(this.fileFattura)));
+        ObservableList<Fattura> list=FXCollections.observableArrayList();
+       String []gVector;
+        while ((gVector = reader.readNext()) != null) {
+            Fattura f=new Fattura();
+            f.setNome(gVector[GETINDEXNOMEF]);
+            f.setCognome(gVector[GETINDEXCOGNOMEF]);
+            f.setVia(gVector[GETINDEXVIAF]);
+            f.setCom(gVector[GETINDEXCOMF]);
+            f.setAmmontare(Float.parseFloat(gVector[GETINDEXAMMONTAREF]));
+            f.setIdFattura(Integer.parseInt(gVector[GETINDEXIDF]));
+            list.add(f);
+
+
+        }
+        return list.get(list.size()-1);
+
+    }
+
+    @Override
+    public ObservableList<Pagamento> getPagamenti(Pagamento p) throws CsvValidationException, IOException {
+        ObservableList<Pagamento> list= FXCollections.observableArrayList();
+        synchronized (this.cachePagamento)
+        {
+            for(String id:this.cachePagamento.keySet())
+            {
+                Pagamento recordInCache=this.cachePagamento.get(id);
+                boolean recordFound=(recordInCache.getIdPag()==p.getIdPag());
+                if(recordFound)
+                    list.add(recordInCache);
+            }
+        }
+        if(list.isEmpty())
+        {
+            list=retriveListPagamento(this.filePagamento,p);
+            synchronized (this.cachePagamento)
+            {
+                for(Pagamento pagamento : list)
+                    this.cachePagamento.put(String.valueOf(p.getEmail()),pagamento);
+            }
+
+        }
+        return list;
+
+    }
+
+    private static  synchronized  ObservableList<Pagamento> retriveListPagamento(File fd, Pagamento p) throws IOException, CsvValidationException {
+            CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fd)));
+            String[] gVector;
+            ObservableList<Pagamento> list=FXCollections.observableArrayList();
+            while((gVector=reader.readNext())!=null)
+            {
+                boolean recordFound=gVector[GETINDEXEIAMILP].equals(p.getEmail());
+                if(recordFound)
+                {
+                    Pagamento pag=new Pagamento();
+                    pag.setIdPag(Integer.parseInt(gVector[GETINDEXIDP]));
+                    pag.setMetodo(gVector[GETINDEXMETODOP]);
+                    pag.setAmmontare(Float.parseFloat(gVector[GETINDEXSPESAP]));
+                    pag.setTipo(gVector[GETINDEXACQUISTOP]);
+                    pag.setIdOggetto(Integer.parseInt(gVector[GETINDEXIDPRODOTTOP]));
+                    list.add(pag);
+
+
+                }
+            }
+            reader.close();
+
+            return list;
 
     }
 
@@ -256,20 +352,22 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         return list;
     }
 
-    private static synchronized void removePagamento(File filePagamento) throws IOException, CsvValidationException {
+    private static synchronized boolean removePagamento(Pagamento p) throws IOException, CsvValidationException {
+        boolean status = false;
         if (SystemUtils.IS_OS_UNIX) {
             FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));
             Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant
         }
         File tmpFile = new File(APPOGGIO);
         boolean found = false;
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(filePagamento)));
+        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(PAGAMENTO)));
         String[] gVector;
         CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));
         boolean recordFound;
         while ((gVector = reader.readNext()) != null) {
 
-            recordFound=gVector[GETINDEXIDP].equals(String.valueOf(getIdMax()+2));
+            recordFound=gVector[GETINDEXIDP].equals(String.valueOf(p.getIdPag()))
+            || gVector[GETINDEXEIAMILP].equals(p.getEmail());
 
 
             if (!recordFound)
@@ -281,21 +379,23 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         reader.close();
         writer.close();
         if (found) {
-            Files.move(tmpFile.toPath(), filePagamento.toPath(), REPLACE_EXISTING);
+            Files.move(tmpFile.toPath(), Path.of(PAGAMENTO), REPLACE_EXISTING);
+            status=true;
         } else {
             cleanUp(Path.of(tmpFile.toURI()));
         }
+        return status;
 
     }
 
 
     private void creaPagamento(Pagamento p) throws IOException, CsvValidationException {
         CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(this.filePagamento,true)));
-        String[] gVectore=new String[8];
+        String[] gVectore=new String[7];
         //fare if su tipo pagamento
-        gVectore[GETINDEXIDP]= String.valueOf(getIdMax()+1);
+
+        gVectore[GETINDEXIDP]= String.valueOf(getIdMaxPagamento()+1);
         gVectore[GETINDEXMETODOP]=p.getMetodo();
-        gVectore[GETINDEXESITOP]= String.valueOf(p.getEsito());
         gVectore[GETINDEXNOMEP]= p.getNomeUtente();
         gVectore[GETINDEXSPESAP]= String.valueOf(vis.getSpesaT());
         gVectore[GETINDEXEIAMILP]= User.getInstance().getEmail();
@@ -368,6 +468,25 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         return id;
 
     }
+    private static int getIdMaxPagamento() throws IOException, CsvValidationException {
+        CSVReader reader=new CSVReader(new BufferedReader(new FileReader("report/reportPagamento.csv")));
+        String []gVector;
+        int id=0;
+
+        try {
+            while ((gVector = reader.readNext()) != null) {
+                id= Integer.parseInt(gVector[GETINDEXIDP]);
+            }
+            if(id==0)
+                throw new IdException(" id is 0!!");
+        }catch(IdException e)
+        {
+            Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
+
+        }
+        return id;
+    }
+
 
 
 

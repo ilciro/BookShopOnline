@@ -1,54 +1,51 @@
 package laptop.view;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import laptop.controller.ControllerPagamentoCC;
 import laptop.controller.ControllerSystemState;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 
-public class BoundaryPagamentoCC implements Initializable {
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+
+public class BoundaryPagamentoCC implements Initializable {
 	@FXML
-	private Pane panel;
-	@FXML
-	private GridPane grid;
+	private Pane pane;
 	@FXML
 	private Label header;
+	@FXML
+	private VBox vbox;
 	@FXML
 	private Label labelN;
 	@FXML
 	private Label labelC;
 	@FXML
-	private Label cartaC;
+	private Label labelCodice;
 	@FXML
-	private Label labelS;
+	private Label labelD;
+	@FXML
+	private Label labelCiv;
+	@FXML
+	private VBox vbox2;
 	@FXML
 	private TextField nomeTF;
 	@FXML
@@ -56,191 +53,88 @@ public class BoundaryPagamentoCC implements Initializable {
 	@FXML
 	private TextField codiceTF;
 	@FXML
-	private TextField scadTF;
+	private TextField scadenzaTF;
 	@FXML
-	private Button buttonI;
+	private PasswordField passTF;
 	@FXML
-	private Button buttonA;
-
+	private Button ButtonReg;
 	@FXML
-	private Label labelCiv;
+	private TableView<CartaDiCredito> tableView;
 	@FXML
-	private Button buttonReg;
-
+	private TableColumn<String,CartaDiCredito> codiceCC;
+	@FXML
+	private Label labelNU;
 	@FXML
 	private TextField nomeInput;
 	@FXML
 	private RadioButton buttonPrendi;
 
 	@FXML
-	private PasswordField codiceTFCiv;
-
-	@FXML
-	private TableView<CartaDiCredito> tableCC;
-	@FXML
-	private TableColumn<CartaDiCredito, SimpleStringProperty> codiceCC = new TableColumn<>("CodiceCarta");
-	@FXML
-	private Label labelNU;
-
-	private ControllerPagamentoCC cPCC;
-	protected Boolean esito;
+	private Button buttonI;
 	protected Scene scene;
-	
-	private static final ControllerSystemState vis = ControllerSystemState.getInstance();
+	private ControllerPagamentoCC cPCC;
+	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 
 	@FXML
-	private void procediCC() throws IOException, SQLException, IdException, CsvValidationException {
-		vis.setMetodoP("cCredito");
+	private void registraCC() throws CsvValidationException, SQLException, IOException, IdException, ParseException {
 
-		String cod = codiceTF.getText();
-		String civ=codiceTFCiv.getText();
-		
-		
-		esito = cPCC.controllaPag(scadTF.getText(),cod,civ);
-		   
-		
-		if (Boolean.TRUE.equals(esito)) {
-			//insrrire pagamento cc
-			//vedasi inserimento fattura
-			cPCC.pagamentoCC(nomeTF.getText());
-			vis.setIdOggetto(vis.getId());
-			if(vis.getIsPickup()) 
-			{
-				Stage stage;
-				Parent root;
-				stage = (Stage) buttonI.getScene().getWindow();
-				root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("scegliNegozio.fxml")));
-				stage.setTitle("Benvenuto nella schermata per il download");
-				scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();	
-			}
-			else
-			{
-				 
-			Stage stage;
+
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
+		java.util.Date date = sdf1.parse(scadenzaTF.getText());
+		java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+		cPCC.aggiungiCartaDB(nomeTF.getText(),cognomeTF.getText(),codiceTF.getText(), sqlStartDate,passTF.getText(),vis.getSpesaT());
+	}
+	@FXML
+	private void popolaTabella() throws CsvValidationException, IOException, IdException {
+		tableView.setItems(cPCC.ritornaElencoCC(nomeInput.getText()));
+	}
+
+	@FXML
+	private void procediCC() throws IOException, CsvValidationException, SQLException, IdException {
+
+		Stage stage;
+		cPCC.pagamentoCC(nomeTF.getText());
+		if(vis.getIsPickup())
+		{
+
 			Parent root;
 			stage = (Stage) buttonI.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("download.fxml")));
-			stage.setTitle("Benvenuto nella schermata per il download");
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			}
-		} else {
-			java.util.logging.Logger.getLogger("procedi pagacc").log(Level.INFO,"\n riprovare");
-
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonI.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("PagamentoCC.fxml")));
-
-			stage.setTitle("Benvenuto nella schermata per il pagamento");
-
+			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("scegliNegozio.fxml")));
+			stage.setTitle("Benvenuto nella schermata per annullare fattura");
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
 		}
-		
-		
 
-	}
 
-	@FXML
-	private void annullaCC() throws IOException {
-		Stage stage;
 		Parent root;
-		stage = (Stage) buttonA.getScene().getWindow();
-		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("acquista.fxml")));
-		stage.setTitle("benvenuto nella schermata del riepilogo ordine");
-
+		stage = (Stage) buttonI.getScene().getWindow();
+		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("download.fxml")));
+		stage.setTitle("Benvenuto nella schermata per annullare fattura");
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+
 	}
 
-	public BoundaryPagamentoCC()  {
-		try {
-			cPCC = new ControllerPagamentoCC();
-		} catch (Exception e) {
-			java.util.logging.Logger.getLogger("Test pagacc").log(Level.SEVERE,"\n eccezione ottenuta .",e);
-
-		}
-		
-	}
-
-	@FXML
-	public void registraCC() throws ParseException, SQLException, IdException, CsvValidationException, IOException {
-		
-
-		String nome = nomeTF.getText();
-
-		String cognome = cognomeTF.getText();
-		String codice = codiceTF.getText();
-		String d = scadTF.getText();
-		String civ=codiceTFCiv.getText();
-		
-		Date sqlDate = null;
-		java.util.Date utilDate;
-		//qui passo stringa per comodita..
-		
-		
-		 SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-
-		    try {
-		         utilDate = format.parse(d);
-		         sqlDate = new Date(utilDate.getTime());
-		    } catch (ParseException e) {
-				java.util.logging.Logger.getLogger("Test pagacc").log(Level.SEVERE,"\n eccezione ottenuta {0}",e.toString());
-
-		    }
-		cPCC.aggiungiCartaDB(nome, cognome, codice, sqlDate, civ, vis.getSpesaT());
 
 
-		
-		 
-		 
-	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		codiceCC.setCellValueFactory(new PropertyValueFactory<>("numeroCC"));
-		if(!vis.getIsLogged())
+        try {
+            cPCC=new ControllerPagamentoCC();
+        } catch (IOException e) {
+            java.util.logging.Logger.getLogger("initialize").log(Level.SEVERE,"error in init");
+        }
+
+		if(vis.getIsLogged())
 		{
-			buttonPrendi.setDisable(true);
-			buttonReg.setDisable(true);
+			nomeTF.setText(cPCC.getInfo()[0]);
+			cognomeTF.setText(cPCC.getInfo()[1]);
+			nomeTF.setEditable(false);
+			cognomeTF.setEditable(false);
 		}
-
-
-	}
-
-	@FXML
-	private void popolaTabella() throws SQLException {
-		try {
-
-			String nomeUt = nomeInput.getText();
-			if (nomeUt.isEmpty()) {
-				buttonPrendi.setDisable(true);
-				throw new IOException();
-			}
-			else {
-				buttonPrendi.setDisable(false);
-				tableCC.setItems(cPCC.ritornaElencoCC(nomeUt));
-			}
-		} catch (IOException| CsvValidationException |IdException e) {
-			e.getMessage();
-		}
-		buttonPrendi.setDisable(false);
-	}
-
-	@FXML
-	private void prova() throws Exception
-	{
-		nomeTF.setText(cPCC.tornaDalDb(tableCC.getSelectionModel().getSelectedItem().getNumeroCC()).getNomeUser());
-		cognomeTF.setText(cPCC.tornaDalDb(tableCC.getSelectionModel().getSelectedItem().getNumeroCC()).getCognomeUser());
-		codiceTF.setText(cPCC.tornaDalDb(tableCC.getSelectionModel().getSelectedItem().getNumeroCC()).getNumeroCC());
-		scadTF.setText(cPCC.tornaDalDb(tableCC.getSelectionModel().getSelectedItem().getNumeroCC()).getScadenza().toString());
-
 
 	}
 }

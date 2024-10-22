@@ -74,7 +74,7 @@ public class BoundaryDownload implements Initializable {
 		Stage stage;
 		Parent root;
 		stage = (Stage) buttonA.getScene().getWindow();
-		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePage.fxml")));
+		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageFinale.fxml")));
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
@@ -82,7 +82,21 @@ public class BoundaryDownload implements Initializable {
 
 	@FXML
 	private void pulisci() throws IOException, SQLException, CsvValidationException, IdException {
-		cD.annullaOrdine();
+
+		/*
+		todo fare altra schemata
+		 */
+
+		Stage stage;
+		Parent root;
+		stage = (Stage) buttonA.getScene().getWindow();
+		root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("annullaPagamento.fxml")));
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+
+		/*
+
 		if( vis.getIsLogged()) 
 		{
 			Stage stage;
@@ -103,6 +117,8 @@ public class BoundaryDownload implements Initializable {
 			stage.setScene(scene);
 			stage.show();
 		}
+
+		 */
 	}
 
 	

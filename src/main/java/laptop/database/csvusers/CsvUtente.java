@@ -3,9 +3,13 @@ package laptop.database.csvusers;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import laptop.exception.IdException;
+import laptop.model.TempUser;
 import laptop.model.User;
 import org.apache.commons.lang.SystemUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -15,6 +19,8 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -47,8 +53,6 @@ public class CsvUtente implements UserInterface{
     @Override
     public boolean inserisciUtente(User u) throws IOException, CsvValidationException, IdException {
 
-        boolean state=false;
-
         boolean duplicated;
         synchronized (this.cacheU) {
             boolean duplicatedM = (this.cacheU.get(u.getEmail()) != null);
@@ -60,19 +64,27 @@ public class CsvUtente implements UserInterface{
         {
             List<User> list=getUserData(this.fdU,u.getId(), u.getEmail(), u.getPassword());
             duplicated=(!list.isEmpty());
-            state=true;
+
         }
-        if(duplicated)
+        if(duplicated) {
+            try {
+                Logger.getLogger("try user").log(Level.INFO, "id sbagliato !!");
+                throw new IdException(" id user sbagliato or duplicated");
 
-            throw new IdException(" user is in db!!");
+            } catch (IdException e) {
+                Logger.getLogger("catch utente").log(Level.SEVERE, "remove utente...");
+                //rimuovo e se lista vuota
+                removeUserByIdEmailPwd(u);
+            }
+        }
 
-        insertUser(u);
-        return state;
+        return insertUser(u);
+
 
     }
 
     @Override
-    public List<User> userList(File fd,User u) throws CsvValidationException, IOException {
+    public List<User> userList(User u) throws CsvValidationException, IOException {
         List<User> list=new ArrayList<>();
         synchronized (this.cacheU)
         {
@@ -100,18 +112,18 @@ public class CsvUtente implements UserInterface{
     }
 
     @Override
-    public void removeUserByIdEmailPwd(User u) throws CsvValidationException, IOException {
+    public boolean removeUserByIdEmailPwd(User u) throws CsvValidationException, IOException {
         synchronized (this.cacheU)
         {
             this.cacheU.remove(u.getEmail());
         }
-        cancellaUserById(this.fdU,u);
+        return cancellaUserById(this.fdU,u);
     }
 
 
 
 
-    private static synchronized void insertUser(User u) throws IOException, CsvValidationException {
+    private static synchronized boolean insertUser(User u) throws IOException, CsvValidationException {
         CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONU,true)));
         String[] gVector =new String[8];
 
@@ -127,53 +139,63 @@ public class CsvUtente implements UserInterface{
         writer.flush();
         writer.close();
 
+        return getIdMax()!=0;
 
 
 
     }
 
-    private static synchronized List<User> getUserData(File fd, int id, String mail, String pass) throws CsvValidationException,IOException, CsvValidationException {
+    private static synchronized List<User> getUserData( File fd,int id, String mail, String pass) throws IOException, CsvValidationException {
         CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fd)));
         String []gVector ;
-        boolean recordFound = false;
+        boolean recordFound ;
         List<User> list=new ArrayList<>();
 
 
         while ((gVector = reader.readNext()) != null) {
-            if(id>0)
-                recordFound=gVector[GETINDEXIDUSER].equals(String.valueOf(id));
-            if(mail!=null) {
-                if (pass != null)
-                    recordFound = gVector[GETINDEXEMAIL].equals(mail) && gVector[GETINDEXPWD].equals(pass);
-                else recordFound = gVector[GETINDEXEMAIL].equals(mail);
-            }
-            if(recordFound)
-            {
-                String idU=gVector[GETINDEXIDUSER];
-                String ruoloU=gVector[GETINDEXRUOLO];
-                String nome=gVector[GETINDEXNOME];
-                String cognome=gVector[GETINDEXCOGNOME];
-                String email=gVector[GETINDEXEMAIL];
-                String pwd=gVector[GETINDEXPWD];
-                String desc=gVector[GETINDEXDESC];
-                String data=gVector[GETINDEXDATAN];
 
-                User.getInstance().setId(Integer.parseInt(idU));
-                User.getInstance().setIdRuolo(ruoloU);
-                User.getInstance().setNome(nome);
-                User.getInstance().setCognome(cognome);
-                User.getInstance().setEmail(email);
-                User.getInstance().setPassword(pwd);
-                User.getInstance().setDescrizione(desc);
-                User.getInstance().setDataDiNascita(LocalDate.parse(data));
 
-                list.add(User.getInstance());
+
+                recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);
+
+                if (recordFound) {
+
+                    TempUser tu = getTempUser(gVector);
+
+                    User.getInstance().setId(tu.getId());
+                    User.getInstance().setIdRuolo(tu.getIdRuolo());
+                    User.getInstance().setNome(tu.getNomeT());
+                    User.getInstance().setCognome(tu.getCognomeT());
+                    User.getInstance().setEmail(tu.getEmailT());
+                    User.getInstance().setPassword(tu.getPasswordT());
+                    User.getInstance().setDescrizione(tu.getDescrizioneT());
+                    User.getInstance().setDataDiNascita(tu.getDataDiNascitaT());
+
+
+                    list.add(User.getInstance());
+                }
+
             }
 
-        }
+
         reader.close();
         return list;
     }
+
+    private static @NotNull TempUser getTempUser(String[] gVector) {
+        TempUser tu=new TempUser();
+
+        tu.setId(Integer.parseInt(gVector[GETINDEXIDUSER]));
+        tu.setIdRuolo(gVector[GETINDEXRUOLO]);
+        tu.setNomeT(gVector[GETINDEXNOME]);
+        tu.setCognomeT(gVector[GETINDEXCOGNOME]);
+        tu.setEmailT(gVector[GETINDEXEMAIL]);
+        tu.setPasswordT(gVector[GETINDEXPWD]);
+        tu.setDescrizioneT(gVector[GETINDEXDESC]);
+        tu.setDataDiNascitaT(LocalDate.parse(gVector[GETINDEXDATAN]));
+        return tu;
+    }
+
 
     private static synchronized int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
@@ -187,7 +209,8 @@ public class CsvUtente implements UserInterface{
         return id;
 
     }
-    private static synchronized  void cancellaUserById(File fd,User u1) throws IOException, CsvValidationException {
+    private static synchronized  boolean cancellaUserById(File fd,User u1) throws IOException, CsvValidationException {
+        boolean status=false;
         if (SystemUtils.IS_OS_UNIX) {
             FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
             Files.createTempFile("prefix", "suffix", attr); // Compliant
@@ -206,7 +229,6 @@ public class CsvUtente implements UserInterface{
 
             userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());
 
-
             if (!userVectorFound) {
                 csvWriter.writeNext(giornaleVector);
             } else {
@@ -220,9 +242,63 @@ public class CsvUtente implements UserInterface{
         csvWriter.close();
         if (found) {
             Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
+            status=true;
         } else {
             cleanUp(Path.of(tmpFD.toURI()));
         }
+        return status;
 
+    }
+
+    public  synchronized ObservableList<TempUser> getUserData() throws IOException, CsvValidationException {
+        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(this.fdU)));
+        String []gVector ;
+
+        ObservableList<TempUser> list= FXCollections.observableArrayList();
+
+      
+
+        while ((gVector = reader.readNext()) != null) {
+
+            TempUser tu = getUser(gVector);
+
+                /*
+                User.getInstance().setId(Integer.parseInt(gVector[GETINDEXIDUSER]));
+                User.getInstance().setIdRuolo(gVector[GETINDEXRUOLO]);
+                User.getInstance().setNome(nome);
+                User.getInstance().setCognome(gVector[GETINDEXCOGNOME]);
+                User.getInstance().setEmail(gVector[GETINDEXEMAIL]);
+                User.getInstance().setPassword(gVector[GETINDEXPWD]);
+                User.getInstance().setDescrizione(gVector[GETINDEXDESC]);
+                User.getInstance().setDataDiNascita(LocalDate.parse(gVector[GETINDEXDATAN]));
+
+
+                 */
+
+
+                list.add(  tu);
+
+
+        }
+
+
+        reader.close();
+        return list;
+    }
+
+    private static @NotNull TempUser getUser(String[] gVector) {
+        TempUser tu=new TempUser();
+
+
+        // usoil temp user che non e sing
+        tu.setId(Integer.parseInt(gVector[GETINDEXIDUSER]));
+        tu.setIdRuolo(gVector[GETINDEXRUOLO]);
+        tu.setNomeT(gVector[GETINDEXNOME]);
+        tu.setCognomeT(gVector[GETINDEXCOGNOME]);
+        tu.setEmailT(gVector[GETINDEXEMAIL]);
+        tu.setPasswordT(gVector[GETINDEXPWD]);
+        tu.setDescrizioneT(gVector[GETINDEXDESC]);
+        tu.setDataDiNascitaT(LocalDate.parse(gVector[GETINDEXDATAN]));
+        return tu;
     }
 }

@@ -19,22 +19,24 @@ public class ControllerRegistraUtente {
 	private final User u=User.getInstance();
 	private static final ControllerSystemState vis=ControllerSystemState.getInstance();
 	private static final CsvUtente csv=new CsvUtente();
-	public Boolean registra(String n, String c, String email, String pwd, String pwdC, LocalDate localDate) throws SQLException, CsvValidationException, IOException, IdException {
+	public Boolean registra(String n, String c, String email, String pwd,String desc, LocalDate localDate,String ruolo) throws SQLException, CsvValidationException, IOException, IdException {
 		
 		
 		u.setEmail(email);
 		u.setPassword(pwd);
 		u.setDataDiNascita(localDate);
+		u.setIdRuolo(ruolo);
+		u.setDescrizione(desc);
 
 
 		
-		if(checkData ( n,c,email,pwd,pwdC) )
+		if(checkData ( n,c,email,pwd) )
 		{
 			if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
 
 
 
-					if(csv.userList(new File("report/reportUtente.csv"),u).isEmpty()) {
+					if(csv.userList(u).isEmpty()) {
 						u.setNome(n);
 						u.setCognome(c);
 						u.setEmail(email);
@@ -67,10 +69,10 @@ public class ControllerRegistraUtente {
 	
 	
 	//le chiamo protected perchele uso nel controller stesso e basta 
-	private boolean checkData (String n, String c, String email, String pwd, String pwdC)
+	private boolean checkData (String n, String c, String email, String pwd)
 	// controll  all data
 	{
-		if(checkEmail(email) && checkPassword(pwd,pwdC) && checkNomeCognome(n,c))
+		if(checkEmail(email) && checkPassword(pwd) && checkNomeCognome(n,c))
 		{
 			state=true;
 		}
@@ -90,9 +92,9 @@ public class ControllerRegistraUtente {
 		return pattern.matcher(email).matches();
 	}
 
-	private boolean checkPassword(String pwd, String pwdC )
+	private boolean checkPassword(String pwd )
 	{
-		if(pwd.length()>=8 && pwdC.length()>=8 && pwd.equals(pwdC)) {
+		if(pwd.length()>=8 ) {
 			state= true;
 		}
 		return state;

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryRicerca">
+   <children>
+      <Label fx:id="header" layoutX="36.0" layoutY="32.0" prefHeight="16.0" prefWidth="500.0" text="Benvenuto nella schermata per ricercare" textFill="#006fff" />
+      <Label fx:id="labelRicerca" layoutX="36.0" layoutY="159.0" text=" Se libro / rivista ricerca per titolo/autore . Giornale ricerca per titolo/editore" textFill="#bb0ceb" />
+      <TextField fx:id="ricercaTA" layoutX="179.0" layoutY="213.0" />
+      <VBox fx:id="vbox" layoutX="420.0" layoutY="213.0" prefHeight="150.0" prefWidth="100.0">
+         <children>
+            <Button fx:id="cercaB" mnemonicParsing="false" onAction="#cerca" prefHeight="30.0" prefWidth="110.0" text="Ricerca" textFill="#09f501">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="mostraB" mnemonicParsing="false" onAction="#mostra" prefHeight="30.0" prefWidth="110.0" text="Mostra" textFill="#2000ee">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="buttonI" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="100.0" text="Indietro" textFill="#fc0000">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <Label fx:id="idL" layoutX="65.0" layoutY="280.0" text="Id Oggetto :" />
+      <TextField fx:id="idTF" layoutX="179.0" layoutY="276.0" />
+      <RadioButton fx:id="ricercaL" layoutX="36.0" layoutY="79.0" mnemonicParsing="false" text="Cerca in Libro" textFill="#02ff46">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="ricercaG" layoutX="212.0" layoutY="79.0" mnemonicParsing="false" text="Cerca in Giornale" textFill="#9013f0" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="ricercaR" layoutX="415.0" layoutY="79.0" mnemonicParsing="false" text="Cerca in Rivista" textFill="#fc7a01" toggleGroup="$toggleGroup" />
+   </children>
+</Pane>

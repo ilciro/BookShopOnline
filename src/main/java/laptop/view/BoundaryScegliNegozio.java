@@ -51,7 +51,7 @@ public class BoundaryScegliNegozio implements Initializable {
 	protected String warningTitle =" Negozio chiuso o non disponibile per il ritiro";
 	protected String warningHeaderText = "Il negozio seleziopnato non � al momento pronto per questo tipo di operazioni";
 	private static final  String WARNINGCONTENTTEXT = "Torna indietro e seleziona un'altro negozio fra quelli che ti vengono mostrati ! ";
-	private static final String HOMEPAGE = "homePage.fxml";
+	private static final String HOMEPAGE = "homePageFinale.fxml";
 	private static final String HOMEPAGEA = "homePageAfterLogin.fxml" ;
 	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 	

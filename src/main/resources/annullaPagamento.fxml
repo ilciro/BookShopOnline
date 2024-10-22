@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BuondaryAnnullaPagamento">
+   <children>
+      <Label fx:id="header" layoutX="67.0" layoutY="24.0" prefHeight="16.0" prefWidth="552.0" text="Benvenuto nella schermata per annullare il pagamento con annessa fattura" textFill="#0202ee" />
+      <TextArea fx:id="tAFattura" layoutX="14.0" layoutY="60.0" prefHeight="106.0" prefWidth="430.0" />
+      <TextArea fx:id="tAPagamento" layoutX="14.0" layoutY="186.0" prefHeight="106.0" prefWidth="430.0" />
+      <Button fx:id="cancFattura" layoutX="619.0" layoutY="98.0" mnemonicParsing="false" onAction="#cancellaFattura" text="cancella fattura" textFill="#25b241" />
+      <Button fx:id="cancPagamento" layoutX="619.0" layoutY="239.0" mnemonicParsing="false" onAction="#cancellaPagamento" text="cancella pagamento" textFill="#25b241" />
+      <Button fx:id="buttonI" layoutX="545.0" layoutY="316.0" mnemonicParsing="false" onAction="#indietro" text="indietro" textFill="RED" />
+      <TextField fx:id="idFattura" layoutX="462.0" layoutY="101.0" prefHeight="26.0" prefWidth="124.0" />
+      <TextField fx:id="idPagamento" layoutX="457.0" layoutY="227.0" prefHeight="36.0" prefWidth="124.0" />
+   </children>
+</Pane>

@@ -12,9 +12,12 @@ import laptop.database.*;
 
 import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.database.csvreport.CsvReport;
 import laptop.exception.IdException;
 import laptop.model.CartaDiCredito;
 import laptop.model.Pagamento;
+import laptop.model.Report;
+import laptop.model.User;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
@@ -36,6 +39,9 @@ public class ControllerPagamentoCC {
 	
 	private int cont=0;
 	private final ControllerCheckPagamentoData cCPD;
+
+	private final CsvReport csvReport;
+	private final Report report;
 
 	public boolean controllaPag(String d, String c,String civ) {
 		try {
@@ -78,15 +84,21 @@ public class ControllerPagamentoCC {
 	}
 
 	public ControllerPagamentoCC() throws IOException {
-		
-		cDao = new CartaCreditoDao();
-		
-		pDao=new PagamentoDao();
-		
-		cCPD=new ControllerCheckPagamentoData();
 
-		csvFattura=new FatturaPagamentoCCredito();
-		csv=new CsvOggettoDao();
+
+			cDao = new CartaCreditoDao();
+
+			pDao = new PagamentoDao();
+
+
+
+			cCPD = new ControllerCheckPagamentoData();
+
+			csvFattura = new FatturaPagamentoCCredito();
+			csv = new CsvOggettoDao();
+			csvReport=new CsvReport();
+			report=new Report();
+
 	}
 
 	public void aggiungiCartaDB(String n, String c, String cod, java.sql.Date data, String civ, float prezzo)
@@ -97,8 +109,8 @@ public class ControllerPagamentoCC {
 			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);
 
 
-			Pagamento p;
-			p=new Pagamento(0,"cc",0,cc.getNomeUser(),vis.getSpesaT(),null);
+			Pagamento p=new Pagamento();
+			p.setIdPag(0);
 			p.setMetodo("cc");
 			p.setNomeUtente(cc.getNomeUser());
 
@@ -127,25 +139,27 @@ public class ControllerPagamentoCC {
 
 	public ObservableList<CartaDiCredito> ritornaElencoCC(String nomeU) throws CsvValidationException, IOException, IdException {
 
+		CartaDiCredito cc=new CartaDiCredito();
 		ObservableList<CartaDiCredito> lista;
+		cc.setNomeUser(nomeU);
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-			lista= csvFattura.getListaCartaCreditoByNome(new File("report/reportCartaCredito.csv"),new CartaDiCredito());
+			lista= csvFattura.getListaCartaCreditoByNome(cc);
 		else  lista= cDao.getCarteCredito(nomeU);
 		return lista;
 
 
 	}
 	
-	public CartaDiCredito tornaDalDb(String codiceCarta)
-	{
-		cc=new CartaDiCredito();
-		cc.setNumeroCC(codiceCarta);
-		return cDao.popolaDati(cc);
-	}
+
 
 	public void pagamentoCC(String nome) throws SQLException, IdException, IOException, CsvValidationException {
-		Pagamento p = new Pagamento(0, "cCredito", 0, nome, vis.getSpesaT(), null);
+		Pagamento p = new Pagamento();
+		p.setIdPag(0);
+		p.setMetodo("cCredito");
+		p.setNomeUtente(nome);
+		p.setAmmontare(vis.getSpesaT());
+		p.setEmail(null);
 
 
 		switch (vis.getType()) {
@@ -155,10 +169,11 @@ public class ControllerPagamentoCC {
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
 					Libro l=new Libro();
 					l.setId(vis.getId());
-					Libro l1 = csv.retrieveLibroData(new File("report/reportLibro.csv"),l).get(0);
+					Libro l1 = csv.retrieveLibroData(l).get(0);
 					p.setTipo(l1.getCategoria());
 					p.setIdOggetto(l1.getId());
 					csvFattura.inserisciPagamento(p);
+					checkData();
 				} else {
 					cCPD.checkPagamentoData(nome);
 				}
@@ -169,10 +184,11 @@ public class ControllerPagamentoCC {
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
 					Giornale g=new Giornale();
 					g.setId(vis.getId());
-					Giornale g1 = csv.retriveGiornaleData(new File("report/reportGiornale.csv"), g).get(0);
-					p.setTipo(g1.getTipologia());
+					Giornale g1 = csv.retriveGiornaleData( g).get(0);
+					p.setTipo(g1.getCategoria());
 					p.setIdOggetto(g1.getId());
 					csvFattura.inserisciPagamento(p);
+					checkData();
 
 				} else {
 					cCPD.checkPagamentoData(nome);
@@ -185,11 +201,12 @@ public class ControllerPagamentoCC {
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
 					Rivista r=new Rivista();
 					r.setId(vis.getId());
-					Rivista r1 = csv.retrieveRivistaData(new File("report/reportRivista.csv"),r).get(0);
-					p.setTipo(r1.getTipologia());
+					Rivista r1 = csv.retrieveRivistaData(r).get(0);
+					p.setTipo(r1.getCategoria());
 					p.setIdOggetto(r1.getId());
 
 					csvFattura.inserisciPagamento(p);
+					checkData();
 
 				} else {
 					cCPD.checkPagamentoData(nome);
@@ -201,8 +218,46 @@ public class ControllerPagamentoCC {
 
 
 
-		java.util.logging.Logger.getLogger("Pagamento effettuato").log(Level.INFO, "info {0}",p.getAmmontare()+p.getTipo()+p.getId());
+		java.util.logging.Logger.getLogger("Pagamento effettuato").log(Level.INFO, "Payment  done!!");
 
+	}
+
+	public String[] getInfo()
+	{
+		String [] dati=new String[2];
+		dati[0]= User.getInstance().getNome();
+		dati[1]=User.getInstance().getCognome();
+		return dati;
+	}
+
+	private void checkData() throws CsvValidationException, IOException, IdException {
+		report.setIdReport(0);
+		report.setTipologiaOggetto(vis.getType());
+		if(vis.getType().equals("libro"))
+		{
+			Libro l=new Libro();
+			l.setId(vis.getId());
+			report.setTitoloOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getTitolo());
+			report.setPrezzo(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo());
+			report.setTotale(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo()*vis.getQuantita());
+
+		} else if (vis.getType().equalsIgnoreCase("giornale")) {
+			Giornale g=new Giornale();
+			g.setId(vis.getId());
+			report.setTitoloOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getTitolo());
+			report.setPrezzo(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo());
+			report.setTotale(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo()*vis.getQuantita());
+
+		} else if (vis.getType().equalsIgnoreCase("rivista")) {
+			Rivista r=new Rivista();
+			r.setId(vis.getId());
+			report.setTitoloOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getTitolo());
+			report.setPrezzo(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo());
+			report.setTotale(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo()*vis.getQuantita());
+
+		}
+		report.setNrPezzi(vis.getQuantita());
+		csvReport.inserisciReport(report);
 	}
 
 }

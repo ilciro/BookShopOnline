@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laptop.view.BoundaryGestioneOggetto">
+   <children>
+      <Label fx:id="header" layoutX="33.0" layoutY="26.0" prefHeight="30.0" prefWidth="590.0" text="Benvenuto nella schermata per la gestione del :" textFill="#0007ff" />
+      <VBox fx:id="vbox" layoutX="45.0" layoutY="85.0" prefHeight="700.0" prefWidth="150.0">
+         <children>
+            <TextField fx:id="titoloTF" promptText="titolo" />
+            <TextField fx:id="codiceTF" promptText="isbn">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="editoreTF" promptText="editore">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="autoreTF" promptText="autore">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="linguaTF" promptText="lingua">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="categoriaTF" prefHeight="50.0" promptText="categoria">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextArea fx:id="descTF" prefHeight="50.0" prefWidth="150.0" promptText="descrizione">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <TextField fx:id="dataTF" promptText="data pubblicazione">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextArea fx:id="recensioneTF" prefHeight="150.0" prefWidth="200.0" promptText="recensione">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <TextField fx:id="pagineTF" promptText="pagine">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="copieTF" promptText="copie">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="dispTF" promptText="disp">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="prezzoTF" promptText="prezzo">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox fx:id="vbox1" layoutX="250.0" layoutY="85.0" prefHeight="700.0" prefWidth="150.0">
+         <children>
+            <TextField fx:id="titoloTF1" promptText="titolo" />
+            <TextField fx:id="codiceTF1" promptText="isbn">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="editoreTF1" promptText="editore">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="autoreTF1" promptText="autore">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="linguaTF1" promptText="lingua">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <ListView fx:id="categoriaTF1" prefHeight="50.0" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ListView>
+            <TextArea fx:id="descTF1" prefHeight="50.0" prefWidth="150.0" promptText="descrizione">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <DatePicker fx:id="dataN">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </DatePicker>
+            <TextArea fx:id="recensioneTF1" prefHeight="150.0" prefWidth="200.0" promptText="recensione">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <TextField fx:id="pagineTF1" promptText="pagine">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="copieTF1" promptText="copie">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="dispTF1" promptText="disp">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="prezzoTF1" promptText="prezzo">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox fx:id="vbox2" layoutX="489.0" layoutY="85.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Button fx:id="buttonIns" mnemonicParsing="false" onAction="#inserisci" prefHeight="30.0" prefWidth="107.0" text="Inserisci" textFill="#00ed31" />
+            <Button fx:id="modButton" mnemonicParsing="false" onAction="#modifica" prefHeight="30.0" prefWidth="100.0" text="Modifica" textFill="#ee07c0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="indietroB" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="100.0" text="Indietro" textFill="#f50101">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</Pane>

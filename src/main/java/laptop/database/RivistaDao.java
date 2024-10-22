@@ -11,10 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 import laptop.controller.ControllerSystemState;
 import laptop.model.raccolta.Factory;
+import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
 import laptop.model.raccolta.Rivista;
 import laptop.utilities.ConnToDb;
@@ -42,7 +44,7 @@ public class RivistaDao {
 
 	private final GenerateDaoReportClass gRC;
 
-	public RivistaDao() throws IOException {
+	public RivistaDao() {
 		f = new Factory();
 
 		gRC=new GenerateDaoReportClass(RIVISTA);
@@ -151,7 +153,7 @@ public class RivistaDao {
 				info[2]=rs.getString("editore");
 				info[3]=rs.getString("autore");
 				info[4]=rs.getString("lingua");
-				info[5]=rs.getString("tipologia");
+				info[5]=rs.getString("categoria");
 				catalogo.add((Rivista)f.creaRivista(info,rs.getString("descrizione"),rs.getDate("dataPubblicazione").toLocalDate(),rs.getInt("disp"),rs.getFloat("prezzo"),rs.getInt("copieRimanenti"),rs.getInt("idRivista")));
 
 			}
@@ -197,7 +199,7 @@ public class RivistaDao {
 
 		query= "INSERT INTO `RIVISTA`"
 				+ "(`titolo`,"
-				+ "`tipologia`,"
+				+ "`categoria`,"
 				+ "`autore`,"
 				+ "`lingua`,"
 				+ "`editore`,"
@@ -213,7 +215,7 @@ public class RivistaDao {
 		{
 
 			prepQ.setString(1,r.getTitolo());
-			prepQ.setString(2,r.getTipologia());
+			prepQ.setString(2,r.getCategoria());
 			prepQ.setString(3,r.getAutore());
 			prepQ.setString(4,r.getLingua());
 			prepQ.setString(5,r.getEditore());
@@ -254,14 +256,15 @@ public class RivistaDao {
 		return row;
 
 	}
-	public  int aggiornaRivista(Rivista r) throws SQLException  {
+	public  boolean aggiornaRivista(Rivista r) throws SQLException  {
+		boolean status=false;
 		int row=0;
 
 
 		query=" UPDATE `RIVISTA`"
 				+ "SET"
 				+ "`titolo` =?,"
-				+ "`tipologia` = ?,"
+				+ "`categoria` = ?,"
 				+ "`autore` = ?,"
 				+ "`lingua` = ?,"
 				+ "`editore` = ?,"
@@ -275,7 +278,7 @@ public class RivistaDao {
 			PreparedStatement prepQ=conn.prepareStatement(query))
 		{
 			prepQ.setString(1,r.getTitolo());
-			prepQ.setString(2,r.getTipologia());
+			prepQ.setString(2,r.getCategoria());
 			prepQ.setString(3,r.getAutore());
 			prepQ.setString(4,r.getLingua());
 			prepQ.setString(5,r.getEditore());
@@ -290,12 +293,14 @@ public class RivistaDao {
 
 
 			row=prepQ.executeUpdate();
+			if(row==1)
+				status=true;
 		}catch(SQLException e)
 		{
 			java.util.logging.Logger.getLogger("update r").log(Level.INFO, ECCEZIONE, e);
 		}
 
-		return row;
+		return status;
 
 	}
 
@@ -357,6 +362,28 @@ public class RivistaDao {
     public int getIdMax() {
 		return gRC.getIdMax(RIVISTA);
     }
+
+
+	public boolean eliminaRivista(Rivista r)
+	{
+		int row = 0;
+		boolean status=false;
+		query="delete from RIVISTA where idRivista=? or idRivista=?";
+		try (Connection conn=ConnToDb.connectionToDB();
+			 PreparedStatement prepQ= conn.prepareStatement(query)){
+
+			prepQ.setInt(1,r.getId());
+			prepQ.setInt(2,vis.getId());
+
+			row= prepQ.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger("elimina").log(Level.SEVERE," error in mysql delete", e);
+		}
+		if(row==1)
+			status=true;
+		return status;
+	}
 }
 
 		

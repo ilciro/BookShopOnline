@@ -44,43 +44,39 @@ public class ContrassegnoDao {
          
         	 
 	}  
-	
 
-	public int retUltimoOrdineF() throws SQLException 
+	public Fattura ultimaFattura()
 	{
-		int id=0;
-		 query="select count(*) as massimoF from FATTURA";
-		 
-		 try(Connection conn=ConnToDb.connectionToDB();
-				 PreparedStatement prepQ=conn.prepareStatement(query);
-				 )
-		 {
-			 ResultSet rs=prepQ.executeQuery();
-			 while(rs.next())
-				{
-					id=rs.getInt("massimoF");
+		Fattura f=new Fattura();
+		query="select * from FATTURA order by idFattura desc limit 1";
+		try(Connection conn=ConnToDb.connectionToDB();
+			PreparedStatement prepQ=conn.prepareStatement(query)){
 
-				}
-			
-		 }catch(SQLException e)
-		 {
-			 java.util.logging.Logger.getLogger("Test Eccezione").log(Level.INFO, ECCEZIONE, e);
-		 }
+			ResultSet rs=prepQ.executeQuery();
+			while (rs.next())
+			{
+				f.setNome(rs.getString(1));
+				f.setCognome(rs.getString(2));
+				f.setVia(rs.getString(3));
+				f.setCom(rs.getString(4));
+				f.setAmmontare(rs.getFloat(5));
+				f.setIdFattura(rs.getInt(6));
+			}
 
-		
-			
-		return id;
-		
-		
+		}catch(SQLException e)
+		{
+			java.util.logging.Logger.getLogger("return fattura").log(Level.INFO, ECCEZIONE, e);
+		}
+		return f;
+
 	}
-	
-	public boolean annullaOrdineF(int idC) throws SQLException
+	public boolean cancellaFattura(int idC) throws SQLException
 	{
 		boolean state=false;
 		int row;
-		String query1="delete from FATTURA where idFattura=?";
+		query="delete from FATTURA where idFattura=?";
 		try(Connection conn=ConnToDb.connectionToDB();
-				PreparedStatement prepQ=conn.prepareStatement(query1))
+			PreparedStatement prepQ=conn.prepareStatement(query))
 		{
 			prepQ.setInt(1,idC);
 			row=prepQ.executeUpdate();
@@ -88,13 +84,17 @@ public class ContrassegnoDao {
 				state=true;
 		}catch(SQLException e)
 		{
-			java.util.logging.Logger.getLogger("Test Eccezione").log(Level.INFO, ECCEZIONE, e);
+			java.util.logging.Logger.getLogger("annulla ordine").log(Level.INFO, ECCEZIONE, e);
 		}
-			
-			return state;
 
-		}
-		
+		return state;
+
+	}
+
+
+
+
+
 }
 	
 

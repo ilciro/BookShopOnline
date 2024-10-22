@@ -5,7 +5,6 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -13,11 +12,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_Z
 -- -----------------------------------------------------
 -- Schema ISPW
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `ISPW` ;
+
+
+
 
 -- -----------------------------------------------------
 -- Schema ISPW
 -- -----------------------------------------------------
+
 CREATE SCHEMA IF NOT EXISTS `ISPW` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `ISPW` ;
 
@@ -41,23 +43,6 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
--- -----------------------------------------------------
--- Table `ISPW`.`AMMINISTRATORE`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ISPW`.`AMMINISTRATORE` ;
-
-CREATE TABLE IF NOT EXISTS `ISPW`.`AMMINISTRATORE` (
-  `idAdmin` INT NOT NULL AUTO_INCREMENT,
-  `idUSer` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`idAdmin`),
-  INDEX `idUSer` (`idUSer` ASC) VISIBLE,
-  CONSTRAINT `AMMINISTRATORE_ibfk_1`
-    FOREIGN KEY (`idUSer`)
-    REFERENCES `ISPW`.`USERS` (`idUser`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -78,25 +63,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
--- -----------------------------------------------------
--- Table `ISPW`.`EDITORE`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ISPW`.`EDITORE` ;
-
-CREATE TABLE IF NOT EXISTS `ISPW`.`EDITORE` (
-  `idEditore` INT NOT NULL AUTO_INCREMENT,
-  `idUser` INT NULL DEFAULT NULL,
-  `casaEditrice` VARCHAR(200) NULL DEFAULT NULL,
-  PRIMARY KEY (`idEditore`),
-  INDEX `idUser` (`idUser` ASC) VISIBLE,
-  CONSTRAINT `EDITORE_ibfk_1`
-    FOREIGN KEY (`idUser`)
-    REFERENCES `ISPW`.`USERS` (`idUser`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -124,7 +90,7 @@ DROP TABLE IF EXISTS `ISPW`.`GIORNALE` ;
 
 CREATE TABLE IF NOT EXISTS `ISPW`.`GIORNALE` (
   `titolo` VARCHAR(200) NULL DEFAULT NULL,
-  `tipologia` VARCHAR(10) NULL DEFAULT 'QUOTIDIANO',
+  `categoria` VARCHAR(10) NULL DEFAULT 'QUOTIDIANO',
   `lingua` VARCHAR(10) NULL DEFAULT NULL,
   `editore` VARCHAR(200) NULL DEFAULT NULL,
   `dataPubblicazione` DATE NULL DEFAULT NULL,
@@ -189,7 +155,6 @@ DROP TABLE IF EXISTS `ISPW`.`PAGAMENTO` ;
 CREATE TABLE IF NOT EXISTS `ISPW`.`PAGAMENTO` (
   `idPagamento` INT NOT NULL AUTO_INCREMENT,
   `metodo` VARCHAR(10) NULL DEFAULT NULL,
-  `esito` INT NULL DEFAULT NULL,
   `nomeUtente` VARCHAR(20) NULL DEFAULT NULL,
   `spesaTotale` FLOAT NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
@@ -208,7 +173,7 @@ DROP TABLE IF EXISTS `ISPW`.`RIVISTA` ;
 
 CREATE TABLE IF NOT EXISTS `ISPW`.`RIVISTA` (
   `titolo` VARCHAR(200) NULL DEFAULT NULL,
-  `tipologia` VARCHAR(60) NULL DEFAULT NULL,
+  `categoria` VARCHAR(60) NULL DEFAULT NULL,
   `autore` VARCHAR(200) NULL DEFAULT NULL,
   `lingua` VARCHAR(10) NULL DEFAULT NULL,
   `editore` VARCHAR(200) NULL DEFAULT NULL,
@@ -224,50 +189,28 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
--- -----------------------------------------------------
--- Table `ISPW`.`SCRITTORE`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ISPW`.`SCRITTORE` ;
 
-CREATE TABLE IF NOT EXISTS `ISPW`.`SCRITTORE` (
-  `idScrittore` INT NOT NULL AUTO_INCREMENT,
-  `idUSer` INT NULL DEFAULT NULL,
-  `editoreAssociato` VARCHAR(200) NULL DEFAULT NULL,
-  PRIMARY KEY (`idScrittore`),
-  INDEX `idUSer` (`idUSer` ASC) VISIBLE,
-  CONSTRAINT `SCRITTORE_ibfk_1`
-    FOREIGN KEY (`idUSer`)
-    REFERENCES `ISPW`.`USERS` (`idUser`)
-    ON DELETE CASCADE)
+
+-- -----------------------------------------------------
+-- Table `ISPW`.`REPORT`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ISPW`.`REPORT` ;
+
+CREATE TABLE IF NOT EXISTS `ISPW`.`REPORT` (
+  `idReport` INT NOT NULL AUTO_INCREMENT,
+  `tipoOggetto` VARCHAR(10) NULL DEFAULT NULL,
+  `titolo` VARCHAR(50) NULL DEFAULT NULL,
+  `nrPezzi` INT NOT  NULL,
+  `prezzo`FLOAT NOT NULL,
+  `totale` FLOAT NOT NULL,
+  primary key(`idReport`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-USE `ISPW`;
 
-DELIMITER $$
 
-USE `ISPW`$$
-DROP TRIGGER IF EXISTS `ISPW`.`insert_user` $$
-CREATE
-DEFINER=`root`@`localhost`
-TRIGGER `ISPW`.`insert_user`
-AFTER INSERT ON `ISPW`.`USERS`
-FOR EACH ROW
-begin
-    if (new.idRuolo ="A")
-	    then insert into ISPW.AMMINISTRATORE values (0,new.idUser);
-    elseif (new.idRuolo="W")
-        then insert into ISPW.SCRITTORE values(0,new.idUser,new.nome);
-    elseif (new.idRuolo="E")
-        then insert into ISPW.EDITORE values(0,new.idUser,new.nome);
-    end if;
- end $$
-DELIMITER ;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
 -- Data for table `ISPW`.`LIBRO`
@@ -316,18 +259,18 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ISPW`;
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica1', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-01-31', 5, 1, 2.0, 1);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica2', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-01-30', 0, 0, 2.0, 2);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica3', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-01', 10, 1, 2.0, 3);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica4', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-02', 14, 1, 2.0, 4);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica5', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-03', 10, 1, 2.0, 5);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica6', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-04', 15, 1, 2.0, 6);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano1', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-01-31', 0, 0, 2.0, 7);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano2', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-01-30', 0, 0, 2.0, 8);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano3', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-02-01', 0, 0, 2.0, 9);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano4', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-02-02', 15, 1, 2.0, 10);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano5', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-02-03', 16, 1, 2.0, 11);
-INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `tipologia`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La gazzetta del profeta', 'QUOTIDIANO', 'italiano', 'Hoepli', '2022-05-05', 20, 1, 0.85, 12);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica1', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-01-31', 5, 1, 2.0, 1);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica2', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-01-30', 0, 0, 2.0, 2);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica3', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-01', 10, 1, 2.0, 3);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica4', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-02', 14, 1, 2.0, 4);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica5', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-03', 10, 1, 2.0, 5);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La Republica6', 'QUOTIDIANO', 'italiano', 'La Republica', '2021-02-04', 15, 1, 2.0, 6);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano1', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-01-31', 0, 0, 2.0, 7);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano2', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-01-30', 0, 0, 2.0, 8);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano3', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-02-01', 0, 0, 2.0, 9);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano4', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-02-02', 15, 1, 2.0, 10);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('Il Fatto Quotidiano5', 'QUOTIDIANO', 'italiano', 'Il Fatto Quotidiano', '2021-02-03', 16, 1, 2.0, 11);
+INSERT INTO `ISPW`.`GIORNALE` (`titolo`, `categoria`, `lingua`, `editore`, `dataPubblicazione`, `copieRimanenti`, `disp`, `prezzo`, `idGiornale`) VALUES ('La gazzetta del profeta', 'QUOTIDIANO', 'italiano', 'Hoepli', '2022-05-05', 20, 1, 0.85, 12);
 
 COMMIT;
 
@@ -350,13 +293,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ISPW`;
-INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `tipologia`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Focus', 'MENSILE', 'Focus', 'italiano', 'Bao Publishing', 'Ogni tanto qualcosa e\' simpatica ufo a parte e l articolo di come combattere uno squalo e\' meraviglioso', '2021-01-13', 1, 5.0, 123, 1);
-INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `tipologia`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Focus Junior', 'MENSILE', 'Focus', 'italiano', 'Bao Publishing', 'arino magari qualche bambino sviluppa interesse per il complottismo', '2021-01-21', 1, 2.0, 1234, 2);
-INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `tipologia`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Tv Sorrisi e canzoni', 'SETTIMANALE', 'Panorama', 'italiano', 'Bao Publishing', 'ok', '2021-02-02', 0, 4.0, 50, 3);
-INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `tipologia`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Rivista A', 'SPORTIVO', 'Bao Publishing', 'italiano', 'Bao Publishing', 'okok', '1970-01-01', 1, 2.0, 121, 4);
-INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `tipologia`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Rivista B', 'SPORTIVO', 'Bao Publishing', 'italiano', 'Bao Publishing', 'testo casuale', '1970-01-01', 1, 2.0, 131, 5);
+INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `categoria`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Focus', 'MENSILE', 'Focus', 'italiano', 'Bao Publishing', 'Ogni tanto qualcosa e\' simpatica ufo a parte e l articolo di come combattere uno squalo e\' meraviglioso', '2021-01-13', 1, 5.0, 123, 1);
+INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `categoria`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Focus Junior', 'MENSILE', 'Focus', 'italiano', 'Bao Publishing', 'arino magari qualche bambino sviluppa interesse per il complottismo', '2021-01-21', 1, 2.0, 1234, 2);
+INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `categoria`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Tv Sorrisi e canzoni', 'SETTIMANALE', 'Panorama', 'italiano', 'Bao Publishing', 'ok', '2021-02-02', 0, 4.0, 50, 3);
+INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `categoria`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Rivista A', 'SPORTIVO', 'Bao Publishing', 'italiano', 'Bao Publishing', 'okok', '1970-01-01', 1, 2.0, 121, 4);
+INSERT INTO `ISPW`.`RIVISTA` (`titolo`, `categoria`, `autore`, `lingua`, `editore`, `Descrizione`, `dataPubblicazione`, `disp`, `prezzo`, `copieRimanenti`, `idRivista`) VALUES ('Rivista B', 'SPORTIVO', 'Bao Publishing', 'italiano', 'Bao Publishing', 'testo casuale', '1970-01-01', 1, 2.0, 131, 5);
 
 COMMIT;
+
 
 
 

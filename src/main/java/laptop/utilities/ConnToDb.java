@@ -46,7 +46,7 @@ public class ConnToDb
 		ConnToDb.statusConnDB = statusConnDB;
 	}
 
-	public static Connection generalConnection()
+	public static void generalConnection()
 	{
 
 
@@ -68,8 +68,6 @@ public class ConnToDb
 			setStatusConnSys(false);
 
 		}
-
-		return conn;
 
 	}
 	public static Connection connectionToDB()
@@ -119,6 +117,9 @@ public class ConnToDb
 		}
 	}
 	private ConnToDb(){}
+
+
+
 
 
 

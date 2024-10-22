@@ -77,6 +77,8 @@ public class ControllerDownload {
 		String typeP=vis.getMetodoP(); //tipo pagamento
 		String typeO=vis.getType(); //tipo oggetto
 
+		/*
+
 		 if(vis.getTypeOfDb().equals("file"))
 		 {
 
@@ -97,7 +99,9 @@ public class ControllerDownload {
 			 if (((typeP.equals("cash") && (statusF && statusP)) || (typeP.equals("cCredito") && statusP)) ) {
 				 incrementaOggetto(typeO);
 			 }
-		 }
+
+
+		 }*/
 	}
 	public void scarica(String type) throws  IOException, URISyntaxException,  DocumentException {
 		switch (type)
@@ -144,7 +148,7 @@ public class ControllerDownload {
 	}
 
 
-
+/*
 
 	private void incrementaOggetto(String type) throws CsvValidationException, IOException, IdException {
 		if(vis.getTypeOfDb().equalsIgnoreCase("db"))
@@ -198,6 +202,8 @@ public class ControllerDownload {
 
 
 	}
+
+ */
 
 
 	}

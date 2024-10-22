@@ -3,6 +3,7 @@ package laptop.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
 
 
 import com.opencsv.exceptions.CsvValidationException;
@@ -36,292 +37,84 @@ public class ControllerAcquista {
 	private static final String RIVISTA="rivista";
 	private static final String GIORNALE="giornale";
 	private int disp;
-	private final CsvOggettoDao csv=new CsvOggettoDao();
-	private static final String LOCATIONL = "report/reportLibro.csv";
-	private static final String LOCATIONG = "report/reportGiornale.csv";
-	private static final String LOCATIONR = "report/reportRivista.csv";
+	private  CsvOggettoDao csv;
 
 
+	public ControllerAcquista()  {
+		lD=new LibroDao();
+		gD=new GiornaleDao();
+		rD=new RivistaDao();
+		l=new Libro();
+		g=new Giornale();
+		r=new Rivista();
+		try {
+			csv = new CsvOggettoDao();
+		}catch (IOException e)
+		{
+			java.util.logging.Logger.getLogger("costruttore acquista").log(Level.SEVERE," errore nel csotruttore");
+		}
+	}
 
-
-	public float totale1 (String type,String titolo,int disp,int quantita) throws SQLException, IdException, CsvValidationException, IOException {
-
-		float x;
-		switch (type)
+	//uso una stringa di 3
+	public String[] getNomeCostoDisp() throws CsvValidationException, IOException, IdException {
+		String [] dati=new String[3];
+		switch (vis.getType())
 		{
 			case LIBRO->
 			{
-				checkID(vis.getId());
-				vis.setQuantita(quantita);
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
+				l.setId(vis.getId());
+				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
+					dati[0] = lD.getLibroByIdTitoloAutoreLibro(l).get(0).getTitolo();
+					dati[1]= String.valueOf(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo());
+					dati[2]= String.valueOf(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getNrCopie());
+				}
+
+				else
 				{
-
-					Libro l1=csv.retrieveLibroData(new File(LOCATIONL),l).get(0);
-					x=l1.getPrezzo();
-
-
+					dati[0]=csv.getLibroByIdTitoloAutore(l).get(0).getTitolo();
+					dati[1]= String.valueOf(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo());
+					dati[2]=String.valueOf(csv.getLibroByIdTitoloAutore(l).get(0).getNrCopie());
 				}
-				else {
-					l.setTitolo(titolo);
-					l.setNrCopie(disp);
-					x = lD.getData(l).getPrezzo();
-					lD.aggiornaDisponibilita(l);
-				}
+
 			}
 			case GIORNALE->
 			{
-
-				checkID(vis.getId());
-				vis.setQuantita(quantita);
-
-
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-				{
-
-					  Giornale g1=csv.retriveGiornaleData(new File(LOCATIONG),g).get(0);
-					x=g1.getPrezzo();
-
-
-				}
-				else {
-					g.setTitolo(titolo);
-					g.setCopieRimanenti(disp);
-					x = gD.getData(g).getPrezzo();
-					gD.aggiornaDisponibilita(g);
-				}
-			}
-			case RIVISTA->
-			{
-				checkID(vis.getId());
-				vis.setQuantita(quantita);
-				if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-				{
-
-					 Rivista r1=csv.retrieveRivistaData(new File(LOCATIONR),r).get(0);
-					x=r1.getPrezzo();
-
-
-				}
-				else {
-					r.setTitolo(titolo);
-					r.setCopieRim(disp);
-					x = rD.getData(r).getPrezzo();
-					rD.aggiornaDisponibilita(r);
-				}
-			}
-			default -> throw new IdException("id incorrect");
-
-		}
-
-		return x;
-	}
-	private void checkID(int id) throws IdException {
-
-		if(id <=0 || id>30)
-		{
-			throw  new IdException("wrong id");
-		}
-
-	}
-
-
-
-	public ControllerAcquista() throws IOException {
-		lD = new LibroDao();
-		gD = new GiornaleDao();
-		rD = new RivistaDao();
-		l = new Libro();
-		g = new Giornale();
-		r = new Rivista();
-
-		
-		
-
-	}
-
-
-	public void inserisciAmmontare(String type) throws AcquistaException, IdException, CsvValidationException, IOException {
-		int rimanenza;
-
-		switch(type)
-		{
-			case LIBRO-> {
-
-				l.setId(vis.getId());
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Libro l1 = csv.retrieveLibroData(new File(LOCATIONL),l).get(0);
-					rimanenza = l1.getNrCopie();
-					checkRimanenza(rimanenza);
-				} else {
-					rimanenza = lD.getData(l).getNrCopie();
-					checkRimanenza(rimanenza);
-				}
-			}
-			case GIORNALE-> {
-
 				g.setId(vis.getId());
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Giornale g1 = csv.retriveGiornaleData(new File(LOCATIONG),g).get(0);
-					rimanenza = g1.getCopieRimanenti();
-					checkRimanenza(rimanenza);
-				} else {
-					rimanenza = gD.getData(g).getCopieRimanenti();
-					checkRimanenza(rimanenza);
-				}}
-			case RIVISTA-> {
-
+				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
+					dati[0] = gD.getGiornaleIdTitoloAutore(g).get(0).getTitolo();
+					dati[1]= String.valueOf(gD.getGiornaleIdTitoloAutore(g).get(0).getPrezzo());
+					dati[2]=String.valueOf(gD.getGiornaleIdTitoloAutore(g).get(0).getCopieRimanenti());
+				}
+				else {
+					dati[0] = csv.getGiornaleByIdTitoloEditore(g).get(0).getTitolo();
+					dati[1]= String.valueOf(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo());
+					dati[2]=String.valueOf(csv.getGiornaleByIdTitoloEditore(g).get(0).getCopieRimanenti());
+				}
+			}
+			case RIVISTA->{
 				r.setId(vis.getId());
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Rivista r1 = csv.retrieveRivistaData(new File(LOCATIONR),r).get(0);
-					rimanenza = r1.getCopieRim();
-					checkRimanenza(rimanenza);
-				} else {
-					rimanenza = rD.getData(r).getCopieRim();
-					checkRimanenza(rimanenza);
-				}
-			}
-			default-> throw new IdException("incorrect id");
-
-
-		}
-	}
-
-	private void checkRimanenza(int quantita) throws AcquistaException {
-		if(quantita<0)
-		{
-			throw new AcquistaException("rimanenza <0");
-		}
-	}
-
-	public String getNomeById() throws SQLException, CsvValidationException, IOException, IdException {
-		 String name;
-
-
-
-		int id = vis.getId();
-		String type =vis.getType();
-        switch (type) {
-            case LIBRO -> {
-                l.setId(id);
-				if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Libro l1 = csv.retrieveLibroData(new File(LOCATIONL),l).get(0);
-					name=l1.getTitolo();
+				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
+					dati[0] = rD.getRivistaIdTitoloAutore(r).get(0).getTitolo();
+					dati[1]= String.valueOf(rD.getRivistaIdTitoloAutore(r).get(0).getPrezzo());
+					dati[2]=String.valueOf(rD.getRivistaIdTitoloAutore(r).get(0).getCopieRim());
 				}
 				else {
-					name = lD.getData(l).getTitolo();
+					dati[0] = csv.getRivistaByIdTitoloEditore(r).get(0).getTitolo();
+					dati[1]= String.valueOf(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo());
+					dati[2]=String.valueOf(csv.getRivistaByIdTitoloEditore(r).get(0).getCopieRim());
 				}
-            }
-            case GIORNALE -> {
-                g.setId(id);
-				if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Giornale g1 = csv.retriveGiornaleData(new File(LOCATIONG),g).get(0);
-					name=g1.getTitolo();
-				}
-				else {
-					name = gD.getData(g).getTitolo();
-				}
-            }
-            case RIVISTA -> {
-                r.setId(id);
-				if(vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Rivista r1 = csv.retrieveRivistaData(new File(LOCATIONR),r).get(0);
-					name=r1.getTitolo();
-				}
-				else {
-					name = rD.getData(r).getTitolo();
-				}
-            }
-			default ->  throw new IdException(" id not match!!");
-
-
-        }
-
-		return name ;
-	}
-
-	/*
-	 * metodo aggiunto per stampare appena carica la schermata anche il costo di 
-	 * ogni singolo elemento(giornale,rivista o lbro)
-	 */
-	 
-	public float getCosto(String type) throws SQLException, IdException, CsvValidationException, IOException {
-
-
-		int id = vis.getId();
-		checkID(id);
-        //aggiunto per costo (vedere metodo in fondo ((getCosto()))
-        float costo;
-        switch (type)
-		{
-			case LIBRO -> {
-				l.setId(id);
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Libro l1 = csv.retrieveLibroData(new File(LOCATIONL),l).get(0);
-					costo = l1.getPrezzo();
-				} else
-					costo = lD.getData(l).getPrezzo();
 			}
-			case GIORNALE-> {
-				g.setId(id);
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Giornale g1 = csv.retriveGiornaleData(new File(LOCATIONG),g).get(0);
-					costo = g1.getPrezzo();
-				} else
-					costo = gD.getData(g).getPrezzo();
-			}
-			case RIVISTA-> {
-				r.setId(id);
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Rivista r1 = csv.retrieveRivistaData(new File(LOCATIONR), r).get(0);
-					costo = r1.getPrezzo();
-				} else
-					costo = rD.getData(r).getPrezzo();
-			}
-			default-> throw new IdException(" id not found!!");
+			default -> java.util.logging.Logger.getLogger("get nome").log(Level.SEVERE," name is wrong!!");
 		}
-
-
-
-		return costo;
-
-		
-	}
-	public int getDisp(String type) throws SQLException, IdException, CsvValidationException, IOException {
-
-		switch (type) {
-			case LIBRO -> {
-				l.setId(vis.getId());
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-				  Libro	 l1 = csv.retrieveLibroData(new File(LOCATIONL),l).get(0);
-					disp = l1.getNrCopie();
-				} else
-					disp = lD.getData(l).getNrCopie();
-
-			}
-			case GIORNALE -> {
-				g.setId(vis.getId());
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Giornale g1 = csv.retriveGiornaleData(new File(LOCATIONG),g).get(0);
-					disp = g1.getCopieRimanenti();
-				} else
-					disp = gD.getData(g).getCopieRimanenti();
-			}
-			case RIVISTA -> {
-
-				r.setId(vis.getId());
-				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
-					Rivista r1 = csv.retrieveRivistaData(new File(LOCATIONR),r).get(0);
-					disp = r1.getCopieRim();
-				} else
-					disp = rD.getData(r).getCopieRim();
-			}
-			default-> checkID(vis.getId());
-
-		}
-		return disp;
+		return dati;
 	}
 
 
+	public float getPrezzo(String q) throws CsvValidationException, IOException, IdException {
+		int quantita=Integer.parseInt(q);
+		float prezzo=Float.parseFloat(getNomeCostoDisp()[1]);
+		vis.setSpesaT(prezzo);
+        return quantita*prezzo;
 
-
+	}
 }

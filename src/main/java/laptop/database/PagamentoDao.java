@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
+import laptop.model.Fattura;
 import laptop.model.Pagamento;
 import laptop. model.User;
 import laptop.utilities.ConnToDb;
@@ -15,9 +16,10 @@ import javafx.collections.ObservableList;
 public class PagamentoDao {
 	private String query;
 	private static final String ECCEZIONE="eccezione ottenuta:";
+
 	public void inserisciPagamento(Pagamento p) throws SQLException {
 
-		query="INSERT INTO PAGAMENTO(metodo,esito,nomeUtente,spesaTotale,eMail,tipoAcquisto,idProdotto) values (?,?,?,?,?,?,?)";
+		query="INSERT INTO PAGAMENTO(metodo,nomeUtente,spesaTotale,eMail,tipoAcquisto,idProdotto) values (?,?,?,?,?,?)";
 
 		try(Connection conn=ConnToDb.connectionToDB();
 				PreparedStatement prepQ=conn.prepareStatement(query))
@@ -25,87 +27,100 @@ public class PagamentoDao {
 			
 			
 			prepQ.setString(1,p.getMetodo()); // 
-			prepQ.setInt(2,p.getEsito());
-			prepQ.setString(3,p.getNomeUtente());
-			prepQ.setFloat(4,p.getAmmontare());
-			prepQ.setString(5, User.getInstance().getEmail());
-			prepQ.setString(6,p.getTipo());
-			prepQ.setInt(7, p.getIdOggetto());
+			prepQ.setString(2,p.getNomeUtente());
+			prepQ.setFloat(3,p.getAmmontare());
+			prepQ.setString(4, User.getInstance().getEmail());
+			prepQ.setString(5,p.getTipo());
+			prepQ.setInt(6, p.getIdOggetto());
 			prepQ.executeUpdate();
 		}catch(SQLException e)
 		{
-						java.util.logging.Logger.getLogger("insert pagamento").log(Level.INFO, ECCEZIONE, e);
+			java.util.logging.Logger.getLogger("insert pagamento").log(Level.INFO, ECCEZIONE, e);
 		}
 		
 		
 		}
-		
-	
-	public ObservableList<Pagamento> getPagamenti() throws SQLException  {
 
-			ObservableList<Pagamento> catalogo=FXCollections.observableArrayList();
-			query="SELECT idPagamento,metodo,esito,nomeUtente,spesaTotale,tipoAcquisto,idProdotto from PAGAMENTO where eMail=?";
-			try(Connection conn=ConnToDb.connectionToDB();
-					PreparedStatement prepQ=conn.prepareStatement(query))
+	public Pagamento ultimoPagamento()
+	{
+		Pagamento p=new Pagamento();
+		query="select * from PAGAMENTO order by idPagamento desc limit 1";
+		try(Connection conn=ConnToDb.connectionToDB();
+			PreparedStatement prepQ=conn.prepareStatement(query)){
+
+			ResultSet rs=prepQ.executeQuery();
+			while (rs.next())
 			{
-				prepQ.setString(1, User.getInstance().getEmail());
-				ResultSet rs=prepQ.executeQuery();
-			while(rs.next())
-			{
-
-
-				catalogo.add(new Pagamento (rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getFloat(5),rs.getString(6)));
-
+				p.setIdPag(rs.getInt(1));
+				p.setMetodo(rs.getString(2));
+				p.setNomeUtente(rs.getString(3));
+				p.setAmmontare(rs.getFloat(4));
+				p.setEmail(rs.getString(5));
+				p.setTipo(rs.getString(6));
+				p.setIdOggetto(rs.getInt(7));
 			}
-			}catch(SQLException e)
-			{
-							java.util.logging.Logger.getLogger("lista pagamenti").log(Level.INFO, ECCEZIONE, e);
-			}
-		
-		return catalogo;
+
+		}catch(SQLException e)
+		{
+			java.util.logging.Logger.getLogger("return pagamento").log(Level.INFO, ECCEZIONE, e);
+		}
+		return p;
+
 	}
 
-	public int retUltimoOrdinePag() throws SQLException 
+
+
+
+	public boolean cancellaPagamento(Pagamento p) throws SQLException
 	{
-		int id=0;
-		query="select count(*) as massimoP from PAGAMENTO";
+		boolean state=false;
+		int row;
+		 query="delete from PAGAMENTO where idPagamento=?";
 		try(Connection conn=ConnToDb.connectionToDB();
 				PreparedStatement prepQ=conn.prepareStatement(query))
 		{
-			ResultSet rs=prepQ.executeQuery();
-			while ( rs.next() ) {
-				id=rs.getInt("massimoP");
-
-			}
-		}catch(SQLException e)
-		{
-						java.util.logging.Logger.getLogger("ultimo ordine").log(Level.INFO, ECCEZIONE, e);
-		}
-				
-		return id;
-		
-	}
-
-	public boolean annullaOrdinePag(int idC) throws SQLException
-	{
-		boolean state=false;
-		int row=0;
-		String query2="delete from PAGAMENTO where idPagamento=?";
-		try(Connection conn=ConnToDb.connectionToDB();
-				PreparedStatement prepQ=conn.prepareStatement(query2))
-		{
-			prepQ.setInt(1,idC);
+			prepQ.setInt(1,p.getIdPag());
 			row=prepQ.executeUpdate();
 			if(row==1)
 				state=true;
 		}catch(SQLException e)
 		{
-						java.util.logging.Logger.getLogger("annulla ordine").log(Level.INFO, ECCEZIONE, e);
+			java.util.logging.Logger.getLogger("annulla ordine").log(Level.INFO, ECCEZIONE, e);
 		}
 			
 			return state;
 
 		}
+
+
+	public ObservableList<Pagamento> listPagamenti(Pagamento pag)
+	{
+		ObservableList<Pagamento> list=FXCollections.observableArrayList();
+
+		query="select  idPagamento,metodo,spesaTotale,tipoAcquisto,idProdotto from PAGAMENTO where email=?";
+		try(Connection conn=ConnToDb.connectionToDB();
+			PreparedStatement prepQ=conn.prepareStatement(query)){
+			prepQ.setString(1,pag.getEmail());
+
+			ResultSet rs=prepQ.executeQuery();
+			while (rs.next())
+			{
+				Pagamento p=new Pagamento();
+				p.setIdPag(rs.getInt(1));
+				p.setMetodo(rs.getString(2));
+				p.setAmmontare(rs.getFloat(3));
+				p.setTipo(rs.getString(4));
+				p.setIdOggetto(rs.getInt(5));
+				list.add(p);
+			}
+
+		}catch(SQLException e)
+		{
+			java.util.logging.Logger.getLogger("return pagamento").log(Level.INFO, ECCEZIONE, e);
+		}
+		return list;
+
+	}
 		
 
 	
