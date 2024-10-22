@@ -29,7 +29,6 @@ public class UsersDao {
 	private static final String TXT_FILE_NAME_WEB="src/main/webapp/WEB-INF/riepilogoUtenti.txt";
 
 	private static final String UTENTI="utenti";
-	private static final GenerateDaoReportClass gRC=new GenerateDaoReportClass(UTENTI);
 
 
 
@@ -267,20 +266,7 @@ public class UsersDao {
 
 
 
-	public static void getListaUtenti() throws IOException {
 
-
-
-			Path path = Path.of(TXT_FILE_NAME);
-			Path path1 = Path.of(TXT_FILE_NAME_WEB);
-			gRC.checkFilePath(path);
-			if(Boolean.TRUE.equals(gRC.generateReport(UTENTI)))
-				gRC.checkFilePath(path1);
-			Files.copy(path, path1, StandardCopyOption.REPLACE_EXISTING);
-
-
-
-}
 
 
 
@@ -423,8 +409,6 @@ public class UsersDao {
 	}
 
 
-    public static int getIdMax() {
-		return gRC.getIdMax(UTENTI);
-    }
+
 }
 

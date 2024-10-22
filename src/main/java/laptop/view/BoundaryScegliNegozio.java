@@ -73,12 +73,10 @@ public class BoundaryScegliNegozio implements Initializable {
 	@FXML
 	private void verifica() throws IOException 
 	{
-		try {
-			listOfNegozi=cSN.getNegozi();
-		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("lista negozi").log(Level.SEVERE,"\n eccezione ottenuta .",e);
 
-		}
+			listOfNegozi=cSN.getNegozi();
+
+
 		ToggleGroup radioGroup=new ToggleGroup();
 		radio1.setToggleGroup(radioGroup);
 		radio2.setToggleGroup(radioGroup);
@@ -114,7 +112,7 @@ public class BoundaryScegliNegozio implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
+
 			radio1.setText(cSN.getNegozi().get(0).getNome());
 			radio2.setText(cSN.getNegozi().get(1).getNome());
 			radio3.setText(cSN.getNegozi().get(2).getNome());
@@ -122,11 +120,7 @@ public class BoundaryScegliNegozio implements Initializable {
 			
 			
 
-		} catch (SQLException  e) {
-			java.util.logging.Logger.getLogger("initialize negozi").log(Level.SEVERE,"\n eccezione ottenuta .",e);
 
-			
-		}
 	}
 	
 	public void checkNegozio1() throws IOException

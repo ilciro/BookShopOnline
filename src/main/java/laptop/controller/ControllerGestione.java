@@ -27,9 +27,9 @@ public class ControllerGestione {
     private final RivistaDao rD;
     private final CsvOggettoDao csv;
     private final ControllerSystemState vis=ControllerSystemState.getInstance();
-    private final static String LIBRO="libro";
-    private final static String GIORNALE="giornale";
-    private final static String RIVISTA="rivista";
+    private static final String LIBRO="libro";
+    private static final String GIORNALE="giornale";
+    private static final String RIVISTA="rivista";
 
 
     public boolean inserisci(String[] param) throws CsvValidationException, IOException, IdException, SQLException {

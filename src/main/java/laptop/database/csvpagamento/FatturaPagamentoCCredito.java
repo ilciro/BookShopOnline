@@ -67,6 +67,9 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
     private static final String SUFFIX="suffix";
     private static final String PAGAMENTO="report/reportPagamento.csv";
     private static final String FATTURA="report/reportFattura.csv";
+    private static final String CARTACREDITO="report/reportCartaCredito.csv";
+    private static final String IDWRONG=" id worng ..!!";
+    private static final String IDERROR="id error !!..";
 
     public FatturaPagamentoCCredito() throws IOException {
         this.fileFattura=new File(FATTURA);
@@ -75,7 +78,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         this.filePagamento=new File(PAGAMENTO);
         if(!this.filePagamento.exists())
             Files.createFile(Path.of(this.filePagamento.toURI()));
-        this.fileCartaCredito=new File("report/reportCartaCredito.csv");
+        this.fileCartaCredito=new File(CARTACREDITO);
         if(!this.fileCartaCredito.exists())
             Files.createFile(Path.of(this.fileCartaCredito.toURI()));
         this.cacheFattura=new HashMap<>();
@@ -423,7 +426,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                 throw new IdException(" id is 0!!");
         }catch(IdException e)
         {
-            Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
+            Logger.getLogger(IDWRONG).log(Level.SEVERE, IDERROR);
 
         }
         return id;
@@ -461,7 +464,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         }catch (IdException  e)
         {
 
-            Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
+            Logger.getLogger(IDWRONG).log(Level.SEVERE, IDERROR);
 
         }
 
@@ -481,7 +484,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
                 throw new IdException(" id is 0!!");
         }catch(IdException e)
         {
-            Logger.getLogger("id worng").log(Level.SEVERE, "id error!!!........\n");
+            Logger.getLogger(IDWRONG).log(Level.SEVERE, IDERROR);
 
         }
         return id;

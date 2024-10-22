@@ -36,13 +36,11 @@ public class GiornaleDao {
 	private static final String ECCEZIONE = "eccezione generata:";
 	private static final String RIEPILOGOGIORNALI = "src/main/resources/riepilogoGiornali.txt";
 	private static final String RIEPILOGOGIORNALIWEB = "src/main/webapp/WEB-INF/riepilogoGiornali.txt";
-	private final GenerateDaoReportClass gRC;
 
 
 	public GiornaleDao() {
 		f = new Factory();
 
-		gRC = new GenerateDaoReportClass(GIORNALE);
 
 	}
 
@@ -241,7 +239,6 @@ public class GiornaleDao {
 		}
 
 		java.util.logging.Logger.getLogger("Cancella Giornale").log(Level.INFO, "Giornale cancellato {0}", row);
-		gRC.ripristinaOrdine(GIORNALE);
 		return row;
 
 	}
@@ -289,16 +286,7 @@ public class GiornaleDao {
 
 
 
-	public void generaReport() throws IOException {
 
-
-		Path path = Path.of(RIEPILOGOGIORNALI);
-		Path path1 = Path.of(RIEPILOGOGIORNALIWEB);
-		gRC.checkFilePath(path);
-		if(Boolean.TRUE.equals(gRC.generateReport(GIORNALE)))
-			gRC.checkFilePath(path1);
-		Files.copy(path, path1, StandardCopyOption.REPLACE_EXISTING);
-	}
 
 
 
@@ -347,9 +335,7 @@ public class GiornaleDao {
 	}
 
 
-	public int getIdMax() {
-		return gRC.getIdMax(GIORNALE);
-	}
+
 
 	public boolean eliminaGiornale(Giornale g)
 	{

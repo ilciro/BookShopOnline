@@ -262,18 +262,7 @@ public class CsvUtente implements UserInterface{
 
             TempUser tu = getUser(gVector);
 
-                /*
-                User.getInstance().setId(Integer.parseInt(gVector[GETINDEXIDUSER]));
-                User.getInstance().setIdRuolo(gVector[GETINDEXRUOLO]);
-                User.getInstance().setNome(nome);
-                User.getInstance().setCognome(gVector[GETINDEXCOGNOME]);
-                User.getInstance().setEmail(gVector[GETINDEXEMAIL]);
-                User.getInstance().setPassword(gVector[GETINDEXPWD]);
-                User.getInstance().setDescrizione(gVector[GETINDEXDESC]);
-                User.getInstance().setDataDiNascita(LocalDate.parse(gVector[GETINDEXDATAN]));
 
-
-                 */
 
 
                 list.add(  tu);

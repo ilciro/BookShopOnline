@@ -106,7 +106,7 @@ public class BoundaryRaccolta implements Initializable
         try{
             if(Integer.parseInt(idTF.getText())<0 || Integer.parseInt(idTF.getText())>cRacc.getRaccoltaLista(vis.getType()).size())
                 throw new IdException(" id is null or not in list");
-        }catch (IdException |CsvValidationException|PersistenzaException e)
+        }catch (IdException |CsvValidationException e)
         {
             Logger.getLogger("modifica").log(Level.SEVERE, " error in modif");
             Stage stage;
@@ -135,7 +135,7 @@ public class BoundaryRaccolta implements Initializable
         try{
             if(Integer.parseInt(idTF.getText())<0 || Integer.parseInt(idTF.getText())>cRacc.getRaccoltaLista(vis.getType()).size())
                 throw new IdException(" id is null or not in list");
-        }catch (IdException | CsvValidationException | PersistenzaException | IOException e)
+        }catch (IdException | CsvValidationException  | IOException e)
         {
             Logger.getLogger("elimina").log(Level.SEVERE, " error in elimina");
             Stage stage;

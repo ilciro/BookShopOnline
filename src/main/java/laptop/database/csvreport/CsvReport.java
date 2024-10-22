@@ -11,8 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CsvReport implements ReportInterface{
 
@@ -24,7 +22,6 @@ public class CsvReport implements ReportInterface{
     private static final int GETINDEXPREZZO = 4;
     private static final int GETINDEXTOTALE = 5;
 
-    private static final ControllerSystemState vis=ControllerSystemState.getInstance();
 
 
     private static final File fileReport=new File(LOCATIONR);
@@ -34,7 +31,7 @@ public class CsvReport implements ReportInterface{
     @Override
     public void inserisciReport(Report r) throws CsvValidationException, IOException {
 
-       CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(this.fileReport,true)));
+       CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(fileReport,true)));
 
         String[] gVectore = new String[6];
 

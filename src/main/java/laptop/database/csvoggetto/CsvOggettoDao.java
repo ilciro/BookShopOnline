@@ -644,11 +644,11 @@ public class CsvOggettoDao implements DaoInterface {
         List<Rivista> list=new ArrayList<>();
         synchronized (this.cacheRivista)
         {
-            for(String id:this.cacheRivista.keySet())
-            {
-                Rivista recordInCache=this.cacheRivista.get(id);
-                boolean recordFound=recordInCache.getTitolo().equals(r.getTitolo());
-                if(recordFound)
+            for (Iterator<Map.Entry<String, Rivista>> iterator = this.cacheRivista.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<String, Rivista> id = iterator.next();
+                Rivista recordInCache = this.cacheRivista.get(id);
+                boolean recordFound = recordInCache.getTitolo().equals(r.getTitolo());
+                if (recordFound)
                     list.add(recordInCache);
             }
         }
@@ -784,7 +784,7 @@ public class CsvOggettoDao implements DaoInterface {
         ObservableList<Rivista> list=FXCollections.observableArrayList();
         synchronized (this.cacheRivista)
         {
-            for(Map.Entry<String, Rivista> id:this.cacheRivista.entrySet())
+            for(Map.Entry<String, Rivista> id: cacheRivista.entrySet())
             {
                 Rivista recordInCache=this.cacheRivista.get(id);
                 boolean recordT=recordInCache.getTitolo().equals(r.getTitolo());

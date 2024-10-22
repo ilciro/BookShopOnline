@@ -41,12 +41,12 @@ public class RivistaDao {
 	private static final String RIEPILOGORIVISTEWEB="src/main/webapp/WEB-INF/riepilogoRiviste.txt";
 
 
-	private final GenerateDaoReportClass gRC;
+
 
 	public RivistaDao() {
 		f = new Factory();
 
-		gRC=new GenerateDaoReportClass(RIVISTA);
+
 	}
 	public Rivista getData(Rivista r) {
 
@@ -251,7 +251,7 @@ public class RivistaDao {
 		}
 
 		java.util.logging.Logger.getLogger("Cancella Rivista").log(Level.INFO,"Rivista cancellato {0}",row);
-		gRC.ripristinaOrdine(RIVISTA);
+
 		return row;
 
 	}
@@ -303,16 +303,7 @@ public class RivistaDao {
 
 	}
 
-	public void generaReport() throws IOException {
 
-
-		Path path = Path.of(RIEPILOGORIVISTE);
-		Path path1 = Path.of(RIEPILOGORIVISTEWEB);
-		gRC.checkFilePath(path);
-		if(Boolean.TRUE.equals(gRC.generateReport(RIVISTA)))
-			gRC.checkFilePath(path1);
-		Files.copy(path, path1, StandardCopyOption.REPLACE_EXISTING);
-	}
 
 
 	public void incrementaDisponibilita(Rivista r)
@@ -358,9 +349,7 @@ public class RivistaDao {
 	}
 
 
-    public int getIdMax() {
-		return gRC.getIdMax(RIVISTA);
-    }
+
 
 
 	public boolean eliminaRivista(Rivista r)

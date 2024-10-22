@@ -10,7 +10,6 @@ laptop/model/raccolta/Giornale.class
 laptop/view/Main.class
 laptop/view/BoundaryCompravendita.class
 laptop/model/User$Ruoli.class
-laptop/database/GenerateDaoReportClass.class
 web/bean/DownloadBean.class
 laptop/view/BoundaryReport.class
 laptop/exception/AcquistaException.class
