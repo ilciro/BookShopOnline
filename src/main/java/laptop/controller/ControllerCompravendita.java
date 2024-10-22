@@ -3,6 +3,7 @@ package laptop.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
@@ -24,9 +25,7 @@ public class ControllerCompravendita {
 	private final LibroDao lD;
 	private final GiornaleDao gD;
 	private final RivistaDao rD;
-	private static final String LIBRO = "libro";
-	private static final String RIVISTA = "rivista";
-	private static final String GIORNALE = "giornale";
+
 	private final ControllerSystemState vis=ControllerSystemState.getInstance();
 	private final CsvOggettoDao csv ;
 
@@ -54,28 +53,32 @@ public class ControllerCompravendita {
 	public ObservableList<Raccolta> getLista(String type) throws IOException, CsvValidationException, IdException, PersistenzaException {
 
 	 ObservableList <Raccolta> catalogo=FXCollections.observableArrayList();
-		if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
-			switch (type) {
-				case LIBRO->catalogo.addAll(lD.getLibri());
-				case GIORNALE->catalogo.addAll(gD.getGiornali());
-				case RIVISTA->catalogo.addAll(rD.getRiviste());
-				default->java.util.logging.Logger.getLogger("Test getId db").log(Level.INFO, "error !! list empty");
 
-			}
-		}
-		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-		{
+	 switch (type)
+	 {
+		 case "libro" -> {
+			 if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+				 catalogo.addAll(lD.getLibri());
+			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));
 
-			switch (type) {
-				case LIBRO->catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));
-				case GIORNALE->	catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));
-				case RIVISTA->catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));
-				default->java.util.logging.Logger.getLogger("get lista").log(Level.SEVERE, " list is empty");
-			}
+		 }
+		 case "giornale"->{
+			 if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+				 catalogo.addAll(gD.getGiornali());
+			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));
 
 
+		 }
+		 case "rivista"->{
+			 if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+				 catalogo.addAll(rD.getRiviste());
+			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));
 
-		}
+		 }
+		 default-> Logger.getLogger("get lista").log(Level.SEVERE, " list is empty");
+
+	 }
+
 	return catalogo;
 	}
 

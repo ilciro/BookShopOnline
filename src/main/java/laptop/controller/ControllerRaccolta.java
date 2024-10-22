@@ -39,28 +39,36 @@ public class ControllerRaccolta {
     public ObservableList<Raccolta> getRaccoltaLista(String type) throws IOException, CsvValidationException, IdException {
 
         ObservableList <Raccolta> catalogo= FXCollections.observableArrayList();
-        if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
-            switch (type) {
-                case LIBRO->catalogo.addAll(lD.getLibri());
-                case GIORNALE->catalogo.addAll(gD.getGiornali());
-                case RIVISTA->catalogo.addAll(rD.getRiviste());
-                default->java.util.logging.Logger.getLogger("Test getId db").log(Level.INFO, "error !! list empty");
+
+        switch (type) {
+            case LIBRO->
+            {
+                if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+                    catalogo.addAll(lD.getLibri());
+                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));
 
             }
-        }
-        if(vis.getTypeOfDb().equalsIgnoreCase("file"))
-        {
-
-            switch (type) {
-                case LIBRO->catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));
-                case GIORNALE->	catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));
-                case RIVISTA->catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));
-                default->java.util.logging.Logger.getLogger("get lista").log(Level.SEVERE, " list is empty");
+            case GIORNALE->
+            {
+                if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+                    catalogo.addAll(gD.getGiornali());
+                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));
             }
+            case RIVISTA->
+            {
+                if(vis.getTypeOfDb().equalsIgnoreCase("db"))
+                    catalogo.addAll(rD.getRiviste());
+                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));
 
-
+            }
+            default->Logger.getLogger("Test getId db").log(Level.INFO, "error !! list empty");
 
         }
+
+
+
+
+
         return catalogo;
     }
 

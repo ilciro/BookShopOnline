@@ -592,9 +592,9 @@ public class CsvOggettoDao implements DaoInterface {
         List<Libro> list=new ArrayList<>();
         synchronized (this.cacheLibro)
         {
-            for(String id:this.cacheLibro.keySet())
+            for(Map.Entry<String, Libro> id:this.cacheLibro.entrySet())
             {
-                Libro recordInCache=this.cacheLibro.get(id);
+                Libro recordInCache=this.cacheLibro.get(String.valueOf(id));
                 boolean recordFound=recordInCache.getTitolo().equals(l.getTitolo());
                 if(recordFound)
                     list.add(recordInCache);

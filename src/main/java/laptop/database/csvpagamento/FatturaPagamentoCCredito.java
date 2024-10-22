@@ -413,7 +413,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
 
     private static int getIdMaxCC() throws IOException, CsvValidationException {
-        CSVReader reader=new CSVReader(new BufferedReader(new FileReader("report/reportCartaCredito.csv")));
+        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(CARTACREDITO)));
         String []gVector;
         int id=0;
 
@@ -472,7 +472,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
     }
     private static int getIdMaxPagamento() throws IOException, CsvValidationException {
-        CSVReader reader=new CSVReader(new BufferedReader(new FileReader("report/reportPagamento.csv")));
+        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(PAGAMENTO)));
         String []gVector;
         int id=0;
 
