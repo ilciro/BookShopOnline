@@ -135,6 +135,7 @@ public class ReportDao {
             }
         } catch (SQLException e) {
             Logger.getLogger("genera report from db").log(Level.SEVERE," error in sql ",e);
+
         }
         return list;
     }

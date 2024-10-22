@@ -25,10 +25,6 @@ public class UsersDao {
 	private static boolean state = false;
 	private static final String ECCEZIONE = "errore in mysql :";
 	private static int row = 0;
-	private static final String TXT_FILE_NAME="src/main/resources/riepilogoUtenti.txt";
-	private static final String TXT_FILE_NAME_WEB="src/main/webapp/WEB-INF/riepilogoUtenti.txt";
-
-	private static final String UTENTI="utenti";
 
 
 
