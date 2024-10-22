@@ -646,7 +646,7 @@ public class CsvOggettoDao implements DaoInterface {
         {
             for (Iterator<Map.Entry<String, Rivista>> iterator = this.cacheRivista.entrySet().iterator(); iterator.hasNext(); ) {
                 Map.Entry<String, Rivista> id = iterator.next();
-                Rivista recordInCache = this.cacheRivista.get(id);
+                Rivista recordInCache = this.cacheRivista.get(String.valueOf(id));
                 boolean recordFound = recordInCache.getTitolo().equals(r.getTitolo());
                 if (recordFound)
                     list.add(recordInCache);
@@ -672,7 +672,7 @@ public class CsvOggettoDao implements DaoInterface {
         {
             for(Map.Entry<String, Libro> id:this.cacheLibro.entrySet())
             {
-                Libro recordInCache=this.cacheLibro.get(id);
+                Libro recordInCache=this.cacheLibro.get(String.valueOf(id));
                 boolean recordT=recordInCache.getTitolo().equals(l.getTitolo());
                 boolean recordA=recordInCache.getTitolo().equals(l.getAutore());
                 boolean recordFound=recordT&&recordA;
@@ -786,7 +786,7 @@ public class CsvOggettoDao implements DaoInterface {
         {
             for(Map.Entry<String, Rivista> id: cacheRivista.entrySet())
             {
-                Rivista recordInCache=this.cacheRivista.get(id);
+                Rivista recordInCache=this.cacheRivista.get(String.valueOf(id));
                 boolean recordT=recordInCache.getTitolo().equals(r.getTitolo());
                 boolean recordA=recordInCache.getTitolo().equals(r.getEditore());
                 boolean recordFound=recordT&&recordA;

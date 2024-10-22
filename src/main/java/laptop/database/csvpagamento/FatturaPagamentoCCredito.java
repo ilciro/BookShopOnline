@@ -184,7 +184,7 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
     @Override
     public void inserisciCartaCredito(CartaDiCredito cc) throws IOException, CsvValidationException {
-        CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(this.fileCartaCredito,true)));
+        CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(CARTACREDITO,true)));
         String[] gVector=new String[7];
 
         gVector[GETINDEXNOMEPCC]=cc.getNomeUser();
@@ -443,14 +443,14 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
 
 
             if (vis.getMetodoP().equalsIgnoreCase("cash")) {
-                reader = new CSVReader(new FileReader("report/reportFattura.csv"));
+                reader = new CSVReader(new FileReader(FATTURA));
                 while ((gVector = reader.readNext()) != null) {
                     id = Integer.parseInt(gVector[GETINDEXIDF]);
                 }
 
 
             } else if (vis.getMetodoP().equalsIgnoreCase("cCredito")) {
-                reader = new CSVReader(new FileReader("report/reportPagamento.csv"));
+                reader = new CSVReader(new FileReader(PAGAMENTO));
                 while ((gVector = reader.readNext()) != null) {
                         id = Integer.parseInt(gVector[GETINDEXIDP]);
 

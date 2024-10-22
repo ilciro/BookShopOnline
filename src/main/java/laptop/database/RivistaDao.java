@@ -37,9 +37,6 @@ public class RivistaDao {
 	private static final String ECCEZIONE="eccezione generata:";
 
 
-	private static final String RIEPILOGORIVISTE="src/main/resources/riepilogoRiviste.txt";
-	private static final String RIEPILOGORIVISTEWEB="src/main/webapp/WEB-INF/riepilogoRiviste.txt";
-
 
 
 
