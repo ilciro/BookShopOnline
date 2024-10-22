@@ -1,7 +1,6 @@
 package laptop.controller;
 
 import com.opencsv.exceptions.CsvValidationException;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import laptop.database.PagamentoDao;
 import laptop.database.csvpagamento.FatturaPagamentoCCredito;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 public class ControllerVisualizzaOrdini {
     private final FatturaPagamentoCCredito csv;
     private final ControllerSystemState vis=ControllerSystemState.getInstance();
-    private PagamentoDao pDAo;
+    private final PagamentoDao pDAo;
 
 
     public ControllerVisualizzaOrdini() throws IOException {

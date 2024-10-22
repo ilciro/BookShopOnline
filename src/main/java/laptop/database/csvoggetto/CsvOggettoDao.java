@@ -24,10 +24,7 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.time.LocalDate;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -148,11 +145,11 @@ public class CsvOggettoDao implements DaoInterface {
 
     }
 
-    private static synchronized List<Libro> returnLibriByTAE(File fd,String tit,String aut,String edit,int id) throws IOException, CsvValidationException, IdException {
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+    private static synchronized List<Libro> returnLibriByTAE(File fd,String tit,String aut,String edit,int id) throws IOException, CsvValidationException {
         String[] gVector;
         List<Libro> list=new ArrayList<>();
         boolean recordFound;
+        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
 
         while ((gVector = csvReader.readNext()) != null) {
 
@@ -673,7 +670,7 @@ public class CsvOggettoDao implements DaoInterface {
         ObservableList<Libro> list=FXCollections.observableArrayList();
         synchronized (this.cacheLibro)
         {
-            for(String id:this.cacheLibro.keySet())
+            for(Map.Entry<String, Libro> id:this.cacheLibro.entrySet())
             {
                 Libro recordInCache=this.cacheLibro.get(id);
                 boolean recordT=recordInCache.getTitolo().equals(l.getTitolo());
@@ -732,7 +729,7 @@ public class CsvOggettoDao implements DaoInterface {
         ObservableList<Giornale> list=FXCollections.observableArrayList();
         synchronized (this.cacheGiornale)
         {
-            for(String id:this.cacheGiornale.keySet())
+            for(Map.Entry<String, Giornale> id:this.cacheGiornale.entrySet())
             {
                 Giornale recordInCache=this.cacheGiornale.get(id);
                 boolean recordT=recordInCache.getTitolo().equals(g.getTitolo());
@@ -787,7 +784,7 @@ public class CsvOggettoDao implements DaoInterface {
         ObservableList<Rivista> list=FXCollections.observableArrayList();
         synchronized (this.cacheRivista)
         {
-            for(String id:this.cacheRivista.keySet())
+            for(Map.Entry<String, Rivista> id:this.cacheRivista.entrySet())
             {
                 Rivista recordInCache=this.cacheRivista.get(id);
                 boolean recordT=recordInCache.getTitolo().equals(r.getTitolo());

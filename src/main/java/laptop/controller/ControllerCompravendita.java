@@ -2,7 +2,6 @@ package laptop.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
@@ -15,11 +14,8 @@ import laptop.database.LibroDao;
 
 import laptop.exception.IdException;
 import laptop.exception.PersistenzaException;
-import laptop.model.User;
-import laptop.model.raccolta.Giornale;
-import laptop.model.raccolta.Libro;
+
 import laptop.model.raccolta.Raccolta;
-import laptop.model.raccolta.Rivista;
 
 
 
@@ -53,12 +49,7 @@ public class ControllerCompravendita {
 
 	}
 
-	private void checkID(int id) throws IdException {
-		if(id<=0)
-		{
-			throw new IdException("id not correct");
-		}
-	}
+
 
 	public ObservableList<Raccolta> getLista(String type) throws IOException, CsvValidationException, IdException, PersistenzaException {
 

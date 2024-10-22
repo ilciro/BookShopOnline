@@ -61,7 +61,7 @@ public class ControllerGestioneUtente {
         tu.setId(vis.getId());
     }
 
-    public boolean modifica(String ruolo, String nome, String cognome, String email, String pwd, String desc, LocalDate data) throws SQLException, CsvValidationException, IOException, IdException {
+    public boolean modifica(String ruolo, String nome, String cognome, String email, String pwd, String desc, LocalDate data) throws  CsvValidationException, IOException, IdException {
         boolean status = false;
         
 

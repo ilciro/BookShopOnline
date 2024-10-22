@@ -8,7 +8,6 @@ import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
 import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.exception.IdException;
-import laptop.exception.PersistenzaException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
 
 public class ControllerRaccolta {
 
-    private final static ControllerSystemState vis=ControllerSystemState.getInstance();
+    private static final  ControllerSystemState vis=ControllerSystemState.getInstance();
     private static final String LIBRO = "libro";
     private static final String RIVISTA = "rivista";
     private static final String GIORNALE = "giornale";
@@ -37,7 +36,7 @@ public class ControllerRaccolta {
     private static final String REPORTRIVISTA="report/reportRivista.csv";
 
 
-    public ObservableList<Raccolta> getRaccoltaLista(String type) throws IOException, CsvValidationException, IdException, PersistenzaException {
+    public ObservableList<Raccolta> getRaccoltaLista(String type) throws IOException, CsvValidationException, IdException {
 
         ObservableList <Raccolta> catalogo= FXCollections.observableArrayList();
         if(vis.getTypeOfDb().equalsIgnoreCase("db")) {

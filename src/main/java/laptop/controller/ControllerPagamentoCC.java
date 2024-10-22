@@ -1,6 +1,5 @@
 package laptop.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -137,9 +136,9 @@ public class ControllerPagamentoCC {
 
 	}
 
-	public ObservableList<CartaDiCredito> ritornaElencoCC(String nomeU) throws CsvValidationException, IOException, IdException {
+	public ObservableList<CartaDiCredito> ritornaElencoCC(String nomeU) throws CsvValidationException, IOException {
 
-		CartaDiCredito cc=new CartaDiCredito();
+		cc=new CartaDiCredito();
 		ObservableList<CartaDiCredito> lista;
 		cc.setNomeUser(nomeU);
 

@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import laptop.controller.ControllerSystemState;
 import laptop.model.raccolta.Factory;
 import laptop.model.raccolta.Giornale;
-import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
 import laptop.utilities.ConnToDb;
 import javafx.collections.FXCollections;
@@ -140,7 +139,6 @@ public class GiornaleDao {
 		ObservableList<Giornale> catalogo = FXCollections.observableArrayList();
 		String[] info = new String[7];
 
-		System.out.println(" id degl giornale :"+ g.getId());
 
 
 		query = "select * from GIORNALE where idGiornale=? or idGiornale=? or titolo=? or editore=?";

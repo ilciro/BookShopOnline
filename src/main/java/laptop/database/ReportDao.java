@@ -1,6 +1,5 @@
 package laptop.database;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import laptop.controller.ControllerSystemState;
@@ -14,15 +13,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReportDao {
 
     private  String query;
-    private final static ControllerSystemState vis=ControllerSystemState.getInstance();
+    private static final ControllerSystemState vis=ControllerSystemState.getInstance();
     private final Libro l;
     private final LibroDao lD;
     private final Giornale g;
@@ -32,6 +30,7 @@ public class ReportDao {
     private static final String LIBRO="libro";
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
+    private Report report;
     public void insertInReport()
     {
 
@@ -42,7 +41,7 @@ public class ReportDao {
 
             switch (vis.getType())
             {
-                case "libro"->{
+                case LIBRO->{
                     l.setId(vis.getId());
                     prepQ.setString(1,vis.getType());
                     prepQ.setString(2,lD.getLibroByIdTitoloAutoreLibro(l).get(0).getTitolo());
@@ -51,7 +50,7 @@ public class ReportDao {
                     prepQ.setFloat(5,lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo()*vis.getQuantita());
 
                 }
-                case "giornale"->
+                case GIORNALE->
                 {
                     g.setId(vis.getId());
                     prepQ.setString(1,vis.getType());
@@ -61,7 +60,7 @@ public class ReportDao {
                     prepQ.setFloat(5,gD.getGiornaleIdTitoloAutore(g).get(0).getPrezzo()*vis.getQuantita());
 
                 }
-                case "rivista"->
+                case RIVISTA->
                 {
                     r.setId(vis.getId());
                     prepQ.setString(1,vis.getType());
@@ -77,41 +76,28 @@ public class ReportDao {
             prepQ.execute();
 
         } catch (SQLException e) {
-           Logger.getLogger("report exeption ").log(Level.SEVERE, " sql exception", e);
+            Logger.getLogger("report exeption ").log(Level.SEVERE, " sql exception", e);
         }
     }
 
     public ObservableList<Report> getReportFromDB() {
-    /*
-      
-        query=" SET GLOBAL SQL_MODE=(SELECT REPLACE(@@SQL_MODE,'ONLY_FULL_GROUP_BY',''));";
-        try(Connection conn=ConnToDb.connectionToDB();
-        PreparedStatement prepQ=conn.prepareStatement(query))
-        {
-            prepQ.executeUpdate();
 
-        }catch (SQLException e)
-        {
-           Logger.getLogger(" disable checks").log(Level.SEVERE," checks not disabled" , e);
-        }
-        */
-
-  	ObservableList<Report> list= FXCollections.observableArrayList();
+        ObservableList<Report> list= FXCollections.observableArrayList();
         query="select idReport,tipoOggetto,titolo,sum(nrPezzi),prezzo,sum(totale) from REPORT group by titolo;";
         try(Connection conn=ConnToDb.connectionToDB();
-        PreparedStatement prepQ= conn.prepareStatement(query)) {
+            PreparedStatement prepQ= conn.prepareStatement(query)) {
 
             ResultSet rs= prepQ.executeQuery();
             while(rs.next())
             {
-                Report r=new Report();
-                r.setIdReport(rs.getInt(1));
-                r.setTipologiaOggetto(rs.getString(2));
-                r.setTitoloOggetto(rs.getString(3));
-                r.setNrPezzi(rs.getInt(4));
-                r.setPrezzo(rs.getFloat(5));
-                r.setTotale(rs.getFloat(6));
-                list.add(r);
+                 report=new Report();
+                report.setIdReport(rs.getInt(1));
+                report.setTipologiaOggetto(rs.getString(2));
+                report.setTitoloOggetto(rs.getString(3));
+                report.setNrPezzi(rs.getInt(4));
+                report.setPrezzo(rs.getFloat(5));
+                report.setTotale(rs.getFloat(6));
+                list.add(report);
             }
         } catch (SQLException e) {
             Logger.getLogger("genera report from db").log(Level.SEVERE," error in sql ",e);
@@ -138,14 +124,14 @@ public class ReportDao {
             ResultSet rs= prepQ.executeQuery();
             while(rs.next())
             {
-                Report r=new Report();
-                r.setIdReport(rs.getInt(1));
-                r.setTipologiaOggetto(rs.getString(2));
-                r.setTitoloOggetto(rs.getString(3));
-                r.setNrPezzi(rs.getInt(4));
-                r.setPrezzo(rs.getFloat(5));
-                r.setTotale(rs.getFloat(6));
-                list.add(r);
+                report=new Report();
+                report.setIdReport(rs.getInt(1));
+                report.setTipologiaOggetto(rs.getString(2));
+                report.setTitoloOggetto(rs.getString(3));
+                report.setNrPezzi(rs.getInt(4));
+                report.setPrezzo(rs.getFloat(5));
+                report.setTotale(rs.getFloat(6));
+                list.add(report);
             }
         } catch (SQLException e) {
             Logger.getLogger("genera report from db").log(Level.SEVERE," error in sql ",e);

@@ -1,7 +1,6 @@
 package laptop.controller;
 
 import com.opencsv.exceptions.CsvValidationException;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import laptop.database.UsersDao;
 import laptop.database.csvusers.CsvUtente;
@@ -15,9 +14,9 @@ public class ControllerUtenti {
 
     private final CsvUtente csv;
     private final ControllerSystemState vis=ControllerSystemState.getInstance();
-    private TempUser tu;
+    private final TempUser tu;
     public ObservableList<TempUser> getList() throws SQLException, CsvValidationException, IOException {
-        ObservableList<TempUser> list= FXCollections.observableArrayList();
+        ObservableList<TempUser> list;
         if(vis.getTypeOfDb().equals("db"))
             list= UsersDao.getUserList();
         else list=csv.getUserData();
@@ -31,7 +30,7 @@ public class ControllerUtenti {
     }
 
     public boolean elimina(String emailT) throws SQLException, CsvValidationException, IOException {
-        boolean status = false;
+        boolean status ;
 
 
             if(vis.getTypeOfDb().equals("db"))
@@ -44,11 +43,8 @@ public class ControllerUtenti {
            else
             {
                 tu.setId(vis.getId());
-                System.out.println("id nel file :" + tu.getId());
                 User.getInstance().setId(tu.getId());
                 User.getInstance().setEmail(emailT);
-                System.out.println("id id user :" + User.getInstance().getId());
-                System.out.println("email :" + User.getInstance().getEmail());
 
                 status=csv.removeUserByIdEmailPwd(User.getInstance());
             }

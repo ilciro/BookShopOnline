@@ -10,12 +10,13 @@ import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
-import laptop.model.raccolta.Raccolta;
 import laptop.model.raccolta.Rivista;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ControllerGestione {
     private final Libro l;
@@ -59,6 +60,7 @@ public class ControllerGestione {
                 if(vis.getTypeOfDb().equals("db")) status=rD.creaRivista(r);
                 else status=csv.inserisciRivista(r);
             }
+            default -> Logger.getLogger("inserisci").log(Level.SEVERE,"insert is wrong");
 
 
         }
@@ -140,7 +142,7 @@ public class ControllerGestione {
                     status=csv.inserisciRivista(r);
                 }
             }
-
+            default -> Logger.getLogger("modifica").log(Level.SEVERE,"modifc error!!!");
 
         }
         return status;

@@ -27,7 +27,7 @@ public class ControllerScegliNegozio {
 		n = new Negozio(); 
 	}
 	
-	public ObservableList<Negozio> getNegozi() throws SQLException
+	public ObservableList<Negozio> getNegozi()
 	{
 		ObservableList<Negozio>listOfNegozi;
 		listOfNegozi = nD.getNegozi();

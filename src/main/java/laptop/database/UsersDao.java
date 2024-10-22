@@ -190,7 +190,7 @@ public class UsersDao {
 
 		}
 
-		//gRC.ripristinaOrdine(UTENTI);
+
 		Logger.getLogger("delete user ruolo").log(Level.INFO, "cancello user id{0}", user.getId());
 
 

@@ -1,7 +1,6 @@
 package laptop.model;
 
 
-import laptop.exception.IdException;
 
 
 public class Pagamento {

@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 
 import laptop.controller.ControllerSystemState;
 import laptop.model.raccolta.Factory;
-import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
 import laptop.model.raccolta.Rivista;
 import laptop.utilities.ConnToDb;

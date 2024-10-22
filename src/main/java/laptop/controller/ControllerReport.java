@@ -8,12 +8,9 @@ import laptop.database.csvreport.CsvReport;
 import laptop.database.csvusers.CsvUtente;
 import laptop.model.Report;
 import laptop.model.TempUser;
-import laptop.model.User;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ControllerReport {
     private final ControllerSystemState vis=ControllerSystemState.getInstance();

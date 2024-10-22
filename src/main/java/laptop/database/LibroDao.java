@@ -1,17 +1,13 @@
 package laptop.database;
 
-import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import laptop.controller.ControllerSystemState;
-import laptop.exception.IdException;
 import laptop.model.raccolta.Factory;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
 import laptop.utilities.ConnToDb;
-import org.checkerframework.checker.units.qual.C;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,30 +76,7 @@ public class LibroDao {
     }
 
 
-    public ObservableList<Raccolta> getLibroByIdTitoloAutoreRaccolta(Libro l) throws CsvValidationException, IOException, IdException {
-        ObservableList<Raccolta> catalogo = FXCollections.observableArrayList();
 
-        query = "select * from LIBRO where idLibro=? or idLibro=? or titolo=? or autore=?";
-        try (Connection conn = ConnToDb.connectionToDB();
-             PreparedStatement prepQ = conn.prepareStatement(query);
-             ResultSet rs = prepQ.executeQuery()) {
-            while (rs.next()) {
-
-                f.createRaccoltaFinale1(LIBRO, rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
-
-
-                f.createRaccoltaFinale2(LIBRO, rs.getInt(2), rs.getInt(10), rs.getInt(12), rs.getFloat(13), rs.getInt(14));
-
-
-                catalogo.add(f.createRaccoltaFinaleCompleta(LIBRO, rs.getDate(8).toLocalDate(), rs.getString(9), rs.getString(11)));
-
-
-            }
-        } catch (SQLException e) {
-            Logger.getLogger("get libri").log(Level.INFO, ECCEZIONE, e);
-        }
-        return catalogo;
-    }
 
 
     public ObservableList<Raccolta> getLibri() {

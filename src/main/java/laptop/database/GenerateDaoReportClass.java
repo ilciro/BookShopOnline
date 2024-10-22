@@ -4,7 +4,6 @@ package laptop.database;
  * reduce complexity and duplication for sonarcloud
  */
 
-import laptop.model.TempUser;
 import laptop.utilities.ConnToDb;
 
 import java.io.*;

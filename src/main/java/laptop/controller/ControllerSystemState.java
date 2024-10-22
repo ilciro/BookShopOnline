@@ -18,7 +18,7 @@ public class ControllerSystemState {
 
 	private int idOggetto; //usato nel pagamento
 
-	private boolean populated; // usato per vedere se db è popolato;
+	private boolean populated;
 
 	private String typeOfDb;
 

@@ -1,8 +1,6 @@
 package laptop.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 
 
@@ -12,7 +10,6 @@ import laptop.database.LibroDao;
 
 import laptop.database.RivistaDao;
 import laptop.database.csvoggetto.CsvOggettoDao;
-import laptop.exception.AcquistaException;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
@@ -36,7 +33,6 @@ public class ControllerAcquista {
     private static final String LIBRO = "libro";
 	private static final String RIVISTA="rivista";
 	private static final String GIORNALE="giornale";
-	private int disp;
 	private  CsvOggettoDao csv;
 
 

@@ -1,12 +1,9 @@
 package laptop.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 
 import com.opencsv.exceptions.CsvValidationException;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
