@@ -30,7 +30,6 @@ public class ReportDao {
     private static final String LIBRO="libro";
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
-    private Report report;
     public void insertInReport()
     {
 
@@ -90,14 +89,8 @@ public class ReportDao {
             ResultSet rs= prepQ.executeQuery();
             while(rs.next())
             {
-                 report=new Report();
-                report.setIdReport(rs.getInt(1));
-                report.setTipologiaOggetto(rs.getString(2));
-                report.setTitoloOggetto(rs.getString(3));
-                report.setNrPezzi(rs.getInt(4));
-                report.setPrezzo(rs.getFloat(5));
-                report.setTotale(rs.getFloat(6));
-                list.add(report);
+
+                list.add(addReport(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getFloat(5),rs.getFloat(6)));
             }
         } catch (SQLException e) {
             Logger.getLogger("genera report from db").log(Level.SEVERE," error in sql ",e);
@@ -124,14 +117,10 @@ public class ReportDao {
             ResultSet rs= prepQ.executeQuery();
             while(rs.next())
             {
-                report=new Report();
-                report.setIdReport(rs.getInt(1));
-                report.setTipologiaOggetto(rs.getString(2));
-                report.setTitoloOggetto(rs.getString(3));
-                report.setNrPezzi(rs.getInt(4));
-                report.setPrezzo(rs.getFloat(5));
-                report.setTotale(rs.getFloat(6));
-                list.add(report);
+
+
+                list.add(addReport(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getFloat(5),rs.getFloat(6)));
+
             }
         } catch (SQLException e) {
             Logger.getLogger("genera report from db").log(Level.SEVERE," error in sql ",e);
@@ -149,5 +138,17 @@ public class ReportDao {
         gD=new GiornaleDao();
         r=new Rivista();
         rD=new RivistaDao();
+    }
+
+    private Report addReport(int id,String tipo,String titolo,int pezzi,float prezzo,float totale)
+    {
+        Report report=new Report();
+        report.setIdReport(id);
+        report.setTipologiaOggetto(tipo);
+        report.setTitoloOggetto(titolo);
+        report.setNrPezzi(pezzi);
+        report.setPrezzo(prezzo);
+        report.setTotale(totale);
+        return report;
     }
 }
