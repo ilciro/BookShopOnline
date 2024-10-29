@@ -21,7 +21,6 @@
 
 
             <a href="registra.jsp" id="registra">Registra</a>
-            <a href="reset.jsp" id="reset">Reset</a>
             <a href="index.jsp" id="index">Indietro</a>
 
         </div>
@@ -40,6 +39,10 @@
             <br>
             <br>
             <input type="submit" class="login" name="login" id="login" value ="login"></input>
+            <br>
+            <br>
+            <input type="submit" class="reset" name="reset" id="reset" value ="reset"></input>
+
             <p class="exception">${beanUb.getMexB()}</p>
 
         </div>

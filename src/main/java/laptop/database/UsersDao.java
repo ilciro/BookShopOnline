@@ -40,7 +40,7 @@ public class UsersDao {
 
 
 		LocalDate d = u.getDataDiNascita();
-		u.setIdRuolo("U");
+
 
 		query = "INSERT INTO `USERS`"
 				+ "(`idRuolo`,"
@@ -62,7 +62,7 @@ public class UsersDao {
 			prepQ.setString(3, User.getInstance().getCognome());
 			prepQ.setString(4, User.getInstance().getEmail());
 			prepQ.setString(5, User.getInstance().getPassword());
-			prepQ.setString(6, "utente aggiunto");
+			prepQ.setString(6, User.getInstance().getDescrizione());
 			prepQ.setDate(7,Date.valueOf(d));
 			prepQ.executeUpdate();
 

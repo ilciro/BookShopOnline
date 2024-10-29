@@ -23,6 +23,7 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("emailL");
         String passL = req.getParameter("passL");
         String login = req.getParameter("login");
+        String reset=req.getParameter("reset");
         RequestDispatcher view;
 
         try {
@@ -53,6 +54,20 @@ public class LoginServlet extends HttpServlet {
                 else{
                     throw new SQLException(" please register as a new user" +
                             "\nclick on button register!!");
+                }
+
+            }
+            if(reset!=null && reset.equals("reset"))
+            {
+                uB.setEmailB(email);
+                uB.setPassB(passL);
+                u.setEmail(uB.getEmailB());
+                u.setPassword(uB.getPassB());
+                if(UsersDao.checkUser(u)==1)
+                {
+                    req.setAttribute("beanUb",uB);
+                    view=getServletContext().getRequestDispatcher("/reset.jsp");
+                    view.forward(req,resp);
                 }
 
             }
