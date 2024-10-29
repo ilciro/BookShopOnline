@@ -1,4 +1,5 @@
 laptop/controller/ControllerPagamentoCC.class
+web/servlet/LibriServlet.class
 web/bean/ModificaOggettoBean.class
 web/bean/RicercaBean.class
 laptop/controller/ControllerCheckPagamentoData.class
@@ -7,12 +8,15 @@ web/bean/PagamentoBean.class
 laptop/controller/ControllerUtenti.class
 laptop/database/ContrassegnoDao.class
 laptop/model/raccolta/Giornale.class
+web/servlet/FatturaServlet.class
 laptop/view/Main.class
 laptop/view/BoundaryCompravendita.class
 laptop/model/User$Ruoli.class
 web/bean/DownloadBean.class
+web/servlet/RivisteServlet.class
 laptop/view/BoundaryReport.class
 laptop/exception/AcquistaException.class
+web/servlet/RegistraServlet.class
 laptop/controller/ControllerVisualizza.class
 laptop/controller/ControllerAcquista.class
 laptop/database/csvpagamento/FatturaPagamentoCCredito.class
@@ -42,9 +46,11 @@ laptop/view/BoundaryPagamentoCash.class
 laptop/controller/ControllerVisualizzaProfilo.class
 laptop/controller/ControllerLogin.class
 laptop/controller/ControllerGestioneUtente.class
+web/servlet/NegozioServlet.class
 laptop/controller/ControllerAdmin.class
 laptop/model/raccolta/CategorieRivista.class
 laptop/controller/ControllerSystemState.class
+web/servlet/AnnullaServlet.class
 laptop/database/csvusers/CsvUtente.class
 laptop/view/BoundaryAdmin.class
 laptop/controller/ControllerDownload.class
@@ -52,6 +58,7 @@ laptop/model/Negozio.class
 laptop/controller/ControllerRicerca.class
 laptop/model/TempUser.class
 laptop/view/BoundaryAcquista.class
+web/servlet/DownloadServlet.class
 web/bean/LibroBean.class
 laptop/exception/PersistenzaException.class
 laptop/database/NegozioDao.class
@@ -64,6 +71,7 @@ laptop/model/raccolta/CategorieLibro.class
 laptop/controller/ControllerVisualizzaOrdini.class
 laptop/view/BoundaryGestioneUtente.class
 web/bean/GiornaleBean.class
+web/servlet/CartaCreditoServlet.class
 laptop/database/csvreport/CsvReport.class
 laptop/view/BoundaryRegistra.class
 laptop/view/BoundaryVisualizzaProfilo.class
@@ -75,6 +83,7 @@ web/bean/FatturaBean.class
 laptop/view/BoundaryRaccolta.class
 laptop/database/ReportDao.class
 laptop/exception/LogoutException.class
+web/servlet/LoginServlet.class
 laptop/database/csvpagamento/PagamentoInterface.class
 laptop/database/csvusers/UserInterface.class
 laptop/view/BoundaryGestioneOggetto.class
@@ -82,11 +91,14 @@ laptop/database/GiornaleDao.class
 laptop/utilities/ConnToDb.class
 laptop/controller/ControllerScegliNegozio.class
 laptop/controller/ControllerRegistraUtente.class
+web/servlet/GiornaliServlet.class
 laptop/database/UsersDao.class
 laptop/controller/ControllerReport.class
 laptop/model/raccolta/Raccolta.class
 laptop/controller/ControllerGestione.class
 laptop/controller/ControllerRaccolta.class
+web/servlet/AcquistaServlet.class
+web/bean/AnnullaBean.class
 laptop/view/BoundaryRicerca.class
 laptop/model/raccolta/Libro.class
 laptop/view/BoundaryAggiornaPassword.class

@@ -7,6 +7,25 @@ public class FatturaBean {
     private String cognomeB;
     private String indirizzoB;
     private String comunicazioniB;
+    private float ammontareB;
+
+    public float getAmmontareB() {
+        return ammontareB;
+    }
+
+    public void setAmmontareB(float ammontareB) {
+        this.ammontareB = ammontareB;
+    }
+
+    private int idFatturaB;
+
+    public int getIdFatturaB() {
+        return idFatturaB;
+    }
+
+    public void setIdFatturaB(int idFatturaB) {
+        this.idFatturaB = idFatturaB;
+    }
 
     public String getNomeB() {
         return nomeB;
@@ -47,4 +66,11 @@ public class FatturaBean {
     public void setComunicazioniB(String comunicazioniB) {
         this.comunicazioniB = comunicazioniB;
     }
+
+    @Override
+    public String toString() {
+        return "Fattura [nome=" + nomeB + ", cognome=" + cognomeB + ", via=" + indirizzoB + ", com=" + comunicazioniB + ", numero=" + idFatturaB
+                + ", ammontare=" +  + ammontareB + "]";
+    }
+
 }

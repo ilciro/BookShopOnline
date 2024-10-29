@@ -25,7 +25,6 @@ public class Fattura {
 
 	
 	public Fattura(String nome, String cognome, String via, String com, float ammontare,int idFattura) {
-		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.via = via;

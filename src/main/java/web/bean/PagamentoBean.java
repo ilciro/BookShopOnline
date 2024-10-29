@@ -11,6 +11,15 @@ public class PagamentoBean {
 
     private String nomeUtenteB;
     private String tipoB;
+    private String emailB;
+
+    public String getEmailB() {
+        return emailB;
+    }
+
+    public void setEmailB(String emailB) {
+        this.emailB = emailB;
+    }
 
     private ObservableList<Pagamento> listaPagamentiB;
 
@@ -77,5 +86,11 @@ public class PagamentoBean {
 
     public void setListaPagamentiB(ObservableList<Pagamento> listaPagamentiB) {
         this.listaPagamentiB = listaPagamentiB;
+    }
+
+    @Override
+    public String toString() {
+        return "Pagamento [id=" + idB + ", metodo=" + metodoB + " , nomeUtente=" + nomeUtenteB
+                + ", ammontare=" + ammontareB + ", tipo=" + tipoB+ ", idOggetto="+idOggettoB+"]";
     }
 }

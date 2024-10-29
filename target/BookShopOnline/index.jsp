@@ -1,88 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang=it>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Index page</title>
-<link rel="stylesheet" href="css//homePage.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+
+    <title>
+        Benvenuto nel Book Shop Online
+    </title>
+    <link rel="stylesheet" href="css/index.css">
+
 </head>
+
 <body>
 
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <a href="libri.jsp" id="libri" >Libri</a>
+            <a href="giornali.jsp" id="giornali">Giornali</a>
+            <a href="riviste.jsp" id="riviste">Riviste</a>
+            <a href="login.jsp" id="login">Login</a>
+            <a href="ricerca.jsp" id="ricerca">Ricerca</a>
+            <a href="logout.jsp" id="logout">Logout</a>
 
 
-<h1>  Benvenuti nella Libreria </h1>
+        </div>
 
-<h2>
-Scegliere quale oggetto si desidera
-</h2>
+        <!-- Main Content -->
+        <div class="content">
+            <div id="home">
+                <h1>Benvenuto nel bso </h1>
+                <h2>
+                    In questo sistema si ha la possibilit&#224; di effettuare  degli acquisti,
+                    sia nel caso che si sia o meno loggati al sistema .
+                    Inoltre &#232; possibile effettuare la ricerca del volume
+                    qualunque esso sia ( libro , giornale , rivista) .
+                </h2>
+            </div>
 
+        </div>
 
-
-<form action="IndexServlet" method="post">
-<table>
-<caption>
-scegliere tra libri , giornali e riviste
-</caption>
-<tr>
-<th scope="col">
-libro
-</th>
-<th>
-giornale
-</th>
-<th>
-rivista
-</th>
-<th>
-login
-</th>
-<th>
-ricerca
-</th>
-</tr>
-<tr>
-<td>
-<img alt="source not found" src="immagini/libro.png_860.png" width=100  height=100 >
-</td>
-<td>
-<img alt="source not found" src="immagini/newspaper-284-542534.png" width=100  height=100 >
-</td>
-<td>
-<img alt="source not found" src="immagini/una-rivista_318-1607.jpg" width=100  height=100 >
-</td>
-<td>
-<img alt="source not found" src="immagini/vector-users-icon-png_302626.jpg" width=100  height=100 >
-</td>
-<td>
-<img alt="source not found" src="immagini/Search-icon-13.png" width=100  height=100 >
-</td>
-</tr>
-<tr>
-<td>
-<input type="submit" name="buttonL" id="buttonL" value="libri" class="libri">
-</td>
-<td>
-<input type="submit" name="buttonG" id="buttonG" value="giornali" class="giornali">
-</td>
-<td>
-<input type="submit" name="buttonR" id="buttonR" value="riviste" class="riviste">
-</td>
-<td>
-<input type="submit" name="buttonLogin" id="buttonLogin" value="login" class="login">
-</td>
-<td>
-<input type="submit" name="buttonRic" id="buttonRic" value="ricerca" class="ricerca">
-</td>
-
-
-</tr>
-</table>
-
-
-
-
-</form>
-
+    </div>
 </body>
+
 </html>
