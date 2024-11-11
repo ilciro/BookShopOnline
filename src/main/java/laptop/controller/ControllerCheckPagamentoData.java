@@ -45,7 +45,6 @@ public class ControllerCheckPagamentoData {
 				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
 					p.setTipo(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getCategoria());
 					pagD.inserisciPagamento(p);
-					rDao.insertInReport();
 
 				}
 				else {
@@ -69,7 +68,6 @@ public class ControllerCheckPagamentoData {
 				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
 					p.setTipo(gD.getGiornaleIdTitoloAutore(g).get(0).getCategoria());
 					pagD.inserisciPagamento(p);
-					rDao.insertInReport();
 				}
 				else{
 					p.setTipo(vis.getType());
@@ -88,7 +86,6 @@ public class ControllerCheckPagamentoData {
 				if(vis.getTypeOfDb().equalsIgnoreCase("db")) {
 					p.setTipo(rD.getRivistaIdTitoloAutore(r).get(0).getCategoria());
 					pagD.inserisciPagamento(p);
-					rDao.insertInReport();
 				}
 				else {
 					p.setTipo(vis.getType());

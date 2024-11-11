@@ -108,7 +108,17 @@ public class SystemBean {
     }
 
 
-private  boolean loggedB;
+    private  boolean loggedB;
+
+    public String getTypeOfModif() {
+        return typeOfModif;
+    }
+
+    public void setTypeOfModif(String typeOfModif) {
+        this.typeOfModif = typeOfModif;
+    }
+
+    private String typeOfModif;
 
 
     public boolean isLoggedB() {

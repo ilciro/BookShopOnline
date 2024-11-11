@@ -58,18 +58,16 @@
       <TableView fx:id="tableViewReport" layoutX="43.0" layoutY="140.0" prefHeight="200.0" prefWidth="563.0">
         <columns>
           <TableColumn fx:id="idReport" prefWidth="90.0" text="idOggetto" />
-          <TableColumn fx:id="tipologiaOggetto" prefWidth="139.0" text="tipologiaOggetto" />
             <TableColumn fx:id="titoloOggetto" minWidth="0.0" prefWidth="117.0" text="titoloOggetto" />
-            <TableColumn fx:id="nrPezzi" prefWidth="62.0" text="nrPezzi" />
-            <TableColumn fx:id="prezzo" prefWidth="57.0" text="prezzo" />
-            <TableColumn fx:id="totale" prefWidth="97.0" text="totale" />
+          <TableColumn fx:id="tipologiaOggetto" prefWidth="245.0" text="tipologiaOggetto" />
+            <TableColumn fx:id="totale" prefWidth="109.0" text="totale" />
         </columns>
       </TableView>
-      <TableView fx:id="tableViewUtenti" layoutX="43.0" layoutY="353.0" prefHeight="200.0" prefWidth="227.0">
+      <TableView fx:id="tableViewUtenti" layoutX="43.0" layoutY="353.0" prefHeight="200.0" prefWidth="563.0">
         <columns>
-          <TableColumn fx:id="idUser" prefWidth="75.0" text="idUtente" />
-          <TableColumn fx:id="nome" prefWidth="75.0" text="nome" />
-            <TableColumn fx:id="cognome" prefWidth="75.0" text="cognome" />
+          <TableColumn fx:id="idUser" prefWidth="71.0" text="idUtente" />
+            <TableColumn fx:id="email" prefWidth="347.0" text="email" />
+            <TableColumn fx:id="dataN" prefWidth="144.0" text="dataNascita" />
         </columns>
       </TableView>
    </children>

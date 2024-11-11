@@ -90,9 +90,11 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/ModificaOggettoBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/NegozioBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/PagamentoBean.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/ReportBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/RicercaBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/RivistaBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/SystemBean.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/TempUserBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/TextAreaBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/bean/UserBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/servlet/AcquistaServlet.java
@@ -105,4 +107,6 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/servlet/LoginServlet.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/servlet/NegozioServlet.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/servlet/RegistraServlet.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/servlet/ReportServlet.java
+/home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/servlet/ResetServlet.java
 /home/daniele/IdeaProjects/BookShopOnline/src/main/java/web/servlet/RivisteServlet.java

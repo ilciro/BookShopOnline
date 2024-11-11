@@ -1,8 +1,0 @@
-1	SCRITTORE	editore mod	editore mod c	editoreMod@libero.it	editore modificato	1975-04-28
-2	ADMIN	Gianni	Morandi	giannni@gmail.com	utente con privilegi massimi	1940-10-18
-3	UTENTE	Gino	Zaia	gino@zaia.eu	utente semplice	1995-04-25
-4	SCRITTORE	editore mod	editore mod c	editoreMod@libero.it	editore modificato	1975-04-28
-5	SCRITTORE	zerocalcare	zerocalcare	zerocalcare@gmail.com	scrittore semplice	1980-05-20
-6	EDITORE	Bao Publishing	Bao Publishing	baoPublishing@gmail.com	editore semplice	1960-11-21
-7	EDITORE	Editore Prova	Editore Prova	editore185@gmail.com	editore semplice	1975-04-28
-8	UTENTE	daniele	cinus	danielecinus10@gmail.com	utente aggiunto	1995-10-31

@@ -15,11 +15,11 @@ import laptop.controller.ControllerReport;
 import laptop.controller.ControllerSystemState;
 import laptop.model.Report;
 import laptop.model.TempUser;
-import laptop.model.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -49,13 +49,9 @@ public class BoundaryReport implements Initializable {
     @FXML
     private TableColumn<Report,String> idReport;
     @FXML
-    private TableColumn<Report,String> tipologiaOggetto;
-    @FXML
     private TableColumn<Report,String> titoloOggetto;
     @FXML
-    private TableColumn<Report,Integer> nrPezzi;
-    @FXML
-    private TableColumn<Report,Float> prezzo;
+    private TableColumn<Report,String> tipologiaOggetto;
     @FXML
     private TableColumn<Report,Float> totale;
     @FXML
@@ -63,18 +59,9 @@ public class BoundaryReport implements Initializable {
     @FXML
     private TableColumn<Integer,TempUser> idUser;
     @FXML
-    private TableColumn<String,TempUser> nome;
+    private TableColumn<String,TempUser> email;
     @FXML
-    private TableColumn<String,TempUser> cognome;
-
-
-
-
-
-
-
-
-
+    private TableColumn<LocalDate,TempUser> dataN;
 
 
     @FXML
@@ -107,29 +94,24 @@ public class BoundaryReport implements Initializable {
             vis.setTypeAsBook();
             tableViewUtenti.setEditable(false);
             tableViewReport.setItems(cR.reportLGR());
-           // textArea.setText(scriviReport());
         }
         if(giornaliRadio.isSelected())
         {
             vis.setTypeAsDaily();
-            System.out.println("tipo del fracicone :"+ vis.getType());
             tableViewUtenti.setEditable(false);
             tableViewReport.setItems(cR.reportLGR());
-           // textArea.setText(scriviReport());
         }
         if(rivisteRadio.isSelected())
         {
             vis.setTypeAsMagazine();
             tableViewUtenti.setEditable(false);
             tableViewReport.setItems(cR.reportLGR());
-           // textArea.setText(scriviReport());
         }
         if(utentiRadio.isSelected())
         {
             tableViewReport.setEditable(false);
             tableViewUtenti.setItems(cR.reportUser());
 
-           // textArea.setText(cR.reportUser());
         }
 
 
@@ -153,17 +135,15 @@ public class BoundaryReport implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cR=new ControllerReport();
-      //  textArea.clear();
         idReport.setCellValueFactory(new PropertyValueFactory<>("idReport"));
         tipologiaOggetto.setCellValueFactory(new PropertyValueFactory<>("tipologiaOggetto"));
         titoloOggetto.setCellValueFactory(new PropertyValueFactory<>("titoloOggetto"));
-        nrPezzi.setCellValueFactory(new PropertyValueFactory<>("nrPezzi"));
-        prezzo.setCellValueFactory(new PropertyValueFactory<>("prezzo"));
+
         totale.setCellValueFactory(new PropertyValueFactory<>("totale"));
 
         idUser.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nome.setCellValueFactory(new PropertyValueFactory<>("nomeT"));
-        cognome.setCellValueFactory(new PropertyValueFactory<>("cognomeT"));
+        email.setCellValueFactory(new PropertyValueFactory<>("emailT"));
+        dataN.setCellValueFactory(new PropertyValueFactory<>("dataDiNascitaT"));
 
 
     }

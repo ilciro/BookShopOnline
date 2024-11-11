@@ -2,11 +2,8 @@ package laptop.database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import laptop.controller.ControllerSystemState;
 import laptop.model.Report;
-import laptop.model.raccolta.Giornale;
-import laptop.model.raccolta.Libro;
-import laptop.model.raccolta.Rivista;
+
 import laptop.utilities.ConnToDb;
 
 import java.sql.Connection;
@@ -20,135 +17,67 @@ import java.util.logging.Logger;
 public class ReportDao {
 
     private  String query;
-    private static final ControllerSystemState vis=ControllerSystemState.getInstance();
-    private final Libro l;
-    private final LibroDao lD;
-    private final Giornale g;
-    private final GiornaleDao gD;
-    private final Rivista r;
-    private final RivistaDao rD;
+
     private static final String LIBRO="libro";
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
-    public void insertInReport()
+
+
+
+
+
+
+    public void reportLGR(String type)
     {
-
-        query="insert into REPORT(tipoOggetto,titolo,nrPezzi,prezzo,totale) values(?,?,?,?,?) ";
-        try(Connection conn= ConnToDb.connectionToDB();
-            PreparedStatement prepQ=conn.prepareStatement(query)) {
-
-
-            switch (vis.getType())
-            {
-                case LIBRO->{
-                    l.setId(vis.getId());
-                    prepQ.setString(1,vis.getType());
-                    prepQ.setString(2,lD.getLibroByIdTitoloAutoreLibro(l).get(0).getTitolo());
-                    prepQ.setInt(3,vis.getQuantita());
-                    prepQ.setFloat(4,lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo());
-                    prepQ.setFloat(5,lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo()*vis.getQuantita());
-
-                }
-                case GIORNALE->
-                {
-                    g.setId(vis.getId());
-                    prepQ.setString(1,vis.getType());
-                    prepQ.setString(2,gD.getGiornaleIdTitoloAutore(g).get(0).getTitolo());
-                    prepQ.setInt(3,vis.getQuantita());
-                    prepQ.setFloat(4,gD.getGiornaleIdTitoloAutore(g).get(0).getPrezzo());
-                    prepQ.setFloat(5,gD.getGiornaleIdTitoloAutore(g).get(0).getPrezzo()*vis.getQuantita());
-
-                }
-                case RIVISTA->
-                {
-                    r.setId(vis.getId());
-                    prepQ.setString(1,vis.getType());
-                    prepQ.setString(2,rD.getRivistaIdTitoloAutore(r).get(0).getTitolo());
-                    prepQ.setInt(3,vis.getQuantita());
-                    prepQ.setFloat(4,rD.getRivistaIdTitoloAutore(r).get(0).getPrezzo());
-                    prepQ.setFloat(5,rD.getRivistaIdTitoloAutore(r).get(0).getPrezzo()*vis.getQuantita());
-
-                }
-                default -> Logger.getLogger("report").log(Level.SEVERE, " error n typw");
-
-            }
-            prepQ.execute();
-
-        } catch (SQLException e) {
-            Logger.getLogger("report exeption ").log(Level.SEVERE, " sql exception", e);
+        switch (type)
+        {
+            case LIBRO->query="create or replace view REPORTL (idProdotto,titolo,categoria,spesaTotale) as select l.idLibro,l.titolo,l.categoria,sum(p.spesaTotale) from LIBRO l join PAGAMENTO  p on l.idLibro=p.idProdotto group by l.idLibro;";
+            case GIORNALE->query="create or replace view REPORTG (idProdotto,titolo,categoria,spesaTotale) as select g.idLibro,g.titolo,g.categoria,sum(p.spesaTotale) from GIORNALE g join PAGAMENTO  p on g.idGiornale=p.idProdotto group by g.idGiornale;";
+            case RIVISTA->query="create or replace view REPORTR (idProdotto,titolo,categoria,spesaTotale) as select r.idRivista,l.titolo,l.categoria,sum(p.spesaTotale) from RIVISTA r join PAGAMENTO  p on r.idRivista=p.idProdotto group by r.idRivista;";
+            default -> Logger.getLogger("report web").log(Level.SEVERE," view not created");
+        }
+        try(Connection conn=ConnToDb.connectionToDB();
+        PreparedStatement preQ=conn.prepareStatement(query))
+        {
+            preQ.executeUpdate();
+        }catch (SQLException e)
+        {
+            Logger.getLogger("crete view ").log(Level.SEVERE," could not create view reportL!!");
         }
     }
-
-    public ObservableList<Report> getReportFromDB() {
-
-        ObservableList<Report> list= FXCollections.observableArrayList();
-        query="select idReport,tipoOggetto,titolo,sum(nrPezzi),prezzo,sum(totale) from REPORT group by titolo;";
+    public ObservableList<Report> report(String type)
+    {
+        ObservableList<Report> list = FXCollections.observableArrayList();
+        switch (type)
+        {
+            case LIBRO -> query="select * from REPORTL";
+            case GIORNALE -> query="select * from REPORTG";
+            case RIVISTA->query="select * from REPORTR";
+            default -> Logger.getLogger("report").log(Level.SEVERE," type in cot correct !!");
+        }
         try(Connection conn=ConnToDb.connectionToDB();
-            PreparedStatement prepQ= conn.prepareStatement(query)) {
-
-            ResultSet rs= prepQ.executeQuery();
+        PreparedStatement prep=conn.prepareStatement(query)){
+            
+            ResultSet rs= prep.executeQuery();
             while(rs.next())
             {
+                list.add(addReport(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getFloat(4)));
 
-                list.add(addReport(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getFloat(5),rs.getFloat(6)));
             }
+            
         } catch (SQLException e) {
-            Logger.getLogger("genera report from db").log(Level.SEVERE," error in sql ",e);
+            Logger.getLogger(" report ").log(Level.SEVERE," REPORTL is empty");
         }
         return list;
     }
-
-    public ObservableList<Report> getReportFromDBLGR()
-    {
-        ObservableList<Report> list=FXCollections.observableArrayList();
-
-        query="select idReport,tipoOggetto,titolo,sum(nrPezzi),prezzo,sum(totale) from REPORT  where tipoOggetto=? group by titolo";
-        try(Connection conn=ConnToDb.connectionToDB();
-            PreparedStatement prepQ= conn.prepareStatement(query)) {
-
-            switch (vis.getType())
-            {
-                case LIBRO-> prepQ.setString(1,LIBRO);
-                case GIORNALE -> prepQ.setString(1,GIORNALE);
-                case RIVISTA -> prepQ.setString(1,RIVISTA);
-                default -> Logger.getLogger(" report ").log(Level.SEVERE," exception has occured!!");
-            }
-
-            ResultSet rs= prepQ.executeQuery();
-            while(rs.next())
-            {
-
-
-                list.add(addReport(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getFloat(5),rs.getFloat(6)));
-
-            }
-        } catch (SQLException e) {
-            Logger.getLogger("genera report from db").log(Level.SEVERE," error in sql ",e);
-
-        }
-        return list;
-    }
-
-
-    public ReportDao()
-    {
-        l=new Libro();
-        lD=new LibroDao();
-        g=new Giornale();
-        gD=new GiornaleDao();
-        r=new Rivista();
-        rD=new RivistaDao();
-    }
-
-    private Report addReport(int id,String tipo,String titolo,int pezzi,float prezzo,float totale)
+    private Report addReport(int id,String titolo,String categoria,float spesa)
     {
         Report report=new Report();
+      
         report.setIdReport(id);
-        report.setTipologiaOggetto(tipo);
         report.setTitoloOggetto(titolo);
-        report.setNrPezzi(pezzi);
-        report.setPrezzo(prezzo);
-        report.setTotale(totale);
+        report.setTipologiaOggetto(categoria);
+        report.setTotale(spesa);
         return report;
     }
 }

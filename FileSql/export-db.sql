@@ -5,7 +5,6 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -189,25 +188,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
-
-
--- -----------------------------------------------------
--- Table `ISPW`.`REPORT`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ISPW`.`REPORT` ;
-
-CREATE TABLE IF NOT EXISTS `ISPW`.`REPORT` (
-  `idReport` INT NOT NULL AUTO_INCREMENT,
-  `tipoOggetto` VARCHAR(10) NULL DEFAULT NULL,
-  `titolo` VARCHAR(50) NULL DEFAULT NULL,
-  `nrPezzi` INT NOT  NULL,
-  `prezzo`FLOAT NOT NULL,
-  `totale` FLOAT NOT NULL,
-  primary key(`idReport`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 

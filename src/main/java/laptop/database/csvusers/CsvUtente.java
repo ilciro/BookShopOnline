@@ -150,7 +150,7 @@ public class CsvUtente implements UserInterface {
                 TempUser tu = getTempUser(gVector);
 
                 User.getInstance().setId(tu.getId());
-                User.getInstance().setIdRuolo(tu.getIdRuolo());
+                User.getInstance().setIdRuolo(tu.getIdRuoloT());
                 User.getInstance().setNome(tu.getNomeT());
                 User.getInstance().setCognome(tu.getCognomeT());
                 User.getInstance().setEmail(tu.getEmailT());
@@ -173,7 +173,7 @@ public class CsvUtente implements UserInterface {
         TempUser tu = new TempUser();
 
         tu.setId(Integer.parseInt(gVector[GETINDEXIDUSER]));
-        tu.setIdRuolo(gVector[GETINDEXRUOLO]);
+        tu.setIdRuoloT(gVector[GETINDEXRUOLO]);
         tu.setNomeT(gVector[GETINDEXNOME]);
         tu.setCognomeT(gVector[GETINDEXCOGNOME]);
         tu.setEmailT(gVector[GETINDEXEMAIL]);

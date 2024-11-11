@@ -1,8 +1,4 @@
 package laptop.database;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -15,6 +11,7 @@ import javafx.collections.ObservableList;
 import laptop.utilities.ConnToDb;
 import laptop.model.TempUser;
 import laptop.model.User;
+import web.bean.TempUserBean;
 
 
 public class UsersDao {
@@ -196,16 +193,13 @@ public class UsersDao {
 	}
 
 	public static boolean deleteTempUser(TempUser uT) throws SQLException {
-		String email = uT.getEmailT();
-		int id=uT.getId();
-
 
 		query = "DELETE FROM USERS WHERE Email = ? or idUser=?";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 
-			prepQ.setString(1, email);
-			prepQ.setInt(2,id);
+			prepQ.setString(1, uT.getEmailT());
+			prepQ.setInt(2,uT.getId());
 			row = prepQ.executeUpdate();
 			if (row == 1)
 				state = true;
@@ -278,7 +272,7 @@ public class UsersDao {
 			ResultSet rs = prepQ.executeQuery();
 			while (rs.next()) {
 
-				uT.setIdRuolo(rs.getString(2));
+				uT.setIdRuoloT(rs.getString(2));
 				uT.setNomeT(rs.getString(3));
 				uT.setCognomeT(rs.getString(4));
 				uT.setEmailT(rs.getString(5));
@@ -347,7 +341,7 @@ public class UsersDao {
 				TempUser tu=new TempUser();
 
 				tu.setId(rs.getInt(1));
-				tu.setIdRuolo(rs.getString(2));
+				tu.setIdRuoloT(rs.getString(2));
 				tu.setNomeT(rs.getString(3));
 				tu.setCognomeT(rs.getString(4));
 				tu.setEmailT(rs.getString(5));
@@ -384,7 +378,7 @@ public class UsersDao {
 			// setto i vari dati
 
 
-			prepQ.setString(1, uT.getIdRuolo().substring(0, 1));
+			prepQ.setString(1, uT.getIdRuoloT().substring(0, 1));
 			prepQ.setString(2, uT.getNomeT());
 			prepQ.setString(3, uT.getCognomeT());
 			prepQ.setString(4, uT.getEmailT());

@@ -11,11 +11,12 @@ public class TempUser {
 		ADMIN,
 		UTENTE,
 		SCRITTORE,
-		EDITORE
+		EDITORE,
+		NONVALIDO;
  }
 	@Override
 	public String toString() {
-		return "User [nome=" + nomeT + ", Cognome=" + cognomeT + ", email=" + emailT + ", idRuolo=" + r + "]";
+		return "User [nome=" + nomeT + ", Cognome=" + cognomeT + ", email=" + emailT + ", idRuolo=" + ruoloT + "]";
 	}
 	
 	
@@ -85,36 +86,35 @@ public class TempUser {
 	private String passwordT;
 	private String descrizioneT;
 	private LocalDate dataDiNascitaT;
-	private String r;
-
-	
+	private String ruoloT;
 
 
-	
-public String getIdRuolo()  {
-		
-		return r;
+
+
+
+public String getIdRuoloT()  {
+
+		return ruoloT;
 	}
 
 
 
-	public void setIdRuolo(String ruolo) {
+	public void setIdRuoloT(String ruolo) {
 
 		 switch (ruolo){
 			case "ADMIN","A"->
-				r = RuoliT.ADMIN.toString();
-
+				ruoloT = RuoliT.ADMIN.toString();
 			case "EDITORE","E"->
-				r = RuoliT.EDITORE.toString();
-
+				ruoloT = RuoliT.EDITORE.toString();
 			case "SCRITTORE","W","S"->
-				r = RuoliT.SCRITTORE.toString();
-
+				ruoloT = RuoliT.SCRITTORE.toString();
+			case "UTENTE","U"->
+					ruoloT = RuoliT.UTENTE.toString();
              default->
-				r= RuoliT.UTENTE.toString();
+				ruoloT= RuoliT.NONVALIDO.toString();
 
 			}
-		
+
 
 	}
 
