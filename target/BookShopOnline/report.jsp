@@ -62,14 +62,14 @@
 <tr>
 
 
-<td>${ lista.getIdB() }</td>
-<td>${ lista.getRuoloB() }</td>
-<td>${ lista.getNomeB() }</td>
-<td>${ lista.getCognomeB() }</td>
-<td>${ lista.getEmailB() }</td>
-<td>${ lista.getPassB() }</td>
-<td>${ lista.getDescrizioneB() }</td>
-<td>${ lista.getDataDiNascitaB() }</td>
+<td>${ lista.getIdBNOS() }</td>
+<td>${ lista.getRuoloBNOS() }</td>
+<td>${ lista.getNomeBNOS() }</td>
+<td>${ lista.getCognomeBNOS() }</td>
+<td>${ lista.getEmailBNOS() }</td>
+<td>${ lista.getPassBNOS() }</td>
+<td>${ lista.getDescrizioneBNOS() }</td>
+<td>${ lista.getDataDiNascitaBNOS() }</td>
 
 
 </tr>

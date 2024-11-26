@@ -38,7 +38,7 @@ public class ProfiloSEServlet extends HttpServlet {
     try{
         if(genera!=null && genera.equals("genera"))
         {
-            tUB.setEmailB(uB.getEmailB());
+            tUB.setEmailBNOS(uB.getEmailB());
             tUB.setLista(userToBean());
             req.setAttribute("beanTub",tUB);
             view= getServletContext().getRequestDispatcher(PROFILOSE);
@@ -62,7 +62,7 @@ public class ProfiloSEServlet extends HttpServlet {
             uB.setDescrizioneB(desc);
             uB.setDataDiNascitaB(LocalDate.parse(data));
 
-            UsersDao.aggiornaUtente(userToBeanModif(), tUB.getEmailB());
+            UsersDao.aggiornaUtente(userToBeanModif(), tUB.getEmailBNOS());
             view = getServletContext().getRequestDispatcher(PROFILOSE);
             view.forward(req,resp);
         }
@@ -98,8 +98,8 @@ public class ProfiloSEServlet extends HttpServlet {
 
     private ObservableList<TempUserBean> userToBean() throws SQLException {
         TempUser tU=new TempUser();
-        tUB.setEmailB(uB.getEmailB());
-        tU.setEmailT(tUB.getEmailB());
+        tUB.setEmailBNOS(uB.getEmailB());
+        tU.setEmailT(tUB.getEmailBNOS());
         int id=UsersDao.getTempUserSingolo(tU).getId();
         String ruolo=UsersDao.getTempUserSingolo(tU).getIdRuoloT();
         String nome=UsersDao.getTempUserSingolo(tU).getNomeT();
@@ -110,14 +110,14 @@ public class ProfiloSEServlet extends HttpServlet {
         LocalDate date=UsersDao.getTempUserSingolo(tU).getDataDiNascitaT();
 
         ObservableList<TempUserBean> list= FXCollections.observableArrayList();
-        tUB.setIdB(id);
-        tUB.setRuoloB(ruolo);
-        tUB.setNomeB(nome);
-        tUB.setCognomeB(cognome);
-        tUB.setEmailB(email);
-        tUB.setPassB(pass);
-        tUB.setDescrizioneB(desc);
-        tUB.setDataDiNascitaB(date);
+        tUB.setIdBNOS(id);
+        tUB.setRuoloBNOS(ruolo);
+        tUB.setNomeBNOS(nome);
+        tUB.setCognomeBNOS(cognome);
+        tUB.setEmailBNOS(email);
+        tUB.setPassBNOS(pass);
+        tUB.setDescrizioneBNOS(desc);
+        tUB.setDataDiNascitaBNOS(date);
         list.add(tUB);
         return list;
     }

@@ -91,14 +91,14 @@ public class ReportServlet extends HttpServlet {
 
         for (TempUser tempUser : lista) {
             TempUserBean uTB=new TempUserBean();
-            uTB.setIdB(tempUser.getId());
-            uTB.setRuoloB(tempUser.getIdRuoloT());
-            uTB.setNomeB(tempUser.getNomeT());
-            uTB.setCognomeB(tempUser.getCognomeT());
-            uTB.setEmailB(tempUser.getEmailT());
-            uTB.setPassB(tempUser.getPasswordT());
-            uTB.setDescrizioneB(tempUser.getDescrizioneT());
-            uTB.setDataDiNascitaB(tempUser.getDataDiNascitaT());
+            uTB.setIdBNOS(tempUser.getId());
+            uTB.setRuoloBNOS(tempUser.getIdRuoloT());
+            uTB.setNomeBNOS(tempUser.getNomeT());
+            uTB.setCognomeBNOS(tempUser.getCognomeT());
+            uTB.setEmailBNOS(tempUser.getEmailT());
+            uTB.setPassBNOS(tempUser.getPasswordT());
+            uTB.setDescrizioneBNOS(tempUser.getDescrizioneT());
+            uTB.setDataDiNascitaBNOS(tempUser.getDataDiNascitaT());
             listaB.add(uTB);
 
 

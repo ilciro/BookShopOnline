@@ -61,54 +61,54 @@
    <br>
 <div class="column">
 ruolo :
-  <input type="text" id="ruolo" name="ruolo" value="${tempUb.getRuoloB()}"/>
+  <input type="text" id="ruolo" name="ruolo" value="${tempUb.getRuoloBNOS()}"/>
    <br>
    <br>
    nome:
-    <input type="text" id="nome" name="nome" value="${tempUb.getNomeB()}"/>
+    <input type="text" id="nome" name="nome" value="${tempUb.getNomeBNOS()}"/>
     <br>
     <br>
     cognome:
-     <input type="text" id="cognome" name="cognome" value="${tempUb.getCognomeB()}"/>
+     <input type="text" id="cognome" name="cognome" value="${tempUb.getCognomeBNOS()}"/>
      <br>
      <br>
      email:
-      <input type="text" id="email" name="email" value="${tempUb.getEmailB()}"/>
+      <input type="text" id="email" name="email" value="${tempUb.getEmailBNOS()}"/>
       <br>
       <br>
       password:
-       <input type="password" id="pass" name="pass" value="${tempUb.getPassB()}"/>
+       <input type="password" id="pass" name="pass" value="${tempUb.getPassBNOS()}"/>
        <br>
        <br>
        descrizione:
-       <textarea rows="2" cols="50" id="desc" name="desc">${tempUb.getDescrizioneB()}</textarea>
+       <textarea rows="2" cols="50" id="desc" name="desc">${tempUb.getDescrizioneBNOS()}</textarea>
         <br>
         <br>
         data:
-         <input type="text" id="data" name="data" value="${tempUb.getDataDiNascitaB()}"/>
+         <input type="text" id="data" name="data" value="${tempUb.getDataDiNascitaBNOS()}"/>
          <br>
          <br>
          </div>
 
          <div class="column1">
          ruolo da modificare :
-           <input type="text" id="ruoloN" name="ruoloN" value="${tempUb.getRuoloB()}"/>
+           <input type="text" id="ruoloN" name="ruoloN" value="${tempUb.getRuoloBNOS()}"/>
             <br>
             <br>
             nome da modificare:
-             <input type="text" id="nomeN" name="nomeN" value="${tempUb.getNomeB()}"/>
+             <input type="text" id="nomeN" name="nomeN" value="${tempUb.getNomeBNOS()}"/>
              <br>
              <br>
              cognome da modificare:
-              <input type="text" id="cognomeN" name="cognomeN" value="${tempUb.getCognomeB()}"/>
+              <input type="text" id="cognomeN" name="cognomeN" value="${tempUb.getCognomeBNOS()}"/>
               <br>
               <br>
               email da modificare:
-               <input type="text" id="emailN" name="emailN" value="${tempUb.getEmailB()}"/>
+               <input type="text" id="emailN" name="emailN" value="${tempUb.getEmailBNOS()}"/>
                <br>
                <br>
                password da modificare:
-                <input type="password" id="passN" name="passN" value="${tempUb.getPassB()}"/>
+                <input type="password" id="passN" name="passN" value="${tempUb.getPassBNOS()}"/>
                 <br>
                 <br>
                 descrizione da modificare:

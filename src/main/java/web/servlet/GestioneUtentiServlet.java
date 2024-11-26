@@ -60,14 +60,14 @@ public class GestioneUtentiServlet extends HttpServlet {
                    sB.setIdB(Integer.parseInt(id));
 
 
-                    tUB.setIdB(UsersDao.getUserList().get(sB.getIdB()).getId());
-                    tUB.setRuoloB(UsersDao.getUserList().get(sB.getIdB()).getIdRuoloT());
-                    tUB.setNomeB(UsersDao.getUserList().get(sB.getIdB()).getNomeT());
-                    tUB.setCognomeB(UsersDao.getUserList().get(sB.getIdB()).getCognomeT());
-                    tUB.setEmailB(UsersDao.getUserList().get(sB.getIdB()).getEmailT());
-                    tUB.setPassB(UsersDao.getUserList().get(sB.getIdB()).getPasswordT());
-                    tUB.setDescrizioneB(UsersDao.getUserList().get(sB.getIdB()).getDescrizioneT());
-                    tUB.setDataDiNascitaB(UsersDao.getUserList().get(sB.getIdB()).getDataDiNascitaT());
+                    tUB.setIdBNOS(UsersDao.getUserList().get(sB.getIdB()).getId());
+                    tUB.setRuoloBNOS(UsersDao.getUserList().get(sB.getIdB()).getIdRuoloT());
+                    tUB.setNomeBNOS(UsersDao.getUserList().get(sB.getIdB()).getNomeT());
+                    tUB.setCognomeBNOS(UsersDao.getUserList().get(sB.getIdB()).getCognomeT());
+                    tUB.setEmailBNOS(UsersDao.getUserList().get(sB.getIdB()).getEmailT());
+                    tUB.setPassBNOS(UsersDao.getUserList().get(sB.getIdB()).getPasswordT());
+                    tUB.setDescrizioneBNOS(UsersDao.getUserList().get(sB.getIdB()).getDescrizioneT());
+                    tUB.setDataDiNascitaBNOS(UsersDao.getUserList().get(sB.getIdB()).getDataDiNascitaT());
 
 
                     sB.setTypeOfModif(MODIFICA);
@@ -81,9 +81,9 @@ public class GestioneUtentiServlet extends HttpServlet {
             if(elimina!=null && elimina.equals("elimina"))
             {
 
-                tUB.setIdB(Integer.parseInt(id)+1);
+                tUB.setIdBNOS(Integer.parseInt(id)+1);
                 TempUser tU=new TempUser();
-                tU.setId(tUB.getIdB());
+                tU.setId(tUB.getIdBNOS());
 
 
                if(UsersDao.deleteTempUser(tU))
@@ -123,14 +123,14 @@ public class GestioneUtentiServlet extends HttpServlet {
 
         for (TempUser tempUser : lista) {
             TempUserBean uTB=new TempUserBean();
-            uTB.setIdB(tempUser.getId());
-            uTB.setRuoloB(tempUser.getIdRuoloT());
-            uTB.setNomeB(tempUser.getNomeT());
-            uTB.setCognomeB(tempUser.getCognomeT());
-            uTB.setEmailB(tempUser.getEmailT());
-            uTB.setPassB(tempUser.getPasswordT());
-            uTB.setDescrizioneB(tempUser.getDescrizioneT());
-            uTB.setDataDiNascitaB(tempUser.getDataDiNascitaT());
+            uTB.setIdBNOS(tempUser.getId());
+            uTB.setRuoloBNOS(tempUser.getIdRuoloT());
+            uTB.setNomeBNOS(tempUser.getNomeT());
+            uTB.setCognomeBNOS(tempUser.getCognomeT());
+            uTB.setEmailBNOS(tempUser.getEmailT());
+            uTB.setPassBNOS(tempUser.getPasswordT());
+            uTB.setDescrizioneBNOS(tempUser.getDescrizioneT());
+            uTB.setDataDiNascitaBNOS(tempUser.getDataDiNascitaT());
             listaB.add(uTB);
 
 

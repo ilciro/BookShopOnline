@@ -55,24 +55,24 @@ try {
 
             if (inserisci != null && inserisci.equals("inserisci")) {
                 if (checkRuolo(r)) {
-                    tUB.setRuoloB(r);
-                    tUB.setNomeB(n);
-                    tUB.setCognomeB(c);
-                    tUB.setEmailB(m);
-                    tUB.setPassB(p);
-                    tUB.setDescrizioneB(desc);
-                    tUB.setDataDiNascitaB(data);
+                    tUB.setRuoloBNOS(r);
+                    tUB.setNomeBNOS(n);
+                    tUB.setCognomeBNOS(c);
+                    tUB.setEmailBNOS(m);
+                    tUB.setPassBNOS(p);
+                    tUB.setDescrizioneBNOS(desc);
+                    tUB.setDataDiNascitaBNOS(data);
 
                     u.setIdRuolo(tUB.getRuoloB());
-                    u.setNome(tUB.getNomeB());
-                    u.setCognome(tUB.getCognomeB());
-                    u.setEmail(tUB.getEmailB());
-                    u.setPassword(tUB.getPassB());
-                    u.setDescrizione(tUB.getDescrizioneB());
-                    u.setDataDiNascita(tUB.getDataDiNascitaB());
+                    u.setNome(tUB.getNomeBNOS());
+                    u.setCognome(tUB.getCognomeBNOS());
+                    u.setEmail(tUB.getEmailBNOS());
+                    u.setPassword(tUB.getPassBNOS());
+                    u.setDescrizione(tUB.getDescrizioneBNOS());
+                    u.setDataDiNascita(tUB.getDataDiNascitaBNOS());
                     if (UsersDao.createUser(u)) {
 
-                        tUB.setMexB(" user is created successfully!!");
+                        tUB.setMexBNOS(" user is created successfully!!");
                         req.setAttribute(TEMPUB, tUB);
                         view = getServletContext().getRequestDispatcher(GESTIONE);
                         view.forward(req, resp);
@@ -80,7 +80,7 @@ try {
 
 
                 } else {
-                    tUB.setMexB(" role of user is wrong!!");
+                    tUB.setMexBNOS(" role of user is wrong!!");
                     req.setAttribute(TEMPUB,tUB);
                     view=getServletContext().getRequestDispatcher(AGGIUNGIMODIFICA);
                     view.forward(req,resp);
@@ -93,14 +93,14 @@ try {
             if(modifica!=null && modifica.equals("modifica") ) {
 
                 if(checkRuolo(ruoloM)) {
-                    tUB.setIdB(sB.getIdB() + 1);
-                    tUB.setRuoloB(ruoloM);
-                    tUB.setNomeB(nomeM);
-                    tUB.setCognomeB(cognomeM);
-                    tUB.setEmailB(mailN);
-                    tUB.setPassB(passM);
-                    tUB.setDescrizioneB(descM);
-                    tUB.setDataDiNascitaB(dataM);
+                    tUB.setIdBNOS(sB.getIdB() + 1);
+                    tUB.setRuoloBNOS(ruoloM);
+                    tUB.setNomeBNOS(nomeM);
+                    tUB.setCognomeBNOS(cognomeM);
+                    tUB.setEmailBNOS(mailN);
+                    tUB.setPassBNOS(passM);
+                    tUB.setDescrizioneBNOS(descM);
+                    tUB.setDataDiNascitaBNOS(dataM);
 
 
                     if (UsersDao.aggiornaTempUser(passaDati()) == 1) {
@@ -114,7 +114,7 @@ try {
                     }
                 }
                 else {
-                    tUB.setMexB(" role of user is wrong!!");
+                    tUB.setMexBNOS(" role of user is wrong!!");
                     req.setAttribute(TEMPUB,tUB);
                     view=getServletContext().getRequestDispatcher(AGGIUNGIMODIFICA);
                     view.forward(req,resp);
@@ -139,14 +139,14 @@ try {
 
     private TempUser passaDati() {
         TempUser tu=new TempUser();
-        tu.setId(AggiungiModificaUtenteServlet.tUB.getIdB());
+        tu.setId(AggiungiModificaUtenteServlet.tUB.getIdBNOS());
         tu.setIdRuoloT(AggiungiModificaUtenteServlet.tUB.getRuoloB());
-        tu.setNomeT(AggiungiModificaUtenteServlet.tUB.getNomeB());
-        tu.setCognomeT(AggiungiModificaUtenteServlet.tUB.getCognomeB());
-        tu.setEmailT(AggiungiModificaUtenteServlet.tUB.getEmailB());
-        tu.setPasswordT(AggiungiModificaUtenteServlet.tUB.getPassB());
-        tu.setDescrizioneT(AggiungiModificaUtenteServlet.tUB.getDescrizioneB());
-        tu.setDataDiNascitaT(AggiungiModificaUtenteServlet.tUB.getDataDiNascitaB());
+        tu.setNomeT(AggiungiModificaUtenteServlet.tUB.getNomeBNOS());
+        tu.setCognomeT(AggiungiModificaUtenteServlet.tUB.getCognomeBNOS());
+        tu.setEmailT(AggiungiModificaUtenteServlet.tUB.getEmailBNOS());
+        tu.setPasswordT(AggiungiModificaUtenteServlet.tUB.getPassBNOS());
+        tu.setDescrizioneT(AggiungiModificaUtenteServlet.tUB.getDescrizioneBNOS());
+        tu.setDataDiNascitaT(AggiungiModificaUtenteServlet.tUB.getDataDiNascitaBNOS());
         return tu;
     }
 

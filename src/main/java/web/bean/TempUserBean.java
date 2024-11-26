@@ -6,21 +6,8 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class TempUserBean {
-    public String getMexB() {
-        return mexB;
-    }
 
-    public void setMexB(String mexB) {
-        this.mexB = mexB;
-    }
 
-    public String getStringB() {
-        return stringB;
-    }
-
-    public void setStringB(String stringB) {
-        this.stringB = stringB;
-    }
 
     public ObservableList<TempUserBean> getLista() {
         return lista;
@@ -38,115 +25,139 @@ public class TempUserBean {
         EDITORE
     }
 
-    private int idB;
-    private String ruoloB;
-    private String emailB;
-    private String passB;
-    private String mexB;
-
-    private String nomeB;
-    private String cognomeB;
-
-    private LocalDate dataDiNascitaB;
-
-    private  String stringB;
-
-    private ObservableList<TempUserBean> lista;
-
-
-    public String getNomeB() {
-        return nomeB;
+    public String getCognomeBNOS() {
+        return cognomeBNOS;
     }
 
-    public void setNomeB(String nomeB) {
-        this.nomeB = nomeB;
+    public void setCognomeBNOS(String cognomeBNOS) {
+        this.cognomeBNOS = cognomeBNOS;
     }
 
-    public String getCognomeB() {
-        return cognomeB;
+    public LocalDate getDataDiNascitaBNOS() {
+        return dataDiNascitaBNOS;
     }
 
-    public void setCognomeB(String cognomeB) {
-        this.cognomeB = cognomeB;
+    public void setDataDiNascitaBNOS(LocalDate dataDiNascitaBNOS) {
+        this.dataDiNascitaBNOS = dataDiNascitaBNOS;
     }
 
-    public LocalDate getDataDiNascitaB() {
-        return dataDiNascitaB;
+    public String getEmailBNOS() {
+        return emailBNOS;
     }
 
-    public void setDataDiNascitaB(LocalDate dataDiNascitaB) {
-        this.dataDiNascitaB = dataDiNascitaB;
-    }
-
-    public String getDescrizioneB() {
-        return descrizioneB;
-    }
-
-    public void setDescrizioneB(String descrizioneB) {
-        this.descrizioneB = descrizioneB;
-    }
-
-    private String descrizioneB;
-
-
-
-
-    public int getIdB() {
-        return idB;
-    }
-
-    public void setIdB(int idB) {
-        this.idB = idB;
-    }
-
-    public String getRuoloB() {
-        return ruoloB;
-    }
-
-    public void setRuoloB(String ruoloB) {
-        this.ruoloB= getRuolo(ruoloB);
-
-    }
-
-    public String getEmailB() {
-        return emailB;
-    }
-
-    public void setEmailB(String emailB) {
-
+    public void setEmailBNOS(String emailBNOS) {
         Pattern pattern;
 
         String emailRegex;
         emailRegex= "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
         pattern = Pattern.compile(emailRegex);
-        if (emailB == null || emailB.isEmpty() || !pattern.matcher(emailB).matches())
-            this.emailB=null;
+        if (emailBNOS == null || emailBNOS.isEmpty() || !pattern.matcher(emailBNOS).matches())
+            this.emailBNOS=null;
 
-        this.emailB = emailB;
+        this.emailBNOS = emailBNOS;
     }
 
-    public String getPassB() {
-        return passB;
+    public int getIdBNOS() {
+        return idBNOS;
     }
 
-    public void setPassB(String passB) {
-        if(passB.length() <= 8)
-            this.passB=null;
-        this.passB = passB;
+    public void setIdBNOS(int idBNOS) {
+        this.idBNOS = idBNOS;
     }
 
-    private String getRuolo(String r) {
-        String rB;
-        switch (r) {
-            case "ADMIN", "A" -> rB= UserBean.Ruoli.ADMIN.toString().substring(0,1);
-            case "EDITORE", "E" -> rB= UserBean.Ruoli.EDITORE.toString().substring(0,1);
-            case "SCRITTORE", "W" -> rB= UserBean.Ruoli.SCRITTORE.toString().substring(0,1);
-            default -> rB= UserBean.Ruoli.UTENTE.toString().substring(0,1);
+    public String getMexBNOS() {
+        return mexBNOS;
+    }
+
+    public void setMexBNOS(String mexBNOS) {
+        this.mexBNOS = mexBNOS;
+    }
+
+    public String getNomeBNOS() {
+        return nomeBNOS;
+    }
+
+    public void setNomeBNOS(String nomeBNOS) {
+        this.nomeBNOS = nomeBNOS;
+    }
+
+    public String getPassBNOS() {
+        return passBNOS;
+    }
+
+    public void setPassBNOS(String passBNOS) {
+        if(passBNOS.length() <= 8)
+            this.passBNOS=null;
+        this.passBNOS = passBNOS;
+    }
+
+    public String getRuoloB() {
+
+        switch (ruoloBNOS) {
+            case "ADMIN", "A" -> ruoloBNOS= UserBean.Ruoli.ADMIN.toString().substring(0,1);
+            case "EDITORE", "E" -> ruoloBNOS= UserBean.Ruoli.EDITORE.toString().substring(0,1);
+            case "SCRITTORE", "W" -> ruoloBNOS= UserBean.Ruoli.SCRITTORE.toString().substring(0,1);
+            default -> ruoloBNOS= UserBean.Ruoli.UTENTE.toString().substring(0,1);
 
         }
 
 
-        return rB;
+        return ruoloBNOS;
+
     }
+
+    public void setRuoloBNOS(String ruoloBNOS) {
+        this.ruoloBNOS = ruoloBNOS;
+    }
+
+    public String getStringBNOS() {
+        return stringBNOS;
+    }
+
+    public void setStringBNOS(String stringBNOS) {
+        this.stringBNOS = stringBNOS;
+    }
+
+    private int idBNOS;
+    private String ruoloBNOS;
+    private String emailBNOS;
+    private String passBNOS;
+    private String mexBNOS;
+
+    private String nomeBNOS;
+    private String cognomeBNOS;
+
+    private LocalDate dataDiNascitaBNOS;
+
+    private  String stringBNOS;
+
+    private ObservableList<TempUserBean> lista;
+
+
+
+
+
+    public String getDescrizioneBNOS() {
+        return descrizioneBNOS;
+    }
+
+    public void setDescrizioneBNOS(String descrizioneB) {
+        this.descrizioneBNOS = descrizioneB;
+    }
+
+    private String descrizioneBNOS;
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

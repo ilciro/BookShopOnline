@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<h1> Benvenuto nella schermata per gestire il profilo di ${beanUB.getEmailB()}</h1>
+<h1> Benvenuto nella schermata per gestire il profilo di ${beanUB.getEmailBNOS()}</h1>
 <br>
 <br>
 <h2> Scegliere se modificare oppure cancellare </h2>
@@ -36,13 +36,13 @@
 
 <c:forEach items="#{beanTub.lista }" var="lista">
 <tr>
-  <td >${ lista.getRuoloB() }</td>
-   <td >${ lista.getNomeB() }</td>
-    <td >${ lista.getCognomeB() }</td>
-     <td >${ lista.getEmailB() }</td>
-      <td >${ lista.getPassB() }</td>
-       <td >${ lista.getDescrizioneB() }</td>
-        <td >${ lista.getDataDiNascitaB() }</td>
+  <td >${ lista.getRuoloBNOS() }</td>
+   <td >${ lista.getNomeBNOS() }</td>
+    <td >${ lista.getCognomeBNOS() }</td>
+     <td >${ lista.getEmailBNOS() }</td>
+      <td >${ lista.getPassBNOS() }</td>
+       <td >${ lista.getDescrizioneBNOS() }</td>
+        <td >${ lista.getDataDiNascitaBNOS() }</td>
         </tr>
 </c:forEach>
 </table>
@@ -52,22 +52,22 @@
 <div>
 <br>
 <br>
-Ruolo da modificare : <input type="text" name="ruoloN"id="ruoloN" value="${beanTub.getRuoloB()}"/>
+Ruolo da modificare : <input type="text" name="ruoloN"id="ruoloN" value="${beanTub.getRuoloBNOS()}"/>
 <br>
 <br>
-Nome da modificare : <input type="text" name="nomeN"id="nomeN" value="${beanTub.getNomeB()}"/>
+Nome da modificare : <input type="text" name="nomeN"id="nomeN" value="${beanTub.getNomeBNOS()}"/>
 <br>
 <br>
-Cognome da modificare : <input type="text" name="cognomeN"id="cognomeN" value="${beanTub.getCognomeB()}"/>
+Cognome da modificare : <input type="text" name="cognomeN"id="cognomeN" value="${beanTub.getCognomeBNOS()}"/>
 <br>
 <br>
-Email da modificare : <input type="text" name="mailN"id="mailN" value="${beanTub.getEmailB()}"/>
+Email da modificare : <input type="text" name="mailN"id="mailN" value="${beanTub.getEmailBNOS()}"/>
 <br>
 <br>
-Pass da modificare : <input type="password" name="passN"id="passN" value="${beanTub.getPassB()}"/>
+Pass da modificare : <input type="password" name="passN"id="passN" value="${beanTub.getPassBNOS()}"/>
 <br>
 <br>
-Descrizione da modificare : <input type="text" name="descN"id="descN" value="${beanTub.getDescrizioneB()}"/>
+Descrizione da modificare : <input type="text" name="descN"id="descN" value="${beanTub.getDescrizioneBNOS()}"/>
 <br>
 <br>
 Data da modificare : <input type="date" name="dataN"id="dataN"/>
