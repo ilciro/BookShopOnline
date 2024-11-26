@@ -28,7 +28,6 @@ public class ControllerCheckPagamentoData {
 	private final FatturaPagamentoCCredito csvFattura;
 	private final CsvOggettoDao csv;
 	private final GiornaleDao gD=new GiornaleDao();
-	private final ReportDao rDao;
 	private final CsvReport csvReport;
 
 	public void checkPagamentoData(String nome) throws SQLException, IdException, CsvValidationException, IOException {
@@ -113,7 +112,6 @@ public class ControllerCheckPagamentoData {
 		pagD=new PagamentoDao();
 		csv=new CsvOggettoDao();
 		csvFattura=new FatturaPagamentoCCredito();
-		rDao=new ReportDao();
 		csvReport=new CsvReport();
 
 	}

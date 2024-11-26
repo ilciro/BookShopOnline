@@ -24,7 +24,6 @@
             <a href="riviste.jsp" id="riviste">Riviste</a>
             <a href="login.jsp" id="login">Login</a>
             <a href="ricerca.jsp" id="ricerca">Ricerca</a>
-            <a href="logout.jsp" id="logout">Logout</a>
 
 
         </div>

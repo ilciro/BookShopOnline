@@ -11,11 +11,6 @@ body {
 div
 { text-align:center;}
 
-.exception{
-text-color:RED;
-font-width:30px;
-}
-
 
 
 
@@ -81,6 +76,11 @@ color:violet;
 text-align:center;
 font-size:25px;
 color:red;
+}
+.reset{
+text-align:center;
+font-size:25px;
+color:orange;
 }
 
 

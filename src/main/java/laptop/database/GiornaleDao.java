@@ -1,10 +1,5 @@
 package laptop.database;
 
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -225,13 +220,13 @@ public class GiornaleDao {
 
 	}
 
-	public int cancella(Giornale l) throws SQLException {
+	public int cancella(Giornale g) throws SQLException {
 		int row;
 		query = "delete from GIORNALE where idGiornale=? or idGiornale=?";
 
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
-			prepQ.setInt(1, l.getId());
+			prepQ.setInt(1, g.getId());
 			prepQ.setInt(2, vis.getId());
 			row = prepQ.executeUpdate();
 		}

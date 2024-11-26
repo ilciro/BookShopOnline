@@ -3,18 +3,19 @@ package web.bean;
 import javafx.collections.ObservableList;
 import laptop.model.raccolta.Raccolta;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class ModificaOggettoBean {
     private ObservableList<Raccolta> miaListaB;
 
-    private ArrayList<String> listaCategorieB;
+    private List<String> listaCategorieB;
 
-    public ArrayList<String> getListaCategorieB() {
+    public List<String> getListaCategorieB() {
         return listaCategorieB;
     }
 
-    public void setListaCategorieB(ArrayList<String> listaCategorieB) {
+    public void setListaCategorieB(List<String> listaCategorieB) {
         this.listaCategorieB = listaCategorieB;
     }
 

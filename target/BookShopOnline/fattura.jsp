@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+         <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+
 <!DOCTYPE html>
 <html lang=it>
 <head>
@@ -8,6 +11,11 @@
 <title>Fattura page</title>
 </head>
 <body>
+
+
+
+
+
 
 <h1> Benvenuto nella schermata del pagamento con fattura</h1>
 
@@ -28,7 +36,7 @@
 inserire il nome :
 </td>
 <td>
-<input type="text" id="nomeL" name="nomeL">
+<input type="text" id="nomeL" name="nomeL" value="${beanUB.getNomeB()}">
 </td>
 </tr>
 <tr>
@@ -36,7 +44,7 @@ inserire il nome :
 inserire il cognome :
 </td>
 <td>
-<input type="text" id="cognomeL" name="cognomeL">
+<input type="text" id="cognomeL" name="cognomeL" value="${beanUB.getCognomeB()}">
 </td>
 </tr>
 <tr>

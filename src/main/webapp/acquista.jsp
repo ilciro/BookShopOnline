@@ -26,7 +26,7 @@
 titolo o nome oggetto :
 </td>
 <td>
-<input type="text" id="nome" name="nome"  class="automatic" value="${bean1.getTitoloB() }">
+<input type="text" id="nome" name="nome"  class="automatic" value="${beanS.getTitoloB() }">
 </td>
 
 </tr>
@@ -35,7 +35,7 @@ titolo o nome oggetto :
 inserire quantita da acquistare :
 </td>
 <td>
-<input type="text" id="quantita" name="quantita" value="${bean1.getQuantitaB() }">
+<input type="text" id="quantita" name="quantita" value="${beanS.getQuantitaB() }">
 </td>
 </tr>
 <tr>
@@ -43,7 +43,7 @@ inserire quantita da acquistare :
 totale da pagare :
 </td>
 <td>
-<input type="text" id="totale" name="totale" value="${bean1.getSpesaTB() }">
+<input type="text" id="totale" name="totale" value="${beanS.getSpesaTB() }">
 </td>
 <td>
 <input type="submit" id="totaleB" name="totaleB" value="calcola">

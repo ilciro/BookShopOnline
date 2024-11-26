@@ -2,10 +2,11 @@ package web.servlet;
 
 import java.io.IOException;
 import java.io.Serial;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 import laptop.database.RivistaDao;
-import laptop.exception.IdException;
 import laptop.model.raccolta.Rivista;
 import web.bean.RivistaBean;
 import web.bean.SystemBean;
@@ -15,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import web.bean.UserBean;
 
 @WebServlet("/RivisteServlet")
 public class RivisteServlet extends HttpServlet {
@@ -73,7 +75,7 @@ public class RivisteServlet extends HttpServlet {
                     SystemBean.getInstance().setIdB(rB.getIdB());
                     SystemBean.getInstance().setTitoloB(rB.getTitoloB());
                     req.setAttribute(BEANR,rB);
-                    req.setAttribute("bean1",SystemBean.getInstance());
+                    req.setAttribute("beanS",sB);
 
                     RequestDispatcher view = getServletContext().getRequestDispatcher("/acquista.jsp");
                     view.forward(req,resp);
@@ -84,16 +86,37 @@ public class RivisteServlet extends HttpServlet {
             }
             if(a!=null && a.equals("indietro"))
             {
-                RequestDispatcher view = getServletContext().getRequestDispatcher("/index.jsp");
-                view.forward(req,resp);
+                RequestDispatcher view;
+                if(sB.isLoggedB())
+                {
+                    switch (UserBean.getInstance().getRuoloB()) {
+                        case "ADMIN", "A" -> {
+                            view = getServletContext().getRequestDispatcher("/admin.jsp");
+                            view.forward(req, resp);
+
+                        }
+                        case "SCRITTORE", "EDITORE", "W", "S", "E" ->
+                        {
+                            view = getServletContext().getRequestDispatcher("/scrittoreEditore.jsp");
+                            view.forward(req, resp);
+                        }
+                        case "UTENTE","U"->
+                        {
+                            view = getServletContext().getRequestDispatcher("/utente.jsp");
+                            view.forward(req, resp);
+                        }
+                        default -> Logger.getLogger(" indietro ").log(Level.SEVERE," type is not correct");
+                    }
+                }
+                view = getServletContext().getRequestDispatcher("/index.jsp");
+                view.forward(req, resp);
             }
 
 
-        } catch (NumberFormatException e) {
-            rB.setMexB(new IdException("id nullo o eccede lista"));
-            req.setAttribute(BEANR,rB);
-            RequestDispatcher view = getServletContext().getRequestDispatcher(RIVISTE);
-            view.forward(req,resp);
+
+        } catch (NumberFormatException |ServletException|IOException e) {
+            Logger.getLogger("do post").log(Level.SEVERE," exception has occurred !! .",e);
+
         }
     }
 

@@ -2,7 +2,6 @@ package web.servlet;
 
 import java.io.IOException;
 import java.io.Serial;
-import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

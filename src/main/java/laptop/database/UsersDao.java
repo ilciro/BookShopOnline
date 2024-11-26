@@ -263,11 +263,12 @@ public class UsersDao {
 	public static TempUser getTempUserSingolo(TempUser uT) throws SQLException {
 
 
-		query = "SELECT * FROM USERS where idUser = ?";
+		query = "SELECT * FROM USERS where idUser = ? or email=?";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 
 			prepQ.setInt(1, uT.getId());
+			prepQ.setString(2,uT.getEmailT());
 
 			ResultSet rs = prepQ.executeQuery();
 			while (rs.next()) {

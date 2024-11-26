@@ -3,6 +3,8 @@ package web.servlet;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import laptop.database.LibroDao;
 import laptop.model.raccolta.Libro;
@@ -14,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import web.bean.UserBean;
 
 @WebServlet("/LibriServlet")
 public class LibriServlet extends HttpServlet implements Serializable {
@@ -25,7 +28,7 @@ public class LibriServlet extends HttpServlet implements Serializable {
     private final transient LibroDao lD=new LibroDao();
     private final transient Libro l=new Libro();
     private static final String BEANL="beanL";
-    private final transient SystemBean sB=SystemBean.getInstance();
+    private static final SystemBean sB=SystemBean.getInstance();
 
 
     @Override
@@ -61,7 +64,7 @@ public class LibriServlet extends HttpServlet implements Serializable {
                    SystemBean.getInstance().setIdB(lB.getIdB());
                    SystemBean.getInstance().setTitoloB(lB.getTitoloB());
                    req.setAttribute(BEANL, lB);
-                   req.setAttribute("bean1", SystemBean.getInstance());
+                   req.setAttribute("beanS", sB);
 
                    RequestDispatcher view = getServletContext().getRequestDispatcher("/acquista.jsp");
                    view.forward(req, resp);
@@ -70,13 +73,34 @@ public class LibriServlet extends HttpServlet implements Serializable {
 
            }
            if (a != null && a.equals("indietro")) {
-               RequestDispatcher view = getServletContext().getRequestDispatcher("/index.jsp");
+               RequestDispatcher view;
+               if(sB.isLoggedB())
+               {
+                   switch (UserBean.getInstance().getRuoloB()) {
+                       case "ADMIN", "A" -> {
+                           view = getServletContext().getRequestDispatcher("/admin.jsp");
+                           view.forward(req, resp);
+
+                       }
+                       case "SCRITTORE", "EDITORE", "W", "S", "E" ->
+                       {
+                           view = getServletContext().getRequestDispatcher("/scrittoreEditore.jsp");
+                           view.forward(req, resp);
+                       }
+                       case "UTENTE","U"->
+                       {
+                           view = getServletContext().getRequestDispatcher("/utente.jsp");
+                           view.forward(req, resp);
+                       }
+                       default -> Logger.getLogger(" indietro ").log(Level.SEVERE," type is not correct");
+                   }
+               }
+                view = getServletContext().getRequestDispatcher("/index.jsp");
                view.forward(req, resp);
            }
        }catch (ServletException |IOException e)
        {
-           RequestDispatcher view = getServletContext().getRequestDispatcher(LIBRI);
-           view.forward(req, resp);
+          Logger.getLogger("do post").log(Level.SEVERE," exception has occurred !! .",e);
        }
 
 

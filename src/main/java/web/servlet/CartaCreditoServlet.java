@@ -10,8 +10,6 @@ import java.util.logging.Level;
 
 import laptop.database.*;
 import web.bean.CartaCreditoBean;
-import web.bean.GiornaleBean;
-import web.bean.LibroBean;
 import web.bean.SystemBean;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -40,7 +38,6 @@ public class CartaCreditoServlet extends HttpServlet implements Serializable {
     private final transient LibroDao lD=new LibroDao();
     private final transient GiornaleDao gD=new GiornaleDao();
     private final transient Giornale g=new Giornale();
-    private final transient GiornaleBean gB=new GiornaleBean();
     private final transient Rivista r=new Rivista();
     private final transient RivistaDao rD=new RivistaDao();
     private final transient PagamentoDao pD=new PagamentoDao();

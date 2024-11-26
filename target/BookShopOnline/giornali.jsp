@@ -50,16 +50,30 @@ id
 
 <tr>
 
-
-<td>${ lista.getTitolo() }</td>
-<td>${ lista.getCategoria() }</td>
-<td>${ lista.getLingua() }</td>
-<td>${ lista.getEditore() }</td>
-<td>${ lista.getDataPubb()}</td>
-<td>${ lista.getCopieRimanenti() }</td>
-<td>${ lista.getDisponibilita() }</td>
-<td>${ lista.getPrezzo() }</td>
-<td>${ lista.getId()}</td>
+<c:choose>
+<c:when test="${lista.getCopieRimanenti()<=0 || lista.getDisponibilita()==0}">
+<td style="background-color:RED">${ lista.getTitolo() }</td>
+<td style="background-color:RED">${ lista.getCategoria() }</td>
+<td style="background-color:RED">${ lista.getLingua() }</td>
+<td style="background-color:RED">${ lista.getEditore() }</td>
+<td style="background-color:RED">${ lista.getDataPubb()}</td>
+<td style="background-color:RED">${ lista.getCopieRimanenti() }</td>
+<td style="background-color:RED">${ lista.getDisponibilita() }</td>
+<td style="background-color:RED">${ lista.getPrezzo() }</td>
+<td style="background-color:RED">${ lista.getId()}</td>
+</c:when>
+<c:otherwise>
+<td style="background-color:GREEN">${ lista.getTitolo() }</td>
+<td style="background-color:GREEN">${ lista.getCategoria() }</td>
+<td style="background-color:GREEN">${ lista.getLingua() }</td>
+<td style="background-color:GREEN">${ lista.getEditore() }</td>
+<td style="background-color:GREEN">${ lista.getDataPubb()}</td>
+<td style="background-color:GREEN">${ lista.getCopieRimanenti() }</td>
+<td style="background-color:GREEN">${ lista.getDisponibilita() }</td>
+<td style="background-color:GREEN">${ lista.getPrezzo() }</td>
+<td style="background-color:GREEN">${ lista.getId()}</td>
+</c:otherwise>
+</c:choose>
 
 </tr>
 </c:forEach>

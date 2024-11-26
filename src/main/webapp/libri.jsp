@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 
 <!DOCTYPE html>
@@ -12,9 +12,20 @@
 </head>
 <body>
 
-<h1> Elenco oggetti prensenti nel db</h1>
+
+
+<h1> Elenco oggetti presenti nel db</h1>
+
+
+
 
 <form action="LibriServlet" method="post">
+
+
+
+
+
+
 <table>
 <caption>Riepilogo libro</caption>
 <tr>
@@ -71,22 +82,45 @@ id prodotto
 
 <tr>
 
+<c:choose>
+<c:when test="${lista.getNrCopie()<=0 || lista.getDisponibilita()==0}">
+    <td style="background-color:RED">${ lista.getTitolo() }</td>
+    <td style="background-color:RED">${ lista.getNrPagine() }</td>
+    <td style="background-color:RED">${ lista.getCodIsbn() }</td>
+    <td style="background-color:RED">${ lista.getEditore() }</td>
+    <td style="background-color:RED">${ lista.getAutore() }</td>
+    <td style="background-color:RED">${ lista.getLingua() }</td>
+    <td style="background-color:RED">${ lista.getCategoria()}</td>
+    <td style="background-color:RED">${ lista.getDataPubb()}</td>
+    <td style="background-color:RED">${ lista.getRecensione() }</td>
+    <td style="background-color:RED">${ lista.getNrCopie() }</td>
+    <td style="background-color:RED">${ lista.getDesc() }</td>
+    <td style="background-color:RED">${lista.getDisponibilita()}</td>
+    <td style="background-color:RED">${ lista.getPrezzo() }</td>
+    <td style="background-color:RED">${ lista.getNrCopie() }</td>
+    <td style="background-color:RED">${ lista.getId()}</td>
 
-<td>${ lista.getTitolo() }</td>
-<td>${ lista.getNrPagine() }</td>
-<td>${ lista.getCodIsbn() }</td>
-<td>${ lista.getEditore() }</td>
-<td>${ lista.getAutore() }</td>
-<td>${ lista.getLingua() }</td>
-<td>${ lista.getCategoria()}</td>
-<td>${ lista.getDataPubb()}</td>
-<td>${ lista.getRecensione() }</td>
-<td>${ lista.getNrCopie() }</td>
-<td>${ lista.getDesc() }</td>
-<td>${ lista.getDisponibilita() }</td>
-<td>${ lista.getPrezzo() }</td>
-<td>${ lista.getNrCopie() }</td>
-<td>${ lista.getId()}</td>
+    </c:when>
+    <c:otherwise>
+    <td >${ lista.getTitolo() }</td>
+        <td style="background-color:GREEN">${ lista.getNrPagine() }</td>
+        <td style="background-color:GREEN">${ lista.getCodIsbn() }</td>
+        <td style="background-color:GREEN">${ lista.getEditore() }</td>
+        <td style="background-color:GREEN">${ lista.getAutore() }</td>
+        <td style="background-color:GREEN">${ lista.getLingua() }</td>
+        <td style="background-color:GREEN">${ lista.getCategoria()}</td>
+        <td style="background-color:GREEN">${ lista.getDataPubb()}</td>
+        <td style="background-color:GREEN">${ lista.getRecensione() }</td>
+        <td style="background-color:GREEN">${ lista.getNrCopie() }</td>
+        <td style="background-color:GREEN">${ lista.getDesc() }</td>
+        <td style="background-color:GREEN">${lista.getDisponibilita()}</td>
+        <td style="background-color:GREEN">${ lista.getPrezzo() }</td>
+        <td style="background-color:GREEN">${ lista.getNrCopie() }</td>
+        <td style="background-color:GREEN">${ lista.getId()}</td>
+</c:otherwise>
+</c:choose>
+
+
 
 </tr>
 </c:forEach>

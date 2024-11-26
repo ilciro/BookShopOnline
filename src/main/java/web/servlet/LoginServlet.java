@@ -8,16 +8,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import laptop.database.UsersDao;
 import laptop.model.User;
-import org.apache.ibatis.jdbc.SQL;
+import web.bean.SystemBean;
 import web.bean.UserBean;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-    private final UserBean uB=UserBean.getInstance();
-    private final User u= User.getInstance();
+    private static final UserBean uB=UserBean.getInstance();
+    private static final User u= User.getInstance();
+    private static final SystemBean sB=SystemBean.getInstance();
+    private static final String BEANUB="beanUb";
+    private static final String BEANS="beanS";
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("emailL");
@@ -33,17 +38,39 @@ public class LoginServlet extends HttpServlet {
                 u.setEmail(uB.getEmailB());
                 u.setPassword(uB.getPassB());
                 if (UsersDao.checkUser(u) == 1) {
-                    switch (UsersDao.getRuolo(u)) {
+                    switch (UsersDao.getRuolo(u)){
+
+
                         case "ADMIN", "A" -> {
+                            sB.setLoggedB(true);
+                            uB.setNomeB(UsersDao.pickData(u).getNome());
+                            uB.setCognomeB(UsersDao.pickData(u).getCognome());
+                            req.setAttribute(BEANUB,uB);
+                            req.setAttribute(BEANS,sB);
                             view = getServletContext().getRequestDispatcher("/admin.jsp");
                             view.forward(req, resp);
                         }
                         case "SCRITTORE", "EDITORE", "S", "E","W" -> {
+                            sB.setLoggedB(true);
+
+                            uB.setNomeB(UsersDao.pickData(u).getNome());
+                            uB.setCognomeB(UsersDao.pickData(u).getCognome());
+                            req.setAttribute(BEANUB,uB);
+                            req.setAttribute(BEANS,sB);
+
+
                             view = getServletContext().getRequestDispatcher("/scrittoreEditore.jsp");
                             view.forward(req, resp);
 
                         }
                         case "UTENTE", "U" -> {
+                            sB.setLoggedB(true);
+                            uB.setNomeB(UsersDao.pickData(u).getNome());
+                            uB.setCognomeB(UsersDao.pickData(u).getCognome());
+                            req.setAttribute(BEANUB,uB);
+                            req.setAttribute(BEANS,sB);
+
+
                             view = getServletContext().getRequestDispatcher("/utente.jsp");
                             view.forward(req, resp);
 
@@ -52,8 +79,10 @@ public class LoginServlet extends HttpServlet {
                     }
                 }
                 else{
-                    throw new SQLException(" please register as a new user" +
-                            "\nclick on button register!!");
+                    uB.setMexB(new SQLException(" please register as a new user" +
+                            "\nclick on button register!!").toString());
+                    view = getServletContext().getRequestDispatcher("/login.jsp");
+                    view.forward(req, resp);
                 }
 
             }
@@ -65,7 +94,7 @@ public class LoginServlet extends HttpServlet {
                 u.setPassword(uB.getPassB());
                 if(UsersDao.checkUser(u)==1)
                 {
-                    req.setAttribute("beanUb",uB);
+                    req.setAttribute(BEANUB,uB);
                     view=getServletContext().getRequestDispatcher("/reset.jsp");
                     view.forward(req,resp);
                 }
@@ -73,11 +102,10 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (SQLException | ServletException e) {
 
-            uB.setMexB(e.toString());
-            req.setAttribute("beanUb", uB);
-            view = getServletContext().getRequestDispatcher("/login.jsp");
-            view.forward(req, resp);
+            Logger.getLogger("do post ").log(Level.SEVERE, " exception has occurred :.",e);
+
 
         }
     }
+
 }

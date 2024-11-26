@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 public class RegistraServlet extends HttpServlet {
     private static final UserBean uB=UserBean.getInstance();
     private static final User u=User.getInstance();
-    private  boolean state=false;
     private static final String BEANUB="beanUb";
     private static final String REGISTRA="/registra.jsp";
     @Override
@@ -88,7 +87,7 @@ public class RegistraServlet extends HttpServlet {
 
 
 
-        }catch (SQLException  e)
+        }catch (SQLException |ServletException|IOException  e)
         {
             uB.setMexB(e.toString());
             req.setAttribute(BEANUB,uB);
@@ -99,11 +98,7 @@ public class RegistraServlet extends HttpServlet {
     private boolean checkData (String n, String c, String email, String pwd)
     // controll  all data
     {
-        if(checkEmail(email) && checkPassword(pwd) && checkNomeCognome(n,c))
-        {
-            state=true;
-        }
-        return state;
+        return checkEmail(email) && checkPassword(pwd) && checkNomeCognome(n, c);
     }
 
     private boolean checkEmail(String email)
@@ -121,19 +116,12 @@ public class RegistraServlet extends HttpServlet {
 
     private boolean checkPassword(String pwd )
     {
-        if(pwd.length()>=8 ) {
-            state= true;
-        }
-        return state;
+        return pwd.length() >= 8;
     }
 
     private boolean checkNomeCognome(String n, String c)
     {
-        if (n != null && c != null)
-        {
-            state= true;
-        }
-        return state;
+        return n != null && c != null;
     }
 
     private void pulisci() {

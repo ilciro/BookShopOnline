@@ -3,6 +3,8 @@ package web.servlet;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import laptop.database.GiornaleDao;
 import laptop.database.LibroDao;
@@ -11,11 +13,7 @@ import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
-import web.bean.AcquistaBean;
-import web.bean.GiornaleBean;
-import web.bean.LibroBean;
-import web.bean.RivistaBean;
-import web.bean.SystemBean;
+import web.bean.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,20 +28,23 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-    private final transient AcquistaBean aB=new AcquistaBean();
-    private  final transient LibroDao lD=new LibroDao();
-    private final transient Libro l=new Libro();
-    private final transient LibroBean lB=new LibroBean();
-    private final transient GiornaleBean gB=new GiornaleBean();
-    private final transient RivistaBean rB=new RivistaBean();
-    private final transient Rivista r=new Rivista();
-    private final transient RivistaDao rD=new RivistaDao();
-    private final transient Giornale g=new Giornale();
-    private final transient GiornaleDao gD=new GiornaleDao();
-    private  static final String BEAN1="bean1";
+    private static final  AcquistaBean aB=new AcquistaBean();
+    private static final SystemBean sB=SystemBean.getInstance();
+    private  static final LibroDao lD=new LibroDao();
+    private static final Libro l=new Libro();
+    private static final LibroBean lB=new LibroBean();
+    private static final GiornaleBean gB=new GiornaleBean();
+    private static final RivistaBean rB=new RivistaBean();
+    private static final Rivista r=new Rivista();
+    private static final RivistaDao rD=new RivistaDao();
+    private static final Giornale g=new Giornale();
+    private static final GiornaleDao gD=new GiornaleDao();
+    private  static final String BEANS="beanS";
     private static final String LIBRO="libro";
     private static final String GIORNALE="giornale";
     private static final String RIVISTA="rivista";
+    private static final UserBean uB=UserBean.getInstance();
+    private static final String BEANUB="beanUB";
 
     public AcquistaServlet()
     {
@@ -67,9 +68,7 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
                 r.setId(rB.getIdB());
                 aB.setTitoloB(rD.getRivistaIdTitoloAutore(r).get(0).getTitolo());
             }
-            default -> {
-                break;
-            }
+            default -> Logger.getLogger(" do post").log(Level.SEVERE," type is wrong ");
 
 
         }
@@ -77,129 +76,122 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String q=req.getParameter("quantita");
-        String calcola=req.getParameter("totaleB");
-        String metodo=req.getParameter("metodoP");
-        String negozio=req.getParameter("negozioB");
+        String q = req.getParameter("quantita");
+        String calcola = req.getParameter("totaleB");
+        String metodo = req.getParameter("metodoP");
+        String negozio = req.getParameter("negozioB");
         SystemBean.getInstance().setMetodoPB(metodo);
-        String download=req.getParameter("pdfB");
+        String download = req.getParameter("pdfB");
         float costo;
-        String type=SystemBean.getInstance().getTypeB();
-        String pagamento=SystemBean.getInstance().getMetodoPB();
+        String type = sB.getTypeB();
+        String pagamento = sB.getMetodoPB();
         try {
 
 
+            if (calcola != null && calcola.equals("calcola")) {
+                switch (type) {
+                    case LIBRO -> {
 
-            if(calcola!=null && calcola.equals("calcola"))
-            {
-                switch(type)
-                {
-                    case LIBRO->
-                    {
-
-                        costo=Integer.parseInt(q)*lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo();
+                        costo = Integer.parseInt(q) * lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo();
                         aB.setPrezzoB(costo);
-                        SystemBean.getInstance().setQuantitaB(Integer.parseInt(q));
-                        SystemBean.getInstance().setSpesaTB(costo);
-                        SystemBean.getInstance().setTitoloB(aB.getTitoloB());
-                        SystemBean.getInstance().setSpesaTB(aB.getPrezzoB());
+                        sB.setQuantitaB(Integer.parseInt(q));
+                        sB.setSpesaTB(costo);
+                        sB.setTitoloB(aB.getTitoloB());
+                        sB.setSpesaTB(aB.getPrezzoB());
 
 
                     }
-                    case  GIORNALE->
-                    {
+                    case GIORNALE -> {
 
-                        costo=Integer.parseInt(q)*gD.getGiornaleIdTitoloAutore(g).get(0).getPrezzo();
+                        costo = Integer.parseInt(q) * gD.getGiornaleIdTitoloAutore(g).get(0).getPrezzo();
                         aB.setPrezzoB(costo);
-                        SystemBean.getInstance().setQuantitaB(Integer.parseInt(q));
-                        SystemBean.getInstance().setSpesaTB(costo);
-                        SystemBean.getInstance().setTitoloB(aB.getTitoloB());
-                        SystemBean.getInstance().setSpesaTB(aB.getPrezzoB());
+                        sB.setQuantitaB(Integer.parseInt(q));
+                        sB.setSpesaTB(costo);
+                        sB.setTitoloB(aB.getTitoloB());
+                        sB.setSpesaTB(aB.getPrezzoB());
 
                     }
-                    case  RIVISTA->
-                    {
+                    case RIVISTA -> {
 
-                        costo=Integer.parseInt(q)*rD.getRivistaIdTitoloAutore(r).get(0).getPrezzo();
+                        costo = Integer.parseInt(q) * rD.getRivistaIdTitoloAutore(r).get(0).getPrezzo();
                         aB.setPrezzoB(costo);
-                        SystemBean.getInstance().setQuantitaB(Integer.parseInt(q));
-                        SystemBean.getInstance().setSpesaTB(costo);
-                        SystemBean.getInstance().setTitoloB(aB.getTitoloB());
-                        SystemBean.getInstance().setSpesaTB(aB.getPrezzoB());
+                        sB.setQuantitaB(Integer.parseInt(q));
+                        sB.setSpesaTB(costo);
+                        sB.setTitoloB(aB.getTitoloB());
+                        sB.setSpesaTB(aB.getPrezzoB());
 
                     }
-                    default->{
-                        break;
-                    }
+                    default -> Logger.getLogger("do post").log(Level.SEVERE, " type is incorrect !!");
                 }
 
 
-                req.setAttribute("beanA",aB);
-                req.setAttribute(BEAN1, SystemBean.getInstance());
+                req.setAttribute("beanA", aB);
+                req.setAttribute(BEANS, sB);
                 RequestDispatcher view = getServletContext().getRequestDispatcher("/acquista.jsp");
-                view.forward(req,resp);
+                view.forward(req, resp);
 
 
             }
 
 
+            if (negozio != null && negozio.equals("ritiro in negozio")) {
 
-            if(negozio!=null && negozio.equals("ritiro in negozio"))
-            {
+
                 SystemBean.getInstance().setNegozioSelezionatoB(true);
-                switch(pagamento)
-                {
-                    case "cash":
-                    {
-                        req.setAttribute(BEAN1, SystemBean.getInstance());
+                switch (pagamento) {
+                    case "cash"-> {
+                        req.setAttribute(BEANS, sB);
+                        req.setAttribute(BEANUB, uB);
 
                         RequestDispatcher view = getServletContext().getRequestDispatcher("/fattura.jsp");
-                        view.forward(req,resp);
-                        break;
+                        view.forward(req, resp);
+
                     }
-                    case "cCredito":
-                    {
-                        req.setAttribute(BEAN1, SystemBean.getInstance());
+                    case "cCredito"-> {
+                        req.setAttribute(BEANS, sB);
+                        req.setAttribute(BEANUB, uB);
+
 
                         RequestDispatcher view = getServletContext().getRequestDispatcher("/cartaCredito.jsp");
-                        view.forward(req,resp);
-                        break;
+                        view.forward(req, resp);
                     }
-                    default:break;
+                    default-> Logger.getLogger("do post negozio").log(Level.SEVERE," type is wrong !!");
+
                 }
 
             }
-            if(download!=null && download.equals("scarica il pdf"))
-            {
+            if (download != null && download.equals("scarica il pdf")) {
                 SystemBean.getInstance().setNegozioSelezionatoB(false);
-                switch(pagamento)
-                {
-                    case "cash":
-                    {
-                        req.setAttribute(BEAN1, SystemBean.getInstance());
+
+                switch (pagamento) {
+                    case "cash"-> {
+                        req.setAttribute(BEANS,sB);
+                        req.setAttribute(BEANUB, uB);
+
+
 
                         RequestDispatcher view = getServletContext().getRequestDispatcher("/fattura.jsp");
-                        view.forward(req,resp);
-                        break;
+                        view.forward(req, resp);
                     }
-                    case "cCredito":
-                    {
-                        req.setAttribute(BEAN1, SystemBean.getInstance());
+                    case "cCredito"->{
+                        req.setAttribute(BEANS, sB);
+                        req.setAttribute(BEANUB, uB);
+
 
                         RequestDispatcher view = getServletContext().getRequestDispatcher("/cartaCredito.jsp");
-                        view.forward(req,resp);
-                        break;
+                        view.forward(req, resp);
                     }
-                    default:break;
+                    default->Logger.getLogger(" download error").log(Level.SEVERE," type of download in incorrect!!");
+
                 }
             }
 
 
-        } catch (NumberFormatException | ServletException |IOException e) {
+        } catch (NumberFormatException | ServletException | IOException e) {
             aB.setMexB(new IdException("quantita eccede la scorta nel magazzino"));
-            req.setAttribute("beanA",aB);
+            req.setAttribute("beanA", aB);
             RequestDispatcher view = getServletContext().getRequestDispatcher("/acquista.jsp");
-            view.forward(req,resp);
+            view.forward(req, resp);
         }
     }
 

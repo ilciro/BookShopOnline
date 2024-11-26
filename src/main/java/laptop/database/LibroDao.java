@@ -35,7 +35,7 @@ public class LibroDao {
 
         ObservableList<Libro> catalogo = FXCollections.observableArrayList();
 
-        query = "select * from LIBRO where idLibro=? or idLibro=? or titolo=? or autore=?";
+        query = "select * from LIBRO where idLibro=? or idLibro=? or titolo=? or autore=? or editore=?";
         try (Connection conn = ConnToDb.connectionToDB();
              PreparedStatement prepQ = conn.prepareStatement(query)) {
 
@@ -43,6 +43,7 @@ public class LibroDao {
             prepQ.setInt(2, vis.getId());
             prepQ.setString(3, l.getTitolo());
             prepQ.setString(4, l.getAutore());
+            prepQ.setString(5, l.getEditore());
 
 
 
@@ -108,7 +109,7 @@ public class LibroDao {
     {
 
         query="insert into LIBRO values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        return executeQuery(l,query,null);
+        return executeQuery(l,query);
 
     }
 
@@ -119,7 +120,7 @@ public class LibroDao {
                 "recensione=?,copieRimanenti=?,breveDescrizione=?,disp=?," +
                 "prezzo=? where idLibro=? or idLibro=?";
 
-        return executeQuery(l,null,query);
+        return executeQuery(l,query);
 
     }
 
@@ -146,7 +147,7 @@ public class LibroDao {
 
     private String[] retLibro(Libro l)
     {
-        String [] appoggio=new String[13];
+        String [] appoggio=new String[14];
 
         appoggio[0]=l.getTitolo();
         appoggio[1]=String.valueOf(l.getNrPagine());
@@ -161,13 +162,15 @@ public class LibroDao {
         appoggio[10]=l.getDesc();
         appoggio[11]= String.valueOf(l.getDisponibilita());
         appoggio[12]= String.valueOf(l.getPrezzo());
+        appoggio[13]=String.valueOf(l.getId());
 
 
         return appoggio;
     }
 
-    private boolean executeQuery(Libro l , String query,String query2)
+    private boolean executeQuery(Libro l , String query)
     {
+
         int row=0;
         try (Connection conn=ConnToDb.connectionToDB();
              PreparedStatement prepQ= conn.prepareStatement(query)){
@@ -191,9 +194,9 @@ public class LibroDao {
             prepQ.setString(11,retLibro(l)[10]);
             prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));
             prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));
-            prepQ.setInt(14,0);
-            if(query2!=null)
-                prepQ.setInt(18,vis.getId());
+            prepQ.setInt(14,Integer.parseInt(retLibro(l)[13]));
+            if(query.startsWith("u"))
+                prepQ.setInt(15,vis.getId());
 
             row= prepQ.executeUpdate();
 

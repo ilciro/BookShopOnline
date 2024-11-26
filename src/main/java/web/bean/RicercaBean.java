@@ -1,11 +1,52 @@
 package web.bean;
 
 import javafx.collections.ObservableList;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Raccolta;
+import laptop.model.raccolta.Rivista;
 
 public class RicercaBean {
-    private ObservableList<Raccolta> listaB;
+
     private String titoloB;
+
+    private ObservableList<Libro> listaLB;
+    private ObservableList<Giornale> listaGB;
+    private ObservableList<Rivista> listaRB;
+
+    private Exception mexB;
+
+    public Exception getMexB() {
+        return mexB;
+    }
+
+    public void setMexB(Exception mexB) {
+        this.mexB = mexB;
+    }
+
+    public ObservableList<Giornale> getListaGB() {
+        return listaGB;
+    }
+
+    public void setListaGB(ObservableList<Giornale> listaGB) {
+        this.listaGB = listaGB;
+    }
+
+    public ObservableList<Libro> getListaLB() {
+        return listaLB;
+    }
+
+    public void setListaLB(ObservableList<Libro> listaLB) {
+        this.listaLB = listaLB;
+    }
+
+    public ObservableList<Rivista> getListaRB() {
+        return listaRB;
+    }
+
+    public void setListaRB(ObservableList<Rivista> listaRB) {
+        this.listaRB = listaRB;
+    }
 
     public String getTitoloB() {
         return titoloB;
@@ -36,13 +77,7 @@ public class RicercaBean {
     private String editoreB;
 
 
-    public ObservableList<Raccolta> getListaB() {
-        return listaB;
-    }
 
-    public void setListaB(ObservableList<Raccolta> listaB) {
-        this.listaB = listaB;
-    }
 
     public String getEditoreB() {
         return editoreB;

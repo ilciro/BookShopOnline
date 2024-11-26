@@ -31,7 +31,7 @@ inserire nome
 <td>
 </td>
 <td>
-<input type="text" id="nomeL" name="nomeL" >
+<input type="text" id="nomeL" name="nomeL" value="${beanUB.getNomeB()}" >
 </td>
 </tr>
 <tr>
@@ -41,7 +41,7 @@ inserire cognome
 <td>
 </td>
 <td>
-<input type="text" id="cognomeL" name="cognomeL" >
+<input type="text" id="cognomeL" name="cognomeL" value="${beanUB.getCognomeB()}">
 </td>
 </tr>
 <tr>

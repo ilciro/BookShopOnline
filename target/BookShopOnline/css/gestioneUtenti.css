@@ -1,0 +1,96 @@
+
+@charset "UTF-8";
+
+h1{
+text-align:center;
+font-size:50px;
+color:BLUE;
+}
+h2{
+text-align:center;
+font-size:30px;
+color:green;
+}
+
+
+
+table
+{
+	   border-collapse: collapse;
+	   border-spacing: 8px 2px;
+	   margin-left: auto;
+	   margin-right: auto;
+	   table-layout:auto;
+
+
+}
+ td {
+    border: 2px solid orange;
+    padding : 6px;
+}
+
+caption{
+	color:violet;
+}
+
+
+
+.genera
+{
+	background-color: green; /* Green */
+  	border: none;
+  	color: white;
+  	padding: 15px 32px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 13px;
+}
+.inserisci{
+	 background-color: blue; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+.modifica{
+	 background-color: orange; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+.elimina{
+	 background-color: violet; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+.indietro{
+	 background-color: red; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+div{
+text-align:center;}
+p{text-align:center;}
+.exception{
+	text-align:center;
+	color:red;
+	font-weight:200;
+}
