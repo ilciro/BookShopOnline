@@ -126,7 +126,7 @@ public class LibroDao {
 
     public boolean eliminaLibro(Libro l)
     {
-        int row = 0;
+
         boolean status=false;
         query="delete from LIBRO where idLibro=? or idLibro=?";
         try (Connection conn=ConnToDb.connectionToDB();
@@ -135,13 +135,16 @@ public class LibroDao {
             prepQ.setInt(1,l.getId());
             prepQ.setInt(2,vis.getId());
 
-            row= prepQ.executeUpdate();
+            int row= prepQ.executeUpdate();
+
+            if(row==1)
+                status=true;
+            else throw new SQLException();
             
         } catch (SQLException e) {
             Logger.getLogger("elimina").log(Level.SEVERE," error in mysql delete", e);
         }
-        if(row==1)
-            status=true;
+
         return status;
     }
 

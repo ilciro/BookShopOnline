@@ -45,6 +45,7 @@ public class ControllerRicerca {
                     Libro l=new Libro();
                     l.setTitolo(nome);
                     l.setEditore(nome);
+                    l.setAutore(nome);
                     id=lD.getLibroByIdTitoloAutoreLibro(l).get(0).getId();
                 }
                 case GIORNALE ->
@@ -58,6 +59,7 @@ public class ControllerRicerca {
                     Rivista r=new Rivista();
                     r.setTitolo(nome);
                     r.setEditore(nome);
+                    r.setAutore(nome);
                     id=rD.getRivistaIdTitoloAutore(r).get(0).getId();
                 }
                 default -> Logger.getLogger("id oggetto db").log(Level.SEVERE," error with data from db!!");
@@ -71,6 +73,7 @@ public class ControllerRicerca {
                     Libro l=new Libro();
                     l.setTitolo(nome);
                     l.setEditore(nome);
+                    l.setAutore(nome);
                     id=csv.getLibroByIdTitoloAutore(l).get(0).getId();
                 }
                 case GIORNALE ->
@@ -84,6 +87,7 @@ public class ControllerRicerca {
                     Rivista r=new Rivista();
                     r.setTitolo(nome);
                     r.setEditore(nome);
+                    r.setAutore(nome);
                     id=csv.getRivistaByIdTitoloEditore(r).get(0).getId();
                 }
                 default -> Logger.getLogger("id oggetto file").log(Level.SEVERE," error with data from file!!");

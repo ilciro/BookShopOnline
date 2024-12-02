@@ -1,0 +1,16 @@
+laptop/primoUc/TestControllerPagamentoCC.class
+laptop/primoUc/InitTest.class
+laptop/secondoUc/TestControllerRegistraUtente.class
+laptop/terzoUc/TestControllerRaccoltaRimuovi.class
+laptop/primoUc/TestControllerRimuoviFatturaPagamento.class
+laptop/secondoUc/TestControllerLogin.class
+laptop/primoUc/TestControllerScegliNegozio.class
+laptop/primoUc/TestControllerAcquista.class
+laptop/primoUc/TestControllerRicerca.class
+laptop/terzoUc/TestControllerReport.class
+laptop/primoUc/TestControllerDownload.class
+laptop/terzoUc/TestControllerRaccoltaElenco.class
+laptop/secondoUc/TestControllerRegistraUtenteModficaPassword.class
+laptop/terzoUc/TestControllerRaccoltaInserisciModifica.class
+laptop/primoUc/TestControllerCompravendita.class
+laptop/primoUc/TestControllerPagamentoCash.class

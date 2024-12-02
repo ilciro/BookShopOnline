@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerPagamentoCC.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerPagamentoCC.java</span></div><h1>ControllerPagamentoCC.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import java.util.IllegalFormatException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.ObservableList;
+import laptop.database.*;
+
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.database.csvpagamento.FatturaPagamentoCCredito;
+import laptop.database.csvreport.CsvReport;
+import laptop.exception.IdException;
+import laptop.model.CartaDiCredito;
+import laptop.model.Pagamento;
+import laptop.model.Report;
+import laptop.model.User;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
+import laptop.model.raccolta.Rivista;
+
+
+public class ControllerPagamentoCC {
+	private final CartaCreditoDao cDao;
+<span class="fc" id="L29">	private String appoggio = &quot;&quot;;</span>
+	private CartaDiCredito cc;
+	private final PagamentoDao pDao;
+<span class="fc" id="L32">	private final ControllerSystemState vis= ControllerSystemState.getInstance();</span>
+
+
+
+	private final FatturaPagamentoCCredito csvFattura;
+	private final CsvOggettoDao csv;
+	
+	
+<span class="fc" id="L40">	private int cont=0;</span>
+	private final ControllerCheckPagamentoData cCPD;
+
+	private final CsvReport csvReport;
+	private final Report report;
+
+	private void controllaPag(String d, String c,String civ) {
+		try {
+			int x;
+
+			int anno;
+			int mese;
+			int giorno;
+			String[] verifica;
+
+
+<span class="fc" id="L56">			appoggio = appoggio + d;</span>
+<span class="fc" id="L57">			anno = Integer.parseInt((String) appoggio.subSequence(0, 4));</span>
+<span class="fc" id="L58">			mese = Integer.parseInt((String) appoggio.subSequence(5, 7));</span>
+<span class="fc" id="L59">			giorno = Integer.parseInt((String) appoggio.subSequence(8, 10));</span>
+
+
+<span class="pc bpc" id="L62" title="7 of 14 branches missed.">			if (anno &gt; 2020 &amp;&amp; (mese &gt;= 1 &amp;&amp; mese &lt;= 12) &amp;&amp; (giorno &gt;= 1 &amp;&amp; giorno &lt;= 31) &amp;&amp; c.length() &lt;= 20 &amp;&amp; civ.length() == 3) {</span>
+
+
+<span class="fc" id="L65">				verifica = c.split(&quot;-&quot;);</span>
+
+<span class="fc bfc" id="L67" title="All 2 branches covered.">				for (x = 0; x &lt; verifica.length; x++) {</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">					if (verifica[x].length() == 4) {</span>
+<span class="nc" id="L69">						cont++;</span>
+					}
+				}
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">				if (cont == 4) {</span>
+<span class="nc" id="L73">					Logger.getLogger(&quot;procedi cach check data&quot;).log(Level.INFO,&quot; data is correct !!&quot;);</span>
+				}
+
+
+			}
+<span class="nc" id="L78">		}catch (NumberFormatException | IllegalFormatException e)</span>
+		{
+<span class="nc" id="L80">			java.util.logging.Logger.getLogger(&quot;procedi cash&quot;).log(Level.SEVERE,&quot;\n errore nel pagamento .&quot;,e);</span>
+<span class="fc" id="L81">		}</span>
+		
+
+<span class="fc" id="L84">	}</span>
+
+<span class="fc" id="L86">	public ControllerPagamentoCC() throws IOException {</span>
+
+
+<span class="fc" id="L89">			cDao = new CartaCreditoDao();</span>
+
+<span class="fc" id="L91">			pDao = new PagamentoDao();</span>
+
+
+
+<span class="fc" id="L95">			cCPD = new ControllerCheckPagamentoData();</span>
+
+<span class="fc" id="L97">			csvFattura = new FatturaPagamentoCCredito();</span>
+<span class="fc" id="L98">			csv = new CsvOggettoDao();</span>
+<span class="fc" id="L99">			csvReport=new CsvReport();</span>
+<span class="fc" id="L100">			report=new Report();</span>
+
+<span class="fc" id="L102">	}</span>
+
+	public void aggiungiCartaDB(String n, String c, String cod, java.sql.Date data, String civ, float prezzo)
+            throws SQLException, IdException, CsvValidationException, IOException {
+		
+		
+		
+<span class="fc" id="L109">			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);</span>
+<span class="fc" id="L110">			Pagamento p=new Pagamento();</span>
+
+
+<span class="fc" id="L113">		controllaPag(String.valueOf(data),c,civ);</span>
+
+<span class="fc" id="L115">				p.setIdPag(0);</span>
+<span class="fc" id="L116">				p.setMetodo(&quot;cc&quot;);</span>
+<span class="fc" id="L117">				p.setNomeUtente(cc.getNomeUser());</span>
+
+
+
+
+
+
+<span class="fc bfc" id="L124" title="All 2 branches covered.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+			{
+
+<span class="fc" id="L127">				csvFattura.inserisciCartaCredito(cc);</span>
+<span class="fc" id="L128">				cCPD.checkPagamentoData(n);</span>
+				//inserisciCartaCredito
+
+			}
+			else
+		{
+<span class="fc" id="L134">			cDao.insCC(cc);</span>
+<span class="fc" id="L135">			cCPD.checkPagamentoData(n);</span>
+
+<span class="fc" id="L137">			pDao.inserisciPagamento(p);</span>
+
+		}
+
+		
+		
+
+<span class="fc" id="L144">	}</span>
+
+	public ObservableList&lt;CartaDiCredito&gt; ritornaElencoCC(String nomeU) throws CsvValidationException, IOException {
+
+<span class="fc" id="L148">		cc=new CartaDiCredito();</span>
+		ObservableList&lt;CartaDiCredito&gt; lista;
+<span class="fc" id="L150">		cc.setNomeUser(nomeU);</span>
+
+<span class="fc bfc" id="L152" title="All 2 branches covered.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+<span class="fc" id="L153">			lista= csvFattura.getListaCartaCreditoByNome(cc);</span>
+<span class="fc" id="L154">		else  lista= cDao.getCarteCredito(nomeU);</span>
+<span class="fc" id="L155">		return lista;</span>
+
+
+	}
+	
+
+
+	public void pagamentoCC(String nome) throws SQLException, IdException, IOException, CsvValidationException {
+		//effettuo pagamento
+<span class="fc" id="L164">		Pagamento p = new Pagamento();</span>
+<span class="fc" id="L165">		p.setIdPag(0);</span>
+<span class="fc" id="L166">		p.setMetodo(&quot;cCredito&quot;);</span>
+<span class="fc" id="L167">		p.setNomeUtente(nome);</span>
+<span class="fc" id="L168">		p.setAmmontare(vis.getSpesaT());</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">		if(vis.getIsLogged())</span>
+<span class="nc" id="L170">			p.setEmail(User.getInstance().getEmail());</span>
+<span class="fc" id="L171">		else p.setEmail(null);</span>
+
+
+<span class="pc bpc" id="L174" title="1 of 4 branches missed.">		switch (vis.getType()) {</span>
+			case &quot;libro&quot; -&gt; {
+
+
+<span class="fc bfc" id="L178" title="All 2 branches covered.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+<span class="fc" id="L179">					Libro l=new Libro();</span>
+<span class="fc" id="L180">					l.setId(vis.getId());</span>
+<span class="fc" id="L181">					Libro l1 = csv.retrieveLibroData(l).get(0);</span>
+<span class="fc" id="L182">					p.setTipo(l1.getCategoria());</span>
+<span class="fc" id="L183">					p.setIdOggetto(l1.getId());</span>
+<span class="fc" id="L184">					csvFattura.inserisciPagamento(p);</span>
+<span class="fc" id="L185">					checkData();</span>
+<span class="fc" id="L186">				} else {</span>
+<span class="fc" id="L187">					cCPD.checkPagamentoData(nome);</span>
+				}
+<span class="fc" id="L189">			}</span>
+			case &quot;giornale&quot; -&gt; {
+
+
+<span class="fc bfc" id="L193" title="All 2 branches covered.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+<span class="fc" id="L194">					Giornale g=new Giornale();</span>
+<span class="fc" id="L195">					g.setId(vis.getId());</span>
+<span class="fc" id="L196">					Giornale g1 = csv.retriveGiornaleData( g).get(0);</span>
+<span class="fc" id="L197">					p.setTipo(g1.getCategoria());</span>
+<span class="fc" id="L198">					p.setIdOggetto(g1.getId());</span>
+<span class="fc" id="L199">					csvFattura.inserisciPagamento(p);</span>
+<span class="fc" id="L200">					checkData();</span>
+
+<span class="fc" id="L202">				} else {</span>
+<span class="fc" id="L203">					cCPD.checkPagamentoData(nome);</span>
+				}
+
+<span class="fc" id="L206">			}</span>
+			case &quot;rivista&quot; -&gt; {
+
+
+<span class="fc bfc" id="L210" title="All 2 branches covered.">				if (vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+<span class="fc" id="L211">					Rivista r=new Rivista();</span>
+<span class="fc" id="L212">					r.setId(vis.getId());</span>
+<span class="fc" id="L213">					Rivista r1 = csv.retrieveRivistaData(r).get(0);</span>
+<span class="fc" id="L214">					p.setTipo(r1.getCategoria());</span>
+<span class="fc" id="L215">					p.setIdOggetto(r1.getId());</span>
+
+<span class="fc" id="L217">					csvFattura.inserisciPagamento(p);</span>
+<span class="fc" id="L218">					checkData();</span>
+
+<span class="fc" id="L220">				} else {</span>
+<span class="fc" id="L221">					cCPD.checkPagamentoData(nome);</span>
+				}
+<span class="fc" id="L223">			}</span>
+<span class="nc" id="L224">			default -&gt; throw new IdException(&quot; id not found&quot;);</span>
+
+		}
+
+
+
+<span class="fc" id="L230">		java.util.logging.Logger.getLogger(&quot;Pagamento effettuato&quot;).log(Level.INFO, &quot;Payment  done!!&quot;);</span>
+
+<span class="fc" id="L232">	}</span>
+
+	public String[] getInfo()
+	{
+<span class="nc" id="L236">		String [] dati=new String[2];</span>
+<span class="nc" id="L237">		dati[0]= User.getInstance().getNome();</span>
+<span class="nc" id="L238">		dati[1]=User.getInstance().getCognome();</span>
+<span class="nc" id="L239">		return dati;</span>
+	}
+
+	private void checkData() throws CsvValidationException, IOException, IdException {
+<span class="fc" id="L243">		report.setIdReport(0);</span>
+<span class="fc" id="L244">		report.setTipologiaOggetto(vis.getType());</span>
+<span class="fc bfc" id="L245" title="All 2 branches covered.">		if(vis.getType().equals(&quot;libro&quot;))</span>
+		{
+<span class="fc" id="L247">			Libro l=new Libro();</span>
+<span class="fc" id="L248">			l.setId(vis.getId());</span>
+<span class="fc" id="L249">			report.setTitoloOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getTitolo());</span>
+<span class="fc" id="L250">			report.setPrezzo(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo());</span>
+<span class="fc" id="L251">			report.setTotale(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo()*vis.getQuantita());</span>
+
+<span class="fc bfc" id="L253" title="All 2 branches covered.">		} else if (vis.getType().equalsIgnoreCase(&quot;giornale&quot;)) {</span>
+<span class="fc" id="L254">			Giornale g=new Giornale();</span>
+<span class="fc" id="L255">			g.setId(vis.getId());</span>
+<span class="fc" id="L256">			report.setTitoloOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getTitolo());</span>
+<span class="fc" id="L257">			report.setPrezzo(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo());</span>
+<span class="fc" id="L258">			report.setTotale(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo()*vis.getQuantita());</span>
+
+<span class="pc bpc" id="L260" title="1 of 2 branches missed.">		} else if (vis.getType().equalsIgnoreCase(&quot;rivista&quot;)) {</span>
+<span class="fc" id="L261">			Rivista r=new Rivista();</span>
+<span class="fc" id="L262">			r.setId(vis.getId());</span>
+<span class="fc" id="L263">			report.setTitoloOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getTitolo());</span>
+<span class="fc" id="L264">			report.setPrezzo(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo());</span>
+<span class="fc" id="L265">			report.setTotale(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo()*vis.getQuantita());</span>
+
+		}
+<span class="fc" id="L268">		report.setNrPezzi(vis.getQuantita());</span>
+<span class="fc" id="L269">		csvReport.inserisciReport(report);</span>
+<span class="fc" id="L270">	}</span>
+
+}
+
+		
+
+		
+
+
+	
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

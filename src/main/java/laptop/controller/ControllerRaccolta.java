@@ -84,49 +84,36 @@ public class ControllerRaccolta {
     }
 
     public boolean elimina() throws CsvValidationException, IOException {
-        boolean status=false;
-        if(vis.getTypeOfDb().equals("db"))
-        {
+        boolean status = false;
+
             switch (vis.getType())
             {
                 case LIBRO -> {
                     l.setId(vis.getId());
-                    status=lD.eliminaLibro(l);
+                    if(vis.getTypeOfDb().equals("db"))
+                        status=lD.eliminaLibro(l);
+                    else status=csv.removeLibroById(l);
 
                 }
                 case GIORNALE -> {
                     g.setId(vis.getId());
-                    status=gD.eliminaGiornale(g);
+                    if(vis.getTypeOfDb().equals("db"))
+                        status=gD.eliminaGiornale(g);
+                    else status=csv.removeGiornaleById(g);
                 }
                 case RIVISTA ->{
                     r.setId(vis.getId());
-                    status=rD.eliminaRivista(r);
+                    if(vis.getTypeOfDb().equals("db"))
+                        status=rD.eliminaRivista(r);
+                    else  status=csv.removeRivistaById(r);
                 }
                 default -> Logger.getLogger("elimina con db").log(Level.SEVERE," error with delete in mysql");
             }
 
 
-        }
-        else {
-            switch (vis.getType())
-            {
-                case LIBRO -> {
-                    l.setId(vis.getId());
-                    status=csv.removeLibroById(l);
 
-                }
-                case GIORNALE -> {
-                    g.setId(vis.getId());
-                    status = csv.removeGiornaleById(g);
-                }
-                case RIVISTA ->{
-                    r.setId(vis.getId());
-                    status=csv.removeRivistaById(r);
-                }
-                default -> Logger.getLogger("elimina con db").log(Level.SEVERE," error with delete in mysql");
 
-            }
-        }
+
         return status;
     }
 }

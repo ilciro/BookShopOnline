@@ -3,7 +3,9 @@ package laptop.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import java.util.IllegalFormatException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.ObservableList;
@@ -29,7 +31,6 @@ public class ControllerPagamentoCC {
 	private final PagamentoDao pDao;
 	private final ControllerSystemState vis= ControllerSystemState.getInstance();
 
-	private boolean state=false;
 
 
 	private final FatturaPagamentoCCredito csvFattura;
@@ -42,7 +43,7 @@ public class ControllerPagamentoCC {
 	private final CsvReport csvReport;
 	private final Report report;
 
-	public boolean controllaPag(String d, String c,String civ) {
+	private void controllaPag(String d, String c,String civ) {
 		try {
 			int x;
 
@@ -57,6 +58,7 @@ public class ControllerPagamentoCC {
 			mese = Integer.parseInt((String) appoggio.subSequence(5, 7));
 			giorno = Integer.parseInt((String) appoggio.subSequence(8, 10));
 
+
 			if (anno > 2020 && (mese >= 1 && mese <= 12) && (giorno >= 1 && giorno <= 31) && c.length() <= 20 && civ.length() == 3) {
 
 
@@ -68,17 +70,16 @@ public class ControllerPagamentoCC {
 					}
 				}
 				if (cont == 4) {
-					state = true;
+					Logger.getLogger("procedi cach check data").log(Level.INFO," data is correct !!");
 				}
 
 
 			}
-		}catch (NumberFormatException e)
+		}catch (NumberFormatException | IllegalFormatException e)
 		{
-			java.util.logging.Logger.getLogger("procedi cash").log(Level.SEVERE,"\n errore nel pagamento");
+			java.util.logging.Logger.getLogger("procedi cash").log(Level.SEVERE,"\n errore nel pagamento .",e);
 		}
 		
-		return state;
 
 	}
 
@@ -106,12 +107,18 @@ public class ControllerPagamentoCC {
 		
 		
 			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);
-
-
 			Pagamento p=new Pagamento();
-			p.setIdPag(0);
-			p.setMetodo("cc");
-			p.setNomeUtente(cc.getNomeUser());
+
+
+		controllaPag(String.valueOf(data),c,civ);
+
+				p.setIdPag(0);
+				p.setMetodo("cc");
+				p.setNomeUtente(cc.getNomeUser());
+
+
+
+
 
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
@@ -153,12 +160,15 @@ public class ControllerPagamentoCC {
 
 
 	public void pagamentoCC(String nome) throws SQLException, IdException, IOException, CsvValidationException {
+		//effettuo pagamento
 		Pagamento p = new Pagamento();
 		p.setIdPag(0);
 		p.setMetodo("cCredito");
 		p.setNomeUtente(nome);
 		p.setAmmontare(vis.getSpesaT());
-		p.setEmail(null);
+		if(vis.getIsLogged())
+			p.setEmail(User.getInstance().getEmail());
+		else p.setEmail(null);
 
 
 		switch (vis.getType()) {

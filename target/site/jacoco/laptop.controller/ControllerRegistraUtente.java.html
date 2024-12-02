@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerRegistraUtente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerRegistraUtente.java</span></div><h1>ControllerRegistraUtente.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.regex.Pattern;
+
+import com.opencsv.exceptions.CsvValidationException;
+import laptop.database.UsersDao;
+import laptop.database.csvusers.CsvUtente;
+import laptop.exception.IdException;
+import laptop.model.User;
+
+
+public class ControllerRegistraUtente {
+<span class="fc" id="L17">	private Boolean state=false;</span>
+<span class="fc" id="L18">	private final User u=User.getInstance();</span>
+<span class="fc" id="L19">	private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L20">	private static final CsvUtente csv=new CsvUtente();</span>
+	public Boolean registra(String n, String c, String email, String pwd,String desc, LocalDate localDate,String ruolo) throws SQLException, CsvValidationException, IOException, IdException {
+		
+		
+<span class="fc" id="L24">		u.setEmail(email);</span>
+<span class="fc" id="L25">		u.setPassword(pwd);</span>
+<span class="fc" id="L26">		u.setDataDiNascita(localDate);</span>
+<span class="fc" id="L27">		u.setIdRuolo(ruolo);</span>
+<span class="fc" id="L28">		u.setDescrizione(desc);</span>
+
+
+		
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">		if(checkData ( n,c,email,pwd) )</span>
+		{
+<span class="fc bfc" id="L34" title="All 2 branches covered.">			if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;)) {</span>
+
+
+
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">					if(csv.userList(u).isEmpty()) {</span>
+<span class="nc" id="L39">						u.setNome(n);</span>
+<span class="nc" id="L40">						u.setCognome(c);</span>
+<span class="nc" id="L41">						u.setEmail(email);</span>
+<span class="nc" id="L42">						u.setPassword(pwd);</span>
+<span class="nc" id="L43">						u.setDataDiNascita(localDate);</span>
+<span class="nc" id="L44">						state = csv.inserisciUtente(u);</span>
+					}
+				}
+
+
+				else {
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">					if (UsersDao.checkUser(u) == 0) {</span>
+						// nuovo utente creo l'account
+<span class="fc" id="L52">						u.setNome(n);</span>
+<span class="fc" id="L53">						u.setCognome(c);</span>
+
+<span class="fc" id="L55">						state = UsersDao.createUser(u);</span>
+					} else {
+						// utente gia registrato o errore
+<span class="nc" id="L58">						state = false;</span>
+					}
+				}
+		}
+
+		else {
+<span class="nc" id="L64">			state=false;</span>
+		}
+<span class="fc" id="L66">		return state;</span>
+	}
+	
+	
+	//le chiamo protected perchele uso nel controller stesso e basta 
+	private boolean checkData (String n, String c, String email, String pwd)
+	// controll  all data
+	{
+<span class="pc bpc" id="L74" title="3 of 6 branches missed.">		if(checkEmail(email) &amp;&amp; checkPassword(pwd) &amp;&amp; checkNomeCognome(n,c))</span>
+		{
+<span class="fc" id="L76">			state=true;</span>
+		}
+<span class="fc" id="L78">		return state;</span>
+	}
+
+	private boolean checkEmail(String email)
+	{
+		 Pattern pattern;
+
+		String emailRegex;
+<span class="fc" id="L86">		emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;; </span>
+                  
+<span class="fc" id="L88">		pattern = Pattern.compile(emailRegex); </span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">		if (email == null) </span>
+<span class="nc" id="L90">			return false; </span>
+<span class="fc" id="L91">		return pattern.matcher(email).matches();</span>
+	}
+
+	private boolean checkPassword(String pwd )
+	{
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">		if(pwd.length()&gt;=8 ) {</span>
+<span class="fc" id="L97">			state= true;</span>
+		}
+<span class="fc" id="L99">		return state;</span>
+	}
+
+	private boolean checkNomeCognome(String n, String c)
+	{
+<span class="pc bpc" id="L104" title="2 of 4 branches missed.">		if (n != null &amp;&amp; c != null)</span>
+		{
+<span class="fc" id="L106">			state= true;</span>
+		}
+<span class="fc" id="L108">		return state;</span>
+	}
+	
+	public ControllerRegistraUtente()
+<span class="fc" id="L112">	{</span>
+<span class="fc" id="L113">		java.util.logging.Logger.getLogger(&quot;Test Costruttore&quot;).log(Level.INFO, &quot;Costruttore ControllerRegistaUtente&quot;);</span>
+
+<span class="fc" id="L115">	}</span>
+	
+	// TO DO: checkData o lo facciamo diretti in mysql
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

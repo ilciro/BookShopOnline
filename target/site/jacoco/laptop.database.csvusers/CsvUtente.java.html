@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CsvUtente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.database.csvusers</a> &gt; <span class="el_source">CsvUtente.java</span></div><h1>CsvUtente.java</h1><pre class="source lang-java linenums">package laptop.database.csvusers;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import laptop.exception.IdException;
+import laptop.model.TempUser;
+import laptop.model.User;
+import org.apache.commons.lang.SystemUtils;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+public class CsvUtente implements UserInterface {
+
+    private static final int GETINDEXIDUSER = 0;
+    private static final int GETINDEXRUOLO = 1;
+    private static final int GETINDEXNOME = 2;
+    private static final int GETINDEXCOGNOME = 3;
+    private static final int GETINDEXEMAIL = 4;
+    private static final int GETINDEXPWD = 5;
+    private static final int GETINDEXDESC = 6;
+    private static final int GETINDEXDATAN = 7;
+    private static final String LOCATIONU = &quot;report/reportUtente.csv&quot;;
+    private final HashMap&lt;String, User&gt; cacheU;
+<span class="fc" id="L39">    private final File fdU = new File(LOCATIONU);</span>
+
+
+<span class="fc" id="L42">    public CsvUtente() {</span>
+<span class="fc" id="L43">        this.cacheU = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L44">    }</span>
+
+    private static void cleanUp(Path path) throws IOException {
+<span class="nc" id="L47">        Files.delete(path);</span>
+<span class="nc" id="L48">    }</span>
+
+    @Override
+    public boolean inserisciUtente(User u) throws IOException, CsvValidationException, IdException {
+
+        boolean duplicated;
+<span class="fc" id="L54">        synchronized (this.cacheU) {</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            boolean duplicatedM = (this.cacheU.get(u.getEmail()) != null);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            boolean duplicatedP = (this.cacheU.get(u.getPassword()) != null);</span>
+<span class="pc bpc" id="L57" title="3 of 4 branches missed.">            duplicated = duplicatedM &amp;&amp; duplicatedP;</span>
+
+<span class="fc" id="L59">        }</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!duplicated) {</span>
+<span class="fc" id="L61">            List&lt;User&gt; list = getUserData(this.fdU, u.getId(), u.getEmail(), u.getPassword());</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">            duplicated = (!list.isEmpty());</span>
+
+        }
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (duplicated) {</span>
+            try {
+<span class="nc" id="L67">                Logger.getLogger(&quot;try user&quot;).log(Level.INFO, &quot;id sbagliato !!&quot;);</span>
+<span class="nc" id="L68">                throw new IdException(&quot; id user sbagliato or duplicated&quot;);</span>
+
+<span class="nc" id="L70">            } catch (IdException e) {</span>
+<span class="nc" id="L71">                Logger.getLogger(&quot;catch utente&quot;).log(Level.SEVERE, &quot;remove utente...&quot;);</span>
+                //rimuovo e se lista vuota
+<span class="nc" id="L73">                removeUserByIdEmailPwd(u);</span>
+            }
+        }
+
+<span class="fc" id="L77">        return insertUser(u);</span>
+
+
+    }
+
+    @Override
+    public List&lt;User&gt; userList(User u) throws CsvValidationException, IOException {
+<span class="fc" id="L84">        List&lt;User&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L85">        synchronized (this.cacheU) {</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            for (Map.Entry&lt;String, User&gt; entry : this.cacheU.entrySet()) {</span>
+<span class="fc" id="L87">                User recordInCache = this.cacheU.get(entry.getKey());</span>
+<span class="fc" id="L88">                boolean recordP = recordInCache.getEmail().equals(u.getEmail());</span>
+<span class="fc" id="L89">                boolean recordM = recordInCache.getPassword().equals(u.getPassword());</span>
+<span class="pc bpc" id="L90" title="2 of 4 branches missed.">                boolean recordFound = recordP &amp;&amp; recordM;</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">                if (recordFound)</span>
+<span class="fc" id="L92">                    list.add(recordInCache);</span>
+<span class="fc" id="L93">            }</span>
+<span class="fc" id="L94">        }</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (list.isEmpty()) {</span>
+<span class="fc" id="L96">            list = getUserData(this.fdU, u.getId(), u.getEmail(), u.getPassword());</span>
+<span class="fc" id="L97">            synchronized (this.cacheU) {</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">                for (User user : list)</span>
+<span class="fc" id="L99">                    this.cacheU.put(String.valueOf(u.getId()), user);</span>
+<span class="fc" id="L100">            }</span>
+
+        }
+<span class="fc" id="L103">        return list;</span>
+    }
+
+    @Override
+    public boolean removeUserByIdEmailPwd(User u) throws CsvValidationException, IOException {
+<span class="fc" id="L108">        synchronized (this.cacheU) {</span>
+<span class="fc" id="L109">            this.cacheU.remove(u.getEmail());</span>
+<span class="fc" id="L110">        }</span>
+<span class="fc" id="L111">        return cancellaUserById(this.fdU, u);</span>
+    }
+
+
+    private static synchronized boolean insertUser(User u) throws IOException, CsvValidationException {
+<span class="fc" id="L116">        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONU, true)));</span>
+<span class="fc" id="L117">        String[] gVector = new String[8];</span>
+
+<span class="fc" id="L119">        gVector[GETINDEXIDUSER] = String.valueOf(getIdMax() + 1);</span>
+<span class="fc" id="L120">        gVector[GETINDEXRUOLO] = u.getIdRuolo();</span>
+<span class="fc" id="L121">        gVector[GETINDEXNOME] = u.getNome();</span>
+<span class="fc" id="L122">        gVector[GETINDEXCOGNOME] = u.getCognome();</span>
+<span class="fc" id="L123">        gVector[GETINDEXEMAIL] = u.getEmail();</span>
+<span class="fc" id="L124">        gVector[GETINDEXPWD] = u.getPassword();</span>
+<span class="fc" id="L125">        gVector[GETINDEXDESC] = u.getDescrizione();</span>
+<span class="fc" id="L126">        gVector[GETINDEXDATAN] = String.valueOf(u.getDataDiNascita());</span>
+<span class="fc" id="L127">        writer.writeNext(gVector);</span>
+<span class="fc" id="L128">        writer.flush();</span>
+<span class="fc" id="L129">        writer.close();</span>
+
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        return getIdMax() != 0;</span>
+
+
+    }
+
+    private static synchronized List&lt;User&gt; getUserData(File fd, int id, String mail, String pass) throws IOException, CsvValidationException {
+<span class="fc" id="L137">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] gVector;
+        boolean recordFound;
+<span class="fc" id="L140">        List&lt;User&gt; list = new ArrayList&lt;&gt;();</span>
+
+
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
+
+
+<span class="pc bpc" id="L146" title="2 of 6 branches missed.">            recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);</span>
+
+<span class="fc bfc" id="L148" title="All 2 branches covered.">            if (recordFound) {</span>
+
+<span class="fc" id="L150">                TempUser tu = getTempUser(gVector);</span>
+
+<span class="fc" id="L152">                User.getInstance().setId(tu.getId());</span>
+<span class="fc" id="L153">                User.getInstance().setIdRuolo(tu.getIdRuoloT());</span>
+<span class="fc" id="L154">                User.getInstance().setNome(tu.getNomeT());</span>
+<span class="fc" id="L155">                User.getInstance().setCognome(tu.getCognomeT());</span>
+<span class="fc" id="L156">                User.getInstance().setEmail(tu.getEmailT());</span>
+<span class="fc" id="L157">                User.getInstance().setPassword(tu.getPasswordT());</span>
+<span class="fc" id="L158">                User.getInstance().setDescrizione(tu.getDescrizioneT());</span>
+<span class="fc" id="L159">                User.getInstance().setDataDiNascita(tu.getDataDiNascitaT());</span>
+
+
+<span class="fc" id="L162">                list.add(User.getInstance());</span>
+<span class="fc" id="L163">            }</span>
+
+        }
+
+
+<span class="fc" id="L168">        reader.close();</span>
+<span class="fc" id="L169">        return list;</span>
+    }
+
+    private static @NotNull TempUser getTempUser(String[] gVector) {
+<span class="fc" id="L173">        TempUser tu = new TempUser();</span>
+
+<span class="fc" id="L175">        tu.setId(Integer.parseInt(gVector[GETINDEXIDUSER]));</span>
+<span class="fc" id="L176">        tu.setIdRuoloT(gVector[GETINDEXRUOLO]);</span>
+<span class="fc" id="L177">        tu.setNomeT(gVector[GETINDEXNOME]);</span>
+<span class="fc" id="L178">        tu.setCognomeT(gVector[GETINDEXCOGNOME]);</span>
+<span class="fc" id="L179">        tu.setEmailT(gVector[GETINDEXEMAIL]);</span>
+<span class="fc" id="L180">        tu.setPasswordT(gVector[GETINDEXPWD]);</span>
+<span class="fc" id="L181">        tu.setDescrizioneT(gVector[GETINDEXDESC]);</span>
+<span class="fc" id="L182">        tu.setDataDiNascitaT(LocalDate.parse(gVector[GETINDEXDATAN]));</span>
+<span class="fc" id="L183">        return tu;</span>
+    }
+
+
+    private static synchronized int getIdMax() throws IOException, CsvValidationException {
+        //used for insert correct idOgg
+<span class="fc" id="L189">        CSVReader reader = new CSVReader(new FileReader(LOCATIONU));</span>
+        String[] gVector;
+<span class="fc" id="L191">        int id = 0;</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null)</span>
+<span class="fc" id="L193">            id = Integer.parseInt(gVector[GETINDEXIDUSER]);</span>
+<span class="fc" id="L194">        reader.close();</span>
+
+<span class="fc" id="L196">        return id;</span>
+
+    }
+
+    private static synchronized boolean cancellaUserById(File fd, User u1) throws IOException, CsvValidationException {
+<span class="fc" id="L201">        boolean status = false;</span>
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="fc" id="L203">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(&quot;rwx------&quot;));</span>
+<span class="fc" id="L204">            Files.createTempFile(&quot;prefix&quot;, &quot;suffix&quot;, attr); // Compliant</span>
+        }
+<span class="fc" id="L206">        File tmpFD = new File(&quot;report/appoggioUser.csv&quot;);</span>
+<span class="fc" id="L207">        boolean found = false;</span>
+        // create csvReader object passing file reader as a parameter
+<span class="fc" id="L209">        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+        String[] giornaleVector;
+<span class="fc" id="L211">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));</span>
+        //check on path
+        boolean userVectorFound;
+
+
+<span class="fc bfc" id="L216" title="All 2 branches covered.">        while ((giornaleVector = csvReader.readNext()) != null) {</span>
+
+<span class="pc bpc" id="L218" title="1 of 4 branches missed.">            userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());</span>
+
+<span class="fc bfc" id="L220" title="All 2 branches covered.">            if (!userVectorFound) {</span>
+<span class="fc" id="L221">                csvWriter.writeNext(giornaleVector);</span>
+            } else {
+<span class="fc" id="L223">                found = userVectorFound;</span>
+            }
+        }
+
+
+<span class="fc" id="L228">        csvWriter.flush();</span>
+<span class="fc" id="L229">        csvReader.close();</span>
+<span class="fc" id="L230">        csvWriter.close();</span>
+<span class="pc bpc" id="L231" title="1 of 2 branches missed.">        if (found) {</span>
+<span class="fc" id="L232">            Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);</span>
+<span class="fc" id="L233">            status = true;</span>
+        } else {
+<span class="nc" id="L235">            cleanUp(Path.of(tmpFD.toURI()));</span>
+        }
+<span class="fc" id="L237">        return status;</span>
+
+    }
+
+    public synchronized ObservableList&lt;TempUser&gt; getUserData() throws IOException, CsvValidationException {
+<span class="fc" id="L242">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(this.fdU)));</span>
+        String[] gVector;
+
+<span class="fc" id="L245">        ObservableList&lt;TempUser&gt; list = FXCollections.observableArrayList();</span>
+
+
+<span class="fc bfc" id="L248" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
+
+<span class="fc" id="L250">            TempUser tu = getTempUser(gVector);</span>
+
+
+<span class="fc" id="L253">            list.add(tu);</span>
+
+
+<span class="fc" id="L256">        }</span>
+
+
+<span class="fc" id="L259">        reader.close();</span>
+<span class="fc" id="L260">        return list;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

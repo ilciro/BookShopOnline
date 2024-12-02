@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerLogin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerLogin.java</span></div><h1>ControllerLogin.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import com.opencsv.exceptions.CsvValidationException;
+import laptop.database.UsersDao;
+import laptop.database.csvusers.CsvUtente;
+import laptop.model.User;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Objects;
+import java.util.logging.Level;
+
+public class ControllerLogin {
+<span class="fc" id="L14">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L15">    private final User u= User.getInstance();</span>
+    private final CsvUtente csv;
+
+    public String login(String email,String pwd) throws SQLException, CsvValidationException, IOException {
+
+        String ruolo ;
+<span class="fc" id="L21">        u.setEmail(email);</span>
+<span class="fc" id="L22">        u.setPassword(pwd);</span>
+        String nome;
+        String cognome;
+        int id;
+
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+        {
+
+<span class="fc" id="L30">            ruolo=UsersDao.getRuolo(u);</span>
+            //added nome and cognome for fattuta
+<span class="fc" id="L32">             nome=UsersDao.pickData(u).getNome();</span>
+<span class="fc" id="L33">             cognome=UsersDao.pickData(u).getCognome();</span>
+<span class="fc" id="L34">             id=UsersDao.pickData(u).getId();</span>
+        }
+        else {
+<span class="fc" id="L37">            ruolo = csv.userList(u).get(0).getIdRuolo();</span>
+<span class="fc" id="L38">            nome = csv.userList(u).get(0).getNome();</span>
+<span class="fc" id="L39">            cognome=csv.userList(u).get(0).getCognome();</span>
+<span class="fc" id="L40">            id=csv.userList(u).get(0).getId();</span>
+        }
+<span class="fc" id="L42">        u.setNome(nome);</span>
+<span class="fc" id="L43">        u.setCognome(cognome);</span>
+
+
+<span class="pc bpc" id="L46" title="1 of 5 branches missed.">        switch (ruolo)</span>
+        {
+            case &quot;U&quot;,&quot;u&quot;,&quot;utente&quot;,&quot;UTENTE&quot;-&gt;
+            {
+<span class="fc" id="L50">                ruolo=&quot;UTENTE&quot;;</span>
+<span class="fc" id="L51">                vis.setIsLogged(true);</span>
+<span class="fc" id="L52">                u.setId(id);</span>
+<span class="fc" id="L53">            }</span>
+            case &quot;A&quot;,&quot;a&quot;,&quot;admin&quot;,&quot;ADMIN&quot;-&gt; {
+<span class="fc" id="L55">                ruolo = &quot;ADMIN&quot;;</span>
+<span class="fc" id="L56">                vis.setIsLogged(true);</span>
+<span class="fc" id="L57">                u.setId(id);</span>
+<span class="fc" id="L58">            }</span>
+            case &quot;S&quot;,&quot;s&quot;,&quot;W&quot;,&quot;w&quot;,&quot;SCRITTORE&quot;-&gt; {
+<span class="fc" id="L60">                ruolo = &quot;SCRITTORE&quot;;</span>
+<span class="fc" id="L61">                vis.setIsLogged(true);</span>
+<span class="fc" id="L62">                u.setId(id);</span>
+<span class="fc" id="L63">            }</span>
+            case &quot;E&quot;,&quot;e&quot;,&quot;EDITORE&quot;-&gt; {
+<span class="fc" id="L65">                ruolo = &quot;EDITORE&quot;;</span>
+<span class="fc" id="L66">                vis.setIsLogged(true);</span>
+<span class="fc" id="L67">                u.setId(id);</span>
+<span class="fc" id="L68">            }</span>
+            default -&gt;
+            {
+<span class="nc" id="L71">                ruolo=&quot;NONVALIDO&quot;;</span>
+<span class="nc" id="L72">                java.util.logging.Logger.getLogger(&quot; login&quot;).log(Level.SEVERE, &quot; user not found!!&quot;);</span>
+<span class="nc" id="L73">                vis.setIsLogged(false);</span>
+            }
+        }
+<span class="fc" id="L76">        return ruolo;</span>
+
+    }
+
+    //used for change pass
+    public boolean userPresente(String email,String pwd) throws SQLException, CsvValidationException, IOException {
+<span class="fc" id="L82">        boolean status=false;</span>
+<span class="fc" id="L83">        u.setEmail(email);</span>
+<span class="fc" id="L84">        u.setPassword(pwd);</span>
+
+
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+        {
+
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">            if(!Objects.equals(UsersDao.pickData(u).getNome(), &quot;&quot;))</span>
+            {
+<span class="fc" id="L92">                status=true;</span>
+            }
+
+        }else {
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if(!csv.userList(u).get(0).getNome().equalsIgnoreCase(&quot;&quot;))</span>
+            {
+<span class="fc" id="L98">                status=true;</span>
+            }
+
+
+
+        }
+
+
+<span class="fc" id="L106">        return status;</span>
+    }
+
+
+    public ControllerLogin()
+<span class="fc" id="L111">    {</span>
+<span class="fc" id="L112">        csv=new CsvUtente();</span>
+<span class="fc" id="L113">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

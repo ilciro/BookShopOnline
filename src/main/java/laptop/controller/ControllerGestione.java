@@ -113,7 +113,9 @@ public class ControllerGestione {
                 else
                 {
                     Libro l2=csv.getLibroByIdTitoloAutore(l).get(0);
+                    l.setId(l2.getId());
                     csv.removeLibroById(l2);
+
                     status=csv.inserisciLibro(l);
                 }
             }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerUtenti.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerUtenti.java</span></div><h1>ControllerUtenti.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.ObservableList;
+import laptop.database.UsersDao;
+import laptop.database.csvusers.CsvUtente;
+import laptop.model.TempUser;
+import laptop.model.User;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class ControllerUtenti {
+
+    private final CsvUtente csv;
+<span class="nc" id="L16">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+    private final TempUser tu;
+    public ObservableList&lt;TempUser&gt; getList() throws SQLException, CsvValidationException, IOException {
+        ObservableList&lt;TempUser&gt; list;
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="nc" id="L21">            list= UsersDao.getUserList();</span>
+<span class="nc" id="L22">        else list=csv.getUserData();</span>
+<span class="nc" id="L23">        return list;</span>
+    }
+
+    public ControllerUtenti()
+<span class="nc" id="L27">    {</span>
+<span class="nc" id="L28">        csv=new CsvUtente();</span>
+<span class="nc" id="L29">        tu=new TempUser();</span>
+<span class="nc" id="L30">    }</span>
+
+    public boolean elimina(String emailT) throws SQLException, CsvValidationException, IOException {
+        boolean status ;
+
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+            {
+
+<span class="nc" id="L39">                tu.setId(vis.getId());</span>
+<span class="nc" id="L40">                User.getInstance().setId(tu.getId());</span>
+<span class="nc" id="L41">               status=UsersDao.deleteTempUser(tu);</span>
+            }
+           else
+            {
+<span class="nc" id="L45">                tu.setId(vis.getId());</span>
+<span class="nc" id="L46">                User.getInstance().setId(tu.getId());</span>
+<span class="nc" id="L47">                User.getInstance().setEmail(emailT);</span>
+
+<span class="nc" id="L49">                status=csv.removeUserByIdEmailPwd(User.getInstance());</span>
+            }
+
+<span class="nc" id="L52">        return status;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

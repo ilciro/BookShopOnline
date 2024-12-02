@@ -84,7 +84,7 @@ public class BuondaryLogin implements Initializable {
             Parent root;
             stage = (Stage) buttonL.getScene().getWindow();
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageFinale.fxml")));
-            stage.setTitle("Benvenuto nella home page dopo il login");
+            stage.setTitle("Benvenuto nella home page dopo il login scrittore/utente/editore");
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

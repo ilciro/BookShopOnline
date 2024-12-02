@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FatturaBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">web.bean</a> &gt; <span class="el_source">FatturaBean.java</span></div><h1>FatturaBean.java</h1><pre class="source lang-java linenums">package web.bean;
+
+import java.util.Objects;
+
+<span class="nc" id="L5">public class FatturaBean {</span>
+    private String nomeB;
+    private String cognomeB;
+    private String indirizzoB;
+    private String comunicazioniB;
+    private float ammontareB;
+
+    public float getAmmontareB() {
+<span class="nc" id="L13">        return ammontareB;</span>
+    }
+
+    public void setAmmontareB(float ammontareB) {
+<span class="nc" id="L17">        this.ammontareB = ammontareB;</span>
+<span class="nc" id="L18">    }</span>
+
+    private int idFatturaB;
+
+    public int getIdFatturaB() {
+<span class="nc" id="L23">        return idFatturaB;</span>
+    }
+
+    public void setIdFatturaB(int idFatturaB) {
+<span class="nc" id="L27">        this.idFatturaB = idFatturaB;</span>
+<span class="nc" id="L28">    }</span>
+
+    public String getNomeB() {
+<span class="nc" id="L31">        return nomeB;</span>
+    }
+
+    public void setNomeB(String nomeB) {
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(Objects.equals(nomeB, &quot;&quot;))</span>
+<span class="nc" id="L36">            this.nomeB=&quot;&quot;;</span>
+<span class="nc" id="L37">        this.nomeB = nomeB;</span>
+<span class="nc" id="L38">    }</span>
+
+    public String getCognomeB() {
+
+<span class="nc" id="L42">        return cognomeB;</span>
+    }
+
+    public void setCognomeB(String cognomeB) {
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if(Objects.equals(cognomeB, &quot;&quot;))</span>
+<span class="nc" id="L47">            this.cognomeB=&quot;&quot;;</span>
+<span class="nc" id="L48">        this.cognomeB = cognomeB;</span>
+<span class="nc" id="L49">    }</span>
+
+    public String getIndirizzoB() {
+
+<span class="nc" id="L53">        return indirizzoB;</span>
+    }
+
+    public void setIndirizzoB(String indirizzoB) {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if(indirizzoB.isEmpty())</span>
+<span class="nc" id="L58">            this.indirizzoB=&quot;&quot;;</span>
+<span class="nc" id="L59">        this.indirizzoB = indirizzoB;</span>
+<span class="nc" id="L60">    }</span>
+
+    public String getComunicazioniB() {
+<span class="nc" id="L63">        return comunicazioniB;</span>
+    }
+
+    public void setComunicazioniB(String comunicazioniB) {
+<span class="nc" id="L67">        this.comunicazioniB = comunicazioniB;</span>
+<span class="nc" id="L68">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L72">        return &quot;Fattura [nome=&quot; + nomeB + &quot;, cognome=&quot; + cognomeB + &quot;, via=&quot; + indirizzoB + &quot;, com=&quot; + comunicazioniB + &quot;, numero=&quot; + idFatturaB</span>
+                + &quot;, ammontare=&quot; +  + ammontareB + &quot;]&quot;;
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

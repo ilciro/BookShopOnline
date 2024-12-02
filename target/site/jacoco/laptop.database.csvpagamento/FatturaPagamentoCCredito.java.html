@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FatturaPagamentoCCredito.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.database.csvpagamento</a> &gt; <span class="el_source">FatturaPagamentoCCredito.java</span></div><h1>FatturaPagamentoCCredito.java</h1><pre class="source lang-java linenums">package laptop.database.csvpagamento;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import laptop.controller.ControllerSystemState;
+import laptop.exception.IdException;
+
+import laptop.model.CartaDiCredito;
+import laptop.model.Fattura;
+import laptop.model.Pagamento;
+import laptop.model.User;
+import org.apache.commons.lang.SystemUtils;
+
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+
+public class FatturaPagamentoCCredito implements PagamentoInterface{
+<span class="fc" id="L37">    private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+    private static final int GETINDEXNOMEF=0;
+    private static final int GETINDEXCOGNOMEF=1;
+    private static final int GETINDEXVIAF=2;
+    private static final int GETINDEXCOMF=3;
+    private static final int GETINDEXAMMONTAREF=4;
+    private static final int GETINDEXIDF=5;
+    private  final File fileFattura;
+    private final File filePagamento;
+    private final File fileCartaCredito;
+    private static final int GETINDEXIDP=0;
+    private static final int GETINDEXMETODOP=1;
+    private static final int GETINDEXNOMEP=2;
+    private static final int GETINDEXSPESAP=3;
+    private static final int GETINDEXEIAMILP=4;
+    private static final int GETINDEXACQUISTOP=5;
+    private static final int GETINDEXIDPRODOTTOP=6;
+    private static final int GETINDEXNOMEPCC=0;
+    private static final int GETINDEXCOGNOMEPCC=1;
+    private static final int GETINDEXCODICECARTA=2;
+    private static final int GETINDEXSCADCC=3;
+    private static final int GETINDEXPINCC=4;
+    private static final int GETINDEXAMMONTARE=5;
+    private static final int GETINDEXIDCC=6;
+
+    private final HashMap&lt;String,Fattura&gt; cacheFattura;
+    private final HashMap&lt;String,Pagamento&gt; cachePagamento;
+    private final HashMap&lt;String,CartaDiCredito&gt; cacheCC;
+    private static final String APPOGGIO=&quot;report/appoggio.csv&quot;;
+    private static final String PERMESSI=&quot;rwx------&quot;;
+    private static final String PREFIX=&quot;prefix&quot;;
+    private static final String SUFFIX=&quot;suffix&quot;;
+    private static final String PAGAMENTO=&quot;report/reportPagamento.csv&quot;;
+    private static final String FATTURA=&quot;report/reportFattura.csv&quot;;
+    private static final String CARTACREDITO=&quot;report/reportCartaCredito.csv&quot;;
+    private static final String IDWRONG=&quot; id worng ..!!&quot;;
+    private static final String IDERROR=&quot;id error !!..&quot;;
+
+<span class="fc" id="L75">    public FatturaPagamentoCCredito() throws IOException {</span>
+<span class="fc" id="L76">        this.fileFattura=new File(FATTURA);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if(!this.fileFattura.exists())</span>
+<span class="fc" id="L78">            Files.createFile(Path.of(this.fileFattura.toURI()));</span>
+<span class="fc" id="L79">        this.filePagamento=new File(PAGAMENTO);</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        if(!this.filePagamento.exists())</span>
+<span class="fc" id="L81">            Files.createFile(Path.of(this.filePagamento.toURI()));</span>
+<span class="fc" id="L82">        this.fileCartaCredito=new File(CARTACREDITO);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if(!this.fileCartaCredito.exists())</span>
+<span class="fc" id="L84">            Files.createFile(Path.of(this.fileCartaCredito.toURI()));</span>
+<span class="fc" id="L85">        this.cacheFattura=new HashMap&lt;&gt;();</span>
+<span class="fc" id="L86">        this.cachePagamento=new HashMap&lt;&gt;();</span>
+<span class="fc" id="L87">        this.cacheCC=new HashMap&lt;&gt;();</span>
+<span class="fc" id="L88">    }</span>
+
+
+    private static void cleanUp(Path path) throws IOException {
+<span class="nc" id="L92">        Files.delete(path);</span>
+<span class="nc" id="L93">    }</span>
+
+    @Override
+    public void inserisciFattura(Fattura f) throws CsvValidationException, IOException{
+
+       //sembra funzionare
+<span class="fc" id="L99">        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(this.fileFattura, true)));</span>
+
+<span class="fc" id="L101">        String[] gVectore = new String[6];</span>
+
+<span class="fc" id="L103">        gVectore[GETINDEXNOMEF] = f.getNome();</span>
+<span class="fc" id="L104">        gVectore[GETINDEXCOGNOMEF] = f.getCognome();</span>
+<span class="fc" id="L105">        gVectore[GETINDEXVIAF] = f.getVia();</span>
+<span class="fc" id="L106">        gVectore[GETINDEXCOMF] = f.getCom();</span>
+<span class="fc" id="L107">        gVectore[GETINDEXAMMONTAREF] = String.valueOf(f.getAmmontare());</span>
+<span class="fc" id="L108">        gVectore[GETINDEXIDF] = String.valueOf(getIdMax() + 1);</span>
+<span class="fc" id="L109">        csvWriter.writeNext(gVectore);</span>
+
+<span class="fc" id="L111">        csvWriter.flush();</span>
+
+<span class="fc" id="L113">        csvWriter.close();</span>
+
+
+
+<span class="fc" id="L117">    }</span>
+
+
+
+    @Override
+    public void inserisciPagamento(Pagamento p) throws IdException, CsvValidationException, IOException {
+
+<span class="fc" id="L124">        creaPagamento(p);</span>
+<span class="fc" id="L125">    }</span>
+
+
+
+
+
+    @Override
+    public void cancellaFattura(Fattura f) throws CsvValidationException, IOException {
+<span class="fc" id="L133">        synchronized (this.cacheFattura) {</span>
+<span class="fc" id="L134">            this.cacheFattura.remove(String.valueOf(f.getNome()));</span>
+<span class="fc" id="L135">        }</span>
+<span class="fc" id="L136">        removeFattura(f);</span>
+
+<span class="fc" id="L138">    }</span>
+
+    private static synchronized void removeFattura(Fattura f) throws IOException, CsvValidationException {
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="fc" id="L142">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));</span>
+<span class="fc" id="L143">            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant</span>
+        }
+<span class="fc" id="L145">        File tmpFile = new File(APPOGGIO);</span>
+<span class="fc" id="L146">        boolean found = false;</span>
+<span class="fc" id="L147">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(FATTURA)));</span>
+        String[] gVector;
+<span class="fc" id="L149">        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));</span>
+        boolean recordFound;
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
+
+<span class="fc" id="L153">            recordFound=gVector[GETINDEXIDF].equals(String.valueOf(f.getIdFattura()));</span>
+
+
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">            if (!recordFound)</span>
+<span class="nc" id="L157">                writer.writeNext(gVector);</span>
+            else
+<span class="fc" id="L159">                found = true;</span>
+        }
+<span class="fc" id="L161">        writer.flush();</span>
+<span class="fc" id="L162">        reader.close();</span>
+<span class="fc" id="L163">        writer.close();</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">        if (found) {</span>
+<span class="fc" id="L165">            Files.move(tmpFile.toPath(), Path.of(FATTURA), REPLACE_EXISTING);</span>
+        } else {
+<span class="nc" id="L167">            cleanUp(Path.of(tmpFile.toURI()));</span>
+        }
+
+
+<span class="fc" id="L171">    }</span>
+
+
+
+
+    @Override
+    public boolean cancellaPagamento(Pagamento p) throws CsvValidationException, IOException {
+<span class="fc" id="L178">        synchronized (this.cachePagamento) {</span>
+<span class="fc" id="L179">            this.cachePagamento.remove(String.valueOf(p.getNomeUtente()));</span>
+<span class="fc" id="L180">            this.cachePagamento.remove(String.valueOf(p.getEmail()));</span>
+<span class="fc" id="L181">        }</span>
+<span class="fc" id="L182">        return removePagamento(p);</span>
+
+    }
+
+    @Override
+    public void inserisciCartaCredito(CartaDiCredito cc) throws IOException, CsvValidationException {
+<span class="fc" id="L188">        CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(CARTACREDITO,true)));</span>
+<span class="fc" id="L189">        String[] gVector=new String[7];</span>
+
+<span class="fc" id="L191">        gVector[GETINDEXNOMEPCC]=cc.getNomeUser();</span>
+<span class="fc" id="L192">        gVector[GETINDEXCOGNOMEPCC]=cc.getCognomeUser();</span>
+<span class="fc" id="L193">        gVector[GETINDEXCODICECARTA]=cc.getNumeroCC();</span>
+<span class="fc" id="L194">        gVector[GETINDEXSCADCC]= String.valueOf(cc.getScadenza());</span>
+<span class="fc" id="L195">        gVector[GETINDEXPINCC]=cc.getCiv();</span>
+<span class="fc" id="L196">        gVector[GETINDEXAMMONTARE]= String.valueOf(cc.getPrezzoTransazine());</span>
+<span class="fc" id="L197">        gVector[GETINDEXIDCC]= String.valueOf(getIdMaxCC()+1);</span>
+<span class="fc" id="L198">        writer.writeNext(gVector);</span>
+
+<span class="fc" id="L200">        writer.flush();</span>
+
+<span class="fc" id="L202">        writer.close();</span>
+
+
+
+<span class="fc" id="L206">    }</span>
+
+    @Override
+    public ObservableList&lt;CartaDiCredito&gt; getListaCartaCreditoByNome(CartaDiCredito cc) throws CsvValidationException, IOException {
+<span class="fc" id="L210">        ObservableList&lt;CartaDiCredito&gt; list= FXCollections.observableArrayList();</span>
+<span class="fc" id="L211">        synchronized (this.cacheCC)</span>
+        {
+
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">            for(Map.Entry&lt;String,CartaDiCredito&gt; id:cacheCC.entrySet())</span>
+            {
+<span class="nc" id="L216">                boolean recordFound=id.getValue().getNumeroCC().equals(cc.getNumeroCC());</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">                if(recordFound)</span>
+<span class="nc" id="L218">                    list.add(id.getValue());</span>
+<span class="nc" id="L219">            }</span>
+<span class="fc" id="L220">        }</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">        if(list.isEmpty())</span>
+        {
+<span class="fc" id="L223">            list=retrieveCartaCreditoByName(this.fileCartaCredito,cc);</span>
+<span class="fc" id="L224">            synchronized (this.cacheCC)</span>
+            {
+<span class="fc bfc" id="L226" title="All 2 branches covered.">                for(CartaDiCredito carta : list)</span>
+<span class="fc" id="L227">                    this.cacheCC.put(String.valueOf(cc.getNumeroCC()),carta);</span>
+<span class="fc" id="L228">            }</span>
+
+        }
+<span class="fc" id="L231">        return list;</span>
+
+    }
+
+    @Override
+    public Pagamento ultimoPagamento() throws IOException, CsvValidationException {
+<span class="fc" id="L237">        ObservableList&lt;Pagamento&gt; list=FXCollections.observableArrayList();</span>
+<span class="fc" id="L238">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(this.filePagamento)));</span>
+        String []gVector;
+
+<span class="fc bfc" id="L241" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
+<span class="fc" id="L242">            Pagamento p=new Pagamento();</span>
+<span class="fc" id="L243">            p.setIdPag(Integer.parseInt(gVector[GETINDEXIDP]));</span>
+<span class="fc" id="L244">            p.setMetodo(gVector[GETINDEXMETODOP]);</span>
+<span class="fc" id="L245">            p.setNomeUtente(gVector[GETINDEXNOMEP]);</span>
+<span class="fc" id="L246">            p.setAmmontare(Float.parseFloat(gVector[GETINDEXSPESAP]));</span>
+<span class="fc" id="L247">            p.setEmail(gVector[GETINDEXEIAMILP]);</span>
+<span class="fc" id="L248">            p.setTipo(gVector[GETINDEXACQUISTOP]);</span>
+<span class="fc" id="L249">            p.setIdOggetto(Integer.parseInt(gVector[GETINDEXIDPRODOTTOP]));</span>
+<span class="fc" id="L250">            list.add(p);</span>
+
+
+<span class="fc" id="L253">        }</span>
+
+<span class="fc" id="L255">        return list.get(list.size()-1);</span>
+    }
+
+    @Override
+    public Fattura ultimaFattura() throws CsvValidationException, IOException {
+<span class="fc" id="L260">       CSVReader reader = new CSVReader(new BufferedReader(new FileReader(this.fileFattura)));</span>
+<span class="fc" id="L261">        ObservableList&lt;Fattura&gt; list=FXCollections.observableArrayList();</span>
+       String []gVector;
+<span class="fc bfc" id="L263" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
+<span class="fc" id="L264">            Fattura f=new Fattura();</span>
+<span class="fc" id="L265">            f.setNome(gVector[GETINDEXNOMEF]);</span>
+<span class="fc" id="L266">            f.setCognome(gVector[GETINDEXCOGNOMEF]);</span>
+<span class="fc" id="L267">            f.setVia(gVector[GETINDEXVIAF]);</span>
+<span class="fc" id="L268">            f.setCom(gVector[GETINDEXCOMF]);</span>
+<span class="fc" id="L269">            f.setAmmontare(Float.parseFloat(gVector[GETINDEXAMMONTAREF]));</span>
+<span class="fc" id="L270">            f.setIdFattura(Integer.parseInt(gVector[GETINDEXIDF]));</span>
+<span class="fc" id="L271">            list.add(f);</span>
+
+
+<span class="fc" id="L274">        }</span>
+<span class="fc" id="L275">        return list.get(list.size()-1);</span>
+
+    }
+
+    @Override
+    public ObservableList&lt;Pagamento&gt; getPagamenti(Pagamento p) throws CsvValidationException, IOException {
+<span class="nc" id="L281">        ObservableList&lt;Pagamento&gt; list= FXCollections.observableArrayList();</span>
+<span class="nc" id="L282">        synchronized (this.cachePagamento)</span>
+        {
+
+
+<span class="nc bnc" id="L286" title="All 2 branches missed.">            for(Map.Entry&lt;String,Pagamento&gt; id:cachePagamento.entrySet())</span>
+            {
+<span class="nc bnc" id="L288" title="All 2 branches missed.">                boolean recordFound=(id.getValue().getIdPag()==p.getIdPag());</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">                if(recordFound)</span>
+<span class="nc" id="L290">                    list.add(id.getValue());</span>
+<span class="nc" id="L291">            }</span>
+<span class="nc" id="L292">        }</span>
+<span class="nc bnc" id="L293" title="All 2 branches missed.">        if(list.isEmpty())</span>
+        {
+<span class="nc" id="L295">            list=retriveListPagamento(this.filePagamento,p);</span>
+<span class="nc" id="L296">            synchronized (this.cachePagamento)</span>
+            {
+<span class="nc bnc" id="L298" title="All 2 branches missed.">                for(Pagamento pagamento : list)</span>
+<span class="nc" id="L299">                    this.cachePagamento.put(String.valueOf(p.getEmail()),pagamento);</span>
+<span class="nc" id="L300">            }</span>
+
+        }
+<span class="nc" id="L303">        return list;</span>
+
+    }
+
+    private static  synchronized  ObservableList&lt;Pagamento&gt; retriveListPagamento(File fd, Pagamento p) throws IOException, CsvValidationException {
+<span class="nc" id="L308">            CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fd)));</span>
+            String[] gVector;
+<span class="nc" id="L310">            ObservableList&lt;Pagamento&gt; list=FXCollections.observableArrayList();</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">            while((gVector=reader.readNext())!=null)</span>
+            {
+<span class="nc" id="L313">                boolean recordFound=gVector[GETINDEXEIAMILP].equals(p.getEmail());</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">                if(recordFound)</span>
+                {
+<span class="nc" id="L316">                    Pagamento pag=new Pagamento();</span>
+<span class="nc" id="L317">                    pag.setIdPag(Integer.parseInt(gVector[GETINDEXIDP]));</span>
+<span class="nc" id="L318">                    pag.setMetodo(gVector[GETINDEXMETODOP]);</span>
+<span class="nc" id="L319">                    pag.setAmmontare(Float.parseFloat(gVector[GETINDEXSPESAP]));</span>
+<span class="nc" id="L320">                    pag.setTipo(gVector[GETINDEXACQUISTOP]);</span>
+<span class="nc" id="L321">                    pag.setIdOggetto(Integer.parseInt(gVector[GETINDEXIDPRODOTTOP]));</span>
+<span class="nc" id="L322">                    list.add(pag);</span>
+
+
+                }
+<span class="nc" id="L326">            }</span>
+<span class="nc" id="L327">            reader.close();</span>
+
+<span class="nc" id="L329">            return list;</span>
+
+    }
+
+    private static synchronized ObservableList&lt;CartaDiCredito&gt; retrieveCartaCreditoByName(File fileCartaCredito, CartaDiCredito cc) throws IOException, CsvValidationException {
+<span class="fc" id="L334">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fileCartaCredito)));</span>
+        String[] gVector;
+<span class="fc" id="L336">        ObservableList&lt;CartaDiCredito&gt; list=FXCollections.observableArrayList();</span>
+<span class="fc bfc" id="L337" title="All 2 branches covered.">        while((gVector=reader.readNext())!=null)</span>
+        {
+<span class="pc bpc" id="L339" title="1 of 4 branches missed.">            boolean recordFound=gVector[GETINDEXCODICECARTA].equals(cc.getNumeroCC()) || gVector[GETINDEXNOMEPCC].equalsIgnoreCase(cc.getNomeUser());</span>
+<span class="fc bfc" id="L340" title="All 2 branches covered.">            if(recordFound)</span>
+            {
+<span class="fc" id="L342">                CartaDiCredito carta=new CartaDiCredito();</span>
+<span class="fc" id="L343">                cc.setNomeUser(gVector[GETINDEXNOMEPCC]);</span>
+<span class="fc" id="L344">                cc.setCognomeUser(gVector[GETINDEXCOGNOMEPCC]);</span>
+<span class="fc" id="L345">                cc.setNumeroCC(gVector[GETINDEXCODICECARTA]);</span>
+<span class="fc" id="L346">                cc.setScadenza(Date.valueOf(gVector[GETINDEXSCADCC]));</span>
+<span class="fc" id="L347">                cc.setCiv(gVector[GETINDEXPINCC]);</span>
+<span class="fc" id="L348">                cc.setAmmontare(Double.parseDouble(gVector[GETINDEXAMMONTARE]));</span>
+<span class="fc" id="L349">                gVector[GETINDEXIDCC]= String.valueOf(getIdMaxCC()+1);</span>
+<span class="fc" id="L350">                list.add(carta);</span>
+
+
+            }
+<span class="fc" id="L354">        }</span>
+<span class="fc" id="L355">        reader.close();</span>
+
+<span class="fc" id="L357">        return list;</span>
+    }
+
+    private static synchronized boolean removePagamento(Pagamento p) throws IOException, CsvValidationException {
+<span class="fc" id="L361">        boolean status = false;</span>
+<span class="pc bpc" id="L362" title="1 of 2 branches missed.">        if (SystemUtils.IS_OS_UNIX) {</span>
+<span class="fc" id="L363">            FileAttribute&lt;Set&lt;PosixFilePermission&gt;&gt; attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(PERMESSI));</span>
+<span class="fc" id="L364">            Files.createTempFile(PREFIX, SUFFIX, attr); // Compliant</span>
+        }
+<span class="fc" id="L366">        File tmpFile = new File(APPOGGIO);</span>
+<span class="fc" id="L367">        boolean found = false;</span>
+<span class="fc" id="L368">        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(PAGAMENTO)));</span>
+        String[] gVector;
+<span class="fc" id="L370">        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(tmpFile, true)));</span>
+        boolean recordFound;
+<span class="fc bfc" id="L372" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
+
+<span class="fc bfc" id="L374" title="All 2 branches covered.">            recordFound=gVector[GETINDEXIDP].equals(String.valueOf(p.getIdPag()))</span>
+<span class="pc bpc" id="L375" title="1 of 2 branches missed.">            || gVector[GETINDEXEIAMILP].equals(p.getEmail());</span>
+
+
+<span class="fc bfc" id="L378" title="All 2 branches covered.">            if (!recordFound)</span>
+<span class="fc" id="L379">                writer.writeNext(gVector);</span>
+            else
+<span class="fc" id="L381">                found = true;</span>
+        }
+<span class="fc" id="L383">        writer.flush();</span>
+<span class="fc" id="L384">        reader.close();</span>
+<span class="fc" id="L385">        writer.close();</span>
+<span class="pc bpc" id="L386" title="1 of 2 branches missed.">        if (found) {</span>
+<span class="fc" id="L387">            Files.move(tmpFile.toPath(), Path.of(PAGAMENTO), REPLACE_EXISTING);</span>
+<span class="fc" id="L388">            status=true;</span>
+        } else {
+<span class="nc" id="L390">            cleanUp(Path.of(tmpFile.toURI()));</span>
+        }
+<span class="fc" id="L392">        return status;</span>
+
+    }
+
+
+    private void creaPagamento(Pagamento p) throws IOException, CsvValidationException {
+<span class="fc" id="L398">        CSVWriter csvWriter=new CSVWriter(new BufferedWriter(new FileWriter(this.filePagamento,true)));</span>
+<span class="fc" id="L399">        String[] gVectore=new String[7];</span>
+        //fare if su tipo pagamento
+
+<span class="fc" id="L402">        gVectore[GETINDEXIDP]= String.valueOf(getIdMaxPagamento()+1);</span>
+<span class="fc" id="L403">        gVectore[GETINDEXMETODOP]=p.getMetodo();</span>
+<span class="fc" id="L404">        gVectore[GETINDEXNOMEP]= p.getNomeUtente();</span>
+<span class="fc" id="L405">        gVectore[GETINDEXSPESAP]= String.valueOf(vis.getSpesaT());</span>
+<span class="fc" id="L406">        gVectore[GETINDEXEIAMILP]= User.getInstance().getEmail();</span>
+<span class="fc" id="L407">        gVectore[GETINDEXACQUISTOP]=p.getTipo();</span>
+<span class="fc" id="L408">        gVectore[GETINDEXIDPRODOTTOP]= String.valueOf(p.getIdOggetto());</span>
+
+<span class="fc" id="L410">        csvWriter.writeNext(gVectore);</span>
+<span class="fc" id="L411">        csvWriter.flush();</span>
+<span class="fc" id="L412">        csvWriter.close();</span>
+
+<span class="fc" id="L414">    }</span>
+
+
+    private static int getIdMaxCC() throws IOException, CsvValidationException {
+<span class="fc" id="L418">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(CARTACREDITO)));</span>
+        String []gVector;
+<span class="fc" id="L420">        int id=0;</span>
+
+        try {
+<span class="fc bfc" id="L423" title="All 2 branches covered.">            while ((gVector = reader.readNext()) != null) {</span>
+<span class="fc" id="L424">                id= Integer.parseInt(gVector[GETINDEXIDCC]);</span>
+
+            }
+<span class="fc bfc" id="L427" title="All 2 branches covered.">            if(id==0)</span>
+<span class="fc" id="L428">                throw new IdException(&quot; id is 0!!&quot;);</span>
+<span class="fc" id="L429">        }catch(IdException e)</span>
+        {
+<span class="fc" id="L431">            Logger.getLogger(IDWRONG).log(Level.SEVERE, IDERROR);</span>
+
+<span class="fc" id="L433">        }</span>
+<span class="fc" id="L434">        return id;</span>
+    }
+
+    private static  int getIdMax() throws IOException, CsvValidationException {
+        //used for insert correct idOgg
+        CSVReader reader;
+        String[] gVector;
+<span class="fc" id="L441">        int id = 0;</span>
+
+
+        try {
+
+
+<span class="pc bpc" id="L447" title="1 of 2 branches missed.">            if (vis.getMetodoP().equalsIgnoreCase(&quot;cash&quot;)) {</span>
+<span class="fc" id="L448">                reader = new CSVReader(new FileReader(FATTURA));</span>
+<span class="pc bpc" id="L449" title="1 of 2 branches missed.">                while ((gVector = reader.readNext()) != null) {</span>
+<span class="nc" id="L450">                    id = Integer.parseInt(gVector[GETINDEXIDF]);</span>
+                }
+
+
+<span class="nc bnc" id="L454" title="All 2 branches missed.">            } else if (vis.getMetodoP().equalsIgnoreCase(&quot;cCredito&quot;)) {</span>
+<span class="nc" id="L455">                reader = new CSVReader(new FileReader(PAGAMENTO));</span>
+<span class="nc bnc" id="L456" title="All 2 branches missed.">                while ((gVector = reader.readNext()) != null) {</span>
+<span class="nc" id="L457">                        id = Integer.parseInt(gVector[GETINDEXIDP]);</span>
+
+                }
+
+            }
+
+<span class="pc bpc" id="L463" title="1 of 2 branches missed.">            if (id == 0)</span>
+<span class="fc" id="L464">                throw new IdException(&quot;id == 0 &quot;);</span>
+
+<span class="fc" id="L466">        }catch (IdException  e)</span>
+        {
+
+<span class="fc" id="L469">            Logger.getLogger(IDWRONG).log(Level.SEVERE, IDERROR);</span>
+
+<span class="nc" id="L471">        }</span>
+
+<span class="fc" id="L473">        return id;</span>
+
+    }
+    private static int getIdMaxPagamento() throws IOException, CsvValidationException {
+<span class="fc" id="L477">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(PAGAMENTO)));</span>
+        String []gVector;
+<span class="fc" id="L479">        int id=0;</span>
+
+        try {
+<span class="fc bfc" id="L482" title="All 2 branches covered.">            while ((gVector = reader.readNext()) != null) {</span>
+<span class="fc" id="L483">                id= Integer.parseInt(gVector[GETINDEXIDP]);</span>
+            }
+<span class="fc bfc" id="L485" title="All 2 branches covered.">            if(id==0)</span>
+<span class="fc" id="L486">                throw new IdException(&quot; id is 0!!&quot;);</span>
+<span class="fc" id="L487">        }catch(IdException e)</span>
+        {
+<span class="fc" id="L489">            Logger.getLogger(IDWRONG).log(Level.SEVERE, IDERROR);</span>
+
+<span class="fc" id="L491">        }</span>
+<span class="fc" id="L492">        return id;</span>
+    }
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

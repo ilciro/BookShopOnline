@@ -83,9 +83,9 @@ public class CsvOggettoDao implements DaoInterface {
     private static final ControllerSystemState vis = ControllerSystemState.getInstance();
 
 
-    private final HashMap<String, Libro> cacheLibro;
-    private final HashMap<String, Giornale> cacheGiornale;
-    private final HashMap<String, Rivista> cacheRivista;
+    private final HashMap<Integer, Libro> cacheLibro;
+    private  final HashMap<Integer, Giornale> cacheGiornale;
+    private  final HashMap<Integer, Rivista> cacheRivista;
     private final File fdL=new File(LOCATIONL);
     private final File fdG=new File(LOCATIONG);
     private final File fdR=new File(LOCATIONR);
@@ -232,7 +232,7 @@ public class CsvOggettoDao implements DaoInterface {
     public boolean removeLibroById(Libro l) throws CsvValidationException, IOException {
 
         synchronized (this.cacheLibro) {
-            this.cacheLibro.remove(String.valueOf(l.getId()));
+            this.cacheLibro.remove(l.getId());
         }
         return removeLibroId(this.fdL, l);
 
@@ -414,7 +414,7 @@ public class CsvOggettoDao implements DaoInterface {
     @Override
     public boolean removeGiornaleById(Giornale g) throws CsvValidationException, IOException {
         synchronized (this.cacheGiornale) {
-            this.cacheGiornale.remove(String.valueOf(g.getId()));
+            this.cacheGiornale.remove(g.getId(),g);
         }
         return removeGiornaleId(this.fdG, g);
 
@@ -527,7 +527,7 @@ public class CsvOggettoDao implements DaoInterface {
     public  boolean removeRivistaById(Rivista r) throws CsvValidationException, IOException {
 
         synchronized (this.cacheRivista) {
-            this.cacheRivista.remove(String.valueOf(r.getId()));
+            this.cacheRivista.remove(r.getId());
         }
        return removeRivistaId(this.fdR,r);
     }
@@ -592,12 +592,14 @@ public class CsvOggettoDao implements DaoInterface {
         List<Libro> list=new ArrayList<>();
         synchronized (this.cacheLibro)
         {
-            for(Map.Entry<String, Libro> id:this.cacheLibro.entrySet())
+            for(Map.Entry<Integer, Libro> id:this.cacheLibro.entrySet())
             {
-                Libro recordInCache=this.cacheLibro.get(String.valueOf(id));
-                boolean recordFound=recordInCache.getTitolo().equals(l.getTitolo());
-                if(recordFound)
-                    list.add(recordInCache);
+                boolean recordFound=id.getValue().getTitolo().equals(l.getTitolo());
+                if(recordFound) {
+
+
+                    list.add(id.getValue());
+                }
             }
         }
         if(list.isEmpty())
@@ -606,7 +608,7 @@ public class CsvOggettoDao implements DaoInterface {
             synchronized (this.cacheLibro)
             {
                 for(Libro libro : list)
-                    this.cacheLibro.put(String.valueOf(l.getTitolo()),libro);
+                    this.cacheLibro.put(l.getId(),libro);
             }
 
         }
@@ -618,12 +620,14 @@ public class CsvOggettoDao implements DaoInterface {
         List<Giornale> list=new ArrayList<>();
         synchronized (this.cacheGiornale)
         {
-            for(String id:this.cacheGiornale.keySet())
+            for(Map.Entry<Integer, Giornale> id:this.cacheGiornale.entrySet())
             {
-                Giornale recordInCache=this.cacheGiornale.get(id);
-                boolean recordFound=recordInCache.getTitolo().equals(g.getTitolo());
-                if(recordFound)
-                    list.add(recordInCache);
+                boolean recordFound=id.getValue().getTitolo().equals(g.getTitolo());
+                if(recordFound) {
+
+
+                    list.add(id.getValue());
+                }
             }
         }
         if(list.isEmpty())
@@ -632,7 +636,7 @@ public class CsvOggettoDao implements DaoInterface {
             synchronized (this.cacheGiornale)
             {
                 for(Giornale giornale : list)
-                    this.cacheGiornale.put(String.valueOf(g.getTitolo()),giornale);
+                    this.cacheGiornale.put(g.getId(),giornale);
             }
 
         }
@@ -644,12 +648,14 @@ public class CsvOggettoDao implements DaoInterface {
         List<Rivista> list=new ArrayList<>();
         synchronized (this.cacheRivista)
         {
-            for (Iterator<Map.Entry<String, Rivista>> iterator = this.cacheRivista.entrySet().iterator(); iterator.hasNext(); ) {
-                Map.Entry<String, Rivista> id = iterator.next();
-                Rivista recordInCache = this.cacheRivista.get(String.valueOf(id));
-                boolean recordFound = recordInCache.getTitolo().equals(r.getTitolo());
-                if (recordFound)
-                    list.add(recordInCache);
+            for(Map.Entry<Integer, Rivista> id:this.cacheRivista.entrySet())
+            {
+                boolean recordFound=id.getValue().getTitolo().equals(r.getTitolo());
+                if(recordFound) {
+
+
+                    list.add(id.getValue());
+                }
             }
         }
         if(list.isEmpty())
@@ -658,27 +664,89 @@ public class CsvOggettoDao implements DaoInterface {
             synchronized (this.cacheRivista)
             {
                 for(Rivista rivista : list)
-                    this.cacheRivista.put(String.valueOf(r.getId()),rivista);
+                    this.cacheRivista.put(r.getId(),rivista);
             }
 
         }
         return list;
     }
 
+    /*
+    package caches;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Caches {
+    private final HashMap<Integer,Libro> cacheL;
+
+    //1 ->L1
+    //2->L2
+
+
+    public Caches()
+    {
+        this.cacheL=new HashMap<>();
+    }
+
+    public  void inserisci()
+    {
+        Libro l1=new Libro(1,"titolo1","editore 1");
+        Libro l2=new Libro(2,"titolo2","editore 2");
+        Libro l3=new Libro(3,"titolo3","editore 3");
+
+        synchronized (this.cacheL)
+        {
+            this.cacheL.put(l1.getId(), l1);
+            this.cacheL.put(l2.getId(), l2);
+            this.cacheL.put(l3.getId(), l3);
+
+
+
+        }
+        String titolo="titolo2";
+        boolean recordFound;
+        ObservableList<Libro> list= FXCollections.observableArrayList();
+        for(Map.Entry<Integer, Libro> id:this.cacheL.entrySet())
+        {
+
+
+            System.out.println("key: " + id.getKey() + " value: " + id.getValue().getTitolo());
+             recordFound=titolo.equals(id.getValue().getTitolo());
+            if(recordFound)
+            {
+                Libro l=new Libro(id.getKey(),id.getValue().getTitolo(),id.getValue().getEditore());
+                list.add(l);
+            }
+
+        }
+        System.out.println("List : "+list);
+
+
+
+
+    }
+}
+     */
     @Override
     public ObservableList<Libro> getLibroByIdTitoloAutore(Libro l) throws CsvValidationException, IOException, IdException {
         ObservableList<Libro> list=FXCollections.observableArrayList();
         synchronized (this.cacheLibro)
         {
-            for(Map.Entry<String, Libro> id:this.cacheLibro.entrySet())
+            for(Map.Entry<Integer, Libro> id:this.cacheLibro.entrySet())
             {
-                Libro recordInCache=this.cacheLibro.get(String.valueOf(id));
-                boolean recordT=recordInCache.getTitolo().equals(l.getTitolo());
-                boolean recordA=recordInCache.getTitolo().equals(l.getAutore());
-                boolean recordFound=recordT&&recordA;
 
-                if(recordFound)
-                    list.add(recordInCache);
+                    boolean recordT =id.getValue().getTitolo().equals(l.getTitolo());
+                    boolean recordA = id.getValue().getTitolo().equals(l.getAutore());
+                   boolean recordFound = recordT && recordA;
+
+
+                if (recordFound)
+                      list.add(id.getValue());
+
             }
         }
         if(list.isEmpty())
@@ -687,7 +755,7 @@ public class CsvOggettoDao implements DaoInterface {
             synchronized (this.cacheLibro)
             {
                 for(Libro libro : list)
-                    this.cacheLibro.put(String.valueOf(l.getId()),libro);
+                    this.cacheLibro.put(l.getId(),libro);
             }
 
         }
@@ -705,7 +773,8 @@ public class CsvOggettoDao implements DaoInterface {
 
 
             boolean recordFound = gVector[GETINDEXIDL].equals(String.valueOf(libro.getId()))|| gVector[GETINDEXIDL].equals(String.valueOf(vis.getId()))
-                    || gVector[GETINDEXTITOLOL].equals(libro.getTitolo())|| gVector[GETINDEXAUTOREL].equals(libro.getAutore());
+                    || gVector[GETINDEXTITOLOL].equals(libro.getTitolo())|| gVector[GETINDEXAUTOREL].equals(libro.getAutore())
+                    || gVector[GETINDEXEDITOREL].equals(libro.getEditore());
             if (recordFound) {
 
 
@@ -727,18 +796,21 @@ public class CsvOggettoDao implements DaoInterface {
     @Override
     public ObservableList<Giornale> getGiornaleByIdTitoloEditore( Giornale g) throws CsvValidationException, IOException, IdException {
         ObservableList<Giornale> list=FXCollections.observableArrayList();
-        synchronized (this.cacheGiornale)
-        {
-            for(Map.Entry<String, Giornale> id:this.cacheGiornale.entrySet())
-            {
-                Giornale recordInCache=this.cacheGiornale.get(id);
-                boolean recordT=recordInCache.getTitolo().equals(g.getTitolo());
-                boolean recordA=recordInCache.getTitolo().equals(g.getEditore());
-                boolean recordFound=recordT&&recordA;
+        synchronized (this.cacheGiornale) {
 
-                if(recordFound)
-                    list.add(recordInCache);
-            }
+                for (Map.Entry<Integer, Giornale> id : this.cacheGiornale.entrySet()) {
+
+
+                        boolean recordT = id.getValue().getTitolo().equals(g.getTitolo());
+                        boolean recordA = id.getValue().getTitolo().equals(g.getEditore());
+                        boolean recordFound = recordT && recordA;
+
+                        if (recordFound)
+                            list.add(id.getValue());
+                    }
+
+
+
         }
         if(list.isEmpty())
         {
@@ -746,7 +818,7 @@ public class CsvOggettoDao implements DaoInterface {
             synchronized (this.cacheGiornale)
             {
                 for(Giornale giornale : list)
-                    this.cacheGiornale.put(String.valueOf(g.getId()),giornale);
+                    this.cacheGiornale.put(g.getId(),giornale);
             }
 
         }
@@ -784,15 +856,14 @@ public class CsvOggettoDao implements DaoInterface {
         ObservableList<Rivista> list=FXCollections.observableArrayList();
         synchronized (this.cacheRivista)
         {
-            for(Map.Entry<String, Rivista> id: cacheRivista.entrySet())
+            for(Map.Entry<Integer, Rivista> id: cacheRivista.entrySet())
             {
-                Rivista recordInCache=this.cacheRivista.get(String.valueOf(id));
-                boolean recordT=recordInCache.getTitolo().equals(r.getTitolo());
-                boolean recordA=recordInCache.getTitolo().equals(r.getEditore());
+                boolean recordT=id.getValue().getTitolo().equals(r.getTitolo());
+                boolean recordA=id.getValue().getTitolo().equals(r.getEditore());
                 boolean recordFound=recordT&&recordA;
 
                 if(recordFound)
-                    list.add(recordInCache);
+                    list.add(id.getValue());
             }
         }
         if(list.isEmpty())
@@ -801,7 +872,7 @@ public class CsvOggettoDao implements DaoInterface {
             synchronized (this.cacheRivista)
             {
                 for(Rivista rivista : list)
-                    this.cacheRivista.put(String.valueOf(r.getId()),rivista);
+                    this.cacheRivista.put(r.getId(),rivista);
             }
 
         }

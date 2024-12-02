@@ -43,8 +43,8 @@ public class BuondaryAnnullaPagamento implements Initializable {
     private TextField idPagamento;
 
     private final ControllerSystemState vis= ControllerSystemState.getInstance();
-    private final static String CASH="cash";
-    private final static String CCREDITO="cCredito";
+    private static final String CASH="cash";
+    private  static final String CCREDITO="cCredito";
     protected Scene scene;
 
 

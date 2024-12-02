@@ -25,6 +25,7 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -209,12 +210,12 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         ObservableList<CartaDiCredito> list= FXCollections.observableArrayList();
         synchronized (this.cacheCC)
         {
-            for(String id:this.cacheCC.keySet())
+
+            for(Map.Entry<String,CartaDiCredito> id:cacheCC.entrySet())
             {
-                CartaDiCredito recordInCache=this.cacheCC.get(id);
-                boolean recordFound=recordInCache.getNumeroCC().equals(cc.getNumeroCC());
+                boolean recordFound=id.getValue().getNumeroCC().equals(cc.getNumeroCC());
                 if(recordFound)
-                    list.add(recordInCache);
+                    list.add(id.getValue());
             }
         }
         if(list.isEmpty())
@@ -280,12 +281,13 @@ public class FatturaPagamentoCCredito implements PagamentoInterface{
         ObservableList<Pagamento> list= FXCollections.observableArrayList();
         synchronized (this.cachePagamento)
         {
-            for(String id:this.cachePagamento.keySet())
+
+
+            for(Map.Entry<String,Pagamento> id:cachePagamento.entrySet())
             {
-                Pagamento recordInCache=this.cachePagamento.get(id);
-                boolean recordFound=(recordInCache.getIdPag()==p.getIdPag());
+                boolean recordFound=(id.getValue().getIdPag()==p.getIdPag());
                 if(recordFound)
-                    list.add(recordInCache);
+                    list.add(id.getValue());
             }
         }
         if(list.isEmpty())

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Giornale.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.model.raccolta</a> &gt; <span class="el_source">Giornale.java</span></div><h1>Giornale.java</h1><pre class="source lang-java linenums">	package laptop.model.raccolta;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfCopy;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
+
+
+	public class Giornale implements Raccolta{
+
+	private String  titolo;
+	private String categoria;
+	private String lingua;
+	private String editore;
+	private LocalDate dataPubb;
+	private int copieRimanenti;
+	private int disponibilita;
+	private float prezzo;
+	private int id;
+
+<span class="fc" id="L32">	private final ResourceBundle rbTitoli=ResourceBundle.getBundle(&quot;configurations/titles&quot;);</span>
+	private static final String TITOLOG=&quot;titolo13&quot;;
+	private static final String DSTPATH=&quot;dstPath&quot;;
+
+<span class="fc" id="L36">	private String[] infoGenerali=new String[6];</span>
+
+
+
+
+
+
+	public Giornale()
+	{
+<span class="fc" id="L45">		super();</span>
+<span class="fc" id="L46">	}</span>
+
+
+	public Giornale(String []info,LocalDate dataPubb,int nrCopie, int disponibilita, float prezzo, int id)
+<span class="fc" id="L50">	{</span>
+<span class="fc" id="L51">		this.infoGenerali=info;</span>
+<span class="fc" id="L52">		this.dataPubb=dataPubb;</span>
+<span class="fc" id="L53">		this.copieRimanenti=nrCopie;</span>
+<span class="fc" id="L54">		this.disponibilita=disponibilita;</span>
+<span class="fc" id="L55">		this.prezzo=prezzo;</span>
+<span class="fc" id="L56">		this.id=id;</span>
+<span class="fc" id="L57">		this.titolo=info[0];</span>
+<span class="fc" id="L58">		this.categoria=info[5];</span>
+<span class="fc" id="L59">		this.editore=info[2];</span>
+<span class="fc" id="L60">		this.lingua=info[4];</span>
+		
+
+
+
+<span class="fc" id="L65">	}</span>
+
+	public String getTitolo() {
+<span class="fc" id="L68">		return titolo;</span>
+	}
+
+	public void setTitolo(String titolo) {
+<span class="fc" id="L72">		this.titolo = titolo;</span>
+<span class="fc" id="L73">	}</span>
+
+
+
+	public String getLingua() {
+<span class="fc" id="L78">		return lingua;</span>
+	}
+
+	public void setLingua(String lingua) {
+<span class="fc" id="L82">		this.lingua = lingua;</span>
+<span class="fc" id="L83">	}</span>
+
+	public String getEditore() {
+<span class="fc" id="L86">		return editore;</span>
+	}
+
+	public void setEditore(String editore) {
+<span class="fc" id="L90">		this.editore = editore;</span>
+<span class="fc" id="L91">	}</span>
+
+	public LocalDate getDataPubb() {
+<span class="fc" id="L94">		return dataPubb;</span>
+	}
+
+	public void setDataPubb(LocalDate dataPubb) {
+<span class="fc" id="L98">		this.dataPubb = dataPubb;</span>
+<span class="fc" id="L99">	}</span>
+
+	public int getCopieRimanenti() {
+<span class="fc" id="L102">		return copieRimanenti;</span>
+	}
+
+	public void setCopieRimanenti(int copieRimanenti) {
+<span class="fc" id="L106">		this.copieRimanenti = copieRimanenti;</span>
+<span class="fc" id="L107">	}</span>
+
+	public int getDisponibilita() {
+<span class="fc" id="L110">		return this.disponibilita;</span>
+	}
+
+	public void setDisponibilita(int disponibilita) {
+<span class="fc" id="L114">		this.disponibilita = disponibilita;</span>
+<span class="fc" id="L115">	}</span>
+
+	public float getPrezzo() {
+<span class="fc" id="L118">		return prezzo;</span>
+	}
+
+	public void setPrezzo(float prezzo) {
+<span class="fc" id="L122">		this.prezzo = prezzo;</span>
+<span class="fc" id="L123">	}</span>
+
+
+	public int getId() {
+<span class="fc" id="L127">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="fc" id="L131">		this.id = id;</span>
+<span class="fc" id="L132">	}</span>
+
+	private void readPdf() throws IOException, DocumentException {
+
+
+<span class="fc" id="L137">		Document document = new Document();</span>
+
+<span class="fc" id="L139">		PdfReader reader = new PdfReader(rbTitoli.getString(&quot;srcPath&quot;) + rbTitoli.getString(TITOLOG));</span>
+<span class="fc" id="L140">		PdfCopy copy=new PdfCopy(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+ rbTitoli.getString(TITOLOG)));</span>
+<span class="fc" id="L141">		document.open();</span>
+
+<span class="fc" id="L143">		int pages = reader.getNumberOfPages();</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">		for (int i = 1; i &lt;= pages; i++) {</span>
+<span class="fc" id="L145">			copy.addPage(copy.getImportedPage(reader,i));</span>
+
+		}
+
+
+<span class="fc" id="L150">		reader.close();</span>
+<span class="fc" id="L151">		document.close();</span>
+
+<span class="fc" id="L153">	}</span>
+
+	@Override
+	public void scarica(int i) throws IOException {
+
+<span class="fc" id="L158">		Document document=new Document();</span>
+		try{
+<span class="fc" id="L160">			PdfWriter writer=PdfWriter.getInstance(document,new FileOutputStream(rbTitoli.getString(DSTPATH)+rbTitoli.getString(TITOLOG)));</span>
+<span class="fc" id="L161">			document.open();</span>
+<span class="fc" id="L162">			document.addTitle(&quot;Giornale &quot;);</span>
+<span class="fc" id="L163">			document.add(new Paragraph(&quot;&quot;&quot;</span>
+                    Giornale/Daily not avalaible.
+                    Integer et semper purus,non finibus augue
+                    Interpellates habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                    Praesent et tincidunt eros.Nunc malesuada ipsum non leo scelerisque molestie.
+                    Sed sit amet finibus nulla id ultrices diam.Vestibulum mollis ante eros,vitae accumsan ex lacinia
+                    nec.
+                    Sed tellus eros, tincidunt eu odio ac, tempor viverra libero.Maecenas id arcu laoreet, tristique felis
+                    sit amet,blandit nulla.
+                    Maecenas id arcu laoreet, tristique felis sit amet,blandit nulla.Phasellus suscipit sed est ut
+                    molestie.
+                    Maecenas consequat elit diam, eu semper erat porta nec.Etiam ullamcorper neque vitae mollis
+                    cursus.&quot;&quot;&quot;
+			));
+<span class="fc" id="L177">			readPdf();</span>
+<span class="fc" id="L178">			document.close();</span>
+<span class="fc" id="L179">			writer.close();</span>
+
+
+
+
+<span class="nc" id="L184">		}catch (DocumentException | IOException e)</span>
+		{
+<span class="nc" id="L186">			Logger.getLogger(&quot;create pdf&quot;).log(Level.SEVERE,&quot;pdf not created&quot;);</span>
+<span class="fc" id="L187">		}</span>
+
+<span class="fc" id="L189">	}</span>
+
+	@Override
+	public void leggi(int i) throws DocumentException, IOException {
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">		if (Desktop.isDesktopSupported()) {</span>
+<span class="fc" id="L194">			new Thread(() -&gt; {</span>
+				try {
+<span class="fc" id="L196">					Desktop.getDesktop().open(new File(rbTitoli.getString(DSTPATH)+rbTitoli.getString(TITOLOG)));</span>
+<span class="nc" id="L197">				} catch (IOException e) {</span>
+<span class="pc" id="L198">					Logger.getLogger(&quot;open file&quot;).log(Level.SEVERE, &quot;open error&quot;);				}</span>
+<span class="fc" id="L199">			}).start();</span>
+		}
+
+<span class="fc" id="L202">	}</span>
+
+	public String[] getInfoGenerali() {
+<span class="fc" id="L205">		return infoGenerali;</span>
+	}
+
+	public void setInfoGenerali(String[] infoGenerali) {
+<span class="fc" id="L209">		this.infoGenerali = infoGenerali;</span>
+<span class="fc" id="L210">	}</span>
+
+
+        public String getCategoria() {
+<span class="fc" id="L214">            return categoria;</span>
+        }
+
+        public void setCategoria(String categoria) {
+<span class="fc" id="L218">            this.categoria = categoria;</span>
+<span class="fc" id="L219">        }</span>
+    }
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerCompravendita.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerCompravendita.java</span></div><h1>ControllerCompravendita.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.opencsv.exceptions.CsvValidationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import laptop.database.GiornaleDao;
+import laptop.database.RivistaDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.database.LibroDao;
+
+import laptop.exception.IdException;
+import laptop.exception.PersistenzaException;
+
+import laptop.model.raccolta.Raccolta;
+
+
+
+public class ControllerCompravendita {
+	//insrt comment
+	private final LibroDao lD;
+	private final GiornaleDao gD;
+	private final RivistaDao rD;
+
+<span class="fc" id="L29">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+	private final CsvOggettoDao csv ;
+
+	private static final String REPORTGIORNALE=&quot;report/reportGiornale.csv&quot;;
+	private static final String REPORTLIBRO=&quot;report/reportLibro.csv&quot;;
+	private static final String REPORTRIVISTA=&quot;report/reportRivista.csv&quot;;
+
+
+
+
+
+
+<span class="fc" id="L41">	public ControllerCompravendita() throws IOException {</span>
+<span class="fc" id="L42">		lD = new LibroDao();</span>
+<span class="fc" id="L43">		gD=new GiornaleDao();</span>
+
+<span class="fc" id="L45">		rD=new RivistaDao();</span>
+<span class="fc" id="L46">		csv=new CsvOggettoDao();</span>
+
+
+<span class="fc" id="L49">	}</span>
+
+
+
+	public ObservableList&lt;Raccolta&gt; getLista(String type) throws IOException, CsvValidationException, IdException, PersistenzaException {
+
+<span class="fc" id="L55">	 ObservableList &lt;Raccolta&gt; catalogo=FXCollections.observableArrayList();</span>
+
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">	 switch (type)</span>
+	 {
+		 case &quot;libro&quot; -&gt; {
+<span class="fc bfc" id="L60" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L61">				 catalogo.addAll(lD.getLibri());</span>
+<span class="fc" id="L62">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));</span>
+
+<span class="fc" id="L64">		 }</span>
+		 case &quot;giornale&quot;-&gt;{
+<span class="fc bfc" id="L66" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L67">				 catalogo.addAll(gD.getGiornali());</span>
+<span class="fc" id="L68">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));</span>
+
+
+<span class="fc" id="L71">		 }</span>
+		 case &quot;rivista&quot;-&gt;{
+<span class="fc bfc" id="L73" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L74">				 catalogo.addAll(rD.getRiviste());</span>
+<span class="fc" id="L75">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));</span>
+
+<span class="fc" id="L77">		 }</span>
+<span class="nc" id="L78">		 default-&gt; Logger.getLogger(&quot;get lista&quot;).log(Level.SEVERE, &quot; list is empty&quot;);</span>
+
+	 }
+
+<span class="fc" id="L82">	return catalogo;</span>
+	}
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

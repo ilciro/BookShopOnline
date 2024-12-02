@@ -45,6 +45,7 @@ public class ControllerAggiornaPassword {
     public boolean aggiorna( String nuovaP) throws SQLException, CsvValidationException, IOException, IdException {
         boolean status;
         u.setPassword(nuovaP);
+
         if(vis.getTypeOfDb().equalsIgnoreCase("db"))
         {
             status=UsersDao.checkResetpass(u);
@@ -55,8 +56,6 @@ public class ControllerAggiornaPassword {
             u.setPassword(nuovaP);
             status=csv.inserisciUtente(u);
         }
-        //resettare
-        u.annullaUtente();
         return status;
     }
 }

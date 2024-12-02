@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerRicerca.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">laptop.controller</a> &gt; <span class="el_source">ControllerRicerca.java</span></div><h1>ControllerRicerca.java</h1><pre class="source lang-java linenums">package laptop.controller;
+
+import com.opencsv.exceptions.CsvValidationException;
+import laptop.database.GiornaleDao;
+import laptop.database.LibroDao;
+import laptop.database.RivistaDao;
+import laptop.database.csvoggetto.CsvOggettoDao;
+import laptop.exception.IdException;
+import laptop.model.raccolta.Giornale;
+import laptop.model.raccolta.Libro;
+import laptop.model.raccolta.Rivista;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ControllerRicerca {
+    private final LibroDao lD;
+    private final GiornaleDao gD;
+    private final RivistaDao rD;
+    private final CsvOggettoDao csv;
+<span class="fc" id="L22">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+    private static final String LIBRO=&quot;libro&quot;;
+    private  static final String GIORNALE=&quot;giornale&quot;;
+    private  static final String RIVISTA=&quot;rivista&quot;;
+
+
+
+<span class="fc" id="L29">    public ControllerRicerca() throws IOException {</span>
+<span class="fc" id="L30">        lD=new LibroDao();</span>
+<span class="fc" id="L31">        gD=new GiornaleDao();</span>
+<span class="fc" id="L32">        rD=new RivistaDao();</span>
+<span class="fc" id="L33">        csv=new CsvOggettoDao();</span>
+<span class="fc" id="L34">    }</span>
+
+    public int getIdOggetto(String nome) throws CsvValidationException, IOException, IdException {
+<span class="fc" id="L37">        int id=0;</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+        {
+<span class="pc bpc" id="L41" title="1 of 4 branches missed.">            switch (vis.getType())</span>
+            {
+                case LIBRO -&gt;
+                {
+<span class="fc" id="L45">                    Libro l=new Libro();</span>
+<span class="fc" id="L46">                    l.setTitolo(nome);</span>
+<span class="fc" id="L47">                    l.setEditore(nome);</span>
+<span class="fc" id="L48">                    l.setAutore(nome);</span>
+<span class="fc" id="L49">                    id=lD.getLibroByIdTitoloAutoreLibro(l).get(0).getId();</span>
+<span class="fc" id="L50">                }</span>
+                case GIORNALE -&gt;
+                {
+<span class="fc" id="L53">                    Giornale g=new Giornale();</span>
+<span class="fc" id="L54">                    g.setTitolo(nome);</span>
+<span class="fc" id="L55">                    g.setEditore(nome);</span>
+<span class="fc" id="L56">                    id=gD.getGiornaleIdTitoloAutore(g).get(0).getId();</span>
+<span class="fc" id="L57">                }</span>
+                case RIVISTA -&gt; {
+<span class="fc" id="L59">                    Rivista r=new Rivista();</span>
+<span class="fc" id="L60">                    r.setTitolo(nome);</span>
+<span class="fc" id="L61">                    r.setEditore(nome);</span>
+<span class="fc" id="L62">                    r.setAutore(nome);</span>
+<span class="fc" id="L63">                    id=rD.getRivistaIdTitoloAutore(r).get(0).getId();</span>
+<span class="fc" id="L64">                }</span>
+<span class="nc" id="L65">                default -&gt; Logger.getLogger(&quot;id oggetto db&quot;).log(Level.SEVERE,&quot; error with data from db!!&quot;);</span>
+            }
+        }
+<span class="fc bfc" id="L68" title="All 2 branches covered.">       if (vis.getTypeOfDb().equals(&quot;file&quot;)){</span>
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">            switch (vis.getType())</span>
+            {
+                case LIBRO -&gt;
+                {
+<span class="fc" id="L73">                    Libro l=new Libro();</span>
+<span class="fc" id="L74">                    l.setTitolo(nome);</span>
+<span class="fc" id="L75">                    l.setEditore(nome);</span>
+<span class="fc" id="L76">                    l.setAutore(nome);</span>
+<span class="fc" id="L77">                    id=csv.getLibroByIdTitoloAutore(l).get(0).getId();</span>
+<span class="fc" id="L78">                }</span>
+                case GIORNALE -&gt;
+                {
+<span class="fc" id="L81">                    Giornale g=new Giornale();</span>
+<span class="fc" id="L82">                    g.setTitolo(nome);</span>
+<span class="fc" id="L83">                    g.setEditore(nome);</span>
+<span class="fc" id="L84">                    id=csv.getGiornaleByIdTitoloEditore(g).get(0).getId();</span>
+<span class="fc" id="L85">                }</span>
+                case RIVISTA -&gt; {
+<span class="fc" id="L87">                    Rivista r=new Rivista();</span>
+<span class="fc" id="L88">                    r.setTitolo(nome);</span>
+<span class="fc" id="L89">                    r.setEditore(nome);</span>
+<span class="fc" id="L90">                    r.setAutore(nome);</span>
+<span class="fc" id="L91">                    id=csv.getRivistaByIdTitoloEditore(r).get(0).getId();</span>
+<span class="fc" id="L92">                }</span>
+<span class="nc" id="L93">                default -&gt; Logger.getLogger(&quot;id oggetto file&quot;).log(Level.SEVERE,&quot; error with data from file!!&quot;);</span>
+            }
+
+        }
+
+
+<span class="fc" id="L99">        return id;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

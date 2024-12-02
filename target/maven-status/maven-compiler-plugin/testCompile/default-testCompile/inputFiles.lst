@@ -1,0 +1,16 @@
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/InitTest.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerAcquista.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerCompravendita.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerDownload.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerPagamentoCC.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerPagamentoCash.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerRicerca.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerRimuoviFatturaPagamento.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUc/TestControllerScegliNegozio.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secondoUc/TestControllerLogin.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secondoUc/TestControllerRegistraUtente.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secondoUc/TestControllerRegistraUtenteModficaPassword.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaElenco.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaInserisciModifica.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaRimuovi.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerReport.java

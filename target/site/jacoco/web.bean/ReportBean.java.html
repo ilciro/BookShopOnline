@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BookShopOnline Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">web.bean</a> &gt; <span class="el_source">ReportBean.java</span></div><h1>ReportBean.java</h1><pre class="source lang-java linenums">package web.bean;
+
+import javafx.collections.ObservableList;
+import laptop.model.Report;
+import laptop.model.raccolta.Raccolta;
+
+<span class="nc" id="L7">public class ReportBean {</span>
+    private int idReportB;
+    private String tipoOggettoB;
+    private String titoloB;
+    private int nrPezziB;
+    private float prezzoB;
+    private float totaleB;
+    private ObservableList&lt;Raccolta&gt; elencoReportB;
+
+    public ObservableList&lt;Report&gt; getElencoReportBRepo() {
+<span class="nc" id="L17">        return elencoReportBRepo;</span>
+    }
+
+    public void setElencoReportBRepo(ObservableList&lt;Report&gt; elencoReportBRepo) {
+<span class="nc" id="L21">        this.elencoReportBRepo = elencoReportBRepo;</span>
+<span class="nc" id="L22">    }</span>
+
+    private ObservableList&lt;Report&gt; elencoReportBRepo;
+
+    public ObservableList&lt;Raccolta&gt; getElencoReportB() {
+<span class="nc" id="L27">        return elencoReportB;</span>
+    }
+
+    public void setElencoReportB(ObservableList&lt;Raccolta&gt; elencoReportB) {
+<span class="nc" id="L31">        this.elencoReportB = elencoReportB;</span>
+<span class="nc" id="L32">    }</span>
+
+    public int getIdReportB() {
+<span class="nc" id="L35">        return idReportB;</span>
+    }
+
+    public void setIdReportB(int idReportB) {
+<span class="nc" id="L39">        this.idReportB = idReportB;</span>
+<span class="nc" id="L40">    }</span>
+
+    public int getNrPezziB() {
+<span class="nc" id="L43">        return nrPezziB;</span>
+    }
+
+    public void setNrPezziB(int nrPezziB) {
+<span class="nc" id="L47">        this.nrPezziB = nrPezziB;</span>
+<span class="nc" id="L48">    }</span>
+
+    public float getPrezzoB() {
+<span class="nc" id="L51">        return prezzoB;</span>
+    }
+
+    public void setPrezzoB(float prezzoB) {
+<span class="nc" id="L55">        this.prezzoB = prezzoB;</span>
+<span class="nc" id="L56">    }</span>
+
+    public String getTipoOggettoB() {
+<span class="nc" id="L59">        return tipoOggettoB;</span>
+    }
+
+    public void setTipoOggettoB(String tipoOggettoB) {
+<span class="nc" id="L63">        this.tipoOggettoB = tipoOggettoB;</span>
+<span class="nc" id="L64">    }</span>
+
+    public String getTitoloB() {
+<span class="nc" id="L67">        return titoloB;</span>
+    }
+
+    public void setTitoloB(String titoloB) {
+<span class="nc" id="L71">        this.titoloB = titoloB;</span>
+<span class="nc" id="L72">    }</span>
+
+    public float getTotaleB() {
+<span class="nc" id="L75">        return totaleB;</span>
+    }
+
+    public void setTotaleB(float totaleB) {
+<span class="nc" id="L79">        this.totaleB = totaleB;</span>
+<span class="nc" id="L80">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

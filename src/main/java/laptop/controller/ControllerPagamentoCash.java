@@ -34,8 +34,6 @@ public class ControllerPagamentoCash {
 
 		if(vis.getTypeOfDb().equalsIgnoreCase("file"))
 			{
-
-
 				fCsv.inserisciFattura(f);
 				cCPD.checkPagamentoData(f.getNome());
 			}

@@ -77,6 +77,7 @@ public class ControllerLogin {
 
     }
 
+    //used for change pass
     public boolean userPresente(String email,String pwd) throws SQLException, CsvValidationException, IOException {
         boolean status=false;
         u.setEmail(email);
