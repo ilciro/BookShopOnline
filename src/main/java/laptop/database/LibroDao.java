@@ -171,6 +171,7 @@ public class LibroDao {
                 //provo cosi
                 l.setId(0);
 
+<<<<<<< HEAD
                 prepQ.setString(1,retLibro(l)[0]);
                 prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));
                 prepQ.setString(3,retLibro(l)[2]);
@@ -184,6 +185,22 @@ public class LibroDao {
                 prepQ.setString(11,retLibro(l)[10]);
                 prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));
                 prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));
+=======
+                prepQ.setString(1, l.getTitolo());
+                prepQ.setInt(2, l.getNrPagine());
+                prepQ.setString(3, l.getCodIsbn());
+                prepQ.setString(4, l.getEditore());
+                prepQ.setString(5, l.getAutore());
+                prepQ.setString(6, l.getLingua());
+                prepQ.setString(7, l.getCategoria());
+                prepQ.setDate(8, Date.valueOf(l.getDataPubb()));
+                prepQ.setString(9, l.getRecensione());
+                prepQ.setInt(10, l.getNrCopie());
+                prepQ.setString(11, l.getDesc());
+                prepQ.setFloat(13, l.getPrezzo());
+                prepQ.setInt(12,l.getDisponibilita());
+                
+>>>>>>> d42a470fee962a556da4d92586797c3910e90815
                 prepQ.setInt(14, l.getId());
                 prepQ.setInt(15, vis.getId());
 
