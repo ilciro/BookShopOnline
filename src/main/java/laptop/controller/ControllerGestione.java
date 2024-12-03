@@ -34,6 +34,7 @@ public class ControllerGestione {
 
     public boolean inserisci(String[] param) throws CsvValidationException, IOException, IdException, SQLException {
         boolean status = false;
+        vis.setTipoModifica("insert");
         switch (vis.getType())
         {
             case LIBRO -> {
@@ -41,7 +42,7 @@ public class ControllerGestione {
 
                 if(vis.getTypeOfDb().equals("db"))
                 {
-                    status=lD.inserisciLibro(l);
+                    status=lD.inserisciModificaLibro(l);
                 }
                 else status=csv.inserisciLibro(l);
             }
@@ -101,6 +102,7 @@ public class ControllerGestione {
 
     public boolean modifica(String[] dati) throws CsvValidationException, IOException, IdException, SQLException {
         boolean status = false;
+        vis.setTipoModifica("modifica");
         switch (vis.getType())
         {
             case LIBRO -> {
@@ -108,7 +110,7 @@ public class ControllerGestione {
 
                 if(vis.getTypeOfDb().equals("db"))
                 {
-                    status=lD.aggiornaLibro(l);
+                    status=lD.inserisciModificaLibro(l);
                 }
                 else
                 {
@@ -165,6 +167,7 @@ public class ControllerGestione {
         l.setNrCopie(Integer.parseInt(param[10]));
         l.setDisponibilita(Integer.parseInt(param[11]));
         l.setPrezzo(Float.parseFloat(param[12]));
+
 
     }
     private void setGiornale(String[] param)

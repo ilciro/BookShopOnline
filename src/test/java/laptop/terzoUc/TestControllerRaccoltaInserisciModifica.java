@@ -4,6 +4,7 @@ import com.opencsv.exceptions.CsvValidationException;
 import laptop.controller.ControllerGestione;
 import laptop.controller.ControllerSystemState;
 import laptop.database.GiornaleDao;
+import laptop.database.LibroDao;
 import laptop.database.RivistaDao;
 import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestControllerRaccoltaInserisciModifica {
@@ -23,6 +25,12 @@ class TestControllerRaccoltaInserisciModifica {
      private static final ResourceBundle RBOGGETTO=ResourceBundle.getBundle("configurations/objects");
      private static final ControllerSystemState vis=ControllerSystemState.getInstance();
      private static final ControllerGestione cG;
+     private static final Libro l=new Libro();
+     private static final LibroDao lD=new LibroDao();
+     private static final Giornale g=new Giornale();
+     private static final GiornaleDao gD=new GiornaleDao();
+     private static final Rivista r=new Rivista();
+     private static final RivistaDao rD=new RivistaDao();
 
     static {
         try {
@@ -101,14 +109,14 @@ class TestControllerRaccoltaInserisciModifica {
     void testModifLibro(String strings) throws CsvValidationException, SQLException, IOException, IdException {
         vis.setTypeAsBook();
         vis.setTypeOfDb(strings);
-        Libro l=new Libro();
-
-        vis.setId(20);
-
-
+        l.setTitolo(RBOGGETTO.getString("titoloLI"));
+        l.setId(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getId());
+        vis.setId(l.getId());
 
 
-        String []infoL=new String[15];
+
+
+        String []infoL=new String[14];
         infoL[0]=RBOGGETTO.getString("titoloModL");
         infoL[1]=RBOGGETTO.getString("isbnModL");
         infoL[2]=RBOGGETTO.getString("editoreModL");
@@ -122,10 +130,11 @@ class TestControllerRaccoltaInserisciModifica {
         infoL[10]=RBOGGETTO.getString("nrCopieModL");
         infoL[11]=RBOGGETTO.getString("dispModL");
         infoL[12]=RBOGGETTO.getString("prezzoModL");
-        infoL[13]= String.valueOf(l.getId());
-        infoL[14]= String.valueOf(vis.getId());
+        infoL[13]= String.valueOf(vis.getId());
 
-        assertTrue(cG.modifica(infoL));
+        cG.modifica(infoL);
+
+        assertNotEquals(0,vis.getId());
 
 
 
@@ -133,13 +142,13 @@ class TestControllerRaccoltaInserisciModifica {
 
     }
 
+
+
     @ParameterizedTest
     @ValueSource(strings = {"file","db"})
     void testModifGiornale(String strings) throws CsvValidationException, SQLException, IOException, IdException {
         vis.setTypeAsDaily();
         vis.setTypeOfDb(strings);
-        Giornale g=new Giornale();
-        GiornaleDao gD=new GiornaleDao();
         g.setTitolo(RBOGGETTO.getString("titoloGI"));
         g.setId(gD.getGiornaleIdTitoloAutore(g).get(0).getId());
         vis.setId(g.getId());
@@ -164,8 +173,6 @@ class TestControllerRaccoltaInserisciModifica {
 
         vis.setTypeAsMagazine();
         vis.setTypeOfDb(strings);
-        Rivista r=new Rivista();
-        RivistaDao rD=new RivistaDao();
         r.setTitolo(RBOGGETTO.getString("titoloRI"));
         r.setId(rD.getRivistaIdTitoloAutore(r).get(0).getId());
         vis.setId(r.getId());

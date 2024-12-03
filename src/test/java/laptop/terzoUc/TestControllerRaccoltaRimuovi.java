@@ -3,24 +3,17 @@ package laptop.terzoUc;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.controller.ControllerRaccolta;
 import laptop.controller.ControllerSystemState;
-import laptop.database.GiornaleDao;
-import laptop.database.LibroDao;
-import laptop.database.RivistaDao;
-import laptop.model.raccolta.Giornale;
-import laptop.model.raccolta.Libro;
-import laptop.model.raccolta.Rivista;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestControllerRaccoltaRimuovi {
      //parte tre della gestione di oggetto
      private static final ControllerRaccolta cR;
-     private static final ResourceBundle RBOGGETTO=ResourceBundle.getBundle("configurations/objects");
      private static final ControllerSystemState vis=ControllerSystemState.getInstance();
     static {
         try {
@@ -64,5 +57,7 @@ class TestControllerRaccoltaRimuovi {
 
 
 }
+
+
 
 

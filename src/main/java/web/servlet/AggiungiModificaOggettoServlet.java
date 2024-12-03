@@ -226,7 +226,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
 
 
 
-       if(lD.aggiornaLibro(l))
+       if(lD.inserisciModificaLibro(l))
        {
            view= getServletContext().getRequestDispatcher(GESTIONE);
            view.forward(req,resp);
@@ -300,6 +300,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
        RequestDispatcher view;
 
 
+
         String titolo=req.getParameter("titoloL");
         String isbn=req.getParameter("codiceL");
         String editore=req.getParameter("editore");
@@ -346,7 +347,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
             l.setDisponibilita(lB.getDisponibilitaB());
             l.setPrezzo(lB.getPrezzoB());
             req.setAttribute(BEANS,sB);
-            if(lD.inserisciLibro(l))
+            if(lD.inserisciModificaLibro(l))
             {
                 view=getServletContext().getRequestDispatcher(GESTIONE);
                 view.forward(req,resp);

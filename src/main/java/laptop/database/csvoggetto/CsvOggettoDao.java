@@ -115,13 +115,28 @@ public class CsvOggettoDao implements DaoInterface {
         //provo con titolo ed autore ed editore
         //visto che id non buono in quanto non gli e lo assegno
 
-        boolean duplicatedL;
+        boolean duplicatedL = false;
+        boolean duplicatedT = false;
+        boolean duplicatedA = false;
+        boolean duplicatedE = false;
         synchronized (this.cacheLibro)
         {
-            boolean duplicatedT=(this.cacheLibro.get(l.getTitolo())!=null);
-            boolean duplicatedA=(this.cacheLibro.get(l.getAutore())!=null);
-            boolean duplicatedE=(this.cacheLibro.get(l.getEditore())!=null);
-            duplicatedL=duplicatedT&&duplicatedA&&duplicatedE;
+
+
+
+            for(Map.Entry<Integer,Libro>mapL:this.cacheLibro.entrySet())
+            {
+                if(mapL.getValue().getTitolo()!=null)
+                    duplicatedT=mapL.getValue().getTitolo()!=null;
+                if(mapL.getValue().getAutore()!=null)
+                    duplicatedA=mapL.getValue().getAutore()!=null;
+                if(mapL.getValue().getEditore()!=null)
+                    duplicatedE=mapL.getValue().getEditore()!=null;
+                duplicatedL=duplicatedT&&duplicatedA&&duplicatedE;
+
+            }
+
+
 
         }
         if(!duplicatedL)
@@ -244,12 +259,21 @@ public class CsvOggettoDao implements DaoInterface {
     @Override
     public boolean inserisciGiornale(Giornale g) throws IOException, CsvValidationException, IdException {
 
-        boolean duplicatedG;
+        boolean duplicatedG=false;
+        boolean duplicatedT=false;
+        boolean duplicatedE=false;
         synchronized (this.cacheGiornale)
         {
-            boolean duplicatedT=(this.cacheGiornale.get(g.getTitolo())!=null);
-            boolean duplicatedE=(this.cacheGiornale.get(g.getEditore())!=null);
-            duplicatedG=duplicatedE&&duplicatedT;
+            for(Map.Entry<Integer,Giornale>mapG:this.cacheGiornale.entrySet())
+            {
+                if(mapG.getValue().getTitolo()!=null)
+                    duplicatedT=mapG.getValue().getTitolo()!=null;
+                if(mapG.getValue().getEditore()!=null)
+                    duplicatedE=mapG.getValue().getEditore()!=null;
+                duplicatedG=duplicatedT&&duplicatedE;
+
+            }
+
         }
         if(!duplicatedG)
         {
@@ -289,7 +313,7 @@ public class CsvOggettoDao implements DaoInterface {
     }
 
 
-    private static synchronized List<Giornale> returnGiornaleByTE(File fd,String tit,String edit,int id) throws IOException, CsvValidationException, IdException {
+    private static synchronized List<Giornale> returnGiornaleByTE(File fd,String tit,String edit,int id) throws IOException, CsvValidationException {
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector ;
         boolean recordFound;
@@ -427,21 +451,32 @@ public class CsvOggettoDao implements DaoInterface {
     @Override
     public boolean inserisciRivista(Rivista r) throws IdException, CsvValidationException, IOException {
 
-        boolean duplicated;
+        boolean duplicatedR=false;
+        boolean duplicatedT=false;
+        boolean duplicatedA=false;
+        boolean duplicatedE=false;
         synchronized (this.cacheRivista)
         {
-            boolean duplicatedT=(this.cacheRivista.get(r.getTitolo())!=null);
-            boolean duplicatedA=(this.cacheRivista.get(r.getAutore())!=null);
-            boolean duplicatedE=(this.cacheRivista.get(r.getEditore())!=null);
-            duplicated=duplicatedT&&duplicatedA&&duplicatedE;
+            for(Map.Entry<Integer,Rivista>mapR:this.cacheRivista.entrySet())
+            {
+                if(mapR.getValue().getTitolo()!=null)
+                    duplicatedT=mapR.getValue().getTitolo()!=null;
+                if(mapR.getValue().getAutore()!=null)
+                    duplicatedA=mapR.getValue().getAutore()!=null;
+                if(mapR.getValue().getEditore()!=null)
+                    duplicatedE=mapR.getValue().getEditore()!=null;
+                duplicatedR=duplicatedT&&duplicatedA&&duplicatedE;
+
+            }
+
 
         }
-        if(!duplicated)
+        if(!duplicatedR)
         {
             List<Rivista> list=returnRivistaByTAE(this.fdR,r.getTitolo(),r.getAutore(),r.getEditore());
-            duplicated=(!list.isEmpty());
+            duplicatedR=(!list.isEmpty());
         }
-        if(duplicated)
+        if(duplicatedR)
             try{
                 Logger.getLogger("try rivista").log(Level.INFO,"id rivista sbagliato !!");
                 throw new IdException(" id rivista sbagliato or duplicated");
@@ -477,7 +512,7 @@ public class CsvOggettoDao implements DaoInterface {
         return getIdMax()!=0;
     }
 
-    private static synchronized List<Rivista> returnRivistaByTAE(File fd,String tit,String autor,String edit) throws IOException, CsvValidationException, IdException{
+    private static synchronized List<Rivista> returnRivistaByTAE(File fd,String tit,String autor,String edit) throws IOException, CsvValidationException{
         CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
         String[] gVector ;
         boolean recordFound;
@@ -671,66 +706,7 @@ public class CsvOggettoDao implements DaoInterface {
         return list;
     }
 
-    /*
-    package caches;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class Caches {
-    private final HashMap<Integer,Libro> cacheL;
-
-    //1 ->L1
-    //2->L2
-
-
-    public Caches()
-    {
-        this.cacheL=new HashMap<>();
-    }
-
-    public  void inserisci()
-    {
-        Libro l1=new Libro(1,"titolo1","editore 1");
-        Libro l2=new Libro(2,"titolo2","editore 2");
-        Libro l3=new Libro(3,"titolo3","editore 3");
-
-        synchronized (this.cacheL)
-        {
-            this.cacheL.put(l1.getId(), l1);
-            this.cacheL.put(l2.getId(), l2);
-            this.cacheL.put(l3.getId(), l3);
-
-
-
-        }
-        String titolo="titolo2";
-        boolean recordFound;
-        ObservableList<Libro> list= FXCollections.observableArrayList();
-        for(Map.Entry<Integer, Libro> id:this.cacheL.entrySet())
-        {
-
-
-            System.out.println("key: " + id.getKey() + " value: " + id.getValue().getTitolo());
-             recordFound=titolo.equals(id.getValue().getTitolo());
-            if(recordFound)
-            {
-                Libro l=new Libro(id.getKey(),id.getValue().getTitolo(),id.getValue().getEditore());
-                list.add(l);
-            }
-
-        }
-        System.out.println("List : "+list);
-
-
-
-
-    }
-}
-     */
     @Override
     public ObservableList<Libro> getLibroByIdTitoloAutore(Libro l) throws CsvValidationException, IOException, IdException {
         ObservableList<Libro> list=FXCollections.observableArrayList();

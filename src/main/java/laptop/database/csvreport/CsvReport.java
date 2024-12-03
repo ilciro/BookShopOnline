@@ -5,7 +5,6 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import laptop.controller.ControllerSystemState;
 import laptop.model.Report;
 import org.jetbrains.annotations.NotNull;
 

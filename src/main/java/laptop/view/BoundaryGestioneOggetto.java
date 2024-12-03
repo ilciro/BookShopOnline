@@ -110,7 +110,7 @@ public class BoundaryGestioneOggetto implements Initializable {
             Parent root;
             stage = (Stage) buttonIns.getScene().getWindow();
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("raccolta.fxml")));
-            stage.setTitle("Benvenuto nella schermata della raccolta");
+            stage.setTitle("Benvenuto nella schermata per inserire");
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
