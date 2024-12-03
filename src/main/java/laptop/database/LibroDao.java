@@ -161,8 +161,9 @@ public class LibroDao {
                 prepQ.setString(9, l.getRecensione());
                 prepQ.setInt(10, l.getNrCopie());
                 prepQ.setString(11, l.getDesc());
-                prepQ.setInt(12,l.getDisponibilita());
                 prepQ.setFloat(13, l.getPrezzo());
+                prepQ.setInt(12,l.getDisponibilita());
+                
                 prepQ.setInt(14, l.getId());
                 prepQ.setInt(15, vis.getId());
 
