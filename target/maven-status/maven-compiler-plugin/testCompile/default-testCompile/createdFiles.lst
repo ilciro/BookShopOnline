@@ -8,6 +8,7 @@ laptop/primoUc/TestControllerScegliNegozio.class
 laptop/primoUc/TestControllerAcquista.class
 laptop/primoUc/TestControllerRicerca.class
 laptop/terzoUc/TestControllerReport.class
+laptop/terzoUc/TestControllerUtenteElenco.class
 laptop/primoUc/TestControllerDownload.class
 laptop/terzoUc/TestControllerRaccoltaElenco.class
 laptop/secondoUc/TestControllerRegistraUtenteModficaPassword.class

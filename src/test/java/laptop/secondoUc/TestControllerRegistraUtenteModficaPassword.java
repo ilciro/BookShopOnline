@@ -41,7 +41,7 @@ class TestControllerRegistraUtenteModficaPassword {
     void testUpdatePass(String strings) throws CsvValidationException, SQLException, IOException, IdException {
         vis.setTypeOfDb(strings);
         u.setEmail(RBUTENTE.getString("email"));
-        assertTrue(cAP.aggiorna(RBUTENTE.getString("pwd1")));
+        assertTrue(cAP.aggiorna(RBUTENTE.getString("pwdMod")));
     }
 
 

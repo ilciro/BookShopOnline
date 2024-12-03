@@ -14,3 +14,5 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaInserisciModifica.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaRimuovi.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerReport.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerUtenteElenco.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerUtenteInserisciModifica.java

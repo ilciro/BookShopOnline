@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: laptop.primoUc.TestControllerRicerca
 -------------------------------------------------------------------------------
-Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.568 s - in laptop.primoUc.TestControllerRicerca
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.395 s - in laptop.primoUc.TestControllerRicerca

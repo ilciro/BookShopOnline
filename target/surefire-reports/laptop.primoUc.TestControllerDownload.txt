@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: laptop.primoUc.TestControllerDownload
 -------------------------------------------------------------------------------
-Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.001 s - in laptop.primoUc.TestControllerDownload
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.863 s - in laptop.primoUc.TestControllerDownload

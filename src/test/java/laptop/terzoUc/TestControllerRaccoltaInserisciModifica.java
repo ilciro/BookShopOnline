@@ -110,8 +110,8 @@ class TestControllerRaccoltaInserisciModifica {
         vis.setTypeAsBook();
         vis.setTypeOfDb(strings);
         l.setTitolo(RBOGGETTO.getString("titoloLI"));
-        l.setId(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getId());
-        vis.setId(l.getId());
+        l.setAutore(RBOGGETTO.getString("autoreLI"));
+        vis.setId(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getId());
 
 
 

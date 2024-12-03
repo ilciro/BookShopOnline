@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import laptop.utilities.ConnToDb;
 import laptop.model.TempUser;
 import laptop.model.User;
-import web.bean.TempUserBean;
 
 
 public class UsersDao {
@@ -136,7 +135,7 @@ public class UsersDao {
 	}
 
 	// this function check if you have changed password successfully 
-	public static boolean checkResetpass(User u) throws SQLException {
+	public static boolean checkResetpass(User u){
 
 		query = "Update USERS SET pwd = ?  where Email = ?";
 		try (Connection conn = ConnToDb.connectionToDB();
@@ -260,7 +259,7 @@ public class UsersDao {
 
 
 
-	public static TempUser getTempUserSingolo(TempUser uT) throws SQLException {
+	public static TempUser getTempUserSingolo(TempUser uT)  {
 
 
 		query = "SELECT * FROM USERS where idUser = ? or email=?";

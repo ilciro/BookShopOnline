@@ -23,6 +23,7 @@ public class ControllerGestioneUtente {
 
         tu.setId(vis.getId());
         u.setId(tu.getId());
+
        return UsersDao.pickData(u);
 
     }
@@ -63,7 +64,7 @@ public class ControllerGestioneUtente {
 
     public boolean modifica(String ruolo, String nome, String cognome, String email, String pwd, String desc, LocalDate data) throws  CsvValidationException, IOException, IdException {
         boolean status = false;
-        
+        String vecchiaMail=u.getEmail();
 
         u.setId(vis.getId());
         u.setIdRuolo(ruolo.substring(0,1));
@@ -74,7 +75,7 @@ public class ControllerGestioneUtente {
         u.setDescrizione(desc);
         u.setDataDiNascita(data);
         if(vis.getTypeOfDb().equals("db")) {
-            if(UsersDao.aggiornaUtente(u, null).getId()!=0)
+            if(UsersDao.aggiornaUtente(u, vecchiaMail).getId()!=0)
                 status=true;
         }
         else {

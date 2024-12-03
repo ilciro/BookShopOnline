@@ -22,7 +22,7 @@ class TestControllerRaccoltaRimuovi {
             throw new RuntimeException(e);
         }
     }
-    //zero
+
     @ParameterizedTest
     @ValueSource(strings = {"file","db"})
     void testEliminaLibro(String strings) throws CsvValidationException, IOException {
@@ -31,7 +31,7 @@ class TestControllerRaccoltaRimuovi {
         vis.setId(20);
        assertTrue(cR.elimina());
     }
-    //solo uno
+
 
     @ParameterizedTest
     @ValueSource(strings = {"file","db"})
@@ -43,7 +43,7 @@ class TestControllerRaccoltaRimuovi {
 
     }
 
-    // ok entrambi
+
 
     @ParameterizedTest
     @ValueSource(strings = {"file","db"})

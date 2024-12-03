@@ -105,104 +105,125 @@ public class LibroDao {
 <span class="fc" id="L105">        return catalogo;</span>
     }
 
-    public boolean inserisciModificaLibro(Libro l) {
-<span class="fc" id="L109">        int row = 0;</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;insert&quot;)) {</span>
-<span class="fc" id="L111">            query = &quot;insert into LIBRO values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;;</span>
 
-<span class="fc" id="L113">            try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L114">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+    private String[] retLibro(Libro l)
+    {
+<span class="fc" id="L111">        String [] roba=new String[13];</span>
+<span class="fc" id="L112">        roba[0]=l.getTitolo();</span>
+<span class="fc" id="L113">        roba[1]= String.valueOf(l.getNrPagine());</span>
+<span class="fc" id="L114">        roba[2]=l.getCodIsbn();</span>
+<span class="fc" id="L115">        roba[3]=l.getEditore();</span>
+<span class="fc" id="L116">        roba[4]=l.getAutore();</span>
+<span class="fc" id="L117">        roba[5]=l.getLingua();</span>
+<span class="fc" id="L118">        roba[6]=l.getCategoria();</span>
+<span class="fc" id="L119">        roba[7]= String.valueOf(l.getDataPubb());</span>
+<span class="fc" id="L120">        roba[8]=l.getRecensione();</span>
+<span class="fc" id="L121">        roba[9]= String.valueOf(l.getNrCopie());</span>
+<span class="fc" id="L122">        roba[10]=l.getDesc();</span>
+<span class="fc" id="L123">        roba[11]= String.valueOf(l.getDisponibilita());</span>
+<span class="fc" id="L124">        roba[12]= String.valueOf(l.getPrezzo());</span>
+
+<span class="fc" id="L126">        return  roba;</span>
+    }
+
+    public boolean inserisciModificaLibro(Libro l) {
+<span class="fc" id="L130">        int row = 0;</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;insert&quot;)) {</span>
+<span class="fc" id="L132">            query = &quot;insert into LIBRO values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;;</span>
+
+<span class="fc" id="L134">            try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L135">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
 
                 //prendo stessp libro e torno stringa
 
 
-<span class="fc" id="L120">                prepQ.setString(1, l.getTitolo());</span>
-<span class="fc" id="L121">                prepQ.setInt(2, l.getNrPagine());</span>
-<span class="fc" id="L122">                prepQ.setString(3, l.getCodIsbn());</span>
-<span class="fc" id="L123">                prepQ.setString(4, l.getEditore());</span>
-<span class="fc" id="L124">                prepQ.setString(5, l.getAutore());</span>
-<span class="fc" id="L125">                prepQ.setString(6, l.getLingua());</span>
-<span class="fc" id="L126">                prepQ.setString(7, l.getCategoria());</span>
-<span class="fc" id="L127">                prepQ.setDate(8, Date.valueOf(l.getDataPubb()));</span>
-<span class="fc" id="L128">                prepQ.setString(9, l.getRecensione());</span>
-<span class="fc" id="L129">                prepQ.setInt(10, l.getNrCopie());</span>
-<span class="fc" id="L130">                prepQ.setString(11, l.getDesc());</span>
-<span class="fc" id="L131">                prepQ.setInt(12,l.getDisponibilita());</span>
-<span class="fc" id="L132">                prepQ.setFloat(13, l.getPrezzo());</span>
+<span class="fc" id="L141">                prepQ.setString(1,retLibro(l)[0]);</span>
+<span class="fc" id="L142">                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));</span>
+<span class="fc" id="L143">                prepQ.setString(3,retLibro(l)[2]);</span>
+<span class="fc" id="L144">                prepQ.setString(4, retLibro(l)[3]);</span>
+<span class="fc" id="L145">                prepQ.setString(5, retLibro(l)[4]);</span>
+<span class="fc" id="L146">                prepQ.setString(6, retLibro(l)[5]);</span>
+<span class="fc" id="L147">                prepQ.setString(7, retLibro(l)[6]);</span>
+<span class="fc" id="L148">                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));</span>
+<span class="fc" id="L149">                prepQ.setString(9, retLibro(l)[8]);</span>
+<span class="fc" id="L150">                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));</span>
+<span class="fc" id="L151">                prepQ.setString(11,retLibro(l)[10]);</span>
+<span class="fc" id="L152">                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));</span>
+<span class="fc" id="L153">                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));</span>
                 //auto increment
-<span class="fc" id="L134">                prepQ.setInt(14,0);</span>
-<span class="fc" id="L135">                row = prepQ.executeUpdate();</span>
-<span class="pc bpc" id="L136" title="1 of 2 branches missed.">                if (row != 1) throw new SQLException(&quot; insert book gone wrong !!&quot;);</span>
+<span class="fc" id="L155">                prepQ.setInt(14,0);</span>
+<span class="fc" id="L156">                row = prepQ.executeUpdate();</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">                if (row != 1) throw new SQLException(&quot; insert book gone wrong !!&quot;);</span>
 
-<span class="nc" id="L138">            } catch (SQLException e) {</span>
-<span class="nc" id="L139">                Logger.getLogger(&quot;insert libro&quot;).log(Level.SEVERE, &quot; error in insert !!.&quot;, e);</span>
-<span class="fc" id="L140">            }</span>
+<span class="nc" id="L159">            } catch (SQLException e) {</span>
+<span class="nc" id="L160">                Logger.getLogger(&quot;insert libro&quot;).log(Level.SEVERE, &quot; error in insert !!.&quot;, e);</span>
+<span class="fc" id="L161">            }</span>
         }
-<span class="fc bfc" id="L142" title="All 2 branches covered.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;modifica&quot;)) {</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;modifica&quot;)) {</span>
 
-<span class="fc" id="L144">            query = &quot;update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?,&quot; +</span>
+<span class="fc" id="L165">            query = &quot;update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?,&quot; +</span>
                     &quot;autore=?,lingua=?,categoria=?,dataPubblicazione=?,&quot; +
                     &quot;recensione=?,copieRimanenti=?,breveDescrizione=?,disp=?,&quot; +
                     &quot;prezzo=? where idLibro=? or idLibro=?&quot;;
-<span class="fc" id="L148">            try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L149">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L169">            try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L170">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
                 //provo cosi
-<span class="fc" id="L151">                l.setId(0);</span>
+<span class="fc" id="L172">                l.setId(0);</span>
 
-<span class="fc" id="L153">                prepQ.setString(1, l.getTitolo());</span>
-<span class="fc" id="L154">                prepQ.setInt(2, l.getNrPagine());</span>
-<span class="fc" id="L155">                prepQ.setString(3, l.getCodIsbn());</span>
-<span class="fc" id="L156">                prepQ.setString(4, l.getEditore());</span>
-<span class="fc" id="L157">                prepQ.setString(5, l.getAutore());</span>
-<span class="fc" id="L158">                prepQ.setString(6, l.getLingua());</span>
-<span class="fc" id="L159">                prepQ.setString(7, l.getCategoria());</span>
-<span class="fc" id="L160">                prepQ.setDate(8, Date.valueOf(l.getDataPubb()));</span>
-<span class="fc" id="L161">                prepQ.setString(9, l.getRecensione());</span>
-<span class="fc" id="L162">                prepQ.setInt(10, l.getNrCopie());</span>
-<span class="fc" id="L163">                prepQ.setString(11, l.getDesc());</span>
-<span class="fc" id="L164">                prepQ.setInt(12,l.getDisponibilita());</span>
-<span class="fc" id="L165">                prepQ.setFloat(13, l.getPrezzo());</span>
-<span class="fc" id="L166">                prepQ.setInt(14, l.getId());</span>
-<span class="fc" id="L167">                prepQ.setInt(15, vis.getId());</span>
+<span class="fc" id="L174">                prepQ.setString(1,retLibro(l)[0]);</span>
+<span class="fc" id="L175">                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));</span>
+<span class="fc" id="L176">                prepQ.setString(3,retLibro(l)[2]);</span>
+<span class="fc" id="L177">                prepQ.setString(4, retLibro(l)[3]);</span>
+<span class="fc" id="L178">                prepQ.setString(5, retLibro(l)[4]);</span>
+<span class="fc" id="L179">                prepQ.setString(6, retLibro(l)[5]);</span>
+<span class="fc" id="L180">                prepQ.setString(7, retLibro(l)[6]);</span>
+<span class="fc" id="L181">                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));</span>
+<span class="fc" id="L182">                prepQ.setString(9, retLibro(l)[8]);</span>
+<span class="fc" id="L183">                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));</span>
+<span class="fc" id="L184">                prepQ.setString(11,retLibro(l)[10]);</span>
+<span class="fc" id="L185">                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));</span>
+<span class="fc" id="L186">                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));</span>
+<span class="fc" id="L187">                prepQ.setInt(14, l.getId());</span>
+<span class="fc" id="L188">                prepQ.setInt(15, vis.getId());</span>
 
-<span class="fc" id="L169">                row = prepQ.executeUpdate();</span>
-<span class="pc bpc" id="L170" title="1 of 2 branches missed.">                if(row!=1) throw new SQLException(&quot; modif error&quot;);</span>
+<span class="fc" id="L190">                row = prepQ.executeUpdate();</span>
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">                if(row!=1) throw new SQLException(&quot; modif error&quot;);</span>
 
 
-<span class="nc" id="L173">            } catch (SQLException e) {</span>
-<span class="nc" id="L174">                Logger.getLogger(&quot;modif libro&quot;).log(Level.SEVERE, &quot; mysql insert error&quot;, e);</span>
-<span class="fc" id="L175">            }</span>
+<span class="nc" id="L194">            } catch (SQLException e) {</span>
+<span class="nc" id="L195">                Logger.getLogger(&quot;modif libro&quot;).log(Level.SEVERE, &quot; mysql insert error&quot;, e);</span>
+<span class="fc" id="L196">            }</span>
 
 
 
         }
-<span class="pc bpc" id="L180" title="1 of 2 branches missed.">        return row == 1;</span>
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">        return row == 1;</span>
     }
 
 
         public boolean eliminaLibro (Libro l)
         {
 
-<span class="fc" id="L187">            boolean status = false;</span>
-<span class="fc" id="L188">            query = &quot;delete from LIBRO where idLibro=? or idLibro=?&quot;;</span>
-<span class="fc" id="L189">            try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L190">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L208">            boolean status = false;</span>
+<span class="fc" id="L209">            query = &quot;delete from LIBRO where idLibro=? or idLibro=?&quot;;</span>
+<span class="fc" id="L210">            try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L211">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
-<span class="fc" id="L192">                prepQ.setInt(1, l.getId());</span>
-<span class="fc" id="L193">                prepQ.setInt(2, vis.getId());</span>
+<span class="fc" id="L213">                prepQ.setInt(1, l.getId());</span>
+<span class="fc" id="L214">                prepQ.setInt(2, vis.getId());</span>
 
-<span class="fc" id="L195">                int row = prepQ.executeUpdate();</span>
+<span class="fc" id="L216">                int row = prepQ.executeUpdate();</span>
 
-<span class="pc bpc" id="L197" title="1 of 2 branches missed.">                if (row == 1)</span>
-<span class="fc" id="L198">                    status = true;</span>
-<span class="nc" id="L199">                else throw new SQLException();</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">                if (row == 1)</span>
+<span class="fc" id="L219">                    status = true;</span>
+<span class="nc" id="L220">                else throw new SQLException();</span>
 
-<span class="nc" id="L201">            } catch (SQLException e) {</span>
-<span class="nc" id="L202">                Logger.getLogger(&quot;elimina&quot;).log(Level.SEVERE, &quot; error in mysql delete&quot;, e);</span>
-<span class="fc" id="L203">            }</span>
+<span class="nc" id="L222">            } catch (SQLException e) {</span>
+<span class="nc" id="L223">                Logger.getLogger(&quot;elimina&quot;).log(Level.SEVERE, &quot; error in mysql delete&quot;, e);</span>
+<span class="fc" id="L224">            }</span>
 
-<span class="fc" id="L205">            return status;</span>
+<span class="fc" id="L226">            return status;</span>
         }
 
     }
