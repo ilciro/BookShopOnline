@@ -2,7 +2,6 @@ package laptop.view;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,11 +19,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerSystemState;
 import laptop.controller.ControllerVisualizza;
-import laptop.database.GiornaleDao;
-import laptop.database.LibroDao;
+
 import laptop.exception.IdException;
-import laptop.model.raccolta.Giornale;
-import laptop.model.raccolta.Libro;
+
 
 public class BoundaryVisualizza implements Initializable {
 	

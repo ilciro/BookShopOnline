@@ -293,35 +293,35 @@ public class UsersDao {
 	public static User aggiornaUtente(User u,String vecchiaEmail)  {
 
 
-<span class="nc" id="L296">		query = &quot;UPDATE USERS set idRuolo=? , Nome=? , Cognome=? , Email=? , pwd=? , descrizione=? , dataNascita=? where idUser=? or Email=?&quot;;</span>
+<span class="fc" id="L296">		query = &quot;UPDATE USERS set idRuolo=? , Nome=? , Cognome=? , Email=? , pwd=? , descrizione=? , dataNascita=? where idUser=? or Email=?&quot;;</span>
 
 
-<span class="nc" id="L299">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L300">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L299">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L300">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
 
 			// setto i vari dati
 
 
-<span class="nc" id="L306">			prepQ.setString(1, u.getIdRuolo().substring(0, 1));</span>
-<span class="nc" id="L307">			prepQ.setString(2, u.getNome());</span>
-<span class="nc" id="L308">			prepQ.setString(3, u.getCognome());</span>
-<span class="nc" id="L309">			prepQ.setString(4, u.getEmail());</span>
-<span class="nc" id="L310">			prepQ.setString(5, u.getPassword());</span>
-<span class="nc" id="L311">			prepQ.setString(6, u.getDescrizione());</span>
-<span class="nc" id="L312">			prepQ.setString(7, u.getDataDiNascita().toString());</span>
-<span class="nc" id="L313">			prepQ.setInt(8, u.getId());</span>
-<span class="nc" id="L314">			prepQ.setString(9,vecchiaEmail);</span>
+<span class="fc" id="L306">			prepQ.setString(1, u.getIdRuolo().substring(0, 1));</span>
+<span class="fc" id="L307">			prepQ.setString(2, u.getNome());</span>
+<span class="fc" id="L308">			prepQ.setString(3, u.getCognome());</span>
+<span class="fc" id="L309">			prepQ.setString(4, u.getEmail());</span>
+<span class="fc" id="L310">			prepQ.setString(5, u.getPassword());</span>
+<span class="fc" id="L311">			prepQ.setString(6, u.getDescrizione());</span>
+<span class="fc" id="L312">			prepQ.setString(7, u.getDataDiNascita().toString());</span>
+<span class="fc" id="L313">			prepQ.setInt(8, u.getId());</span>
+<span class="fc" id="L314">			prepQ.setString(9,vecchiaEmail);</span>
 
 
-<span class="nc" id="L317">			prepQ.executeUpdate();</span>
+<span class="fc" id="L317">			prepQ.executeUpdate();</span>
 
 <span class="nc" id="L319">		} catch (SQLException e) {</span>
 <span class="nc" id="L320">			Logger.getLogger(&quot;aggiorna utente&quot;).log(Level.INFO, ECCEZIONE, e);</span>
 
-<span class="nc" id="L322">		}</span>
+<span class="fc" id="L322">		}</span>
 
-<span class="nc" id="L324">		return u;</span>
+<span class="fc" id="L324">		return u;</span>
 	}
 
 

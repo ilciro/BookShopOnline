@@ -3,7 +3,6 @@ package web.bean;
 import javafx.collections.ObservableList;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
-import laptop.model.raccolta.Raccolta;
 import laptop.model.raccolta.Rivista;
 
 public class RicercaBean {

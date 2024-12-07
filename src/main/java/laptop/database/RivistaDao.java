@@ -1,9 +1,6 @@
 package laptop.database;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -253,7 +250,7 @@ public class RivistaDao {
 
 	}
 	public  boolean aggiornaRivista(Rivista r) throws SQLException  {
-		boolean status=false;
+
 		int row=0;
 
 
@@ -289,14 +286,13 @@ public class RivistaDao {
 
 
 			row=prepQ.executeUpdate();
-			if(row==1)
-				status=true;
+
 		}catch(SQLException e)
 		{
 			java.util.logging.Logger.getLogger("update r").log(Level.INFO, ECCEZIONE, e);
 		}
 
-		return status;
+		return row==1;
 
 	}
 
@@ -365,9 +361,7 @@ public class RivistaDao {
 		} catch (SQLException e) {
 			Logger.getLogger("elimina").log(Level.SEVERE," error in mysql delete", e);
 		}
-		if(row==1)
-			status=true;
-		return status;
+		return  row==1;
 	}
 }
 

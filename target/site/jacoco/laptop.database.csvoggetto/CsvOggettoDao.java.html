@@ -476,7 +476,7 @@ public class CsvOggettoDao implements DaoInterface {
 <span class="fc" id="L476">            List&lt;Rivista&gt; list=returnRivistaByTAE(this.fdR,r.getTitolo(),r.getAutore(),r.getEditore());</span>
 <span class="pc bpc" id="L477" title="1 of 2 branches missed.">            duplicatedR=(!list.isEmpty());</span>
         }
-<span class="pc bpc" id="L479" title="1 of 2 branches missed.">        if(duplicatedR)</span>
+<span class="fc bfc" id="L479" title="All 2 branches covered.">        if(duplicatedR)</span>
             try{
 <span class="fc" id="L481">                Logger.getLogger(&quot;try rivista&quot;).log(Level.INFO,&quot;id rivista sbagliato !!&quot;);</span>
 <span class="fc" id="L482">                throw new IdException(&quot; id rivista sbagliato or duplicated&quot;);</span>
@@ -902,7 +902,7 @@ public class CsvOggettoDao implements DaoInterface {
 <span class="pc bpc" id="L902" title="1 of 2 branches missed.">                       || gVector[GETINDEXIDG].equals(String.valueOf(vis.getId()))</span>
 <span class="pc bpc" id="L903" title="1 of 2 branches missed.">                       || gVector[GETINDEXTITOLOG].equals(g.getTitolo());</span>
 <span class="fc bfc" id="L904" title="All 2 branches covered.">               case RIVISTA -&gt; recordFound = gVector[GETINDEXIDR].equals(String.valueOf(r.getId()))</span>
-<span class="fc bfc" id="L905" title="All 2 branches covered.">                       || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))</span>
+<span class="pc bpc" id="L905" title="1 of 2 branches missed.">                       || gVector[GETINDEXIDR].equals(String.valueOf(vis.getId()))</span>
 <span class="pc bpc" id="L906" title="1 of 2 branches missed.">                       || gVector[GETINDEXTITOLOR].equals(r.getTitolo());</span>
 <span class="nc" id="L907">               default -&gt; throw new IOException(&quot; wrong type of object&quot;);</span>
            }

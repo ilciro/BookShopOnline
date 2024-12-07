@@ -11,7 +11,9 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secondoUc/TestControllerRegistraUtente.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secondoUc/TestControllerRegistraUtenteModficaPassword.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaElenco.java
-/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaInserisciModifica.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaInserisciModificaGiornale.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaInserisciModificaLibro.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaInserisciModificaRivista.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerRaccoltaRimuovi.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerReport.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUc/TestControllerUtenteElenco.java

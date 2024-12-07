@@ -2,10 +2,9 @@ package laptop.database.csvusers;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.exception.IdException;
-import laptop.model.TempUser;
 import laptop.model.User;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.util.List;
 

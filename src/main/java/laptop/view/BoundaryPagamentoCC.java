@@ -18,7 +18,6 @@ import laptop.model.CartaDiCredito;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 
 import java.text.ParseException;
@@ -57,9 +56,9 @@ public class BoundaryPagamentoCC implements Initializable {
 	@FXML
 	private PasswordField passTF;
 	@FXML
-	private Button ButtonReg;
+	private Button buttonReg;
 	@FXML
-	private TableView<CartaDiCredito> tableView;
+	private TableView<CartaDiCredito> tableview;
 	@FXML
 	private TableColumn<String,CartaDiCredito> codiceCC;
 	@FXML
@@ -85,8 +84,8 @@ public class BoundaryPagamentoCC implements Initializable {
 		cPCC.aggiungiCartaDB(nomeTF.getText(),cognomeTF.getText(),codiceTF.getText(), sqlStartDate,passTF.getText(),vis.getSpesaT());
 	}
 	@FXML
-	private void popolaTabella() throws CsvValidationException, IOException, IdException {
-		tableView.setItems(cPCC.ritornaElencoCC(nomeInput.getText()));
+	private void popolaTabella() throws CsvValidationException, IOException {
+		tableview.setItems(cPCC.ritornaElencoCC(nomeInput.getText()));
 	}
 
 	@FXML

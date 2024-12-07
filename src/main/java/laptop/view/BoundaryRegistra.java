@@ -73,7 +73,7 @@ public class BoundaryRegistra implements Initializable {
     @FXML
     private boolean registra() throws CsvValidationException, SQLException, IOException, IdException {
         LocalDate data=calendarL.getValue();
-        if(cRU.registra(nomeTF.getText(), cognomeTF.getText(), emailTF.getText(),passTF.getText(),descTF.getText(), data,listTF.getSelectionModel().getSelectedItem().substring(0,1)))
+        if(Boolean.TRUE.equals(cRU.registra(nomeTF.getText(), cognomeTF.getText(), emailTF.getText(),passTF.getText(),descTF.getText(), data,listTF.getSelectionModel().getSelectedItem().substring(0,1))))
         {
             java.util.logging.Logger.getLogger("registra").log(Level.INFO, " user registered with success!!!");
             Stage stage;

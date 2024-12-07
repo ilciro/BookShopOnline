@@ -1,9 +1,5 @@
 package laptop.view;
 
-import java.io.*;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 
 public class Main  extends Application {
@@ -44,7 +39,7 @@ public class Main  extends Application {
 
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 
 
 

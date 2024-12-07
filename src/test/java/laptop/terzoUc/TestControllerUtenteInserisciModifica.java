@@ -1,4 +1,4 @@
-/*package laptop.terzoUc;
+package laptop.terzoUc;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.controller.ControllerGestioneUtente;
@@ -41,4 +41,4 @@ class TestControllerUtenteInserisciModifica {
 
 }
 
- */
+

@@ -4,7 +4,6 @@ import com.opencsv.exceptions.CsvValidationException;
 import laptop.controller.ControllerCompravendita;
 import laptop.controller.ControllerSystemState;
 import laptop.exception.IdException;
-import laptop.exception.PersistenzaException;
 import org.junit.jupiter.api.Test;
 
 
@@ -19,38 +18,38 @@ class TestControllerCompravendita {
 
 
     @Test
-    void testGetListaLibroDb() throws CsvValidationException, PersistenzaException, IOException, IdException {
+    void testGetListaLibroDb() throws CsvValidationException,  IOException, IdException {
         vis.setTypeOfDb("db");
         vis.setTypeAsBook();
         assertNotNull(cC.getLista(vis.getType()));
     }
     @Test
-    void testGetListaGiornaleDB() throws CsvValidationException, PersistenzaException, IOException, IdException {
+    void testGetListaGiornaleDB() throws CsvValidationException, IOException, IdException {
         vis.setTypeOfDb("db");
         vis.setTypeAsDaily();
         assertNotNull(cC.getLista(vis.getType()));
     }
     @Test
-    void testGetListaRivistaDB() throws CsvValidationException, PersistenzaException, IOException, IdException {
+    void testGetListaRivistaDB() throws CsvValidationException, IOException, IdException {
         vis.setTypeOfDb("db");
         vis.setTypeAsMagazine();
         assertNotNull(cC.getLista(vis.getType()));
     }
 
     @Test
-    void testGetListaLibroFile() throws CsvValidationException, PersistenzaException, IOException, IdException {
+    void testGetListaLibroFile() throws CsvValidationException, IOException, IdException {
         vis.setTypeOfDb("file");
         vis.setTypeAsBook();
         assertNotNull(cC.getLista(vis.getType()));
     }
     @Test
-    void testGetListaGiornaleFile() throws CsvValidationException, PersistenzaException, IOException, IdException {
+    void testGetListaGiornaleFile() throws CsvValidationException, IOException, IdException {
         vis.setTypeOfDb("file");
         vis.setTypeAsDaily();
         assertNotNull(cC.getLista(vis.getType()));
     }
     @Test
-    void testGetListaRivistaFile() throws CsvValidationException, PersistenzaException, IOException, IdException {
+    void testGetListaRivistaFile() throws CsvValidationException, IOException, IdException {
         vis.setTypeOfDb("file");
         vis.setTypeAsMagazine();
         assertNotNull(cC.getLista(vis.getType()));

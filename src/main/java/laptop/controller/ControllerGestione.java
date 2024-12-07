@@ -34,7 +34,7 @@ public class ControllerGestione {
 
     public boolean inserisci(String[] param) throws CsvValidationException, IOException, IdException, SQLException {
         boolean status = false;
-        vis.setTipoModifica("insert");
+
         switch (vis.getType())
         {
             case LIBRO -> {

@@ -7,7 +7,6 @@ import laptop.exception.IdException;
 import laptop.model.raccolta.Giornale;
 import laptop.model.raccolta.Libro;
 import laptop.model.raccolta.Rivista;
-import org.apache.ibatis.javassist.bytecode.CodeIterator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -61,14 +60,16 @@ class TestControllerRicerca {
     void testRicercaPerTitoloG(String strings) throws CsvValidationException, IOException, IdException {
         vis.setTypeOfDb(strings);
         vis.setTypeAsDaily();
-        assertNotEquals(0,cR.getIdOggetto(RBOGGETTO.getString("titoloG")));
+        g.setTitolo(RBOGGETTO.getString("titoloG"));
+        assertNotEquals(0,cR.getIdOggetto(g.getTitolo()));
     }
     @ParameterizedTest
     @ValueSource(strings = {"db", "file"})
     void testRicercaPerEditoreG(String strings) throws CsvValidationException, IOException, IdException {
         vis.setTypeOfDb(strings);
         vis.setTypeAsDaily();
-        assertNotEquals(0,cR.getIdOggetto(RBOGGETTO.getString("editoreG")));
+        g.setEditore(RBOGGETTO.getString("editoreG"));
+        assertNotEquals(0,cR.getIdOggetto(g.getEditore()));
     }
 
     @ParameterizedTest

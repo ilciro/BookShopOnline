@@ -96,7 +96,7 @@ public class ProfiloSEServlet extends HttpServlet {
     }
     }
 
-    private ObservableList<TempUserBean> userToBean() throws SQLException {
+    private ObservableList<TempUserBean> userToBean() {
         TempUser tU=new TempUser();
         tUB.setEmailBNOS(uB.getEmailB());
         tU.setEmailT(tUB.getEmailBNOS());

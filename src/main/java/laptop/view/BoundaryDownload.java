@@ -3,7 +3,6 @@ package laptop.view;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -11,7 +10,7 @@ import java.util.logging.Level;
 
 import com.itextpdf.text.DocumentException;
 
-import com.opencsv.exceptions.CsvValidationException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -81,11 +80,9 @@ public class BoundaryDownload implements Initializable {
 	}
 
 	@FXML
-	private void pulisci() throws IOException, SQLException, CsvValidationException, IdException {
+	private void pulisci() throws IOException {
 
-		/*
-		todo fare altra schemata
-		 */
+
 
 		Stage stage;
 		Parent root;

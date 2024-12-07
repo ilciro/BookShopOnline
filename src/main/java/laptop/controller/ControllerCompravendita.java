@@ -50,7 +50,7 @@ public class ControllerCompravendita {
 
 
 
-	public ObservableList<Raccolta> getLista(String type) throws IOException, CsvValidationException, IdException, PersistenzaException {
+	public ObservableList<Raccolta> getLista(String type) throws IOException, CsvValidationException, IdException {
 
 	 ObservableList <Raccolta> catalogo=FXCollections.observableArrayList();
 

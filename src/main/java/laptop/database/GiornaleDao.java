@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +26,7 @@ public class GiornaleDao {
 	private String query;
 
 
-	private boolean state = false;
+
 	private final ControllerSystemState vis = ControllerSystemState.getInstance();
 	private static final String GIORNALE = "giornale";
 	private static final String ECCEZIONE = "eccezione generata:";
@@ -58,7 +59,7 @@ public class GiornaleDao {
 
 			}
 		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("get data").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("get data").log(Level.INFO, ECCEZIONE, e);
 		}
 		return g;
 
@@ -83,7 +84,7 @@ public class GiornaleDao {
 
 			}
 		} catch (SQLException | NullPointerException e) {
-			java.util.logging.Logger.getLogger("get giornale id").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("get giornale id").log(Level.INFO, ECCEZIONE, e);
 		}
 		return catalogo;
 
@@ -119,7 +120,7 @@ public class GiornaleDao {
 
 			}
 		} catch (SQLException | NullPointerException e) {
-			java.util.logging.Logger.getLogger("get giornale id").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("get giornale id").log(Level.INFO, ECCEZIONE, e);
 		}
 		return catalogo;
 	}
@@ -143,15 +144,27 @@ public class GiornaleDao {
 
 			ResultSet rs = prepQ.executeQuery();
 			while (rs.next()) {
-				info[0] = rs.getString("titolo");
-				info[2] = rs.getString("editore");
-				info[4] = rs.getString("lingua");
-				info[5] = rs.getString("categoria");
-				catalogo.add((Giornale) f.creaGiornale(info, rs.getDate("dataPubblicazione").toLocalDate(), rs.getInt("copieRimanenti"), rs.getInt("disp"), rs.getFloat("prezzo"), rs.getInt("idGiornale")));
+
+				String titolo=rs.getString("titolo");
+				String categoria=rs.getString("categoria");
+				String lingua=rs.getString("lingua");
+				String editore=rs.getString("editore");
+				LocalDate data= rs.getDate("dataPubblicazione").toLocalDate();
+				int copie=rs.getInt("copieRimanenti");
+				int disp=rs.getInt("disp");
+				float prezzo=rs.getFloat("prezzo");
+				info[0] = titolo;
+				info[1]="";
+				info[2] = editore;
+				info[3]="";
+				info[4] = lingua;
+				info[5] = categoria;
+				catalogo.add((Giornale) f.creaGiornale(info, data,copie,disp,prezzo, rs.getInt("idGiornale")));
 
 			}
+
 		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("get giornale titolo id").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("get giornale titolo id").log(Level.INFO, ECCEZIONE, e);
 		}
 		return catalogo;
 	}
@@ -172,28 +185,19 @@ public class GiornaleDao {
 			prepQ.setInt(2, g.getId());
 			prepQ.executeUpdate();
 		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("aggiorna disp l").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("aggiorna disp l").log(Level.INFO, ECCEZIONE, e);
 		}
 
 
 	}
 
 	// Creo il Giornale nel terzo caso d'uso per l'aggiunta manuale
-	public boolean creaGiornale(Giornale g) throws SQLException {
-		int row;
-
+	public boolean creaGiornale(Giornale g) {
+		int row = 0;
 
 		query = "INSERT INTO `GIORNALE`"
-				+ "(`titolo`,"
-				+ "`categoria`,"
-				+ "`lingua`,"
-				+ "`editore`,"
-				+ "`dataPubblicazione`,"
-				+ "`copieRimanenti`,"
-				+ "`disp`,"
-				+ "`prezzo`)"
 				+ "VALUES"
-				+ "(?,?,?,?,?,?,?,?)";
+				+ "(?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
 
@@ -205,17 +209,18 @@ public class GiornaleDao {
 			prepQ.setInt(6, g.getCopieRimanenti());
 			prepQ.setInt(7, g.getDisponibilita());
 			prepQ.setFloat(8, g.getPrezzo());
+			prepQ.setInt(9,0);
 
 
 			row = prepQ.executeUpdate();
-			state = row == 1; // true
+
 
 		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("creazione giornale").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("creazione giornale").log(Level.INFO, ECCEZIONE, e);
 		}
 
 
-		return state;
+		return row==1;
 
 
 	}
@@ -231,12 +236,12 @@ public class GiornaleDao {
 			row = prepQ.executeUpdate();
 		}
 
-		java.util.logging.Logger.getLogger("Cancella Giornale").log(Level.INFO, "Giornale cancellato {0}", row);
+		Logger.getLogger("Cancella Giornale").log(Level.INFO, "Giornale cancellato {0}", row);
 		return row;
 
 	}
 
-	public boolean aggiornaGiornale(Giornale g) throws SQLException {
+	public boolean aggiornaGiornale(Giornale g)  {
 		boolean status=false;
 		int row = 0;
 
@@ -254,6 +259,7 @@ public class GiornaleDao {
 				+ "WHERE `idGiornale` = ? or idGiornale=?";
 		try (Connection conn = ConnToDb.connectionToDB();
 			 PreparedStatement prepQ = conn.prepareStatement(query)) {
+
 			prepQ.setString(1, g.getTitolo());
 			prepQ.setString(2, g.getCategoria());
 			prepQ.setString(3, g.getLingua());
@@ -268,7 +274,7 @@ public class GiornaleDao {
 
 			row = prepQ.executeUpdate();
 		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("update g").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("update g").log(Level.INFO, ECCEZIONE, e);
 		}
 		if(row==1)
 			status= true;
@@ -303,7 +309,7 @@ public class GiornaleDao {
 			prepQ.executeUpdate();
 		}catch(SQLException e)
 		{
-			java.util.logging.Logger.getLogger("Test incrementa disp").log(Level.INFO, ECCEZIONE, e);
+			Logger.getLogger("Test incrementa disp").log(Level.INFO, ECCEZIONE, e);
 		}
 
 
@@ -323,7 +329,7 @@ public class GiornaleDao {
 
 		}
 
-		java.util.logging.Logger.getLogger("aggiorna data").log(Level.INFO, "libri aggiornati {0}.",row);
+		Logger.getLogger("aggiorna data").log(Level.INFO, "libri aggiornati {0}.",row);
 
 	}
 

@@ -2,7 +2,6 @@ package laptop.view;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -75,7 +74,7 @@ public class BoundaryCompravendita implements Initializable {
 
 
 	@FXML
-	private void verifica() throws IOException, SQLException, IdException, CsvValidationException {
+	private void verifica() throws IOException {
 
 		try {
 			String i = entryText.getText();
@@ -111,7 +110,7 @@ public class BoundaryCompravendita implements Initializable {
 	}
 
 	@FXML
-	private void procedi() throws IOException, SQLException, IdException, CsvValidationException {
+	private void procedi() throws IOException{
 		String i = entryText.getText();
 		vis.setId(Integer.parseInt(i));
 
@@ -145,36 +144,30 @@ public class BoundaryCompravendita implements Initializable {
 
 	private String ritornaMessaggio()
 	{
-		String s=null;
-		if(ControllerSystemState.getInstance().getType().equals(LIBRO))
-			s="Benvenuto... ecco la lista dei libri nel nostro catalogo...";
-		else if(ControllerSystemState.getInstance().getType().equals(GIORNALE))
-			s="Benvenuto... ecco la lista dei giornali nel nostro catalogo...";
-		else if(ControllerSystemState.getInstance().getType().equals(RIVISTA))
-			s="Benvenuto... ecco la lista dele riviste nel nostro catalogo...";
-		return s;
+        return switch (vis.getType()) {
+		case LIBRO -> "Benvenuto... ecco la lista dei libri nel nostro catalogo...";
+		case GIORNALE -> "Benvenuto... ecco la lista dei giornali nel nostro catalogo...";
+		case RIVISTA -> "Benvenuto... ecco la lista dele riviste nel nostro catalogo...";
+		default -> null;
+		};
 	}
 	private String popolaBottoneV()
 	{
-		String s=null;
-		if(ControllerSystemState.getInstance().getType().equals(LIBRO))
-			s="Mostra Libro";
-		else if(ControllerSystemState.getInstance().getType().equals(GIORNALE))
-			s="Mostra Giornale";
-		else if(ControllerSystemState.getInstance().getType().equals(RIVISTA))
-			s="Mostra Rivista";
-		return s;
+        return switch (vis.getType()) {
+		case LIBRO -> "Mostra Libro";
+		case GIORNALE -> "Mostra Giornale";
+		case RIVISTA -> "Mostra Rivista";
+		default -> null;
+		};
 	}
 	private String popolaBottoneA()
 	{
-		String s=null;
-		if(ControllerSystemState.getInstance().getType().equals(LIBRO))
-			s="Acquista Libro";
-		else if(ControllerSystemState.getInstance().getType().equals(GIORNALE))
-			s="Acquista Giornale";
-		else if(ControllerSystemState.getInstance().getType().equals(RIVISTA))
-			s="Acquista Rivista";
-		return s;
+        return switch (vis.getType()) {
+		case LIBRO -> "Acquista Libro";
+		case GIORNALE -> "Acquista Giornale";
+		case RIVISTA -> "Acquista Rivista";
+		default -> null;
+		};
 	}
 
 
@@ -192,7 +185,7 @@ public class BoundaryCompravendita implements Initializable {
         buttonV.setText(popolaBottoneV());
 		buttonA.setText(popolaBottoneA());
 		
-		if(ControllerSystemState.getInstance().getType().equals(LIBRO))
+		if(vis.getType().equals(LIBRO) || vis.getType().equals(RIVISTA))
 		{
 			header.setText(ritornaMessaggio());
 			titolo.setCellValueFactory(new PropertyValueFactory<>(TITOLOS));
@@ -215,18 +208,8 @@ public class BoundaryCompravendita implements Initializable {
 			prezzo.setCellValueFactory(new PropertyValueFactory<>(PREZZOS));
 			idLibro.setCellValueFactory(new PropertyValueFactory<>("id"));
 		}
-		else if(ControllerSystemState.getInstance().getType().equals(RIVISTA))
-		{
-			header.setText(ritornaMessaggio());
-			titolo.setCellValueFactory(new PropertyValueFactory<>(TITOLOS));
-			editore.setCellValueFactory(new PropertyValueFactory<>(EDITORES));
-			autore.setCellValueFactory(new PropertyValueFactory<>("autore"));
-			categoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-			prezzo.setCellValueFactory(new PropertyValueFactory<>(PREZZOS));
-			idLibro.setCellValueFactory(new PropertyValueFactory<>("id"));
-		}
+
 		
-		//stampare sttringa opportuuna
 
 
 	}

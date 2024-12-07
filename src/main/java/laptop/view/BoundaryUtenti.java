@@ -18,7 +18,6 @@ import laptop.controller.ControllerSystemState;
 import laptop.controller.ControllerUtenti;
 import laptop.exception.IdException;
 import laptop.model.TempUser;
-import laptop.model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +30,7 @@ import java.util.logging.Logger;
 public class BoundaryUtenti implements Initializable {
     private  ControllerUtenti cU;
     private final ControllerSystemState vis=ControllerSystemState.getInstance();
+    private static final String CANCELLA="cancella ";
     @FXML
     private Pane pane;
     @FXML
@@ -73,9 +73,9 @@ public class BoundaryUtenti implements Initializable {
     }
     @FXML
     private void modifica() throws IOException,IdException {
-        int id=tableview.getSelectionModel().getSelectedItem().getId();
-        if(id==0 )throw new IdException("id is wrong");
-        vis.setId(id);
+        int idM=tableview.getSelectionModel().getSelectedItem().getId();
+        if(idM==0 )throw new IdException("id is wrong");
+        vis.setId(idM);
         vis.setTipoModifica("modifica");
         Stage stage;
         Parent root;
@@ -92,16 +92,16 @@ public class BoundaryUtenti implements Initializable {
 
 
 
-        int id=tableview.getSelectionModel().getSelectedItem().getId();
+        int idC=tableview.getSelectionModel().getSelectedItem().getId();
 
 
-        if(id<=0 ) throw new IdException(" selectd id is null");
+        if(idC<=0 ) throw new IdException(" selectd id is null");
         else {
-            vis.setId(id);
-            Logger.getLogger("cancella ").log(Level.INFO," id : ", vis.getId());
+            vis.setId(idC);
+            Logger.getLogger(CANCELLA).log(Level.INFO," id : {0}", vis.getId());
             if (cU.elimina(tableview.getSelectionModel().getSelectedItem().getEmailT()))
             {
-                Logger.getLogger("cancella ").log(Level.INFO," deleted successfully");
+                Logger.getLogger(CANCELLA).log(Level.INFO," deleted successfully");
                 Stage stage;
                 Parent root;
                 stage = (Stage) cancellaB.getScene().getWindow();
@@ -113,7 +113,7 @@ public class BoundaryUtenti implements Initializable {
 
             }
             else{
-                Logger.getLogger("cancella ").log(Level.INFO," deleted unsuccessfully");
+                Logger.getLogger(CANCELLA).log(Level.INFO," deleted unsuccessfully");
                 Stage stage;
                 Parent root;
                 stage = (Stage) cancellaB.getScene().getWindow();

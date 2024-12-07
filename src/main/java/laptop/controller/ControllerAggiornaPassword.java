@@ -42,7 +42,7 @@ public class ControllerAggiornaPassword {
         csv=new CsvUtente();
     }
 
-    public boolean aggiorna( String nuovaP) throws SQLException, CsvValidationException, IOException, IdException {
+    public boolean aggiorna( String nuovaP) throws  CsvValidationException, IOException, IdException {
         boolean status;
         u.setPassword(nuovaP);
 

@@ -98,9 +98,11 @@ public class BoundaryGestioneOggetto implements Initializable {
     private Scene scene;
     private  ControllerGestione cG;
 
-    private final static String LIBRO="libro";
-    private final static String GIORNALE="giornale";
-    private final static String RIVISTA="rivista";
+    private  static final String LIBRO="libro";
+    private  static final String GIORNALE="giornale";
+    private  static final String RIVISTA="rivista";
+    private static final String RACCOLTA="raccolta.fxml";
+    private static final String INFORMATICA="INFORMATICA";
     @FXML
     private void inserisci() throws CsvValidationException, IOException, IdException, SQLException {
 
@@ -109,7 +111,7 @@ public class BoundaryGestioneOggetto implements Initializable {
             Stage stage;
             Parent root;
             stage = (Stage) buttonIns.getScene().getWindow();
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("raccolta.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(RACCOLTA)));
             stage.setTitle("Benvenuto nella schermata per inserire");
             scene = new Scene(root);
             stage.setScene(scene);
@@ -125,7 +127,7 @@ public class BoundaryGestioneOggetto implements Initializable {
             Stage stage;
             Parent root;
             stage = (Stage) modButton.getScene().getWindow();
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("raccolta.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(RACCOLTA)));
             stage.setTitle("Benvenuto nella schermata della raccolta");
             scene = new Scene(root);
             stage.setScene(scene);
@@ -139,7 +141,7 @@ public class BoundaryGestioneOggetto implements Initializable {
         Stage stage;
         Parent root;
         stage = (Stage) indietroB.getScene().getWindow();
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("raccolta.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(RACCOLTA)));
         stage.setTitle("Benvenuto nella schermata della raccolta");
         scene = new Scene(root);
         stage.setScene(scene);
@@ -182,7 +184,7 @@ public class BoundaryGestioneOggetto implements Initializable {
                     list.add("GIALLI_THRILLER");
                     list.add("COMPUTER_GIOCHI");
                     list.add("HUMOR");
-                    list.add("INFORMATICA");
+                    list.add(INFORMATICA);
                     list.add("WEB_DIGITAL_MEDIA");
                     list.add("LETTERATURA_NARRATIVA");
                     list.add("LIBRI_BAMBINI");
@@ -228,7 +230,7 @@ public class BoundaryGestioneOggetto implements Initializable {
                     list.add("GOSSIP");
                     list.add("TELEVISIVO");
                     list.add("MILITARE");
-                    list.add("INFORMATICA");
+                    list.add(INFORMATICA);
                     categoriaTF1.setItems(list);
 
 
@@ -273,7 +275,7 @@ public class BoundaryGestioneOggetto implements Initializable {
                         list.add("GIALLI_THRILLER");
                         list.add("COMPUTER_GIOCHI");
                         list.add("HUMOR");
-                        list.add("INFORMATICA");
+                        list.add(INFORMATICA);
                         list.add("WEB_DIGITAL_MEDIA");
                         list.add("LETTERATURA_NARRATIVA");
                         list.add("LIBRI_BAMBINI");
@@ -333,7 +335,7 @@ public class BoundaryGestioneOggetto implements Initializable {
                         list.add("GOSSIP");
                         list.add("TELEVISIVO");
                         list.add("MILITARE");
-                        list.add("INFORMATICA");
+                        list.add(INFORMATICA);
                         categoriaTF1.setItems(list);
                         codiceTF.setVisible(false);
                         recensioneTF.setVisible(false);
@@ -353,6 +355,7 @@ public class BoundaryGestioneOggetto implements Initializable {
 
 
                     }
+                    default -> Logger.getLogger("modif").log(Level.SEVERE," type is wrong !!");
 
                 }
             } catch (CsvValidationException |IOException|IdException e) {

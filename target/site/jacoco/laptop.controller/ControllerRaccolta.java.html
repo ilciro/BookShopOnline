@@ -86,7 +86,7 @@ public class ControllerRaccolta {
     public boolean elimina() throws CsvValidationException, IOException {
 <span class="fc" id="L87">        boolean status = false;</span>
 
-<span class="pc bpc" id="L89" title="1 of 4 branches missed.">            switch (vis.getType())</span>
+<span class="pc bpc" id="L89" title="2 of 4 branches missed.">            switch (vis.getType())</span>
             {
                 case LIBRO -&gt; {
 <span class="fc" id="L92">                    l.setId(vis.getId());</span>
@@ -96,11 +96,11 @@ public class ControllerRaccolta {
 
 <span class="fc" id="L97">                }</span>
                 case GIORNALE -&gt; {
-<span class="fc" id="L99">                    g.setId(vis.getId());</span>
-<span class="fc bfc" id="L100" title="All 2 branches covered.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-<span class="fc" id="L101">                        status=gD.eliminaGiornale(g);</span>
-<span class="fc" id="L102">                    else status=csv.removeGiornaleById(g);</span>
-<span class="fc" id="L103">                }</span>
+<span class="nc" id="L99">                    g.setId(vis.getId());</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="nc" id="L101">                        status=gD.eliminaGiornale(g);</span>
+<span class="nc" id="L102">                    else status=csv.removeGiornaleById(g);</span>
+<span class="nc" id="L103">                }</span>
                 case RIVISTA -&gt;{
 <span class="fc" id="L105">                    r.setId(vis.getId());</span>
 <span class="fc bfc" id="L106" title="All 2 branches covered.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
