@@ -50,11 +50,11 @@ public class ControllerCheckPagamentoData {
 					csvFattura.inserisciPagamento(p);
 
 					report.setIdReport(0);
-					report.setTipologiaOggetto(vis.getType());
+					report.setTipologiaOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getCategoria());
 					report.setTitoloOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getTitolo());
 					report.setNrPezzi(vis.getQuantita());
-					report.setPrezzo(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo());
-					report.setTotale(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo()*vis.getQuantita());
+					report.setPrezzo(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo());
+					report.setTotale(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo()*vis.getQuantita());
 
 					csvReport.inserisciReport(report);
 
@@ -68,7 +68,7 @@ public class ControllerCheckPagamentoData {
 					pagD.inserisciPagamento(p);
 				}
 				else{
-					p.setTipo(vis.getType());
+					p.setTipo(csv.getGiornaleByIdTitoloEditore(g).get(0).getCategoria());
 					csvFattura.inserisciPagamento(p);
 					report.setIdReport(0);
 					report.setTipologiaOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getCategoria());
@@ -86,7 +86,7 @@ public class ControllerCheckPagamentoData {
 					pagD.inserisciPagamento(p);
 				}
 				else {
-					p.setTipo(vis.getType());
+					p.setTipo(csv.getRivistaByIdTitoloEditore(r).get(0).getCategoria());
 					csvFattura.inserisciPagamento(p);
 					report.setIdReport(0);
 					report.setTipologiaOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getCategoria());

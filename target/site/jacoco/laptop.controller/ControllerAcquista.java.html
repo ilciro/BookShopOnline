@@ -109,8 +109,9 @@ public class ControllerAcquista {
 	public float getPrezzo(String q) throws CsvValidationException, IOException, IdException {
 <span class="fc" id="L110">		int quantita=Integer.parseInt(q);</span>
 <span class="fc" id="L111">		float prezzo=Float.parseFloat(getNomeCostoDisp()[1]);</span>
-<span class="fc" id="L112">		vis.setSpesaT(prezzo);</span>
-<span class="fc" id="L113">        return quantita*prezzo;</span>
+<span class="fc" id="L112">		vis.setQuantita(quantita);</span>
+<span class="fc" id="L113">		vis.setSpesaT(prezzo);</span>
+<span class="fc" id="L114">        return quantita*prezzo;</span>
 
 	}
 }

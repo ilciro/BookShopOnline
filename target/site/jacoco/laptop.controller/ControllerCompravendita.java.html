@@ -14,7 +14,6 @@ import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.database.LibroDao;
 
 import laptop.exception.IdException;
-import laptop.exception.PersistenzaException;
 
 import laptop.model.raccolta.Raccolta;
 
@@ -26,7 +25,7 @@ public class ControllerCompravendita {
 	private final GiornaleDao gD;
 	private final RivistaDao rD;
 
-<span class="fc" id="L29">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L28">	private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 	private final CsvOggettoDao csv ;
 
 	private static final String REPORTGIORNALE=&quot;report/reportGiornale.csv&quot;;
@@ -38,48 +37,48 @@ public class ControllerCompravendita {
 
 
 
-<span class="fc" id="L41">	public ControllerCompravendita() throws IOException {</span>
-<span class="fc" id="L42">		lD = new LibroDao();</span>
-<span class="fc" id="L43">		gD=new GiornaleDao();</span>
+<span class="fc" id="L40">	public ControllerCompravendita() throws IOException {</span>
+<span class="fc" id="L41">		lD = new LibroDao();</span>
+<span class="fc" id="L42">		gD=new GiornaleDao();</span>
 
-<span class="fc" id="L45">		rD=new RivistaDao();</span>
-<span class="fc" id="L46">		csv=new CsvOggettoDao();</span>
+<span class="fc" id="L44">		rD=new RivistaDao();</span>
+<span class="fc" id="L45">		csv=new CsvOggettoDao();</span>
 
 
-<span class="fc" id="L49">	}</span>
+<span class="fc" id="L48">	}</span>
 
 
 
 	public ObservableList&lt;Raccolta&gt; getLista(String type) throws IOException, CsvValidationException, IdException {
 
-<span class="fc" id="L55">	 ObservableList &lt;Raccolta&gt; catalogo=FXCollections.observableArrayList();</span>
+<span class="fc" id="L54">	 ObservableList &lt;Raccolta&gt; catalogo=FXCollections.observableArrayList();</span>
 
-<span class="pc bpc" id="L57" title="1 of 4 branches missed.">	 switch (type)</span>
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">	 switch (type)</span>
 	 {
 		 case &quot;libro&quot; -&gt; {
-<span class="fc bfc" id="L60" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
-<span class="fc" id="L61">				 catalogo.addAll(lD.getLibri());</span>
-<span class="fc" id="L62">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L60">				 catalogo.addAll(lD.getLibri());</span>
+<span class="fc" id="L61">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));</span>
 
-<span class="fc" id="L64">		 }</span>
+<span class="fc" id="L63">		 }</span>
 		 case &quot;giornale&quot;-&gt;{
-<span class="fc bfc" id="L66" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
-<span class="fc" id="L67">				 catalogo.addAll(gD.getGiornali());</span>
-<span class="fc" id="L68">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L66">				 catalogo.addAll(gD.getGiornali());</span>
+<span class="fc" id="L67">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));</span>
 
 
-<span class="fc" id="L71">		 }</span>
+<span class="fc" id="L70">		 }</span>
 		 case &quot;rivista&quot;-&gt;{
-<span class="fc bfc" id="L73" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
-<span class="fc" id="L74">				 catalogo.addAll(rD.getRiviste());</span>
-<span class="fc" id="L75">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">			 if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L73">				 catalogo.addAll(rD.getRiviste());</span>
+<span class="fc" id="L74">			 else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));</span>
 
-<span class="fc" id="L77">		 }</span>
-<span class="nc" id="L78">		 default-&gt; Logger.getLogger(&quot;get lista&quot;).log(Level.SEVERE, &quot; list is empty&quot;);</span>
+<span class="fc" id="L76">		 }</span>
+<span class="nc" id="L77">		 default-&gt; Logger.getLogger(&quot;get lista&quot;).log(Level.SEVERE, &quot; list is empty&quot;);</span>
 
 	 }
 
-<span class="fc" id="L82">	return catalogo;</span>
+<span class="fc" id="L81">	return catalogo;</span>
 	}
 
 	

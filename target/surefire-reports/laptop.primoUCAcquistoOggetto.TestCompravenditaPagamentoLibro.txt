@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro
+-------------------------------------------------------------------------------
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23.596 s - in laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro

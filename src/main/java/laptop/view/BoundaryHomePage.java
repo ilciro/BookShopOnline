@@ -162,27 +162,23 @@ public class BoundaryHomePage implements Initializable{
 	{
 		tArea.clear();
 
-		String typ;
+
 		try {
 
 			if (checkDataBase.isSelected()) {
-				vis.setTypeOfDb("db");
-				typ="db";
-				cHP.creaDb();
+				cHP.dB();
 			}
 			else if (checkFile.isSelected()) {
-				vis.setTypeOfDb("file");
-				typ="file";
-				cHP.copiaFiles();
+				cHP.files();
 			}
 			else throw new PersistenzaException();
 		}catch (PersistenzaException | IOException e)
 		{
 			tArea.setText(e.toString());
 			tArea.lookup(".content").setStyle("-fx-background-color: red;");
-			typ="";
+
 		}
-        return typ;
+        return vis.getTypeOfDb();
 
 	}
 	@FXML

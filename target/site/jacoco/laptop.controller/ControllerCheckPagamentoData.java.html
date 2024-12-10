@@ -50,11 +50,11 @@ public class ControllerCheckPagamentoData {
 <span class="fc" id="L50">					csvFattura.inserisciPagamento(p);</span>
 
 <span class="fc" id="L52">					report.setIdReport(0);</span>
-<span class="fc" id="L53">					report.setTipologiaOggetto(vis.getType());</span>
+<span class="fc" id="L53">					report.setTipologiaOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getCategoria());</span>
 <span class="fc" id="L54">					report.setTitoloOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getTitolo());</span>
 <span class="fc" id="L55">					report.setNrPezzi(vis.getQuantita());</span>
-<span class="fc" id="L56">					report.setPrezzo(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo());</span>
-<span class="fc" id="L57">					report.setTotale(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo()*vis.getQuantita());</span>
+<span class="fc" id="L56">					report.setPrezzo(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo());</span>
+<span class="fc" id="L57">					report.setTotale(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo()*vis.getQuantita());</span>
 
 <span class="fc" id="L59">					csvReport.inserisciReport(report);</span>
 
@@ -68,7 +68,7 @@ public class ControllerCheckPagamentoData {
 <span class="fc" id="L68">					pagD.inserisciPagamento(p);</span>
 				}
 				else{
-<span class="fc" id="L71">					p.setTipo(vis.getType());</span>
+<span class="fc" id="L71">					p.setTipo(csv.getGiornaleByIdTitoloEditore(g).get(0).getCategoria());</span>
 <span class="fc" id="L72">					csvFattura.inserisciPagamento(p);</span>
 <span class="fc" id="L73">					report.setIdReport(0);</span>
 <span class="fc" id="L74">					report.setTipologiaOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getCategoria());</span>
@@ -86,7 +86,7 @@ public class ControllerCheckPagamentoData {
 <span class="fc" id="L86">					pagD.inserisciPagamento(p);</span>
 				}
 				else {
-<span class="fc" id="L89">					p.setTipo(vis.getType());</span>
+<span class="fc" id="L89">					p.setTipo(csv.getRivistaByIdTitoloEditore(r).get(0).getCategoria());</span>
 <span class="fc" id="L90">					csvFattura.inserisciPagamento(p);</span>
 <span class="fc" id="L91">					report.setIdReport(0);</span>
 <span class="fc" id="L92">					report.setTipologiaOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getCategoria());</span>

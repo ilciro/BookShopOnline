@@ -113,20 +113,21 @@ public class CsvUtente implements UserInterface {
 
 
     private static synchronized boolean insertUser(User u) throws IOException, CsvValidationException {
-        CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONU, true)));
-        String[] gVector = new String[8];
+        try (CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(LOCATIONU, true)))) {
+            String[] gVector = new String[8];
 
-        gVector[GETINDEXIDUSER] = String.valueOf(getIdMax() + 1);
-        gVector[GETINDEXRUOLO] = u.getIdRuolo();
-        gVector[GETINDEXNOME] = u.getNome();
-        gVector[GETINDEXCOGNOME] = u.getCognome();
-        gVector[GETINDEXEMAIL] = u.getEmail();
-        gVector[GETINDEXPWD] = u.getPassword();
-        gVector[GETINDEXDESC] = u.getDescrizione();
-        gVector[GETINDEXDATAN] = String.valueOf(u.getDataDiNascita());
-        writer.writeNext(gVector);
-        writer.flush();
-        writer.close();
+            gVector[GETINDEXIDUSER] = String.valueOf(getIdMax() + 1);
+            gVector[GETINDEXRUOLO] = u.getIdRuolo();
+            gVector[GETINDEXNOME] = u.getNome();
+            gVector[GETINDEXCOGNOME] = u.getCognome();
+            gVector[GETINDEXEMAIL] = u.getEmail();
+            gVector[GETINDEXPWD] = u.getPassword();
+            gVector[GETINDEXDESC] = u.getDescrizione();
+            gVector[GETINDEXDATAN] = String.valueOf(u.getDataDiNascita());
+            writer.writeNext(gVector);
+            writer.flush();
+
+        }
 
         return getIdMax() != 0;
 
@@ -134,38 +135,39 @@ public class CsvUtente implements UserInterface {
     }
 
     private static synchronized List<User> getUserData(File fd, int id, String mail, String pass) throws IOException, CsvValidationException {
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] gVector;
-        boolean recordFound;
-        List<User> list = new ArrayList<>();
+        List<User> list;
+        try (CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fd)))) {
+            String[] gVector;
+            boolean recordFound;
+            list = new ArrayList<>();
 
 
-        while ((gVector = reader.readNext()) != null) {
+            while ((gVector = reader.readNext()) != null) {
 
 
-            recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);
+                recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);
 
-            if (recordFound) {
+                if (recordFound) {
 
-                TempUser tu = getTempUser(gVector);
+                    TempUser tu = getTempUser(gVector);
 
-                User.getInstance().setId(tu.getId());
-                User.getInstance().setIdRuolo(tu.getIdRuoloT());
-                User.getInstance().setNome(tu.getNomeT());
-                User.getInstance().setCognome(tu.getCognomeT());
-                User.getInstance().setEmail(tu.getEmailT());
-                User.getInstance().setPassword(tu.getPasswordT());
-                User.getInstance().setDescrizione(tu.getDescrizioneT());
-                User.getInstance().setDataDiNascita(tu.getDataDiNascitaT());
+                    User.getInstance().setId(tu.getId());
+                    User.getInstance().setIdRuolo(tu.getIdRuoloT());
+                    User.getInstance().setNome(tu.getNomeT());
+                    User.getInstance().setCognome(tu.getCognomeT());
+                    User.getInstance().setEmail(tu.getEmailT());
+                    User.getInstance().setPassword(tu.getPasswordT());
+                    User.getInstance().setDescrizione(tu.getDescrizioneT());
+                    User.getInstance().setDataDiNascita(tu.getDataDiNascitaT());
 
 
-                list.add(User.getInstance());
+                    list.add(User.getInstance());
+                }
+
             }
 
+
         }
-
-
-        reader.close();
         return list;
     }
 
@@ -186,12 +188,13 @@ public class CsvUtente implements UserInterface {
 
     private static synchronized int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
-        CSVReader reader = new CSVReader(new FileReader(LOCATIONU));
-        String[] gVector;
-        int id = 0;
-        while ((gVector = reader.readNext()) != null)
-            id = Integer.parseInt(gVector[GETINDEXIDUSER]);
-        reader.close();
+        int id;
+        try (CSVReader reader = new CSVReader(new FileReader(LOCATIONU))) {
+            String[] gVector;
+            id = 0;
+            while ((gVector = reader.readNext()) != null)
+                id = Integer.parseInt(gVector[GETINDEXIDUSER]);
+        }
 
         return id;
 
@@ -204,30 +207,7 @@ public class CsvUtente implements UserInterface {
             Files.createTempFile("prefix", "suffix", attr); // Compliant
         }
         File tmpFD = new File("report/appoggioUser.csv");
-        boolean found = false;
-        // create csvReader object passing file reader as a parameter
-        CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-        String[] giornaleVector;
-        CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));
-        //check on path
-        boolean userVectorFound;
-
-
-        while ((giornaleVector = csvReader.readNext()) != null) {
-
-            userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());
-
-            if (!userVectorFound) {
-                csvWriter.writeNext(giornaleVector);
-            } else {
-                found = userVectorFound;
-            }
-        }
-
-
-        csvWriter.flush();
-        csvReader.close();
-        csvWriter.close();
+        boolean found = isFound(fd, u1, tmpFD);
         if (found) {
             Files.move(tmpFD.toPath(), fd.toPath(), REPLACE_EXISTING);
             status = true;
@@ -238,25 +218,54 @@ public class CsvUtente implements UserInterface {
 
     }
 
+    private static boolean isFound(File fd, User u1, File tmpFD) throws IOException, CsvValidationException {
+        boolean found = false;
+        // create csvReader object passing file reader as a parameter
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+             CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(tmpFD, true)));
+            ) {
+            String[] giornaleVector;
+            //check on path
+            boolean userVectorFound;
+
+
+            while ((giornaleVector = csvReader.readNext()) != null) {
+
+                userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());
+
+                if (!userVectorFound) {
+                    csvWriter.writeNext(giornaleVector);
+                } else {
+                    found = userVectorFound;
+                }
+            }
+
+
+            csvWriter.flush();
+        }
+        return found;
+    }
+
     public synchronized ObservableList<TempUser> getUserData() throws IOException, CsvValidationException {
-        CSVReader reader = new CSVReader(new BufferedReader(new FileReader(this.fdU)));
-        String[] gVector;
+        ObservableList<TempUser> list;
+        try (CSVReader reader = new CSVReader(new BufferedReader(new FileReader(this.fdU)))) {
+            String[] gVector;
 
-        ObservableList<TempUser> list = FXCollections.observableArrayList();
-
-
-        while ((gVector = reader.readNext()) != null) {
-
-            TempUser tu = getTempUser(gVector);
+            list = FXCollections.observableArrayList();
 
 
-            list.add(tu);
+            while ((gVector = reader.readNext()) != null) {
+
+                TempUser tu = getTempUser(gVector);
+
+
+                list.add(tu);
+
+
+            }
 
 
         }
-
-
-        reader.close();
         return list;
     }
 

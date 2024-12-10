@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,32 +24,33 @@ public class ControllerHomePage {
     private static final String RIVISTAFINALE="report/reportRivista.csv";
     private static final String UTENTEP="src/main/resources/csvfiles/utente.csv";
     private static final String UTENTEFINALE="report/reportUtente.csv";
-    private static final String FATTURAP="src/main/resources/csvfiles/utente.csv";
-    private static final String FATTURAFINALE="report/reportUtente.csv";
-    private static final String PAGAMENTOP="src/main/resources/csvfiles/utente.csv";
-    private static final String PAGAMENTOFINALE="report/reportUtente.csv";
+    private static final String FATTURAP="src/main/resources/csvfiles/fattura.csv";
+    private static final String FATTURAFINALE="report/reportFattura.csv";
+    private static final String PAGAMENTOP="src/main/resources/csvfiles/pagamento.csv";
+    private static final String PAGAMENTOFINALE="report/reportPagamento.csv";
 
     private static final ControllerSystemState vis=ControllerSystemState.getInstance();
 
 
-    public void copiaFiles() throws IOException {
+    private void copiaFiles() throws IOException {
 
         try {
             File directory=new File("report");
 
+
             if(directory.isDirectory())
             {
                 String[] files = directory.list();
+
+
                 assert files != null;
-
-                if (files.length == 0) {
-                    throw new IOException(" cartella vuota");
+                if ( files.length == 0 || files.length==3) {
+                    throw new IOException("cartella vuota");
                 }
-                else
-                {
-                    Logger.getLogger("copia files").log(Level.INFO, " file already exists!!");
 
-                }
+
+
+
             }
 
 
@@ -67,7 +69,7 @@ public class ControllerHomePage {
         }
     }
 
-    public void creaDb() throws FileNotFoundException {
+    private void creaDb() throws FileNotFoundException {
         Logger.getLogger("crea db sql").log(Level.INFO, "\n creating tables ..");
         try{
             if(vis.isPopulated())
@@ -104,4 +106,13 @@ public class ControllerHomePage {
         return status;
     }
 
+    public void dB() throws FileNotFoundException {
+        vis.setTypeOfDb("db");
+        creaDb();
+    }
+
+    public void files() throws IOException {
+        vis.setTypeOfDb("file");
+        copiaFiles();
+    }
 }

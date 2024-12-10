@@ -242,7 +242,6 @@ public class GiornaleDao {
 	}
 
 	public boolean aggiornaGiornale(Giornale g)  {
-		boolean status=false;
 		int row = 0;
 
 
@@ -276,11 +275,7 @@ public class GiornaleDao {
 		} catch (SQLException e) {
 			Logger.getLogger("update g").log(Level.INFO, ECCEZIONE, e);
 		}
-		if(row==1)
-			status= true;
-
-		return status;
-
+		return row==1;
 	}
 
 

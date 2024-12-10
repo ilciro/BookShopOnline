@@ -30,45 +30,45 @@ import java.io.*;
     @Override
     public void inserisciReport(Report r) throws CsvValidationException, IOException {
 
-<span class="fc" id="L33">       CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(fileReport,true)));</span>
+<span class="fc" id="L33">        try (CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(fileReport, true)))) {</span>
 
-<span class="fc" id="L35">        String[] gVectore = new String[6];</span>
+<span class="fc" id="L35">            String[] gVectore = new String[6];</span>
 
-<span class="fc" id="L37">        gVectore[GETINDEXIDR] = String.valueOf(getIdMax()+1);</span>
-<span class="fc" id="L38">        gVectore[GETINDEXTIPOOGG] = r.getTipologiaOggetto();</span>
-<span class="fc" id="L39">        gVectore[GETINDEXTITOLOOGG] = r.getTitoloOggetto();</span>
-<span class="fc" id="L40">        gVectore[GETINDEXNRPEZZI] = String.valueOf(r.getNrPezzi());</span>
-<span class="fc" id="L41">        gVectore[GETINDEXPREZZO] = String.valueOf(r.getPrezzo());</span>
-<span class="fc" id="L42">        gVectore[GETINDEXTOTALE] = String.valueOf(r.getTotale());</span>
-<span class="fc" id="L43">        writer.writeNext(gVectore);</span>
+<span class="fc" id="L37">            gVectore[GETINDEXIDR] = String.valueOf(getIdMax() + 1);</span>
+<span class="fc" id="L38">            gVectore[GETINDEXTIPOOGG] = r.getTipologiaOggetto();</span>
+<span class="fc" id="L39">            gVectore[GETINDEXTITOLOOGG] = r.getTitoloOggetto();</span>
+<span class="fc" id="L40">            gVectore[GETINDEXNRPEZZI] = String.valueOf(r.getNrPezzi());</span>
+<span class="fc" id="L41">            gVectore[GETINDEXPREZZO] = String.valueOf(r.getPrezzo());</span>
+<span class="fc" id="L42">            gVectore[GETINDEXTOTALE] = String.valueOf(r.getTotale());</span>
+<span class="fc" id="L43">            writer.writeNext(gVectore);</span>
 
-<span class="fc" id="L45">        writer.flush();</span>
+<span class="fc" id="L45">            writer.flush();</span>
 
-<span class="fc" id="L47">        writer.close();</span>
+        }
 
 <span class="fc" id="L49">    }</span>
 
 
 
     public static synchronized ObservableList&lt;Report&gt; returnReportIDTipoTitolo(int id, String tipo, String titolo) throws IOException, CsvValidationException {
-<span class="fc" id="L54">        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fileReport)));</span>
-        String[] gVector ;
-        boolean recordFound;
+        ObservableList&lt;Report&gt; list;
+<span class="fc" id="L55">        try (CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fileReport)))) {</span>
+            String[] gVector;
+            boolean recordFound;
 
-<span class="fc" id="L58">        ObservableList&lt;Report&gt; list= FXCollections.observableArrayList();</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        while((gVector=reader.readNext())!=null)</span>
-        {
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            if(tipo==null) {</span>
-<span class="fc" id="L62">                Report report = getReport(gVector);</span>
-<span class="fc" id="L63">                list.add(report);</span>
-<span class="fc" id="L64">            }</span>
-            else {
-<span class="nc bnc" id="L66" title="All 4 branches missed.">                recordFound = gVector[GETINDEXIDR].equals(String.valueOf(id)) || gVector[GETINDEXTIPOOGG].equals(tipo)</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">                        || gVector[GETINDEXTITOLOOGG].equals(titolo);</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">                if (recordFound) {</span>
-<span class="nc" id="L69">                    Report report = getReport(gVector);</span>
-<span class="nc" id="L70">                    list.add(report);</span>
-<span class="nc" id="L71">                }</span>
+<span class="fc" id="L59">            list = FXCollections.observableArrayList();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            while ((gVector = reader.readNext()) != null) {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">                if (tipo == null) {</span>
+<span class="fc" id="L62">                    Report report = getReport(gVector);</span>
+<span class="fc" id="L63">                    list.add(report);</span>
+<span class="fc" id="L64">                } else {</span>
+<span class="nc bnc" id="L65" title="All 4 branches missed.">                    recordFound = gVector[GETINDEXIDR].equals(String.valueOf(id)) || gVector[GETINDEXTIPOOGG].equals(tipo)</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                            || gVector[GETINDEXTITOLOOGG].equals(titolo);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                    if (recordFound) {</span>
+<span class="nc" id="L68">                        Report report = getReport(gVector);</span>
+<span class="nc" id="L69">                        list.add(report);</span>
+<span class="nc" id="L70">                    }</span>
+                }
             }
         }
 <span class="fc" id="L74">        return list;</span>
@@ -88,14 +88,14 @@ import java.io.*;
 
     private static  int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
-        CSVReader reader;
         String[] gVector;
-<span class="fc" id="L93">        int id = 0;</span>
+<span class="fc" id="L92">        int id = 0;</span>
 
 
-<span class="fc" id="L96">        reader = new CSVReader(new FileReader(LOCATIONR));</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        while ((gVector = reader.readNext()) != null) {</span>
-<span class="fc" id="L98">            id = Integer.parseInt(gVector[GETINDEXIDR]);</span>
+<span class="fc" id="L95">        try (CSVReader reader = new CSVReader(new FileReader(LOCATIONR))) {</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">            while ((gVector = reader.readNext()) != null) {</span>
+<span class="fc" id="L97">                id = Integer.parseInt(gVector[GETINDEXIDR]);</span>
+            }
         }
 <span class="fc" id="L100">        return id;</span>
 

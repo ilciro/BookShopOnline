@@ -43,59 +43,60 @@ public class ControllerLogin {
 <span class="fc" id="L43">        u.setCognome(cognome);</span>
 
 
-<span class="pc bpc" id="L46" title="1 of 5 branches missed.">        switch (ruolo)</span>
+<span class="pc bpc" id="L46" title="2 of 5 branches missed.">        switch (ruolo)</span>
         {
             case &quot;U&quot;,&quot;u&quot;,&quot;utente&quot;,&quot;UTENTE&quot;-&gt;
             {
 <span class="fc" id="L50">                ruolo=&quot;UTENTE&quot;;</span>
 <span class="fc" id="L51">                vis.setIsLogged(true);</span>
-<span class="fc" id="L52">                u.setId(id);</span>
-<span class="fc" id="L53">            }</span>
+<span class="fc" id="L52">                u.setIdRuolo(ruolo);</span>
+<span class="fc" id="L53">                u.setId(id);</span>
+<span class="fc" id="L54">            }</span>
             case &quot;A&quot;,&quot;a&quot;,&quot;admin&quot;,&quot;ADMIN&quot;-&gt; {
-<span class="fc" id="L55">                ruolo = &quot;ADMIN&quot;;</span>
-<span class="fc" id="L56">                vis.setIsLogged(true);</span>
-<span class="fc" id="L57">                u.setId(id);</span>
-<span class="fc" id="L58">            }</span>
+<span class="fc" id="L56">                ruolo = &quot;ADMIN&quot;;</span>
+<span class="fc" id="L57">                vis.setIsLogged(true);</span>
+<span class="fc" id="L58">                u.setId(id);</span>
+<span class="fc" id="L59">            }</span>
             case &quot;S&quot;,&quot;s&quot;,&quot;W&quot;,&quot;w&quot;,&quot;SCRITTORE&quot;-&gt; {
-<span class="fc" id="L60">                ruolo = &quot;SCRITTORE&quot;;</span>
-<span class="fc" id="L61">                vis.setIsLogged(true);</span>
-<span class="fc" id="L62">                u.setId(id);</span>
-<span class="fc" id="L63">            }</span>
+<span class="nc" id="L61">                ruolo = &quot;SCRITTORE&quot;;</span>
+<span class="nc" id="L62">                vis.setIsLogged(true);</span>
+<span class="nc" id="L63">                u.setId(id);</span>
+<span class="nc" id="L64">            }</span>
             case &quot;E&quot;,&quot;e&quot;,&quot;EDITORE&quot;-&gt; {
-<span class="fc" id="L65">                ruolo = &quot;EDITORE&quot;;</span>
-<span class="fc" id="L66">                vis.setIsLogged(true);</span>
-<span class="fc" id="L67">                u.setId(id);</span>
-<span class="fc" id="L68">            }</span>
+<span class="nc" id="L66">                ruolo = &quot;EDITORE&quot;;</span>
+<span class="nc" id="L67">                vis.setIsLogged(true);</span>
+<span class="nc" id="L68">                u.setId(id);</span>
+<span class="nc" id="L69">            }</span>
             default -&gt;
             {
-<span class="nc" id="L71">                ruolo=&quot;NONVALIDO&quot;;</span>
-<span class="nc" id="L72">                java.util.logging.Logger.getLogger(&quot; login&quot;).log(Level.SEVERE, &quot; user not found!!&quot;);</span>
-<span class="nc" id="L73">                vis.setIsLogged(false);</span>
+<span class="fc" id="L72">                ruolo=&quot;NONVALIDO&quot;;</span>
+<span class="fc" id="L73">                java.util.logging.Logger.getLogger(&quot; login&quot;).log(Level.SEVERE, &quot; user not found!!&quot;);</span>
+<span class="fc" id="L74">                vis.setIsLogged(false);</span>
             }
         }
-<span class="fc" id="L76">        return ruolo;</span>
+<span class="fc" id="L77">        return ruolo;</span>
 
     }
 
     //used for change pass
     public boolean userPresente(String email,String pwd) throws SQLException, CsvValidationException, IOException {
-<span class="fc" id="L82">        boolean status=false;</span>
-<span class="fc" id="L83">        u.setEmail(email);</span>
-<span class="fc" id="L84">        u.setPassword(pwd);</span>
+<span class="nc" id="L83">        boolean status=false;</span>
+<span class="nc" id="L84">        u.setEmail(email);</span>
+<span class="nc" id="L85">        u.setPassword(pwd);</span>
 
 
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
         {
 
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">            if(!Objects.equals(UsersDao.pickData(u).getNome(), &quot;&quot;))</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            if(!Objects.equals(UsersDao.pickData(u).getNome(), &quot;&quot;))</span>
             {
-<span class="fc" id="L92">                status=true;</span>
+<span class="nc" id="L93">                status=true;</span>
             }
 
         }else {
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if(!csv.userList(u).get(0).getNome().equalsIgnoreCase(&quot;&quot;))</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">            if(!csv.userList(u).get(0).getNome().equalsIgnoreCase(&quot;&quot;))</span>
             {
-<span class="fc" id="L98">                status=true;</span>
+<span class="nc" id="L99">                status=true;</span>
             }
 
 
@@ -103,14 +104,14 @@ public class ControllerLogin {
         }
 
 
-<span class="fc" id="L106">        return status;</span>
+<span class="nc" id="L107">        return status;</span>
     }
 
 
     public ControllerLogin()
-<span class="fc" id="L111">    {</span>
-<span class="fc" id="L112">        csv=new CsvUtente();</span>
-<span class="fc" id="L113">    }</span>
+<span class="fc" id="L112">    {</span>
+<span class="fc" id="L113">        csv=new CsvUtente();</span>
+<span class="fc" id="L114">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

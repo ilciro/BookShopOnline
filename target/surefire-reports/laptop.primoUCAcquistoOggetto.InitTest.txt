@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: laptop.primoUCAcquistoOggetto.InitTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.276 s - in laptop.primoUCAcquistoOggetto.InitTest

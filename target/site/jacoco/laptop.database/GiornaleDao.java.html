@@ -193,34 +193,34 @@ public class GiornaleDao {
 
 	// Creo il Giornale nel terzo caso d'uso per l'aggiunta manuale
 	public boolean creaGiornale(Giornale g) {
-<span class="fc" id="L196">		int row = 0;</span>
+<span class="nc" id="L196">		int row = 0;</span>
 
-<span class="fc" id="L198">		query = &quot;INSERT INTO `GIORNALE`&quot;</span>
+<span class="nc" id="L198">		query = &quot;INSERT INTO `GIORNALE`&quot;</span>
 				+ &quot;VALUES&quot;
 				+ &quot;(?,?,?,?,?,?,?,?,?)&quot;;
-<span class="fc" id="L201">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L202">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="nc" id="L201">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L202">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
-<span class="fc" id="L204">			prepQ.setString(1, g.getTitolo());</span>
-<span class="fc" id="L205">			prepQ.setString(2, g.getCategoria());</span>
-<span class="fc" id="L206">			prepQ.setString(3, g.getLingua());</span>
-<span class="fc" id="L207">			prepQ.setString(4, g.getEditore());</span>
-<span class="fc" id="L208">			prepQ.setDate(5, Date.valueOf(g.getDataPubb().toString()));</span>
-<span class="fc" id="L209">			prepQ.setInt(6, g.getCopieRimanenti());</span>
-<span class="fc" id="L210">			prepQ.setInt(7, g.getDisponibilita());</span>
-<span class="fc" id="L211">			prepQ.setFloat(8, g.getPrezzo());</span>
-<span class="fc" id="L212">			prepQ.setInt(9,0);</span>
+<span class="nc" id="L204">			prepQ.setString(1, g.getTitolo());</span>
+<span class="nc" id="L205">			prepQ.setString(2, g.getCategoria());</span>
+<span class="nc" id="L206">			prepQ.setString(3, g.getLingua());</span>
+<span class="nc" id="L207">			prepQ.setString(4, g.getEditore());</span>
+<span class="nc" id="L208">			prepQ.setDate(5, Date.valueOf(g.getDataPubb().toString()));</span>
+<span class="nc" id="L209">			prepQ.setInt(6, g.getCopieRimanenti());</span>
+<span class="nc" id="L210">			prepQ.setInt(7, g.getDisponibilita());</span>
+<span class="nc" id="L211">			prepQ.setFloat(8, g.getPrezzo());</span>
+<span class="nc" id="L212">			prepQ.setInt(9,0);</span>
 
 
-<span class="fc" id="L215">			row = prepQ.executeUpdate();</span>
+<span class="nc" id="L215">			row = prepQ.executeUpdate();</span>
 
 
 <span class="nc" id="L218">		} catch (SQLException e) {</span>
 <span class="nc" id="L219">			Logger.getLogger(&quot;creazione giornale&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="fc" id="L220">		}</span>
+<span class="nc" id="L220">		}</span>
 
 
-<span class="pc bpc" id="L223" title="1 of 2 branches missed.">		return row==1;</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">		return row==1;</span>
 
 
 	}
@@ -242,11 +242,10 @@ public class GiornaleDao {
 	}
 
 	public boolean aggiornaGiornale(Giornale g)  {
-<span class="fc" id="L245">		boolean status=false;</span>
-<span class="fc" id="L246">		int row = 0;</span>
+<span class="nc" id="L245">		int row = 0;</span>
 
 
-<span class="fc" id="L249">		query = &quot; UPDATE `GIORNALE`&quot;</span>
+<span class="nc" id="L248">		query = &quot; UPDATE `GIORNALE`&quot;</span>
 				+ &quot;SET&quot;
 				+ &quot;`titolo` =?,&quot;
 				+ &quot;`categoria` = ?,&quot;
@@ -257,30 +256,26 @@ public class GiornaleDao {
 				+ &quot;`disp` = ?,&quot;
 				+ &quot;`prezzo` = ?&quot;
 				+ &quot;WHERE `idGiornale` = ? or idGiornale=?&quot;;
-<span class="fc" id="L260">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L261">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="nc" id="L259">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L260">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
-<span class="fc" id="L263">			prepQ.setString(1, g.getTitolo());</span>
-<span class="fc" id="L264">			prepQ.setString(2, g.getCategoria());</span>
-<span class="fc" id="L265">			prepQ.setString(3, g.getLingua());</span>
-<span class="fc" id="L266">			prepQ.setString(4, g.getEditore());</span>
-<span class="fc" id="L267">			prepQ.setString(5, g.getDataPubb().toString());</span>
-<span class="fc" id="L268">			prepQ.setInt(6, g.getCopieRimanenti());</span>
-<span class="fc" id="L269">			prepQ.setInt(7, g.getDisponibilita());</span>
-<span class="fc" id="L270">			prepQ.setFloat(8, g.getPrezzo());</span>
-<span class="fc" id="L271">			prepQ.setInt(9, g.getId());</span>
-<span class="fc" id="L272">			prepQ.setInt(10, vis.getId());</span>
+<span class="nc" id="L262">			prepQ.setString(1, g.getTitolo());</span>
+<span class="nc" id="L263">			prepQ.setString(2, g.getCategoria());</span>
+<span class="nc" id="L264">			prepQ.setString(3, g.getLingua());</span>
+<span class="nc" id="L265">			prepQ.setString(4, g.getEditore());</span>
+<span class="nc" id="L266">			prepQ.setString(5, g.getDataPubb().toString());</span>
+<span class="nc" id="L267">			prepQ.setInt(6, g.getCopieRimanenti());</span>
+<span class="nc" id="L268">			prepQ.setInt(7, g.getDisponibilita());</span>
+<span class="nc" id="L269">			prepQ.setFloat(8, g.getPrezzo());</span>
+<span class="nc" id="L270">			prepQ.setInt(9, g.getId());</span>
+<span class="nc" id="L271">			prepQ.setInt(10, vis.getId());</span>
 
 
-<span class="fc" id="L275">			row = prepQ.executeUpdate();</span>
-<span class="nc" id="L276">		} catch (SQLException e) {</span>
-<span class="nc" id="L277">			Logger.getLogger(&quot;update g&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="fc" id="L278">		}</span>
-<span class="pc bpc" id="L279" title="1 of 2 branches missed.">		if(row==1)</span>
-<span class="fc" id="L280">			status= true;</span>
-
-<span class="fc" id="L282">		return status;</span>
-
+<span class="nc" id="L274">			row = prepQ.executeUpdate();</span>
+<span class="nc" id="L275">		} catch (SQLException e) {</span>
+<span class="nc" id="L276">			Logger.getLogger(&quot;update g&quot;).log(Level.INFO, ECCEZIONE, e);</span>
+<span class="nc" id="L277">		}</span>
+<span class="nc bnc" id="L278" title="All 2 branches missed.">		return row==1;</span>
 	}
 
 
@@ -293,68 +288,68 @@ public class GiornaleDao {
 
 	public void incrementaDisponibilita(Giornale g)
 	{
-<span class="nc" id="L296">		int d=vis.getQuantita();</span>
-<span class="nc" id="L297">		int i=g.getCopieRimanenti();</span>
+<span class="nc" id="L291">		int d=vis.getQuantita();</span>
+<span class="nc" id="L292">		int i=g.getCopieRimanenti();</span>
 
-<span class="nc" id="L299">		int rim=i+d;</span>
-<span class="nc" id="L300">		query=&quot;update GIORNALE set copieRimanenti= ? where idGiornale=?&quot;;</span>
+<span class="nc" id="L294">		int rim=i+d;</span>
+<span class="nc" id="L295">		query=&quot;update GIORNALE set copieRimanenti= ? where idGiornale=?&quot;;</span>
 
 
 
-<span class="nc" id="L304">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L305">			PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="nc" id="L299">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L300">			PreparedStatement prepQ=conn.prepareStatement(query))</span>
 		{
-<span class="nc" id="L307">			prepQ.setInt(1, rim);</span>
-<span class="nc" id="L308">			prepQ.setInt(2, g.getId());</span>
-<span class="nc" id="L309">			prepQ.executeUpdate();</span>
-<span class="nc" id="L310">		}catch(SQLException e)</span>
+<span class="nc" id="L302">			prepQ.setInt(1, rim);</span>
+<span class="nc" id="L303">			prepQ.setInt(2, g.getId());</span>
+<span class="nc" id="L304">			prepQ.executeUpdate();</span>
+<span class="nc" id="L305">		}catch(SQLException e)</span>
 		{
-<span class="nc" id="L312">			Logger.getLogger(&quot;Test incrementa disp&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L313">		}</span>
+<span class="nc" id="L307">			Logger.getLogger(&quot;Test incrementa disp&quot;).log(Level.INFO, ECCEZIONE, e);</span>
+<span class="nc" id="L308">		}</span>
 
 
 
-<span class="nc" id="L317">	}</span>
+<span class="nc" id="L312">	}</span>
 
 	public void aggiornaData(Giornale g, Date sqlDate) throws SQLException {
 		int row;
-<span class="nc" id="L321">		query=&quot;update GIORNALE set dataPubblicazione=? where idGiornale=? or idGiornale=?&quot;;</span>
-<span class="nc" id="L322">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L323">			PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="nc" id="L316">		query=&quot;update GIORNALE set dataPubblicazione=? where idGiornale=? or idGiornale=?&quot;;</span>
+<span class="nc" id="L317">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L318">			PreparedStatement prepQ=conn.prepareStatement(query))</span>
 		{
-<span class="nc" id="L325">			prepQ.setDate(1, sqlDate);</span>
-<span class="nc" id="L326">			prepQ.setInt(2, g.getId());</span>
-<span class="nc" id="L327">			prepQ.setInt(3, vis.getId());</span>
-<span class="nc" id="L328">			row=prepQ.executeUpdate();</span>
+<span class="nc" id="L320">			prepQ.setDate(1, sqlDate);</span>
+<span class="nc" id="L321">			prepQ.setInt(2, g.getId());</span>
+<span class="nc" id="L322">			prepQ.setInt(3, vis.getId());</span>
+<span class="nc" id="L323">			row=prepQ.executeUpdate();</span>
 
 		}
 
-<span class="nc" id="L332">		Logger.getLogger(&quot;aggiorna data&quot;).log(Level.INFO, &quot;libri aggiornati {0}.&quot;,row);</span>
+<span class="nc" id="L327">		Logger.getLogger(&quot;aggiorna data&quot;).log(Level.INFO, &quot;libri aggiornati {0}.&quot;,row);</span>
 
-<span class="nc" id="L334">	}</span>
+<span class="nc" id="L329">	}</span>
 
 
 
 
 	public boolean eliminaGiornale(Giornale g)
 	{
-<span class="nc" id="L341">		int row = 0;</span>
-<span class="nc" id="L342">		boolean status=false;</span>
-<span class="nc" id="L343">		query=&quot;delete from GIORNALE where idGiornale=? or idGiornale=?&quot;;</span>
-<span class="nc" id="L344">		try (Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L345">			 PreparedStatement prepQ= conn.prepareStatement(query)){</span>
+<span class="nc" id="L336">		int row = 0;</span>
+<span class="nc" id="L337">		boolean status=false;</span>
+<span class="nc" id="L338">		query=&quot;delete from GIORNALE where idGiornale=? or idGiornale=?&quot;;</span>
+<span class="nc" id="L339">		try (Connection conn=ConnToDb.connectionToDB();</span>
+<span class="nc" id="L340">			 PreparedStatement prepQ= conn.prepareStatement(query)){</span>
 
-<span class="nc" id="L347">			prepQ.setInt(1,g.getId());</span>
-<span class="nc" id="L348">			prepQ.setInt(2,vis.getId());</span>
+<span class="nc" id="L342">			prepQ.setInt(1,g.getId());</span>
+<span class="nc" id="L343">			prepQ.setInt(2,vis.getId());</span>
 
-<span class="nc" id="L350">			row= prepQ.executeUpdate();</span>
+<span class="nc" id="L345">			row= prepQ.executeUpdate();</span>
 
-<span class="nc" id="L352">		} catch (SQLException e) {</span>
-<span class="nc" id="L353">			Logger.getLogger(&quot;elimina&quot;).log(Level.SEVERE,&quot; error in mysql delete&quot;, e);</span>
-<span class="nc" id="L354">		}</span>
-<span class="nc bnc" id="L355" title="All 2 branches missed.">		if(row==1)</span>
-<span class="nc" id="L356">			status=true;</span>
-<span class="nc" id="L357">		return status;</span>
+<span class="nc" id="L347">		} catch (SQLException e) {</span>
+<span class="nc" id="L348">			Logger.getLogger(&quot;elimina&quot;).log(Level.SEVERE,&quot; error in mysql delete&quot;, e);</span>
+<span class="nc" id="L349">		}</span>
+<span class="nc bnc" id="L350" title="All 2 branches missed.">		if(row==1)</span>
+<span class="nc" id="L351">			status=true;</span>
+<span class="nc" id="L352">		return status;</span>
 	}
 }
 

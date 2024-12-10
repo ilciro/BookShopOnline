@@ -162,15 +162,17 @@ public class LibroDao {
             }
         }
         if (vis.getTipoModifica().equalsIgnoreCase("modifica")) {
-
             query = "update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?," +
                     "autore=?,lingua=?,categoria=?,dataPubblicazione=?," +
                     "recensione=?,copieRimanenti=?,breveDescrizione=?,disp=?," +
                     "prezzo=? where idLibro=? or idLibro=?";
+
+
+
             try (Connection conn = ConnToDb.connectionToDB();
                  PreparedStatement prepQ = conn.prepareStatement(query)) {
                 //provo cosi
-                l.setId(0);
+                //l.setId(0);
 
                 prepQ.setString(1,retLibro(l)[0]);
                 prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));

@@ -109,7 +109,7 @@ public class BoundaryRaccolta implements Initializable
         vis.setTipoModifica("modifica");
         try{
 
-             if(Integer.parseInt(idTF.getText())<0 || (Integer.parseInt(idTF.getText())-1>cRacc.getRaccoltaLista(vis.getType()).size()))
+             if(Integer.parseInt(idTF.getText())<=0 || (Integer.parseInt(idTF.getText())>cRacc.getRaccoltaLista(vis.getType()).size()))
                 throw new IdException(" id is null or not in list");
             else{
                 vis.setId(Integer.parseInt(idTF.getText()));
@@ -135,11 +135,11 @@ public class BoundaryRaccolta implements Initializable
 
     }
     @FXML
-    private void elimina() throws IOException, CsvValidationException {
+    private void elimina() throws IOException {
         vis.setId(Integer.parseInt(idTF.getText()));
 
         try{
-            if(Integer.parseInt(idTF.getText())<0 || Integer.parseInt(idTF.getText())-1>cRacc.getRaccoltaLista(vis.getType()).size())
+            if(Integer.parseInt(idTF.getText())<=0 || Integer.parseInt(idTF.getText())>cRacc.getRaccoltaLista(vis.getType()).size())
                 throw new IdException(" id is null or not in list");
 
             if(cRacc.elimina()) {

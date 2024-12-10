@@ -30,44 +30,44 @@ public class CsvReport implements ReportInterface{
     @Override
     public void inserisciReport(Report r) throws CsvValidationException, IOException {
 
-       CSVWriter writer=new CSVWriter(new BufferedWriter(new FileWriter(fileReport,true)));
+        try (CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(fileReport, true)))) {
 
-        String[] gVectore = new String[6];
+            String[] gVectore = new String[6];
 
-        gVectore[GETINDEXIDR] = String.valueOf(getIdMax()+1);
-        gVectore[GETINDEXTIPOOGG] = r.getTipologiaOggetto();
-        gVectore[GETINDEXTITOLOOGG] = r.getTitoloOggetto();
-        gVectore[GETINDEXNRPEZZI] = String.valueOf(r.getNrPezzi());
-        gVectore[GETINDEXPREZZO] = String.valueOf(r.getPrezzo());
-        gVectore[GETINDEXTOTALE] = String.valueOf(r.getTotale());
-        writer.writeNext(gVectore);
+            gVectore[GETINDEXIDR] = String.valueOf(getIdMax() + 1);
+            gVectore[GETINDEXTIPOOGG] = r.getTipologiaOggetto();
+            gVectore[GETINDEXTITOLOOGG] = r.getTitoloOggetto();
+            gVectore[GETINDEXNRPEZZI] = String.valueOf(r.getNrPezzi());
+            gVectore[GETINDEXPREZZO] = String.valueOf(r.getPrezzo());
+            gVectore[GETINDEXTOTALE] = String.valueOf(r.getTotale());
+            writer.writeNext(gVectore);
 
-        writer.flush();
+            writer.flush();
 
-        writer.close();
+        }
 
     }
 
 
 
     public static synchronized ObservableList<Report> returnReportIDTipoTitolo(int id, String tipo, String titolo) throws IOException, CsvValidationException {
-        CSVReader reader=new CSVReader(new BufferedReader(new FileReader(fileReport)));
-        String[] gVector ;
-        boolean recordFound;
+        ObservableList<Report> list;
+        try (CSVReader reader = new CSVReader(new BufferedReader(new FileReader(fileReport)))) {
+            String[] gVector;
+            boolean recordFound;
 
-        ObservableList<Report> list= FXCollections.observableArrayList();
-        while((gVector=reader.readNext())!=null)
-        {
-            if(tipo==null) {
-                Report report = getReport(gVector);
-                list.add(report);
-            }
-            else {
-                recordFound = gVector[GETINDEXIDR].equals(String.valueOf(id)) || gVector[GETINDEXTIPOOGG].equals(tipo)
-                        || gVector[GETINDEXTITOLOOGG].equals(titolo);
-                if (recordFound) {
+            list = FXCollections.observableArrayList();
+            while ((gVector = reader.readNext()) != null) {
+                if (tipo == null) {
                     Report report = getReport(gVector);
                     list.add(report);
+                } else {
+                    recordFound = gVector[GETINDEXIDR].equals(String.valueOf(id)) || gVector[GETINDEXTIPOOGG].equals(tipo)
+                            || gVector[GETINDEXTITOLOOGG].equals(titolo);
+                    if (recordFound) {
+                        Report report = getReport(gVector);
+                        list.add(report);
+                    }
                 }
             }
         }
@@ -88,14 +88,14 @@ public class CsvReport implements ReportInterface{
 
     private static  int getIdMax() throws IOException, CsvValidationException {
         //used for insert correct idOgg
-        CSVReader reader;
         String[] gVector;
         int id = 0;
 
 
-        reader = new CSVReader(new FileReader(LOCATIONR));
-        while ((gVector = reader.readNext()) != null) {
-            id = Integer.parseInt(gVector[GETINDEXIDR]);
+        try (CSVReader reader = new CSVReader(new FileReader(LOCATIONR))) {
+            while ((gVector = reader.readNext()) != null) {
+                id = Integer.parseInt(gVector[GETINDEXIDR]);
+            }
         }
         return id;
 

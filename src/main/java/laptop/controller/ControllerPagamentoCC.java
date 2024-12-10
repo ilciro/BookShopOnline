@@ -181,6 +181,7 @@ public class ControllerPagamentoCC {
 					Libro l1 = csv.retrieveLibroData(l).get(0);
 					p.setTipo(l1.getCategoria());
 					p.setIdOggetto(l1.getId());
+
 					csvFattura.inserisciPagamento(p);
 					checkData();
 				} else {
@@ -193,7 +194,7 @@ public class ControllerPagamentoCC {
 				if (vis.getTypeOfDb().equalsIgnoreCase("file")) {
 					Giornale g=new Giornale();
 					g.setId(vis.getId());
-					Giornale g1 = csv.retriveGiornaleData( g).get(0);
+					Giornale g1 = csv.retriveGiornaleData(g).get(0);
 					p.setTipo(g1.getCategoria());
 					p.setIdOggetto(g1.getId());
 					csvFattura.inserisciPagamento(p);
@@ -241,7 +242,6 @@ public class ControllerPagamentoCC {
 
 	private void checkData() throws CsvValidationException, IOException, IdException {
 		report.setIdReport(0);
-		report.setTipologiaOggetto(vis.getType());
 		if(vis.getType().equals("libro"))
 		{
 			Libro l=new Libro();
@@ -249,21 +249,21 @@ public class ControllerPagamentoCC {
 			report.setTitoloOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getTitolo());
 			report.setPrezzo(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo());
 			report.setTotale(csv.getLibroByIdTitoloAutore(l).get(0).getPrezzo()*vis.getQuantita());
-
+			report.setTipologiaOggetto(csv.getLibroByIdTitoloAutore(l).get(0).getCategoria());
 		} else if (vis.getType().equalsIgnoreCase("giornale")) {
 			Giornale g=new Giornale();
 			g.setId(vis.getId());
 			report.setTitoloOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getTitolo());
 			report.setPrezzo(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo());
 			report.setTotale(csv.getGiornaleByIdTitoloEditore(g).get(0).getPrezzo()*vis.getQuantita());
-
+			report.setTipologiaOggetto(csv.getGiornaleByIdTitoloEditore(g).get(0).getCategoria());
 		} else if (vis.getType().equalsIgnoreCase("rivista")) {
 			Rivista r=new Rivista();
 			r.setId(vis.getId());
 			report.setTitoloOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getTitolo());
 			report.setPrezzo(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo());
 			report.setTotale(csv.getRivistaByIdTitoloEditore(r).get(0).getPrezzo()*vis.getQuantita());
-
+			report.setTipologiaOggetto(csv.getRivistaByIdTitoloEditore(r).get(0).getCategoria());
 		}
 		report.setNrPezzi(vis.getQuantita());
 		csvReport.inserisciReport(report);

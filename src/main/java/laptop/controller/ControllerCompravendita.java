@@ -14,7 +14,6 @@ import laptop.database.csvoggetto.CsvOggettoDao;
 import laptop.database.LibroDao;
 
 import laptop.exception.IdException;
-import laptop.exception.PersistenzaException;
 
 import laptop.model.raccolta.Raccolta;
 

@@ -71,7 +71,7 @@ public class Pagamento {
 
 	@Override
 	public String toString() {
-		return "Pagamento [id=" + idPag + ", metodo=" + metodo + " , nomeUtente=" + nomeUtente
+		return "Pagamento [id=" + idPag + ", metodo=" + metodo + ", nomeUtente=" + nomeUtente
 				+ ", ammontare=" + ammontare + ", tipo=" + tipo + ", idOggetto="+idOggetto+"]";
 	}
 

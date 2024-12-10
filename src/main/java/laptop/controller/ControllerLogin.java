@@ -49,6 +49,7 @@ public class ControllerLogin {
             {
                 ruolo="UTENTE";
                 vis.setIsLogged(true);
+                u.setIdRuolo(ruolo);
                 u.setId(id);
             }
             case "A","a","admin","ADMIN"-> {

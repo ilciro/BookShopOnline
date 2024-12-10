@@ -108,123 +108,125 @@ public class LibroDao {
 
     private String[] retLibro(Libro l)
     {
-<span class="fc" id="L111">        String [] roba=new String[13];</span>
-<span class="fc" id="L112">        roba[0]=l.getTitolo();</span>
-<span class="fc" id="L113">        roba[1]= String.valueOf(l.getNrPagine());</span>
-<span class="fc" id="L114">        roba[2]=l.getCodIsbn();</span>
-<span class="fc" id="L115">        roba[3]=l.getEditore();</span>
-<span class="fc" id="L116">        roba[4]=l.getAutore();</span>
-<span class="fc" id="L117">        roba[5]=l.getLingua();</span>
-<span class="fc" id="L118">        roba[6]=l.getCategoria();</span>
-<span class="fc" id="L119">        roba[7]= String.valueOf(l.getDataPubb());</span>
-<span class="fc" id="L120">        roba[8]=l.getRecensione();</span>
-<span class="fc" id="L121">        roba[9]= String.valueOf(l.getNrCopie());</span>
-<span class="fc" id="L122">        roba[10]=l.getDesc();</span>
-<span class="fc" id="L123">        roba[11]= String.valueOf(l.getDisponibilita());</span>
-<span class="fc" id="L124">        roba[12]= String.valueOf(l.getPrezzo());</span>
+<span class="nc" id="L111">        String [] roba=new String[13];</span>
+<span class="nc" id="L112">        roba[0]=l.getTitolo();</span>
+<span class="nc" id="L113">        roba[1]= String.valueOf(l.getNrPagine());</span>
+<span class="nc" id="L114">        roba[2]=l.getCodIsbn();</span>
+<span class="nc" id="L115">        roba[3]=l.getEditore();</span>
+<span class="nc" id="L116">        roba[4]=l.getAutore();</span>
+<span class="nc" id="L117">        roba[5]=l.getLingua();</span>
+<span class="nc" id="L118">        roba[6]=l.getCategoria();</span>
+<span class="nc" id="L119">        roba[7]= String.valueOf(l.getDataPubb());</span>
+<span class="nc" id="L120">        roba[8]=l.getRecensione();</span>
+<span class="nc" id="L121">        roba[9]= String.valueOf(l.getNrCopie());</span>
+<span class="nc" id="L122">        roba[10]=l.getDesc();</span>
+<span class="nc" id="L123">        roba[11]= String.valueOf(l.getDisponibilita());</span>
+<span class="nc" id="L124">        roba[12]= String.valueOf(l.getPrezzo());</span>
 
-<span class="fc" id="L126">        return  roba;</span>
+<span class="nc" id="L126">        return  roba;</span>
     }
 
     public boolean inserisciModificaLibro(Libro l) {
-<span class="fc" id="L130">        int row = 0;</span>
-<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;insert&quot;)) {</span>
-<span class="fc" id="L132">            query = &quot;insert into LIBRO values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;;</span>
+<span class="nc" id="L130">        int row = 0;</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;insert&quot;)) {</span>
+<span class="nc" id="L132">            query = &quot;insert into LIBRO values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;;</span>
 
-<span class="fc" id="L134">            try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L135">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="nc" id="L134">            try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L135">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
 
                 //prendo stessp libro e torno stringa
 
 
-<span class="fc" id="L141">                prepQ.setString(1,retLibro(l)[0]);</span>
-<span class="fc" id="L142">                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));</span>
-<span class="fc" id="L143">                prepQ.setString(3,retLibro(l)[2]);</span>
-<span class="fc" id="L144">                prepQ.setString(4, retLibro(l)[3]);</span>
-<span class="fc" id="L145">                prepQ.setString(5, retLibro(l)[4]);</span>
-<span class="fc" id="L146">                prepQ.setString(6, retLibro(l)[5]);</span>
-<span class="fc" id="L147">                prepQ.setString(7, retLibro(l)[6]);</span>
-<span class="fc" id="L148">                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));</span>
-<span class="fc" id="L149">                prepQ.setString(9, retLibro(l)[8]);</span>
-<span class="fc" id="L150">                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));</span>
-<span class="fc" id="L151">                prepQ.setString(11,retLibro(l)[10]);</span>
-<span class="fc" id="L152">                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));</span>
-<span class="fc" id="L153">                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));</span>
-<span class="fc" id="L154">                prepQ.setInt(14,0);</span>
+<span class="nc" id="L141">                prepQ.setString(1,retLibro(l)[0]);</span>
+<span class="nc" id="L142">                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));</span>
+<span class="nc" id="L143">                prepQ.setString(3,retLibro(l)[2]);</span>
+<span class="nc" id="L144">                prepQ.setString(4, retLibro(l)[3]);</span>
+<span class="nc" id="L145">                prepQ.setString(5, retLibro(l)[4]);</span>
+<span class="nc" id="L146">                prepQ.setString(6, retLibro(l)[5]);</span>
+<span class="nc" id="L147">                prepQ.setString(7, retLibro(l)[6]);</span>
+<span class="nc" id="L148">                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));</span>
+<span class="nc" id="L149">                prepQ.setString(9, retLibro(l)[8]);</span>
+<span class="nc" id="L150">                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));</span>
+<span class="nc" id="L151">                prepQ.setString(11,retLibro(l)[10]);</span>
+<span class="nc" id="L152">                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));</span>
+<span class="nc" id="L153">                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));</span>
+<span class="nc" id="L154">                prepQ.setInt(14,0);</span>
                 //auto increment
 
-<span class="fc" id="L157">                row = prepQ.executeUpdate();</span>
-<span class="pc bpc" id="L158" title="1 of 2 branches missed.">                if (row != 1) throw new SQLException(&quot; insert book gone wrong !!&quot;);</span>
+<span class="nc" id="L157">                row = prepQ.executeUpdate();</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                if (row != 1) throw new SQLException(&quot; insert book gone wrong !!&quot;);</span>
 
 <span class="nc" id="L160">            } catch (SQLException e) {</span>
 <span class="nc" id="L161">                Logger.getLogger(&quot;insert libro&quot;).log(Level.SEVERE, &quot; error in insert !!.&quot;, e);</span>
-<span class="fc" id="L162">            }</span>
+<span class="nc" id="L162">            }</span>
         }
-<span class="fc bfc" id="L164" title="All 2 branches covered.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;modifica&quot;)) {</span>
-
-<span class="fc" id="L166">            query = &quot;update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?,&quot; +</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        if (vis.getTipoModifica().equalsIgnoreCase(&quot;modifica&quot;)) {</span>
+<span class="nc" id="L165">            query = &quot;update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?,&quot; +</span>
                     &quot;autore=?,lingua=?,categoria=?,dataPubblicazione=?,&quot; +
                     &quot;recensione=?,copieRimanenti=?,breveDescrizione=?,disp=?,&quot; +
                     &quot;prezzo=? where idLibro=? or idLibro=?&quot;;
-<span class="fc" id="L170">            try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L171">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+
+
+
+<span class="nc" id="L172">            try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L173">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
                 //provo cosi
-<span class="fc" id="L173">                l.setId(0);</span>
+                //l.setId(0);
 
-<span class="fc" id="L175">                prepQ.setString(1,retLibro(l)[0]);</span>
-<span class="fc" id="L176">                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));</span>
-<span class="fc" id="L177">                prepQ.setString(3,retLibro(l)[2]);</span>
-<span class="fc" id="L178">                prepQ.setString(4, retLibro(l)[3]);</span>
-<span class="fc" id="L179">                prepQ.setString(5, retLibro(l)[4]);</span>
-<span class="fc" id="L180">                prepQ.setString(6, retLibro(l)[5]);</span>
-<span class="fc" id="L181">                prepQ.setString(7, retLibro(l)[6]);</span>
-<span class="fc" id="L182">                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));</span>
-<span class="fc" id="L183">                prepQ.setString(9, retLibro(l)[8]);</span>
-<span class="fc" id="L184">                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));</span>
-<span class="fc" id="L185">                prepQ.setString(11,retLibro(l)[10]);</span>
-<span class="fc" id="L186">                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));</span>
-<span class="fc" id="L187">                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));</span>
-<span class="fc" id="L188">                prepQ.setInt(14, l.getId());</span>
-<span class="fc" id="L189">                prepQ.setInt(15, vis.getId());</span>
+<span class="nc" id="L177">                prepQ.setString(1,retLibro(l)[0]);</span>
+<span class="nc" id="L178">                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));</span>
+<span class="nc" id="L179">                prepQ.setString(3,retLibro(l)[2]);</span>
+<span class="nc" id="L180">                prepQ.setString(4, retLibro(l)[3]);</span>
+<span class="nc" id="L181">                prepQ.setString(5, retLibro(l)[4]);</span>
+<span class="nc" id="L182">                prepQ.setString(6, retLibro(l)[5]);</span>
+<span class="nc" id="L183">                prepQ.setString(7, retLibro(l)[6]);</span>
+<span class="nc" id="L184">                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));</span>
+<span class="nc" id="L185">                prepQ.setString(9, retLibro(l)[8]);</span>
+<span class="nc" id="L186">                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));</span>
+<span class="nc" id="L187">                prepQ.setString(11,retLibro(l)[10]);</span>
+<span class="nc" id="L188">                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));</span>
+<span class="nc" id="L189">                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));</span>
+<span class="nc" id="L190">                prepQ.setInt(14, l.getId());</span>
+<span class="nc" id="L191">                prepQ.setInt(15, vis.getId());</span>
 
-<span class="fc" id="L191">                row = prepQ.executeUpdate();</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">                if(row!=1) throw new SQLException(&quot; modif error&quot;);</span>
+<span class="nc" id="L193">                row = prepQ.executeUpdate();</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">                if(row!=1) throw new SQLException(&quot; modif error&quot;);</span>
 
 
-<span class="nc" id="L195">            } catch (SQLException e) {</span>
-<span class="nc" id="L196">                Logger.getLogger(&quot;modif libro&quot;).log(Level.SEVERE, &quot; mysql insert error&quot;, e);</span>
-<span class="fc" id="L197">            }</span>
+<span class="nc" id="L197">            } catch (SQLException e) {</span>
+<span class="nc" id="L198">                Logger.getLogger(&quot;modif libro&quot;).log(Level.SEVERE, &quot; mysql insert error&quot;, e);</span>
+<span class="nc" id="L199">            }</span>
 
 
 
         }
-<span class="pc bpc" id="L202" title="1 of 2 branches missed.">        return row == 1;</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        return row == 1;</span>
     }
 
 
         public boolean eliminaLibro (Libro l)
         {
 
-<span class="fc" id="L209">            boolean status = false;</span>
-<span class="fc" id="L210">            query = &quot;delete from LIBRO where idLibro=? or idLibro=?&quot;;</span>
-<span class="fc" id="L211">            try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L212">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="nc" id="L211">            boolean status = false;</span>
+<span class="nc" id="L212">            query = &quot;delete from LIBRO where idLibro=? or idLibro=?&quot;;</span>
+<span class="nc" id="L213">            try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L214">                 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
-<span class="fc" id="L214">                prepQ.setInt(1, l.getId());</span>
-<span class="fc" id="L215">                prepQ.setInt(2, vis.getId());</span>
+<span class="nc" id="L216">                prepQ.setInt(1, l.getId());</span>
+<span class="nc" id="L217">                prepQ.setInt(2, vis.getId());</span>
 
-<span class="fc" id="L217">                int row = prepQ.executeUpdate();</span>
+<span class="nc" id="L219">                int row = prepQ.executeUpdate();</span>
 
-<span class="pc bpc" id="L219" title="1 of 2 branches missed.">                if (row == 1)</span>
-<span class="fc" id="L220">                    status = true;</span>
-<span class="nc" id="L221">                else throw new SQLException();</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">                if (row == 1)</span>
+<span class="nc" id="L222">                    status = true;</span>
+<span class="nc" id="L223">                else throw new SQLException();</span>
 
-<span class="nc" id="L223">            } catch (SQLException e) {</span>
-<span class="nc" id="L224">                Logger.getLogger(&quot;elimina&quot;).log(Level.SEVERE, &quot; error in mysql delete&quot;, e);</span>
-<span class="fc" id="L225">            }</span>
+<span class="nc" id="L225">            } catch (SQLException e) {</span>
+<span class="nc" id="L226">                Logger.getLogger(&quot;elimina&quot;).log(Level.SEVERE, &quot; error in mysql delete&quot;, e);</span>
+<span class="nc" id="L227">            }</span>
 
-<span class="fc" id="L227">            return status;</span>
+<span class="nc" id="L229">            return status;</span>
         }
 
     }
