@@ -244,7 +244,6 @@ public class GiornaleDao {
 	public boolean aggiornaGiornale(Giornale g)  {
 		int row = 0;
 
-
 		query = " UPDATE `GIORNALE`"
 				+ "SET"
 				+ "`titolo` =?,"
@@ -334,7 +333,7 @@ public class GiornaleDao {
 	public boolean eliminaGiornale(Giornale g)
 	{
 		int row = 0;
-		boolean status=false;
+
 		query="delete from GIORNALE where idGiornale=? or idGiornale=?";
 		try (Connection conn=ConnToDb.connectionToDB();
 			 PreparedStatement prepQ= conn.prepareStatement(query)){
@@ -347,9 +346,8 @@ public class GiornaleDao {
 		} catch (SQLException e) {
 			Logger.getLogger("elimina").log(Level.SEVERE," error in mysql delete", e);
 		}
-		if(row==1)
-			status=true;
-		return status;
+
+		return row==1;
 	}
 }
 

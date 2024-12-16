@@ -110,27 +110,27 @@ public class UsersDao {
 
 	public static String getRuolo(User u) throws SQLException {
 
-<span class="fc" id="L113">		String r = &quot;&quot;;</span>
-<span class="fc" id="L114">		query = &quot;SELECT idRuolo FROM USERS where Email = ? and pwd=?&quot;;</span>
-<span class="fc" id="L115">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L116">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
-<span class="fc" id="L117">			prepQ.setString(1, u.getEmail());</span>
-<span class="fc" id="L118">			prepQ.setString(2,u.getPassword());</span>
+<span class="nc" id="L113">		String r = &quot;&quot;;</span>
+<span class="nc" id="L114">		query = &quot;SELECT idRuolo FROM USERS where Email = ? and pwd=?&quot;;</span>
+<span class="nc" id="L115">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L116">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="nc" id="L117">			prepQ.setString(1, u.getEmail());</span>
+<span class="nc" id="L118">			prepQ.setString(2,u.getPassword());</span>
 
-<span class="fc" id="L120">			ResultSet rs = prepQ.executeQuery();</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">			while (rs.next()) {</span>
-<span class="fc" id="L122">				r = rs.getString(&quot;idRuolo&quot;);</span>
+<span class="nc" id="L120">			ResultSet rs = prepQ.executeQuery();</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L122">				r = rs.getString(&quot;idRuolo&quot;);</span>
 
 			}
 
 <span class="nc" id="L126">		} catch (SQLException e) {</span>
 <span class="nc" id="L127">			Logger.getLogger(&quot;get ruolo user&quot;).log(Level.INFO, ECCEZIONE, e);</span>
 
-<span class="fc" id="L129">		}</span>
-<span class="fc" id="L130">		u.setIdRuolo(r);</span>
+<span class="nc" id="L129">		}</span>
+<span class="nc" id="L130">		u.setIdRuolo(r);</span>
 
 
-<span class="fc" id="L133">		return r;</span>
+<span class="nc" id="L133">		return r;</span>
 
 	}
 
@@ -193,23 +193,23 @@ public class UsersDao {
 
 	public static boolean deleteTempUser(TempUser uT) throws SQLException {
 
-<span class="nc" id="L196">		query = &quot;DELETE FROM USERS WHERE Email = ? or idUser=?&quot;;</span>
-<span class="nc" id="L197">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L198">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L196">		query = &quot;DELETE FROM USERS WHERE Email = ? or idUser=?&quot;;</span>
+<span class="fc" id="L197">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L198">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
-<span class="nc" id="L200">			prepQ.setString(1, uT.getEmailT());</span>
-<span class="nc" id="L201">			prepQ.setInt(2,uT.getId());</span>
-<span class="nc" id="L202">			row = prepQ.executeUpdate();</span>
-<span class="nc bnc" id="L203" title="All 2 branches missed.">			if (row == 1)</span>
-<span class="nc" id="L204">				state = true;</span>
+<span class="fc" id="L200">			prepQ.setString(1, uT.getEmailT());</span>
+<span class="fc" id="L201">			prepQ.setInt(2,uT.getId());</span>
+<span class="fc" id="L202">			row = prepQ.executeUpdate();</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">			if (row == 1)</span>
+<span class="fc" id="L204">				state = true;</span>
 
 <span class="nc" id="L206">		} catch (SQLException e) {</span>
 <span class="nc" id="L207">			Logger.getLogger(&quot;delete user&quot;).log(Level.INFO, ECCEZIONE, e);</span>
 
-<span class="nc" id="L209">		}</span>
-<span class="nc" id="L210">		Logger.getLogger(&quot;delete user okr&quot;).log(Level.INFO, &quot;user deleted &quot;);</span>
+<span class="fc" id="L209">		}</span>
+<span class="fc" id="L210">		Logger.getLogger(&quot;delete user okr&quot;).log(Level.INFO, &quot;user deleted &quot;);</span>
 
-<span class="nc" id="L212">		return state;</span>
+<span class="fc" id="L212">		return state;</span>
 	}
 
 	// Con pickData prendo i dati dall'utente creato per il login
@@ -218,25 +218,25 @@ public class UsersDao {
 	public static User pickData(User u) throws SQLException {
 
 
-<span class="fc" id="L221">		query = &quot;SELECT idUser,idRuolo,Nome,Cognome,Email,pwd,descrizione,dataNascita from USERS where Email=? or idUser=? &quot;;</span>
-<span class="fc" id="L222">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="fc" id="L223">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
-<span class="fc" id="L224">			prepQ.setString(1, u.getEmail());</span>
-<span class="fc" id="L225">			prepQ.setInt(2,u.getId());</span>
+<span class="nc" id="L221">		query = &quot;SELECT idUser,idRuolo,Nome,Cognome,Email,pwd,descrizione,dataNascita from USERS where Email=? or idUser=? &quot;;</span>
+<span class="nc" id="L222">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="nc" id="L223">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="nc" id="L224">			prepQ.setString(1, u.getEmail());</span>
+<span class="nc" id="L225">			prepQ.setInt(2,u.getId());</span>
 
-<span class="fc" id="L227">			ResultSet rs = prepQ.executeQuery();</span>
-<span class="fc bfc" id="L228" title="All 2 branches covered.">			while (rs.next()) {</span>
+<span class="nc" id="L227">			ResultSet rs = prepQ.executeQuery();</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">			while (rs.next()) {</span>
 
 
 				// setto i vari dati
 
-<span class="fc" id="L233">				u.setId(rs.getInt(&quot;idUser&quot;));</span>
-<span class="fc" id="L234">				u.setIdRuolo(rs.getString(&quot;idRuolo&quot;));</span>
-<span class="fc" id="L235">				u.setNome(rs.getString(&quot;Nome&quot;));</span>
-<span class="fc" id="L236">				u.setCognome(rs.getString(&quot;Cognome&quot;));</span>
-<span class="fc" id="L237">				u.setPassword(rs.getString(&quot;pwd&quot;));</span>
-<span class="fc" id="L238">				u.setDescrizione(rs.getString(&quot;descrizione&quot;));</span>
-<span class="fc" id="L239">				u.setDataDiNascita(rs.getDate(&quot;dataNascita&quot;).toLocalDate());</span>
+<span class="nc" id="L233">				u.setId(rs.getInt(&quot;idUser&quot;));</span>
+<span class="nc" id="L234">				u.setIdRuolo(rs.getString(&quot;idRuolo&quot;));</span>
+<span class="nc" id="L235">				u.setNome(rs.getString(&quot;Nome&quot;));</span>
+<span class="nc" id="L236">				u.setCognome(rs.getString(&quot;Cognome&quot;));</span>
+<span class="nc" id="L237">				u.setPassword(rs.getString(&quot;pwd&quot;));</span>
+<span class="nc" id="L238">				u.setDescrizione(rs.getString(&quot;descrizione&quot;));</span>
+<span class="nc" id="L239">				u.setDataDiNascita(rs.getDate(&quot;dataNascita&quot;).toLocalDate());</span>
 
 
 			}
@@ -244,11 +244,11 @@ public class UsersDao {
 <span class="nc" id="L244">			Logger.getLogger(&quot;pick data exception &quot;).log(Level.SEVERE, &quot;errore nel pick data {0}&quot;, e.toString());</span>
 
 
-<span class="fc" id="L247">		}</span>
+<span class="nc" id="L247">		}</span>
 
 
 		// errore
-<span class="fc" id="L251">		return u;</span>
+<span class="nc" id="L251">		return u;</span>
 	}
 
 
@@ -262,66 +262,66 @@ public class UsersDao {
 	public static TempUser getTempUserSingolo(TempUser uT)  {
 
 
-<span class="nc" id="L265">		query = &quot;SELECT * FROM USERS where idUser = ? or email=?&quot;;</span>
-<span class="nc" id="L266">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L267">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L265">		query = &quot;SELECT * FROM USERS where idUser = ? or email=?&quot;;</span>
+<span class="fc" id="L266">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L267">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
-<span class="nc" id="L269">			prepQ.setInt(1, uT.getId());</span>
-<span class="nc" id="L270">			prepQ.setString(2,uT.getEmailT());</span>
+<span class="fc" id="L269">			prepQ.setInt(1, uT.getId());</span>
+<span class="fc" id="L270">			prepQ.setString(2,uT.getEmailT());</span>
 
-<span class="nc" id="L272">			ResultSet rs = prepQ.executeQuery();</span>
-<span class="nc bnc" id="L273" title="All 2 branches missed.">			while (rs.next()) {</span>
-
-<span class="nc" id="L275">				uT.setIdRuoloT(rs.getString(2));</span>
-<span class="nc" id="L276">				uT.setNomeT(rs.getString(3));</span>
-<span class="nc" id="L277">				uT.setCognomeT(rs.getString(4));</span>
-<span class="nc" id="L278">				uT.setEmailT(rs.getString(5));</span>
-<span class="nc" id="L279">				uT.setPasswordT(rs.getString(6));</span>
-<span class="nc" id="L280">				uT.setDescrizioneT(rs.getString(7));</span>
-<span class="nc" id="L281">				uT.setDataDiNascitaT(rs.getDate(8).toLocalDate());</span>
+<span class="fc" id="L272">			ResultSet rs = prepQ.executeQuery();</span>
+<span class="fc bfc" id="L273" title="All 2 branches covered.">			while (rs.next()) {</span>
+<span class="fc" id="L274">				uT.setId(rs.getInt(1));</span>
+<span class="fc" id="L275">				uT.setIdRuoloT(rs.getString(2));</span>
+<span class="fc" id="L276">				uT.setNomeT(rs.getString(3));</span>
+<span class="fc" id="L277">				uT.setCognomeT(rs.getString(4));</span>
+<span class="fc" id="L278">				uT.setEmailT(rs.getString(5));</span>
+<span class="fc" id="L279">				uT.setPasswordT(rs.getString(6));</span>
+<span class="fc" id="L280">				uT.setDescrizioneT(rs.getString(7));</span>
+<span class="fc" id="L281">				uT.setDataDiNascitaT(rs.getDate(8).toLocalDate());</span>
 
 
 			}
 <span class="nc" id="L285">		} catch (SQLException e) {</span>
 <span class="nc" id="L286">			Logger.getLogger(&quot;get single temp user&quot;).log(Level.INFO, ECCEZIONE, e);</span>
 
-<span class="nc" id="L288">		}</span>
+<span class="fc" id="L288">		}</span>
 
-<span class="nc" id="L290">		return uT;</span>
+<span class="fc" id="L290">		return uT;</span>
 	}
 
 	public static User aggiornaUtente(User u,String vecchiaEmail)  {
 
 
-<span class="nc" id="L296">		query = &quot;UPDATE USERS set idRuolo=? , Nome=? , Cognome=? , Email=? , pwd=? , descrizione=? , dataNascita=? where idUser=? or Email=?&quot;;</span>
+<span class="fc" id="L296">		query = &quot;UPDATE USERS set idRuolo=? , Nome=? , Cognome=? , Email=? , pwd=? , descrizione=? , dataNascita=? where idUser=? or Email=?&quot;;</span>
 
 
-<span class="nc" id="L299">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L300">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L299">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L300">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
 
 
 			// setto i vari dati
 
 
-<span class="nc" id="L306">			prepQ.setString(1, u.getIdRuolo().substring(0, 1));</span>
-<span class="nc" id="L307">			prepQ.setString(2, u.getNome());</span>
-<span class="nc" id="L308">			prepQ.setString(3, u.getCognome());</span>
-<span class="nc" id="L309">			prepQ.setString(4, u.getEmail());</span>
-<span class="nc" id="L310">			prepQ.setString(5, u.getPassword());</span>
-<span class="nc" id="L311">			prepQ.setString(6, u.getDescrizione());</span>
-<span class="nc" id="L312">			prepQ.setString(7, u.getDataDiNascita().toString());</span>
-<span class="nc" id="L313">			prepQ.setInt(8, u.getId());</span>
-<span class="nc" id="L314">			prepQ.setString(9,vecchiaEmail);</span>
+<span class="fc" id="L306">			prepQ.setString(1, u.getIdRuolo().substring(0, 1));</span>
+<span class="fc" id="L307">			prepQ.setString(2, u.getNome());</span>
+<span class="fc" id="L308">			prepQ.setString(3, u.getCognome());</span>
+<span class="fc" id="L309">			prepQ.setString(4, u.getEmail());</span>
+<span class="fc" id="L310">			prepQ.setString(5, u.getPassword());</span>
+<span class="fc" id="L311">			prepQ.setString(6, u.getDescrizione());</span>
+<span class="fc" id="L312">			prepQ.setString(7, u.getDataDiNascita().toString());</span>
+<span class="fc" id="L313">			prepQ.setInt(8, u.getId());</span>
+<span class="fc" id="L314">			prepQ.setString(9,vecchiaEmail);</span>
 
 
-<span class="nc" id="L317">			prepQ.executeUpdate();</span>
+<span class="fc" id="L317">			prepQ.executeUpdate();</span>
 
 <span class="nc" id="L319">		} catch (SQLException e) {</span>
 <span class="nc" id="L320">			Logger.getLogger(&quot;aggiorna utente&quot;).log(Level.INFO, ECCEZIONE, e);</span>
 
-<span class="nc" id="L322">		}</span>
+<span class="fc" id="L322">		}</span>
 
-<span class="nc" id="L324">		return u;</span>
+<span class="fc" id="L324">		return u;</span>
 	}
 
 

@@ -126,89 +126,79 @@ public class LibroDao {
         return  roba;
     }
 
-    public boolean inserisciModificaLibro(Libro l) {
-        int row = 0;
-        if (vis.getTipoModifica().equalsIgnoreCase("insert")) {
-            query = "insert into LIBRO values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public boolean inserisciLibro(Libro l)  {
 
-            try (Connection conn = ConnToDb.connectionToDB();
-                 PreparedStatement prepQ = conn.prepareStatement(query)) {
+        int row=0;
+        query="insert into LIBRO values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+        try(Connection conn=ConnToDb.connectionToDB();
+        PreparedStatement prepQ= conn.prepareStatement(query);
+       )
+        {
 
-                //prendo stessp libro e torno stringa
+               prepQ.setString(1, retLibro(l)[0]);
+               prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));
+               prepQ.setString(3, retLibro(l)[2]);
+               prepQ.setString(4, retLibro(l)[3]);
+               prepQ.setString(5, retLibro(l)[4]);
+               prepQ.setString(6, retLibro(l)[5]);
+               prepQ.setString(7, retLibro(l)[6]);
+               prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));
+               prepQ.setString(9, retLibro(l)[8]);
+               prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));
+               prepQ.setString(11, retLibro(l)[10]);
+               prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));
+               prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));
+               prepQ.setInt(14, 0);
 
-
-                prepQ.setString(1,retLibro(l)[0]);
-                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));
-                prepQ.setString(3,retLibro(l)[2]);
-                prepQ.setString(4, retLibro(l)[3]);
-                prepQ.setString(5, retLibro(l)[4]);
-                prepQ.setString(6, retLibro(l)[5]);
-                prepQ.setString(7, retLibro(l)[6]);
-                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));
-                prepQ.setString(9, retLibro(l)[8]);
-                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));
-                prepQ.setString(11,retLibro(l)[10]);
-                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));
-                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));
-                prepQ.setInt(14,0);
-                //auto increment
-
-                row = prepQ.executeUpdate();
-                if (row != 1) throw new SQLException(" insert book gone wrong !!");
-
-            } catch (SQLException e) {
-                Logger.getLogger("insert libro").log(Level.SEVERE, " error in insert !!.", e);
-            }
-        }
-        if (vis.getTipoModifica().equalsIgnoreCase("modifica")) {
-            query = "update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?," +
-                    "autore=?,lingua=?,categoria=?,dataPubblicazione=?," +
-                    "recensione=?,copieRimanenti=?,breveDescrizione=?,disp=?," +
-                    "prezzo=? where idLibro=? or idLibro=?";
-
-
-
-            try (Connection conn = ConnToDb.connectionToDB();
-                 PreparedStatement prepQ = conn.prepareStatement(query)) {
-                //provo cosi
-                //l.setId(0);
-
-                prepQ.setString(1,retLibro(l)[0]);
-                prepQ.setInt(2, Integer.parseInt(retLibro(l)[1]));
-                prepQ.setString(3,retLibro(l)[2]);
-                prepQ.setString(4, retLibro(l)[3]);
-                prepQ.setString(5, retLibro(l)[4]);
-                prepQ.setString(6, retLibro(l)[5]);
-                prepQ.setString(7, retLibro(l)[6]);
-                prepQ.setDate(8, Date.valueOf(retLibro(l)[7]));
-                prepQ.setString(9, retLibro(l)[8]);
-                prepQ.setInt(10, Integer.parseInt(retLibro(l)[9]));
-                prepQ.setString(11,retLibro(l)[10]);
-                prepQ.setInt(12, Integer.parseInt(retLibro(l)[11]));
-                prepQ.setFloat(13, Float.parseFloat(retLibro(l)[12]));
-                prepQ.setInt(14, l.getId());
-                prepQ.setInt(15, vis.getId());
-
-                row = prepQ.executeUpdate();
-                if(row!=1) throw new SQLException(" modif error");
-
-
-            } catch (SQLException e) {
-                Logger.getLogger("modif libro").log(Level.SEVERE, " mysql insert error", e);
-            }
-
-
+            row=prepQ.executeUpdate();
 
         }
-        return row == 1;
+        catch (SQLException e)
+        {
+            Logger.getLogger("insert libro").log(Level.SEVERE, " error in insert !!.", e);
+
+        }
+
+        return row==1;
     }
+
+    public boolean modifLibro(Libro l) throws SQLException {
+        int row=0;
+        query="update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?," +
+            "autore=?,lingua=?,categoria=?,dataPubblicazione=?," +
+            "recensione=?,copieRimanenti=?,breveDescrizione=?,disp=?," +
+            "prezzo=? where idLibro=? or idLibro=?";
+        try(Connection conn=ConnToDb.connectionToDB();
+        PreparedStatement prepQ=conn.prepareStatement(query))
+        {
+            prepQ.setString(1,l.getTitolo());
+            prepQ.setInt(2,l.getNrPagine());
+            prepQ.setString(3,l.getCodIsbn());
+            prepQ.setString(4,l.getEditore());
+            prepQ.setString(5,l.getAutore());
+            prepQ.setString(6,l.getLingua());
+            prepQ.setString(7,l.getCategoria());
+            prepQ.setDate(8, Date.valueOf(l.getDataPubb()));
+            prepQ.setString(9,l.getRecensione());
+            prepQ.setInt(10,l.getNrCopie());
+            prepQ.setString(11,l.getDesc());
+            prepQ.setInt(12,l.getDisponibilita());
+            prepQ.setFloat(13,l.getPrezzo());
+            prepQ.setInt(14,l.getId());
+            prepQ.setInt(15,vis.getId());
+            row= prepQ.executeUpdate();
+        }
+
+        return row==1;
+    }
+
 
 
         public boolean eliminaLibro (Libro l)
         {
 
-            boolean status = false;
+            int row=0;
             query = "delete from LIBRO where idLibro=? or idLibro=?";
             try (Connection conn = ConnToDb.connectionToDB();
                  PreparedStatement prepQ = conn.prepareStatement(query)) {
@@ -216,17 +206,16 @@ public class LibroDao {
                 prepQ.setInt(1, l.getId());
                 prepQ.setInt(2, vis.getId());
 
-                int row = prepQ.executeUpdate();
+                 row = prepQ.executeUpdate();
 
-                if (row == 1)
-                    status = true;
-                else throw new SQLException();
+
+
 
             } catch (SQLException e) {
                 Logger.getLogger("elimina").log(Level.SEVERE, " error in mysql delete", e);
             }
 
-            return status;
+            return row==1;
         }
 
     }

@@ -348,7 +348,7 @@ public class RivistaDao {
 	public boolean eliminaRivista(Rivista r)
 	{
 		int row = 0;
-		boolean status=false;
+		
 		query="delete from RIVISTA where idRivista=? or idRivista=?";
 		try (Connection conn=ConnToDb.connectionToDB();
 			 PreparedStatement prepQ= conn.prepareStatement(query)){

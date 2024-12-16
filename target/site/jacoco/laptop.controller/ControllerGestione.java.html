@@ -26,173 +26,171 @@ public class ControllerGestione {
     private final GiornaleDao gD;
     private final RivistaDao rD;
     private final CsvOggettoDao csv;
-<span class="nc" id="L29">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L29">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
     private static final String LIBRO=&quot;libro&quot;;
     private static final String GIORNALE=&quot;giornale&quot;;
     private static final String RIVISTA=&quot;rivista&quot;;
 
 
-    public boolean inserisci(String[] param) throws CsvValidationException, IOException, IdException, SQLException {
-<span class="nc" id="L36">        boolean status = false;</span>
+    public boolean inserisci(String[] param) throws CsvValidationException, IOException, SQLException {
+<span class="fc" id="L36">        boolean status = false;</span>
+<span class="fc" id="L37">        vis.setTipoModifica(&quot;insert&quot;);</span>
 
-<span class="nc bnc" id="L38" title="All 4 branches missed.">        switch (vis.getType())</span>
+<span class="pc bpc" id="L39" title="1 of 4 branches missed.">        switch (vis.getType())</span>
         {
             case LIBRO -&gt; {
-<span class="nc" id="L41">                setLibro(param);</span>
+<span class="fc" id="L42">                setLibro(param);</span>
 
-<span class="nc bnc" id="L43" title="All 2 branches missed.">                if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">                if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
                 {
-<span class="nc" id="L45">                    status=lD.inserisciModificaLibro(l);</span>
+<span class="fc" id="L46">                    status=lD.inserisciLibro(l);</span>
                 }
-<span class="nc" id="L47">                else status=csv.inserisciLibro(l);</span>
-<span class="nc" id="L48">            }</span>
+<span class="fc" id="L48">                else status=csv.inserisciLibro(l);</span>
+<span class="fc" id="L49">            }</span>
             case GIORNALE -&gt; {
-<span class="nc" id="L50">                setGiornale(param);</span>
+<span class="fc" id="L51">                setGiornale(param);</span>
 
-<span class="nc bnc" id="L52" title="All 2 branches missed.">                if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
                 {
-<span class="nc" id="L54">                    status=gD.creaGiornale(g);</span>
+<span class="fc" id="L55">                    status=gD.creaGiornale(g);</span>
                 }
-<span class="nc" id="L56">                else status=csv.inserisciGiornale(g);</span>
-<span class="nc" id="L57">            }</span>
+<span class="fc" id="L57">                else status=csv.inserisciGiornale(g);</span>
+<span class="fc" id="L58">            }</span>
             case RIVISTA -&gt; {
-<span class="nc" id="L59">                setRivista(param);</span>
+<span class="fc" id="L60">                setRivista(param);</span>
 
-<span class="nc bnc" id="L61" title="All 2 branches missed.">                if(vis.getTypeOfDb().equals(&quot;db&quot;)) status=rD.creaRivista(r);</span>
-<span class="nc" id="L62">                else status=csv.inserisciRivista(r);</span>
-<span class="nc" id="L63">            }</span>
-<span class="nc" id="L64">            default -&gt; Logger.getLogger(&quot;inserisci&quot;).log(Level.SEVERE,&quot;insert is wrong&quot;);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">                if(vis.getTypeOfDb().equals(&quot;db&quot;)) status=rD.creaRivista(r);</span>
+<span class="fc" id="L63">                else status=csv.inserisciRivista(r);</span>
+<span class="fc" id="L64">            }</span>
+<span class="nc" id="L65">            default -&gt; Logger.getLogger(&quot;inserisci&quot;).log(Level.SEVERE,&quot;insert is wrong&quot;);</span>
 
 
         }
-<span class="nc" id="L68">        return status;</span>
+<span class="fc" id="L69">        return status;</span>
     }
 
-<span class="nc" id="L71">    public ControllerGestione() throws IOException {</span>
-<span class="nc" id="L72">        l=new Libro();</span>
-<span class="nc" id="L73">        g=new Giornale();</span>
-<span class="nc" id="L74">        r=new Rivista();</span>
-<span class="nc" id="L75">        lD=new LibroDao();</span>
-<span class="nc" id="L76">        gD=new GiornaleDao();</span>
-<span class="nc" id="L77">        rD=new RivistaDao();</span>
-<span class="nc" id="L78">        csv=new CsvOggettoDao();</span>
-<span class="nc" id="L79">    }</span>
+<span class="fc" id="L72">    public ControllerGestione() throws IOException {</span>
+<span class="fc" id="L73">        l=new Libro();</span>
+<span class="fc" id="L74">        g=new Giornale();</span>
+<span class="fc" id="L75">        r=new Rivista();</span>
+<span class="fc" id="L76">        lD=new LibroDao();</span>
+<span class="fc" id="L77">        gD=new GiornaleDao();</span>
+<span class="fc" id="L78">        rD=new RivistaDao();</span>
+<span class="fc" id="L79">        csv=new CsvOggettoDao();</span>
+<span class="fc" id="L80">    }</span>
 
     public ObservableList&lt;Libro&gt;libroById() throws CsvValidationException, IOException, IdException {
-<span class="nc" id="L82">        ObservableList&lt;Libro&gt; list= FXCollections.observableArrayList();</span>
-<span class="nc" id="L83">        l.setId(vis.getId());</span>
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;)) list.add(lD.getLibroByIdTitoloAutoreLibro(l).get(0));</span>
-<span class="nc" id="L85">        else list.add(csv.getLibroByIdTitoloAutore(l).get(0));</span>
-<span class="nc" id="L86">        return list;</span>
+<span class="nc" id="L83">        ObservableList&lt;Libro&gt; list= FXCollections.observableArrayList();</span>
+<span class="nc" id="L84">        l.setId(vis.getId());</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;)) list.add(lD.getLibroByIdTitoloAutoreLibro(l).get(0));</span>
+<span class="nc" id="L86">        else list.add(csv.getLibroByIdTitoloAutore(l).get(0));</span>
+<span class="nc" id="L87">        return list;</span>
     }
     public ObservableList&lt;Giornale&gt; giornaleById() throws CsvValidationException, IOException, IdException {
-<span class="nc" id="L89">        ObservableList&lt;Giornale&gt; list= FXCollections.observableArrayList();</span>
-<span class="nc" id="L90">        g.setId(vis.getId());</span>
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;)) list.add(gD.getGiornaleIdTitoloAutore(g).get(0));</span>
-<span class="nc" id="L92">        else list.add(csv.getGiornaleByIdTitoloEditore(g).get(0));</span>
-<span class="nc" id="L93">        return list;</span>
+<span class="nc" id="L90">        ObservableList&lt;Giornale&gt; list= FXCollections.observableArrayList();</span>
+<span class="nc" id="L91">        g.setId(vis.getId());</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;)) list.add(gD.getGiornaleIdTitoloAutore(g).get(0));</span>
+<span class="nc" id="L93">        else list.add(csv.getGiornaleByIdTitoloEditore(g).get(0));</span>
+<span class="nc" id="L94">        return list;</span>
     }
     public ObservableList&lt;Rivista&gt; rivistaById() throws CsvValidationException, IOException, IdException {
-<span class="nc" id="L96">        ObservableList&lt;Rivista&gt; list= FXCollections.observableArrayList();</span>
-<span class="nc" id="L97">        r.setId(vis.getId());</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;)) list.add(rD.getRivistaIdTitoloAutore(r).get(0));</span>
-<span class="nc" id="L99">        else list.add(csv.getRivistaByIdTitoloEditore(r).get(0));</span>
-<span class="nc" id="L100">        return list;</span>
+<span class="nc" id="L97">        ObservableList&lt;Rivista&gt; list= FXCollections.observableArrayList();</span>
+<span class="nc" id="L98">        r.setId(vis.getId());</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;)) list.add(rD.getRivistaIdTitoloAutore(r).get(0));</span>
+<span class="nc" id="L100">        else list.add(csv.getRivistaByIdTitoloEditore(r).get(0));</span>
+<span class="nc" id="L101">        return list;</span>
     }
 
     public boolean modifica(String[] dati) throws CsvValidationException, IOException, IdException, SQLException {
-<span class="nc" id="L104">        boolean status = false;</span>
-<span class="nc" id="L105">        vis.setTipoModifica(&quot;modifica&quot;);</span>
-<span class="nc bnc" id="L106" title="All 4 branches missed.">        switch (vis.getType())</span>
-        {
-            case LIBRO -&gt; {
-<span class="nc" id="L109">                setLibro(dati);</span>
+<span class="fc" id="L105">       boolean status=false;</span>
+<span class="fc" id="L106">       vis.setTipoModifica(&quot;modifica&quot;);</span>
 
-<span class="nc bnc" id="L111" title="All 2 branches missed.">                if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-                {
-<span class="nc" id="L113">                    status=lD.inserisciModificaLibro(l);</span>
+<span class="pc bpc" id="L108" title="1 of 4 branches missed.">       switch (vis.getType())</span>
+       {
+           case LIBRO -&gt; {
+<span class="fc" id="L111">               setLibro(dati);</span>
+<span class="fc" id="L112">               l.setId(vis.getId());</span>
+<span class="fc" id="L113">               Logger.getLogger(&quot;modifLibro&quot;).log(Level.INFO,&quot;id libro da modif:{0}&quot;,l.getId());</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">                if (vis.getTypeOfDb().equals(&quot;db&quot;)) status=lD.modifLibro(l);</span>
+                else{
+<span class="fc" id="L116">                    Libro l2=csv.retrieveLibroData(l).get(0);</span>
+<span class="fc" id="L117">                    csv.removeLibroById(l2);</span>
+<span class="fc" id="L118">                    status=csv.inserisciLibro(l);</span>
                 }
-                else
-                {
-<span class="nc" id="L117">                    Libro l2=csv.getLibroByIdTitoloAutore(l).get(0);</span>
-<span class="nc" id="L118">                    l.setId(l2.getId());</span>
-<span class="nc" id="L119">                    csv.removeLibroById(l2);</span>
+<span class="fc" id="L120">           }</span>
+           case GIORNALE -&gt;
+           {
+<span class="fc" id="L123">               setGiornale(dati);</span>
+<span class="fc" id="L124">               g.setId(vis.getId());</span>
+<span class="fc" id="L125">               Logger.getLogger(&quot;modifGiornale&quot;).log(Level.INFO,&quot;id giornale da modif:{0}&quot;,g.getId());</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">               if (vis.getTypeOfDb().equals(&quot;db&quot;)) status=gD.aggiornaGiornale(g);</span>
+               else{
+<span class="fc" id="L128">                   Giornale g2=csv.retriveGiornaleData(g).get(0);</span>
+<span class="fc" id="L129">                   csv.removeGiornaleById(g2);</span>
+<span class="fc" id="L130">                   status=csv.inserisciGiornale(g);</span>
+               }
 
-<span class="nc" id="L121">                    status=csv.inserisciLibro(l);</span>
-                }
-<span class="nc" id="L123">            }</span>
-            case GIORNALE -&gt; {
-<span class="nc" id="L125">                setGiornale(dati);</span>
+<span class="fc" id="L133">           }</span>
+           case RIVISTA -&gt; {
+<span class="fc" id="L135">               setRivista(dati);</span>
+<span class="fc" id="L136">               r.setId(vis.getId());</span>
+<span class="fc" id="L137">               Logger.getLogger(&quot;modifRivista&quot;).log(Level.INFO,&quot;id rivista da modif:{0}&quot;,r.getId());</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">               if (vis.getTypeOfDb().equals(&quot;db&quot;)) status=rD.aggiornaRivista(r);</span>
+               else{
+<span class="fc" id="L140">                   Rivista r2=csv.retrieveRivistaData(r).get(0);</span>
+<span class="fc" id="L141">                   csv.removeRivistaById(r2);</span>
+<span class="fc" id="L142">                   status=csv.inserisciRivista(r);</span>
+               }
 
-<span class="nc bnc" id="L127" title="All 2 branches missed.">                if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-                {
-<span class="nc" id="L129">                    status=gD.aggiornaGiornale(g);</span>
-                }
-                else
-                {
-<span class="nc" id="L133">                    Giornale g2=csv.getGiornaleByIdTitoloEditore(g).get(0);</span>
-<span class="nc" id="L134">                    csv.removeGiornaleById(g2);</span>
-<span class="nc" id="L135">                    status=csv.inserisciGiornale(g);</span>
-                }
-<span class="nc" id="L137">            }</span>
-            case RIVISTA -&gt; {
-<span class="nc" id="L139">                setRivista(dati);</span>
+<span class="fc" id="L145">           }</span>
+<span class="nc" id="L146">           default -&gt; Logger.getLogger(&quot;modif&quot;).log(Level.SEVERE, &quot;error in modif&quot;);</span>
+       }
 
-<span class="nc bnc" id="L141" title="All 2 branches missed.">                if(vis.getTypeOfDb().equals(&quot;db&quot;)) status=rD.aggiornaRivista(r);</span>
-                else
-                {
-<span class="nc" id="L144">                    Rivista r2=csv.getRivistaByIdTitoloEditore(r).get(0);</span>
-<span class="nc" id="L145">                    csv.removeRivistaById(r2);</span>
-<span class="nc" id="L146">                    status=csv.inserisciRivista(r);</span>
-                }
-<span class="nc" id="L148">            }</span>
-<span class="nc" id="L149">            default -&gt; Logger.getLogger(&quot;modifica&quot;).log(Level.SEVERE,&quot;modifc error!!!&quot;);</span>
 
-        }
-<span class="nc" id="L152">        return status;</span>
+<span class="fc" id="L150">        return status;</span>
     }
 
     private void setLibro(String []param)
     {
-<span class="nc" id="L157">        l.setTitolo(param[0]);</span>
-<span class="nc" id="L158">        l.setCodIsbn(param[1]);</span>
-<span class="nc" id="L159">        l.setEditore(param[2]);</span>
-<span class="nc" id="L160">        l.setAutore(param[3]);</span>
-<span class="nc" id="L161">        l.setLingua(param[4]);</span>
-<span class="nc" id="L162">        l.setCategoria(param[5]);</span>
-<span class="nc" id="L163">        l.setDesc(param[6]);</span>
-<span class="nc" id="L164">        l.setDataPubb(LocalDate.parse(param[7]));</span>
-<span class="nc" id="L165">        l.setRecensione(param[8]);</span>
-<span class="nc" id="L166">        l.setNrPagine(Integer.parseInt(param[9]));</span>
-<span class="nc" id="L167">        l.setNrCopie(Integer.parseInt(param[10]));</span>
-<span class="nc" id="L168">        l.setDisponibilita(Integer.parseInt(param[11]));</span>
-<span class="nc" id="L169">        l.setPrezzo(Float.parseFloat(param[12]));</span>
+<span class="fc" id="L155">        l.setTitolo(param[0]);</span>
+<span class="fc" id="L156">        l.setCodIsbn(param[1]);</span>
+<span class="fc" id="L157">        l.setEditore(param[2]);</span>
+<span class="fc" id="L158">        l.setAutore(param[3]);</span>
+<span class="fc" id="L159">        l.setLingua(param[4]);</span>
+<span class="fc" id="L160">        l.setCategoria(param[5]);</span>
+<span class="fc" id="L161">        l.setDesc(param[6]);</span>
+<span class="fc" id="L162">        l.setDataPubb(LocalDate.parse(param[7]));</span>
+<span class="fc" id="L163">        l.setRecensione(param[8]);</span>
+<span class="fc" id="L164">        l.setNrPagine(Integer.parseInt(param[9]));</span>
+<span class="fc" id="L165">        l.setNrCopie(Integer.parseInt(param[10]));</span>
+<span class="fc" id="L166">        l.setDisponibilita(Integer.parseInt(param[11]));</span>
+<span class="fc" id="L167">        l.setPrezzo(Float.parseFloat(param[12]));</span>
 
 
-<span class="nc" id="L172">    }</span>
+<span class="fc" id="L170">    }</span>
     private void setGiornale(String[] param)
     {
-<span class="nc" id="L175">        g.setTitolo(param[0]);</span>
-<span class="nc" id="L176">        g.setCategoria(param[5]);</span>
-<span class="nc" id="L177">        g.setLingua(param[4]);</span>
-<span class="nc" id="L178">        g.setEditore(param[2]);</span>
-<span class="nc" id="L179">        g.setDataPubb(LocalDate.parse(param[7]));</span>
-<span class="nc" id="L180">        g.setCopieRimanenti(Integer.parseInt(param[10]));</span>
-<span class="nc" id="L181">        g.setDisponibilita(Integer.parseInt(param[11]));</span>
-<span class="nc" id="L182">        g.setPrezzo(Float.parseFloat(param[12]));</span>
-<span class="nc" id="L183">    }</span>
+<span class="fc" id="L173">        g.setTitolo(param[0]);</span>
+<span class="fc" id="L174">        g.setEditore(param[2]);</span>
+<span class="fc" id="L175">        g.setLingua(param[4]);</span>
+<span class="fc" id="L176">        g.setCategoria(param[5]);</span>
+<span class="fc" id="L177">        g.setDataPubb(LocalDate.parse(param[7]));</span>
+<span class="fc" id="L178">        g.setCopieRimanenti(Integer.parseInt(param[10]));</span>
+<span class="fc" id="L179">        g.setDisponibilita(Integer.parseInt(param[11]));</span>
+<span class="fc" id="L180">        g.setPrezzo(Float.parseFloat(param[12]));</span>
+<span class="fc" id="L181">    }</span>
     private void setRivista(String []param)
     {
-<span class="nc" id="L186">        r.setTitolo(param[0]);</span>
-<span class="nc" id="L187">        r.setEditore(param[2]);</span>
-<span class="nc" id="L188">        r.setAutore(param[3]);</span>
-<span class="nc" id="L189">        r.setLingua(param[4]);</span>
-<span class="nc" id="L190">        r.setCategoria(param[5]);</span>
-<span class="nc" id="L191">        r.setDescrizione(param[6]);</span>
-<span class="nc" id="L192">        r.setDataPubb(LocalDate.parse(param[7]));</span>
-<span class="nc" id="L193">        r.setCopieRim(Integer.parseInt(param[10]));</span>
-<span class="nc" id="L194">        r.setDisp(Integer.parseInt(param[11]));</span>
-<span class="nc" id="L195">        r.setPrezzo(Float.parseFloat(param[12]));</span>
-<span class="nc" id="L196">    }</span>
+<span class="fc" id="L184">        r.setTitolo(param[0]);</span>
+<span class="fc" id="L185">        r.setEditore(param[2]);</span>
+<span class="fc" id="L186">        r.setAutore(param[3]);</span>
+<span class="fc" id="L187">        r.setLingua(param[4]);</span>
+<span class="fc" id="L188">        r.setCategoria(param[5]);</span>
+<span class="fc" id="L189">        r.setDescrizione(param[6]);</span>
+<span class="fc" id="L190">        r.setDataPubb(LocalDate.parse(param[7]));</span>
+<span class="fc" id="L191">        r.setCopieRim(Integer.parseInt(param[10]));</span>
+<span class="fc" id="L192">        r.setDisp(Integer.parseInt(param[11]));</span>
+<span class="fc" id="L193">        r.setPrezzo(Float.parseFloat(param[12]));</span>
+<span class="fc" id="L194">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

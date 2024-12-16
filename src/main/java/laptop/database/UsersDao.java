@@ -271,7 +271,7 @@ public class UsersDao {
 
 			ResultSet rs = prepQ.executeQuery();
 			while (rs.next()) {
-
+				uT.setId(rs.getInt(1));
 				uT.setIdRuoloT(rs.getString(2));
 				uT.setNomeT(rs.getString(3));
 				uT.setCognomeT(rs.getString(4));

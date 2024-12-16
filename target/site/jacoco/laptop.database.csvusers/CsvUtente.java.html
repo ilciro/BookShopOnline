@@ -59,18 +59,18 @@ public class CsvUtente implements UserInterface {
 <span class="fc" id="L59">        }</span>
 <span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!duplicated) {</span>
 <span class="fc" id="L61">            List&lt;User&gt; list = getUserData(this.fdU, u.getId(), u.getEmail(), u.getPassword());</span>
-<span class="pc bpc" id="L62" title="1 of 2 branches missed.">            duplicated = (!list.isEmpty());</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            duplicated = (!list.isEmpty());</span>
 
         }
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (duplicated) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (duplicated) {</span>
             try {
-<span class="nc" id="L67">                Logger.getLogger(&quot;try user&quot;).log(Level.INFO, &quot;id sbagliato !!&quot;);</span>
-<span class="nc" id="L68">                throw new IdException(&quot; id user sbagliato or duplicated&quot;);</span>
+<span class="fc" id="L67">                Logger.getLogger(&quot;try user&quot;).log(Level.INFO, &quot;id sbagliato !!&quot;);</span>
+<span class="fc" id="L68">                throw new IdException(&quot; id user sbagliato or duplicated&quot;);</span>
 
-<span class="nc" id="L70">            } catch (IdException e) {</span>
-<span class="nc" id="L71">                Logger.getLogger(&quot;catch utente&quot;).log(Level.SEVERE, &quot;remove utente...&quot;);</span>
+<span class="fc" id="L70">            } catch (IdException e) {</span>
+<span class="fc" id="L71">                Logger.getLogger(&quot;catch utente&quot;).log(Level.SEVERE, &quot;remove utente...&quot;);</span>
                 //rimuovo e se lista vuota
-<span class="nc" id="L73">                removeUserByIdEmailPwd(u);</span>
+<span class="fc" id="L73">                removeUserByIdEmailPwd(u);</span>
             }
         }
 
@@ -83,16 +83,16 @@ public class CsvUtente implements UserInterface {
     public List&lt;User&gt; userList(User u) throws CsvValidationException, IOException {
 <span class="fc" id="L84">        List&lt;User&gt; list = new ArrayList&lt;&gt;();</span>
 <span class="fc" id="L85">        synchronized (this.cacheU) {</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">            for (Map.Entry&lt;String, User&gt; entry : this.cacheU.entrySet()) {</span>
-<span class="fc" id="L87">                User recordInCache = this.cacheU.get(entry.getKey());</span>
-<span class="fc" id="L88">                boolean recordP = recordInCache.getEmail().equals(u.getEmail());</span>
-<span class="fc" id="L89">                boolean recordM = recordInCache.getPassword().equals(u.getPassword());</span>
-<span class="pc bpc" id="L90" title="2 of 4 branches missed.">                boolean recordFound = recordP &amp;&amp; recordM;</span>
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">                if (recordFound)</span>
-<span class="fc" id="L92">                    list.add(recordInCache);</span>
-<span class="fc" id="L93">            }</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">            for (Map.Entry&lt;String, User&gt; entry : this.cacheU.entrySet()) {</span>
+<span class="nc" id="L87">                User recordInCache = this.cacheU.get(entry.getKey());</span>
+<span class="nc" id="L88">                boolean recordP = recordInCache.getEmail().equals(u.getEmail());</span>
+<span class="nc" id="L89">                boolean recordM = recordInCache.getPassword().equals(u.getPassword());</span>
+<span class="nc bnc" id="L90" title="All 4 branches missed.">                boolean recordFound = recordP &amp;&amp; recordM;</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                if (recordFound)</span>
+<span class="nc" id="L92">                    list.add(recordInCache);</span>
+<span class="nc" id="L93">            }</span>
 <span class="fc" id="L94">        }</span>
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (list.isEmpty()) {</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (list.isEmpty()) {</span>
 <span class="fc" id="L96">            list = getUserData(this.fdU, u.getId(), u.getEmail(), u.getPassword());</span>
 <span class="fc" id="L97">            synchronized (this.cacheU) {</span>
 <span class="fc bfc" id="L98" title="All 2 branches covered.">                for (User user : list)</span>
@@ -145,7 +145,7 @@ public class CsvUtente implements UserInterface {
 <span class="fc bfc" id="L145" title="All 2 branches covered.">            while ((gVector = reader.readNext()) != null) {</span>
 
 
-<span class="pc bpc" id="L148" title="1 of 6 branches missed.">                recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);</span>
+<span class="fc bfc" id="L148" title="All 6 branches covered.">                recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);</span>
 
 <span class="fc bfc" id="L150" title="All 2 branches covered.">                if (recordFound) {</span>
 

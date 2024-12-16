@@ -38,29 +38,29 @@ public class ControllerRaccolta {
 
     public ObservableList&lt;Raccolta&gt; getRaccoltaLista(String type) throws IOException, CsvValidationException, IdException {
 
-<span class="fc" id="L41">        ObservableList &lt;Raccolta&gt; catalogo= FXCollections.observableArrayList();</span>
+<span class="nc" id="L41">        ObservableList &lt;Raccolta&gt; catalogo= FXCollections.observableArrayList();</span>
 
-<span class="pc bpc" id="L43" title="1 of 4 branches missed.">        switch (type) {</span>
+<span class="nc bnc" id="L43" title="All 4 branches missed.">        switch (type) {</span>
             case LIBRO-&gt;
             {
-<span class="fc bfc" id="L46" title="All 2 branches covered.">                if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
-<span class="fc" id="L47">                    catalogo.addAll(lD.getLibri());</span>
-<span class="fc" id="L48">                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="nc" id="L47">                    catalogo.addAll(lD.getLibri());</span>
+<span class="nc" id="L48">                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTLIBRO)));</span>
 
-<span class="fc" id="L50">            }</span>
+<span class="nc" id="L50">            }</span>
             case GIORNALE-&gt;
             {
-<span class="fc bfc" id="L53" title="All 2 branches covered.">                if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
-<span class="fc" id="L54">                    catalogo.addAll(gD.getGiornali());</span>
-<span class="fc" id="L55">                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));</span>
-<span class="fc" id="L56">            }</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="nc" id="L54">                    catalogo.addAll(gD.getGiornali());</span>
+<span class="nc" id="L55">                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTGIORNALE)));</span>
+<span class="nc" id="L56">            }</span>
             case RIVISTA-&gt;
             {
-<span class="fc bfc" id="L59" title="All 2 branches covered.">                if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
-<span class="fc" id="L60">                    catalogo.addAll(rD.getRiviste());</span>
-<span class="fc" id="L61">                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="nc" id="L60">                    catalogo.addAll(rD.getRiviste());</span>
+<span class="nc" id="L61">                else catalogo.addAll(csv.retrieveRaccoltaData(new File(REPORTRIVISTA)));</span>
 
-<span class="fc" id="L63">            }</span>
+<span class="nc" id="L63">            }</span>
 <span class="nc" id="L64">            default-&gt;Logger.getLogger(&quot;Test getId db&quot;).log(Level.INFO, &quot;error !! list empty&quot;);</span>
 
         }
@@ -69,7 +69,7 @@ public class ControllerRaccolta {
 
 
 
-<span class="fc" id="L72">        return catalogo;</span>
+<span class="nc" id="L72">        return catalogo;</span>
     }
 
 <span class="fc" id="L75">    public ControllerRaccolta() throws IOException {</span>
@@ -84,29 +84,29 @@ public class ControllerRaccolta {
 <span class="fc" id="L84">    }</span>
 
     public boolean elimina() throws CsvValidationException, IOException {
-<span class="nc" id="L87">        boolean status = false;</span>
+<span class="fc" id="L87">        boolean status = false;</span>
 
-<span class="nc bnc" id="L89" title="All 4 branches missed.">            switch (vis.getType())</span>
+<span class="pc bpc" id="L89" title="1 of 4 branches missed.">            switch (vis.getType())</span>
             {
                 case LIBRO -&gt; {
-<span class="nc" id="L92">                    l.setId(vis.getId());</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-<span class="nc" id="L94">                        status=lD.eliminaLibro(l);</span>
-<span class="nc" id="L95">                    else status=csv.removeLibroById(l);</span>
+<span class="fc" id="L92">                    l.setId(vis.getId());</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc" id="L94">                        status=lD.eliminaLibro(l);</span>
+<span class="fc" id="L95">                    else status=csv.removeLibroById(l);</span>
 
-<span class="nc" id="L97">                }</span>
+<span class="fc" id="L97">                }</span>
                 case GIORNALE -&gt; {
-<span class="nc" id="L99">                    g.setId(vis.getId());</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-<span class="nc" id="L101">                        status=gD.eliminaGiornale(g);</span>
-<span class="nc" id="L102">                    else status=csv.removeGiornaleById(g);</span>
-<span class="nc" id="L103">                }</span>
+<span class="fc" id="L99">                    g.setId(vis.getId());</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc" id="L101">                        status=gD.eliminaGiornale(g);</span>
+<span class="fc" id="L102">                    else status=csv.removeGiornaleById(g);</span>
+<span class="fc" id="L103">                }</span>
                 case RIVISTA -&gt;{
-<span class="nc" id="L105">                    r.setId(vis.getId());</span>
-<span class="nc bnc" id="L106" title="All 2 branches missed.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-<span class="nc" id="L107">                        status=rD.eliminaRivista(r);</span>
-<span class="nc" id="L108">                    else  status=csv.removeRivistaById(r);</span>
-<span class="nc" id="L109">                }</span>
+<span class="fc" id="L105">                    r.setId(vis.getId());</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">                    if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc" id="L107">                        status=rD.eliminaRivista(r);</span>
+<span class="fc" id="L108">                    else  status=csv.removeRivistaById(r);</span>
+<span class="fc" id="L109">                }</span>
 <span class="nc" id="L110">                default -&gt; Logger.getLogger(&quot;elimina con db&quot;).log(Level.SEVERE,&quot; error with delete in mysql&quot;);</span>
             }
 
@@ -114,7 +114,7 @@ public class ControllerRaccolta {
 
 
 
-<span class="nc" id="L117">        return status;</span>
+<span class="fc" id="L117">        return status;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

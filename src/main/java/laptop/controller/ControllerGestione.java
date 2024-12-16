@@ -32,8 +32,9 @@ public class ControllerGestione {
     private static final String RIVISTA="rivista";
 
 
-    public boolean inserisci(String[] param) throws CsvValidationException, IOException, IdException, SQLException {
+    public boolean inserisci(String[] param) throws CsvValidationException, IOException, SQLException {
         boolean status = false;
+        vis.setTipoModifica("insert");
 
         switch (vis.getType())
         {
@@ -42,7 +43,7 @@ public class ControllerGestione {
 
                 if(vis.getTypeOfDb().equals("db"))
                 {
-                    status=lD.inserisciModificaLibro(l);
+                    status=lD.inserisciLibro(l);
                 }
                 else status=csv.inserisciLibro(l);
             }
@@ -101,54 +102,51 @@ public class ControllerGestione {
     }
 
     public boolean modifica(String[] dati) throws CsvValidationException, IOException, IdException, SQLException {
-        boolean status = false;
-        vis.setTipoModifica("modifica");
-        switch (vis.getType())
-        {
-            case LIBRO -> {
-                setLibro(dati);
+       boolean status=false;
+       vis.setTipoModifica("modifica");
 
-                if(vis.getTypeOfDb().equals("db"))
-                {
-                    status=lD.inserisciModificaLibro(l);
-                }
-                else
-                {
-                    Libro l2=csv.getLibroByIdTitoloAutore(l).get(0);
-                    l.setId(l2.getId());
+       switch (vis.getType())
+       {
+           case LIBRO -> {
+               setLibro(dati);
+               l.setId(vis.getId());
+               Logger.getLogger("modifLibro").log(Level.INFO,"id libro da modif:{0}",l.getId());
+                if (vis.getTypeOfDb().equals("db")) status=lD.modifLibro(l);
+                else{
+                    Libro l2=csv.retrieveLibroData(l).get(0);
                     csv.removeLibroById(l2);
-
                     status=csv.inserisciLibro(l);
                 }
-            }
-            case GIORNALE -> {
-                setGiornale(dati);
+           }
+           case GIORNALE ->
+           {
+               setGiornale(dati);
+               g.setId(vis.getId());
+               Logger.getLogger("modifGiornale").log(Level.INFO,"id giornale da modif:{0}",g.getId());
+               if (vis.getTypeOfDb().equals("db")) status=gD.aggiornaGiornale(g);
+               else{
+                   Giornale g2=csv.retriveGiornaleData(g).get(0);
+                   csv.removeGiornaleById(g2);
+                   status=csv.inserisciGiornale(g);
+               }
 
-                if(vis.getTypeOfDb().equals("db"))
-                {
-                    status=gD.aggiornaGiornale(g);
-                }
-                else
-                {
-                    Giornale g2=csv.getGiornaleByIdTitoloEditore(g).get(0);
-                    csv.removeGiornaleById(g2);
-                    status=csv.inserisciGiornale(g);
-                }
-            }
-            case RIVISTA -> {
-                setRivista(dati);
+           }
+           case RIVISTA -> {
+               setRivista(dati);
+               r.setId(vis.getId());
+               Logger.getLogger("modifRivista").log(Level.INFO,"id rivista da modif:{0}",r.getId());
+               if (vis.getTypeOfDb().equals("db")) status=rD.aggiornaRivista(r);
+               else{
+                   Rivista r2=csv.retrieveRivistaData(r).get(0);
+                   csv.removeRivistaById(r2);
+                   status=csv.inserisciRivista(r);
+               }
 
-                if(vis.getTypeOfDb().equals("db")) status=rD.aggiornaRivista(r);
-                else
-                {
-                    Rivista r2=csv.getRivistaByIdTitoloEditore(r).get(0);
-                    csv.removeRivistaById(r2);
-                    status=csv.inserisciRivista(r);
-                }
-            }
-            default -> Logger.getLogger("modifica").log(Level.SEVERE,"modifc error!!!");
+           }
+           default -> Logger.getLogger("modif").log(Level.SEVERE, "error in modif");
+       }
 
-        }
+
         return status;
     }
 
@@ -173,9 +171,9 @@ public class ControllerGestione {
     private void setGiornale(String[] param)
     {
         g.setTitolo(param[0]);
-        g.setCategoria(param[5]);
-        g.setLingua(param[4]);
         g.setEditore(param[2]);
+        g.setLingua(param[4]);
+        g.setCategoria(param[5]);
         g.setDataPubb(LocalDate.parse(param[7]));
         g.setCopieRimanenti(Integer.parseInt(param[10]));
         g.setDisponibilita(Integer.parseInt(param[11]));

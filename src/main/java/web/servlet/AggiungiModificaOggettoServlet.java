@@ -130,7 +130,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
 
     }
 
-    private void modificaGiornale(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+    private void modificaGiornale(HttpServletRequest req, HttpServletResponse resp) throws  ServletException, IOException {
         String titolo=req.getParameter("titoloGN");
         String editore=req.getParameter("editoreGN");
         String lingua=req.getParameter("linguaGN");
@@ -176,7 +176,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
 
     }
 
-    private void modificaLibro(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void modificaLibro(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         String titolo=req.getParameter("titoloN");
         String codice=req.getParameter("codiceN");
         String editore=req.getParameter("editoreN");
@@ -226,7 +226,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
 
 
 
-       if(lD.inserisciModificaLibro(l))
+       if(lD.modifLibro(l))
        {
            view= getServletContext().getRequestDispatcher(GESTIONE);
            view.forward(req,resp);
@@ -347,7 +347,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
             l.setDisponibilita(lB.getDisponibilitaB());
             l.setPrezzo(lB.getPrezzoB());
             req.setAttribute(BEANS,sB);
-            if(lD.inserisciModificaLibro(l))
+            if(lD.inserisciLibro(l))
             {
                 view=getServletContext().getRequestDispatcher(GESTIONE);
                 view.forward(req,resp);
@@ -363,7 +363,7 @@ public class AggiungiModificaOggettoServlet extends HttpServlet {
 
     }
 
-   private void inserisciGiornale(HttpServletRequest req,HttpServletResponse resp) throws SQLException, ServletException, IOException {
+   private void inserisciGiornale(HttpServletRequest req,HttpServletResponse resp) throws  ServletException, IOException {
        RequestDispatcher view;
 
        String titolo=req.getParameter("titoloG");

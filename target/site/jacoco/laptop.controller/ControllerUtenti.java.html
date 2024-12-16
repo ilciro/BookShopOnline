@@ -13,43 +13,43 @@ import java.sql.SQLException;
 public class ControllerUtenti {
 
     private final CsvUtente csv;
-<span class="nc" id="L16">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L16">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
     private final TempUser tu;
     public ObservableList&lt;TempUser&gt; getList() throws SQLException, CsvValidationException, IOException {
         ObservableList&lt;TempUser&gt; list;
-<span class="nc bnc" id="L20" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-<span class="nc" id="L21">            list= UsersDao.getUserList();</span>
-<span class="nc" id="L22">        else list=csv.getUserData();</span>
-<span class="nc" id="L23">        return list;</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc" id="L21">            list= UsersDao.getUserList();</span>
+<span class="fc" id="L22">        else list=csv.getUserData();</span>
+<span class="fc" id="L23">        return list;</span>
     }
 
     public ControllerUtenti()
-<span class="nc" id="L27">    {</span>
-<span class="nc" id="L28">        csv=new CsvUtente();</span>
-<span class="nc" id="L29">        tu=new TempUser();</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L27">    {</span>
+<span class="fc" id="L28">        csv=new CsvUtente();</span>
+<span class="fc" id="L29">        tu=new TempUser();</span>
+<span class="fc" id="L30">    }</span>
 
     public boolean elimina(String emailT) throws SQLException, CsvValidationException, IOException {
         boolean status ;
 
 
-<span class="nc bnc" id="L36" title="All 2 branches missed.">            if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
             {
 
-<span class="nc" id="L39">                tu.setId(vis.getId());</span>
-<span class="nc" id="L40">                User.getInstance().setId(tu.getId());</span>
-<span class="nc" id="L41">               status=UsersDao.deleteTempUser(tu);</span>
+<span class="fc" id="L39">                tu.setId(vis.getId());</span>
+<span class="fc" id="L40">                User.getInstance().setId(tu.getId());</span>
+<span class="fc" id="L41">               status=UsersDao.deleteTempUser(tu);</span>
             }
            else
             {
-<span class="nc" id="L45">                tu.setId(vis.getId());</span>
-<span class="nc" id="L46">                User.getInstance().setId(tu.getId());</span>
-<span class="nc" id="L47">                User.getInstance().setEmail(emailT);</span>
+<span class="fc" id="L45">                tu.setId(vis.getId());</span>
+<span class="fc" id="L46">                User.getInstance().setId(tu.getId());</span>
+<span class="fc" id="L47">                User.getInstance().setEmail(emailT);</span>
 
-<span class="nc" id="L49">                status=csv.removeUserByIdEmailPwd(User.getInstance());</span>
+<span class="fc" id="L49">                status=csv.removeUserByIdEmailPwd(User.getInstance());</span>
             }
 
-<span class="nc" id="L52">        return status;</span>
+<span class="fc" id="L52">        return status;</span>
     }
 
 

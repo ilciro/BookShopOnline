@@ -631,8 +631,6 @@ public class CsvOggettoDao implements DaoInterface {
             {
                 boolean recordFound=id.getValue().getTitolo().equals(l.getTitolo());
                 if(recordFound) {
-
-
                     list.add(id.getValue());
                 }
             }

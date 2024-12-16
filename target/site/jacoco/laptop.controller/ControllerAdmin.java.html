@@ -10,37 +10,37 @@ import java.sql.SQLException;
 
 public class ControllerAdmin {
     private final CsvUtente csv;
-<span class="fc" id="L13">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="nc" id="L13">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 
     public boolean logout(String type) throws SQLException, CsvValidationException, IOException {
-<span class="fc" id="L16">        boolean stastus = false;</span>
-<span class="fc bfc" id="L17" title="All 2 branches covered.">        if(type.equals(&quot;db&quot;))</span>
+<span class="nc" id="L16">        boolean stastus = false;</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">        if(type.equals(&quot;db&quot;))</span>
         {
-<span class="fc" id="L19">            UsersDao.pickData(User.getInstance());</span>
+<span class="nc" id="L19">            UsersDao.pickData(User.getInstance());</span>
 
 
-<span class="pc bpc" id="L22" title="1 of 2 branches missed.">                if(User.getInstance().annullaUtente())</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">                if(User.getInstance().annullaUtente())</span>
                 {
-<span class="fc" id="L24">                    stastus=true;</span>
-<span class="fc" id="L25">                    vis.setIsLogged(false);</span>
+<span class="nc" id="L24">                    stastus=true;</span>
+<span class="nc" id="L25">                    vis.setIsLogged(false);</span>
 
                 }
         }
         else {
-<span class="pc bpc" id="L30" title="1 of 2 branches missed.">            if(!csv.userList(User.getInstance()).get(0).getEmail().isEmpty())</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">            if(!csv.userList(User.getInstance()).get(0).getEmail().isEmpty())</span>
             {
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">               if( User.getInstance().annullaUtente())</span>
-<span class="fc" id="L33">                   stastus=true;</span>
-<span class="fc" id="L34">               vis.setIsLogged(false);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">               if( User.getInstance().annullaUtente())</span>
+<span class="nc" id="L33">                   stastus=true;</span>
+<span class="nc" id="L34">               vis.setIsLogged(false);</span>
             }
 
         }
-<span class="fc" id="L38">        return stastus;</span>
+<span class="nc" id="L38">        return stastus;</span>
     }
 
     public ControllerAdmin()
-<span class="fc" id="L42">    {</span>
-<span class="fc" id="L43">        csv=new CsvUtente();</span>
-<span class="fc" id="L44">    }</span>
+<span class="nc" id="L42">    {</span>
+<span class="nc" id="L43">        csv=new CsvUtente();</span>
+<span class="nc" id="L44">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
