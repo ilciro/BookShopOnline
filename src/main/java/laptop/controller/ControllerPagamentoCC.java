@@ -110,11 +110,11 @@ public class ControllerPagamentoCC {
 			Pagamento p=new Pagamento();
 
 
-		controllaPag(String.valueOf(data),c,civ);
+			controllaPag(String.valueOf(data),c,civ);
 
-				p.setIdPag(0);
-				p.setMetodo("cc");
-				p.setNomeUtente(cc.getNomeUser());
+			p.setIdPag(0);
+			p.setMetodo("cc");
+			p.setNomeUtente(cc.getNomeUser());
 
 
 

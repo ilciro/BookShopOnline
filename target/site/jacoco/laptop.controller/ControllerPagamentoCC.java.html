@@ -53,23 +53,23 @@ public class ControllerPagamentoCC {
 			String[] verifica;
 
 
-<span class="nc" id="L56">			appoggio = appoggio + d;</span>
-<span class="nc" id="L57">			anno = Integer.parseInt((String) appoggio.subSequence(0, 4));</span>
-<span class="nc" id="L58">			mese = Integer.parseInt((String) appoggio.subSequence(5, 7));</span>
-<span class="nc" id="L59">			giorno = Integer.parseInt((String) appoggio.subSequence(8, 10));</span>
+<span class="fc" id="L56">			appoggio = appoggio + d;</span>
+<span class="fc" id="L57">			anno = Integer.parseInt((String) appoggio.subSequence(0, 4));</span>
+<span class="fc" id="L58">			mese = Integer.parseInt((String) appoggio.subSequence(5, 7));</span>
+<span class="fc" id="L59">			giorno = Integer.parseInt((String) appoggio.subSequence(8, 10));</span>
 
 
-<span class="nc bnc" id="L62" title="All 14 branches missed.">			if (anno &gt; 2020 &amp;&amp; (mese &gt;= 1 &amp;&amp; mese &lt;= 12) &amp;&amp; (giorno &gt;= 1 &amp;&amp; giorno &lt;= 31) &amp;&amp; c.length() &lt;= 20 &amp;&amp; civ.length() == 3) {</span>
+<span class="pc bpc" id="L62" title="7 of 14 branches missed.">			if (anno &gt; 2020 &amp;&amp; (mese &gt;= 1 &amp;&amp; mese &lt;= 12) &amp;&amp; (giorno &gt;= 1 &amp;&amp; giorno &lt;= 31) &amp;&amp; c.length() &lt;= 20 &amp;&amp; civ.length() == 3) {</span>
 
 
-<span class="nc" id="L65">				verifica = c.split(&quot;-&quot;);</span>
+<span class="fc" id="L65">				verifica = c.split(&quot;-&quot;);</span>
 
-<span class="nc bnc" id="L67" title="All 2 branches missed.">				for (x = 0; x &lt; verifica.length; x++) {</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">					if (verifica[x].length() == 4) {</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">				for (x = 0; x &lt; verifica.length; x++) {</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">					if (verifica[x].length() == 4) {</span>
 <span class="nc" id="L69">						cont++;</span>
 					}
 				}
-<span class="nc bnc" id="L72" title="All 2 branches missed.">				if (cont == 4) {</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">				if (cont == 4) {</span>
 <span class="nc" id="L73">					Logger.getLogger(&quot;procedi cach check data&quot;).log(Level.INFO,&quot; data is correct !!&quot;);</span>
 				}
 
@@ -78,10 +78,10 @@ public class ControllerPagamentoCC {
 <span class="nc" id="L78">		}catch (NumberFormatException | IllegalFormatException e)</span>
 		{
 <span class="nc" id="L80">			java.util.logging.Logger.getLogger(&quot;procedi cash&quot;).log(Level.SEVERE,&quot;\n errore nel pagamento .&quot;,e);</span>
-<span class="nc" id="L81">		}</span>
+<span class="fc" id="L81">		}</span>
 		
 
-<span class="nc" id="L84">	}</span>
+<span class="fc" id="L84">	}</span>
 
 <span class="fc" id="L86">	public ControllerPagamentoCC() throws IOException {</span>
 
@@ -106,53 +106,53 @@ public class ControllerPagamentoCC {
 		
 		
 		
-<span class="nc" id="L109">			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);</span>
-<span class="nc" id="L110">			Pagamento p=new Pagamento();</span>
+<span class="fc" id="L109">			cc = new CartaDiCredito(n, c, cod,  data, civ, prezzo);</span>
+<span class="fc" id="L110">			Pagamento p=new Pagamento();</span>
 
 
-<span class="nc" id="L113">		controllaPag(String.valueOf(data),c,civ);</span>
+<span class="fc" id="L113">			controllaPag(String.valueOf(data),c,civ);</span>
 
-<span class="nc" id="L115">				p.setIdPag(0);</span>
-<span class="nc" id="L116">				p.setMetodo(&quot;cc&quot;);</span>
-<span class="nc" id="L117">				p.setNomeUtente(cc.getNomeUser());</span>
-
-
-
+<span class="fc" id="L115">			p.setIdPag(0);</span>
+<span class="fc" id="L116">			p.setMetodo(&quot;cc&quot;);</span>
+<span class="fc" id="L117">			p.setNomeUtente(cc.getNomeUser());</span>
 
 
 
-<span class="nc bnc" id="L124" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+
+
+
+<span class="fc bfc" id="L124" title="All 2 branches covered.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
 			{
 
-<span class="nc" id="L127">				csvFattura.inserisciCartaCredito(cc);</span>
-<span class="nc" id="L128">				cCPD.checkPagamentoData(n);</span>
+<span class="fc" id="L127">				csvFattura.inserisciCartaCredito(cc);</span>
+<span class="fc" id="L128">				cCPD.checkPagamentoData(n);</span>
 				//inserisciCartaCredito
 
 			}
 			else
 		{
-<span class="nc" id="L134">			cDao.insCC(cc);</span>
-<span class="nc" id="L135">			cCPD.checkPagamentoData(n);</span>
+<span class="fc" id="L134">			cDao.insCC(cc);</span>
+<span class="fc" id="L135">			cCPD.checkPagamentoData(n);</span>
 
-<span class="nc" id="L137">			pDao.inserisciPagamento(p);</span>
+<span class="fc" id="L137">			pDao.inserisciPagamento(p);</span>
 
 		}
 
 		
 		
 
-<span class="nc" id="L144">	}</span>
+<span class="fc" id="L144">	}</span>
 
 	public ObservableList&lt;CartaDiCredito&gt; ritornaElencoCC(String nomeU) throws CsvValidationException, IOException {
 
-<span class="nc" id="L148">		cc=new CartaDiCredito();</span>
+<span class="fc" id="L148">		cc=new CartaDiCredito();</span>
 		ObservableList&lt;CartaDiCredito&gt; lista;
-<span class="nc" id="L150">		cc.setNomeUser(nomeU);</span>
+<span class="fc" id="L150">		cc.setNomeUser(nomeU);</span>
 
-<span class="nc bnc" id="L152" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
-<span class="nc" id="L153">			lista= csvFattura.getListaCartaCreditoByNome(cc);</span>
-<span class="nc" id="L154">		else  lista= cDao.getCarteCredito(nomeU);</span>
-<span class="nc" id="L155">		return lista;</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;file&quot;))</span>
+<span class="fc" id="L153">			lista= csvFattura.getListaCartaCreditoByNome(cc);</span>
+<span class="fc" id="L154">		else  lista= cDao.getCarteCredito(nomeU);</span>
+<span class="fc" id="L155">		return lista;</span>
 
 
 	}

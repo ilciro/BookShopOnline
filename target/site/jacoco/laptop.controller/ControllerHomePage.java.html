@@ -9,13 +9,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-<span class="pc bpc" id="L18" title="1 of 2 branches missed.">public class ControllerHomePage {</span>
+<span class="pc bpc" id="L17" title="1 of 2 branches missed.">public class ControllerHomePage {</span>
     private static final String LIBROP=&quot;src/main/resources/csvfiles/libro.csv&quot;;
     private static final String GIORNALEP=&quot;src/main/resources/csvfiles/giornale.csv&quot;;
     private static final String RIVISTAP=&quot;src/main/resources/csvfiles/rivista.csv&quot;;
@@ -29,23 +28,23 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
     private static final String PAGAMENTOP=&quot;src/main/resources/csvfiles/pagamento.csv&quot;;
     private static final String PAGAMENTOFINALE=&quot;report/reportPagamento.csv&quot;;
 
-<span class="fc" id="L32">    private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L31">    private static final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
 
 
     private void copiaFiles() throws IOException {
 
         try {
-<span class="fc" id="L38">            File directory=new File(&quot;report&quot;);</span>
+<span class="fc" id="L37">            File directory=new File(&quot;report&quot;);</span>
 
 
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">            if(directory.isDirectory())</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            if(directory.isDirectory())</span>
             {
-<span class="fc" id="L43">                String[] files = directory.list();</span>
+<span class="fc" id="L42">                String[] files = directory.list();</span>
 
 
-<span class="pc bpc" id="L46" title="2 of 4 branches missed.">                assert files != null;</span>
-<span class="pc bpc" id="L47" title="3 of 4 branches missed.">                if ( files.length == 0 || files.length==3) {</span>
-<span class="fc" id="L48">                    throw new IOException(&quot;cartella vuota&quot;);</span>
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">                assert files != null;</span>
+<span class="pc bpc" id="L46" title="3 of 4 branches missed.">                if ( files.length == 0 || files.length==3) {</span>
+<span class="fc" id="L47">                    throw new IOException(&quot;cartella vuota&quot;);</span>
                 }
 
 
@@ -54,66 +53,66 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
             }
 
 
-<span class="fc" id="L57">        } catch (IOException eFile) {</span>
+<span class="fc" id="L56">        } catch (IOException eFile) {</span>
 
-<span class="fc" id="L59">            Logger.getLogger(&quot;creazione db file&quot;).log(Level.INFO, &quot;\n creating files ..&quot;);</span>
+<span class="fc" id="L58">            Logger.getLogger(&quot;creazione db file&quot;).log(Level.INFO, &quot;\n creating files ..&quot;);</span>
 
-<span class="fc" id="L61">            Files.copy(Path.of(LIBROP), Path.of(LIBROFINALE), REPLACE_EXISTING);</span>
-<span class="fc" id="L62">            Files.copy(Path.of(GIORNALEP), Path.of(GIORNALEFINALE), REPLACE_EXISTING);</span>
-<span class="fc" id="L63">            Files.copy(Path.of(RIVISTAP), Path.of(RIVISTAFINALE), REPLACE_EXISTING);</span>
-<span class="fc" id="L64">            Files.copy(Path.of(UTENTEP), Path.of(UTENTEFINALE), REPLACE_EXISTING);</span>
-<span class="fc" id="L65">            Files.copy(Path.of(FATTURAP), Path.of(FATTURAFINALE), REPLACE_EXISTING);</span>
-<span class="fc" id="L66">            Files.copy(Path.of(PAGAMENTOP), Path.of(PAGAMENTOFINALE), REPLACE_EXISTING);</span>
+<span class="fc" id="L60">            Files.copy(Path.of(LIBROP), Path.of(LIBROFINALE), REPLACE_EXISTING);</span>
+<span class="fc" id="L61">            Files.copy(Path.of(GIORNALEP), Path.of(GIORNALEFINALE), REPLACE_EXISTING);</span>
+<span class="fc" id="L62">            Files.copy(Path.of(RIVISTAP), Path.of(RIVISTAFINALE), REPLACE_EXISTING);</span>
+<span class="fc" id="L63">            Files.copy(Path.of(UTENTEP), Path.of(UTENTEFINALE), REPLACE_EXISTING);</span>
+<span class="fc" id="L64">            Files.copy(Path.of(FATTURAP), Path.of(FATTURAFINALE), REPLACE_EXISTING);</span>
+<span class="fc" id="L65">            Files.copy(Path.of(PAGAMENTOP), Path.of(PAGAMENTOFINALE), REPLACE_EXISTING);</span>
 
-<span class="fc" id="L68">            Logger.getLogger(&quot;crea db file&quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta nella modalità file.&quot;, eFile);</span>
-<span class="nc" id="L69">        }</span>
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L67">            Logger.getLogger(&quot;crea db file&quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta nella modalità file.&quot;, eFile);</span>
+<span class="nc" id="L68">        }</span>
+<span class="fc" id="L69">    }</span>
 
     private void creaDb() throws FileNotFoundException {
-<span class="fc" id="L73">        Logger.getLogger(&quot;crea db sql&quot;).log(Level.INFO, &quot;\n creating tables ..&quot;);</span>
+<span class="fc" id="L72">        Logger.getLogger(&quot;crea db sql&quot;).log(Level.INFO, &quot;\n creating tables ..&quot;);</span>
         try{
-<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            if(vis.isPopulated())</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">            if(vis.isPopulated())</span>
             {
-<span class="nc" id="L77">                Logger.getLogger(&quot; crea db if&quot;).log(Level.INFO, &quot; database already populated&quot;);</span>
+<span class="nc" id="L76">                Logger.getLogger(&quot; crea db if&quot;).log(Level.INFO, &quot; database already populated&quot;);</span>
             }
             else {
-<span class="fc" id="L80">                ConnToDb.creaPopolaDb();</span>
-<span class="fc" id="L81">                vis.setPopulated(true);</span>
+<span class="fc" id="L79">                ConnToDb.creaPopolaDb();</span>
+<span class="fc" id="L80">                vis.setPopulated(true);</span>
             }
-<span class="nc" id="L83">        }catch (FileNotFoundException  e)</span>
+<span class="nc" id="L82">        }catch (FileNotFoundException  e)</span>
         {
-<span class="nc" id="L85">            Logger.getLogger(&quot;crea db &quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta .&quot;, e);</span>
+<span class="nc" id="L84">            Logger.getLogger(&quot;crea db &quot;).log(Level.SEVERE, &quot;\n eccezione ottenuta .&quot;, e);</span>
 
-<span class="fc" id="L87">        }</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L86">        }</span>
+<span class="fc" id="L87">    }</span>
 
     public String getRuolo()
     {
-<span class="nc" id="L92">        return User.getInstance().getIdRuolo();</span>
+<span class="nc" id="L91">        return User.getInstance().getIdRuolo();</span>
     }
 
 
     public String getId() {
-<span class="nc" id="L97">        return String.valueOf(User.getInstance().getId());</span>
+<span class="nc" id="L96">        return String.valueOf(User.getInstance().getId());</span>
     }
 
     public boolean logout()
     {
-<span class="nc" id="L102">        boolean status = false;</span>
-<span class="nc" id="L103">        User.getInstance().annullaUtente();</span>
-<span class="nc bnc" id="L104" title="All 2 branches missed.">        if(User.getInstance().getId()==0)</span>
-<span class="nc" id="L105">            status=true;</span>
-<span class="nc" id="L106">        return status;</span>
+<span class="nc" id="L101">        boolean status = false;</span>
+<span class="nc" id="L102">        User.getInstance().annullaUtente();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if(User.getInstance().getId()==0)</span>
+<span class="nc" id="L104">            status=true;</span>
+<span class="nc" id="L105">        return status;</span>
     }
 
     public void dB() throws FileNotFoundException {
-<span class="fc" id="L110">        vis.setTypeOfDb(&quot;db&quot;);</span>
-<span class="fc" id="L111">        creaDb();</span>
-<span class="fc" id="L112">    }</span>
+<span class="fc" id="L109">        vis.setTypeOfDb(&quot;db&quot;);</span>
+<span class="fc" id="L110">        creaDb();</span>
+<span class="fc" id="L111">    }</span>
 
     public void files() throws IOException {
-<span class="fc" id="L115">        vis.setTypeOfDb(&quot;file&quot;);</span>
-<span class="fc" id="L116">        copiaFiles();</span>
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L114">        vis.setTypeOfDb(&quot;file&quot;);</span>
+<span class="fc" id="L115">        copiaFiles();</span>
+<span class="fc" id="L116">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

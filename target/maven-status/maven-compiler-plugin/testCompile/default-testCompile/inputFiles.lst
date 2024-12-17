@@ -2,8 +2,12 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoGiornale.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoLibro.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoRivista.java
-/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/TestControllerRegistraUtente.java
-/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/TestControllerRegistraUtenteAggiornaPass.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/login/TestControllerLoginDB.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/login/TestControllerLoginFile.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/oggettoAcquista/TestAcquistaEditoreDb.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/oggettoAcquista/TestAcquistaEditoreFile.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/registrazione/TestControllerRegistraUtente.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/registrazione/TestControllerRegistraUtenteAggiornaPass.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/giornale/TestControllerInsertGiornale.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/giornale/TestControllerModifGiornale.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/giornale/TestControllerRemoveGiornale.java

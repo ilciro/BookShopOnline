@@ -110,27 +110,27 @@ public class UsersDao {
 
 	public static String getRuolo(User u) throws SQLException {
 
-<span class="nc" id="L113">		String r = &quot;&quot;;</span>
-<span class="nc" id="L114">		query = &quot;SELECT idRuolo FROM USERS where Email = ? and pwd=?&quot;;</span>
-<span class="nc" id="L115">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L116">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
-<span class="nc" id="L117">			prepQ.setString(1, u.getEmail());</span>
-<span class="nc" id="L118">			prepQ.setString(2,u.getPassword());</span>
+<span class="fc" id="L113">		String r = &quot;&quot;;</span>
+<span class="fc" id="L114">		query = &quot;SELECT idRuolo FROM USERS where Email = ? and pwd=?&quot;;</span>
+<span class="fc" id="L115">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L116">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L117">			prepQ.setString(1, u.getEmail());</span>
+<span class="fc" id="L118">			prepQ.setString(2,u.getPassword());</span>
 
-<span class="nc" id="L120">			ResultSet rs = prepQ.executeQuery();</span>
-<span class="nc bnc" id="L121" title="All 2 branches missed.">			while (rs.next()) {</span>
-<span class="nc" id="L122">				r = rs.getString(&quot;idRuolo&quot;);</span>
+<span class="fc" id="L120">			ResultSet rs = prepQ.executeQuery();</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">			while (rs.next()) {</span>
+<span class="fc" id="L122">				r = rs.getString(&quot;idRuolo&quot;);</span>
 
 			}
 
 <span class="nc" id="L126">		} catch (SQLException e) {</span>
 <span class="nc" id="L127">			Logger.getLogger(&quot;get ruolo user&quot;).log(Level.INFO, ECCEZIONE, e);</span>
 
-<span class="nc" id="L129">		}</span>
-<span class="nc" id="L130">		u.setIdRuolo(r);</span>
+<span class="fc" id="L129">		}</span>
+<span class="fc" id="L130">		u.setIdRuolo(r);</span>
 
 
-<span class="nc" id="L133">		return r;</span>
+<span class="fc" id="L133">		return r;</span>
 
 	}
 
@@ -218,25 +218,25 @@ public class UsersDao {
 	public static User pickData(User u) throws SQLException {
 
 
-<span class="nc" id="L221">		query = &quot;SELECT idUser,idRuolo,Nome,Cognome,Email,pwd,descrizione,dataNascita from USERS where Email=? or idUser=? &quot;;</span>
-<span class="nc" id="L222">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L223">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
-<span class="nc" id="L224">			prepQ.setString(1, u.getEmail());</span>
-<span class="nc" id="L225">			prepQ.setInt(2,u.getId());</span>
+<span class="fc" id="L221">		query = &quot;SELECT idUser,idRuolo,Nome,Cognome,Email,pwd,descrizione,dataNascita from USERS where Email=? or idUser=? &quot;;</span>
+<span class="fc" id="L222">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L223">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L224">			prepQ.setString(1, u.getEmail());</span>
+<span class="fc" id="L225">			prepQ.setInt(2,u.getId());</span>
 
-<span class="nc" id="L227">			ResultSet rs = prepQ.executeQuery();</span>
-<span class="nc bnc" id="L228" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="fc" id="L227">			ResultSet rs = prepQ.executeQuery();</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">			while (rs.next()) {</span>
 
 
 				// setto i vari dati
 
-<span class="nc" id="L233">				u.setId(rs.getInt(&quot;idUser&quot;));</span>
-<span class="nc" id="L234">				u.setIdRuolo(rs.getString(&quot;idRuolo&quot;));</span>
-<span class="nc" id="L235">				u.setNome(rs.getString(&quot;Nome&quot;));</span>
-<span class="nc" id="L236">				u.setCognome(rs.getString(&quot;Cognome&quot;));</span>
-<span class="nc" id="L237">				u.setPassword(rs.getString(&quot;pwd&quot;));</span>
-<span class="nc" id="L238">				u.setDescrizione(rs.getString(&quot;descrizione&quot;));</span>
-<span class="nc" id="L239">				u.setDataDiNascita(rs.getDate(&quot;dataNascita&quot;).toLocalDate());</span>
+<span class="fc" id="L233">				u.setId(rs.getInt(&quot;idUser&quot;));</span>
+<span class="fc" id="L234">				u.setIdRuolo(rs.getString(&quot;idRuolo&quot;));</span>
+<span class="fc" id="L235">				u.setNome(rs.getString(&quot;Nome&quot;));</span>
+<span class="fc" id="L236">				u.setCognome(rs.getString(&quot;Cognome&quot;));</span>
+<span class="fc" id="L237">				u.setPassword(rs.getString(&quot;pwd&quot;));</span>
+<span class="fc" id="L238">				u.setDescrizione(rs.getString(&quot;descrizione&quot;));</span>
+<span class="fc" id="L239">				u.setDataDiNascita(rs.getDate(&quot;dataNascita&quot;).toLocalDate());</span>
 
 
 			}
@@ -244,11 +244,11 @@ public class UsersDao {
 <span class="nc" id="L244">			Logger.getLogger(&quot;pick data exception &quot;).log(Level.SEVERE, &quot;errore nel pick data {0}&quot;, e.toString());</span>
 
 
-<span class="nc" id="L247">		}</span>
+<span class="fc" id="L247">		}</span>
 
 
 		// errore
-<span class="nc" id="L251">		return u;</span>
+<span class="fc" id="L251">		return u;</span>
 	}
 
 

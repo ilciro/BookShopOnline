@@ -1,4 +1,4 @@
-package laptop.secodoUCLoginRegistrazioneUtente;
+package laptop.secodoUCLoginRegistrazioneUtente.registrazione;
 
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.controller.ControllerAggiornaPassword;

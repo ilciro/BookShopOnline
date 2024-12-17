@@ -40,7 +40,6 @@ class TestControllerRemoveUser {
 
          int id=UsersDao.getTempUserSingolo(tu).getId();
 
-         System.out.println("id:"+ id);
          vis.setId(id);
 
          assertTrue(cU.elimina(tu.getEmailT()));
