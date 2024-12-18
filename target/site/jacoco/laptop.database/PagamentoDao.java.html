@@ -94,30 +94,30 @@ import javafx.collections.ObservableList;
 
 	public ObservableList&lt;Pagamento&gt; listPagamenti(Pagamento pag)
 	{
-<span class="nc" id="L97">		ObservableList&lt;Pagamento&gt; list=FXCollections.observableArrayList();</span>
+<span class="fc" id="L97">		ObservableList&lt;Pagamento&gt; list=FXCollections.observableArrayList();</span>
 
-<span class="nc" id="L99">		query=&quot;select  idPagamento,metodo,spesaTotale,tipoAcquisto,idProdotto from PAGAMENTO where email=?&quot;;</span>
-<span class="nc" id="L100">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L101">			PreparedStatement prepQ=conn.prepareStatement(query)){</span>
-<span class="nc" id="L102">			prepQ.setString(1,pag.getEmail());</span>
+<span class="fc" id="L99">		query=&quot;select  idPagamento,metodo,spesaTotale,tipoAcquisto,idProdotto from PAGAMENTO where email=?&quot;;</span>
+<span class="fc" id="L100">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L101">			PreparedStatement prepQ=conn.prepareStatement(query)){</span>
+<span class="fc" id="L102">			prepQ.setString(1,pag.getEmail());</span>
 
-<span class="nc" id="L104">			ResultSet rs=prepQ.executeQuery();</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">			while (rs.next())</span>
+<span class="fc" id="L104">			ResultSet rs=prepQ.executeQuery();</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">			while (rs.next())</span>
 			{
-<span class="nc" id="L107">				Pagamento p=new Pagamento();</span>
-<span class="nc" id="L108">				p.setIdPag(rs.getInt(1));</span>
-<span class="nc" id="L109">				p.setMetodo(rs.getString(2));</span>
-<span class="nc" id="L110">				p.setAmmontare(rs.getFloat(3));</span>
-<span class="nc" id="L111">				p.setTipo(rs.getString(4));</span>
-<span class="nc" id="L112">				p.setIdOggetto(rs.getInt(5));</span>
-<span class="nc" id="L113">				list.add(p);</span>
-<span class="nc" id="L114">			}</span>
+<span class="fc" id="L107">				Pagamento p=new Pagamento();</span>
+<span class="fc" id="L108">				p.setIdPag(rs.getInt(1));</span>
+<span class="fc" id="L109">				p.setMetodo(rs.getString(2));</span>
+<span class="fc" id="L110">				p.setAmmontare(rs.getFloat(3));</span>
+<span class="fc" id="L111">				p.setTipo(rs.getString(4));</span>
+<span class="fc" id="L112">				p.setIdOggetto(rs.getInt(5));</span>
+<span class="fc" id="L113">				list.add(p);</span>
+<span class="fc" id="L114">			}</span>
 
 <span class="nc" id="L116">		}catch(SQLException e)</span>
 		{
 <span class="nc" id="L118">			java.util.logging.Logger.getLogger(&quot;return pagamento&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L119">		}</span>
-<span class="nc" id="L120">		return list;</span>
+<span class="fc" id="L119">		}</span>
+<span class="fc" id="L120">		return list;</span>
 
 	}
 		

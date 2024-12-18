@@ -25,12 +25,13 @@ public class ControllerVisualizzaProfilo {
     }
 
     public boolean modifica(String ruolo, String nome, String cognome, String email, String pwd, String desc, LocalDate value) throws CsvValidationException, IOException, IdException {
-        boolean status=false;
+        boolean status;
+        String vecchiaMail=u.getEmail();
         modificaUtenteDao(ruolo,nome,cognome,email,pwd,desc,value);
 
         if(vis.getTypeOfDb().equals("db")) {
-            if(UsersDao.aggiornaUtente(u, null).getId()!=0)
-                status=true;
+            UsersDao.aggiornaUtente(u, vecchiaMail);
+            status=true;
         }
         else {
            modificaUtenteCsv(ruolo,nome,cognome,email,pwd,desc,value);

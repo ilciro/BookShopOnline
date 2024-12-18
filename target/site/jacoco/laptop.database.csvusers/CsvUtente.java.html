@@ -145,7 +145,7 @@ public class CsvUtente implements UserInterface {
 <span class="fc bfc" id="L145" title="All 2 branches covered.">            while ((gVector = reader.readNext()) != null) {</span>
 
 
-<span class="fc bfc" id="L148" title="All 6 branches covered.">                recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);</span>
+<span class="pc bpc" id="L148" title="1 of 6 branches missed.">                recordFound = gVector[GETINDEXIDUSER].equals(String.valueOf(id)) || gVector[GETINDEXEMAIL].equals(mail) || gVector[GETINDEXPWD].equals(pass);</span>
 
 <span class="fc bfc" id="L150" title="All 2 branches covered.">                if (recordFound) {</span>
 
@@ -231,7 +231,7 @@ public class CsvUtente implements UserInterface {
 
 <span class="fc bfc" id="L232" title="All 2 branches covered.">            while ((giornaleVector = csvReader.readNext()) != null) {</span>
 
-<span class="pc bpc" id="L234" title="1 of 4 branches missed.">                userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());</span>
+<span class="fc bfc" id="L234" title="All 4 branches covered.">                userVectorFound = giornaleVector[GETINDEXIDUSER].equals(String.valueOf(u1.getId())) || giornaleVector[GETINDEXEMAIL].equals(u1.getEmail());</span>
 
 <span class="fc bfc" id="L236" title="All 2 branches covered.">                if (!userVectorFound) {</span>
 <span class="fc" id="L237">                    csvWriter.writeNext(giornaleVector);</span>

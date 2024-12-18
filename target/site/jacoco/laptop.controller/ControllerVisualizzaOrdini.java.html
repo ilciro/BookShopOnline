@@ -14,14 +14,14 @@ import java.util.logging.Logger;
 
 public class ControllerVisualizzaOrdini {
     private final FatturaPagamentoCCredito csv;
-<span class="nc" id="L17">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
+<span class="fc" id="L17">    private final ControllerSystemState vis=ControllerSystemState.getInstance();</span>
     private final PagamentoDao pDAo;
 
 
-<span class="nc" id="L21">    public ControllerVisualizzaOrdini() throws IOException {</span>
-<span class="nc" id="L22">        csv=new FatturaPagamentoCCredito();</span>
-<span class="nc" id="L23">        pDAo=new PagamentoDao();</span>
-<span class="nc" id="L24">    }</span>
+<span class="fc" id="L21">    public ControllerVisualizzaOrdini() throws IOException {</span>
+<span class="fc" id="L22">        csv=new FatturaPagamentoCCredito();</span>
+<span class="fc" id="L23">        pDAo=new PagamentoDao();</span>
+<span class="fc" id="L24">    }</span>
 
     public String getEmail()
     {
@@ -29,35 +29,35 @@ public class ControllerVisualizzaOrdini {
     }
 
     public ObservableList&lt;Pagamento&gt; getLista() throws CsvValidationException, IOException {
-<span class="nc" id="L32">        Pagamento p=new Pagamento();</span>
-<span class="nc" id="L33">        p.setEmail(User.getInstance().getEmail());</span>
+<span class="fc" id="L32">        Pagamento p=new Pagamento();</span>
+<span class="fc" id="L33">        p.setEmail(User.getInstance().getEmail());</span>
         ObservableList&lt;Pagamento&gt; list;
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
-<span class="nc" id="L36">            list=pDAo.listPagamenti(p);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if(vis.getTypeOfDb().equals(&quot;db&quot;))</span>
+<span class="fc" id="L36">            list=pDAo.listPagamenti(p);</span>
         else
-<span class="nc" id="L38">            list=csv.getPagamenti(p);</span>
-<span class="nc" id="L39">        return list;</span>
+<span class="fc" id="L38">            list=csv.getPagamenti(p);</span>
+<span class="fc" id="L39">        return list;</span>
     }
     public boolean cancellaPagamento(int id) throws SQLException, CsvValidationException, IOException {
-<span class="nc" id="L42">        boolean status = false;</span>
-<span class="nc" id="L43">        Pagamento p=new Pagamento();</span>
-<span class="nc" id="L44">        p.setIdPag(id);</span>
+<span class="fc" id="L42">        boolean status = false;</span>
+<span class="fc" id="L43">        Pagamento p=new Pagamento();</span>
+<span class="fc" id="L44">        p.setIdPag(id);</span>
 
-<span class="nc bnc" id="L46" title="All 3 branches missed.">        switch (vis.getTypeOfDb())</span>
+<span class="pc bpc" id="L46" title="1 of 3 branches missed.">        switch (vis.getTypeOfDb())</span>
         {
             case &quot;db&quot;-&gt;{
-<span class="nc bnc" id="L49" title="All 2 branches missed.">                if(pDAo.cancellaPagamento(p))</span>
-<span class="nc" id="L50">                    status=true;</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">                if(pDAo.cancellaPagamento(p))</span>
+<span class="fc" id="L50">                    status=true;</span>
             }
             case &quot;file&quot;-&gt;{
-<span class="nc bnc" id="L53" title="All 2 branches missed.">                if(csv.cancellaPagamento(p))</span>
-<span class="nc" id="L54">                    status=true;</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">                if(csv.cancellaPagamento(p))</span>
+<span class="fc" id="L54">                    status=true;</span>
             }
 <span class="nc" id="L56">            default -&gt; Logger.getLogger(&quot;cancella Pagamento&quot;).log(Level.SEVERE,&quot; error with delete&quot;);</span>
         }
 
 
-<span class="nc" id="L60">        return status;</span>
+<span class="fc" id="L60">        return status;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
