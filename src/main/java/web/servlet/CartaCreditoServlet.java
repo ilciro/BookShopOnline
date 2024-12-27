@@ -74,7 +74,7 @@ public class CartaCreditoServlet extends HttpServlet implements Serializable {
                 {
                     //aggiungo carta al db
 
-                    Date sqlDate = null;
+                    Date sqlDate;
                     java.util.Date utilDate;
                     SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 

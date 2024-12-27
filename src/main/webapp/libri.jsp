@@ -77,7 +77,7 @@ id prodotto
 </tr>
 
 
-<c:forEach items="#{beanL.elencoLibriB }" var="lista">
+<c:forEach items="#{beanL.elencoLibriB}" var="lista">
 
 
 <tr>
@@ -102,7 +102,7 @@ id prodotto
 
     </c:when>
     <c:otherwise>
-    <td >${ lista.getTitolo() }</td>
+        <td style="background-color:GREEN">${ lista.getTitolo() }</td>
         <td style="background-color:GREEN">${ lista.getNrPagine() }</td>
         <td style="background-color:GREEN">${ lista.getCodIsbn() }</td>
         <td style="background-color:GREEN">${ lista.getEditore() }</td>

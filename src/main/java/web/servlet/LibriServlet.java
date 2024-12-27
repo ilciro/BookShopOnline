@@ -61,8 +61,8 @@ public class LibriServlet extends HttpServlet implements Serializable {
                    lB.setIdB(Integer.parseInt(id));
                    l.setId(lB.getIdB());
                    lB.setTitoloB(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getTitolo());
-                   SystemBean.getInstance().setIdB(lB.getIdB());
-                   SystemBean.getInstance().setTitoloB(lB.getTitoloB());
+                   sB.setIdB(lB.getIdB());
+                   sB.setTitoloB(lB.getTitoloB());
                    req.setAttribute(BEANL, lB);
                    req.setAttribute("beanS", sB);
 

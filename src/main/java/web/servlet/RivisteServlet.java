@@ -72,8 +72,8 @@ public class RivisteServlet extends HttpServlet {
                     rB.setIdB(Integer.parseInt(id));
                     r.setId(rB.getIdB());
                     rB.setTitoloB(rD.getRivistaIdTitoloAutore(r).get(0).getTitolo());
-                    SystemBean.getInstance().setIdB(rB.getIdB());
-                    SystemBean.getInstance().setTitoloB(rB.getTitoloB());
+                    sB.setIdB(rB.getIdB());
+                    sB.setTitoloB(rB.getTitoloB());
                     req.setAttribute(BEANR,rB);
                     req.setAttribute("beanS",sB);
 

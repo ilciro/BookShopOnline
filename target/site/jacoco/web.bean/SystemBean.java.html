@@ -6,8 +6,8 @@ public class SystemBean {
     }
 
     public void setTypeB(String type) {
-<span class="nc" id="L9">        this.typeB = type;</span>
-<span class="nc" id="L10">    }</span>
+<span class="fc" id="L9">        this.typeB = type;</span>
+<span class="fc" id="L10">    }</span>
 
     public void setTypeAsBook()
     {
@@ -25,12 +25,12 @@ public class SystemBean {
 
 
 
-<span class="nc" id="L28">    private static SystemBean instance=null;</span>
+<span class="fc" id="L28">    private static SystemBean instance=null;</span>
 
     public static SystemBean getInstance() {
-<span class="nc bnc" id="L31" title="All 2 branches missed.">        if(instance==null)</span>
-<span class="nc" id="L32">            instance=new SystemBean();</span>
-<span class="nc" id="L33">        return instance;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if(instance==null)</span>
+<span class="fc" id="L32">            instance=new SystemBean();</span>
+<span class="fc" id="L33">        return instance;</span>
     }
     private SystemBean(){}
 
@@ -46,24 +46,24 @@ public class SystemBean {
     }
 
     public void setMetodoPB(String metodoPB) {
-<span class="nc" id="L49">        this.metodoPB = metodoPB;</span>
-<span class="nc" id="L50">    }</span>
+<span class="fc" id="L49">        this.metodoPB = metodoPB;</span>
+<span class="fc" id="L50">    }</span>
 
     public String getTitoloB() {
 <span class="nc" id="L53">        return titoloB;</span>
     }
 
     public void setTitoloB(String titoloB) {
-<span class="nc" id="L57">        this.titoloB = titoloB;</span>
-<span class="nc" id="L58">    }</span>
+<span class="fc" id="L57">        this.titoloB = titoloB;</span>
+<span class="fc" id="L58">    }</span>
 
     public int getIdB() {
-<span class="nc" id="L61">        return idB;</span>
+<span class="fc" id="L61">        return idB;</span>
     }
 
     public void setIdB(int idB) {
-<span class="nc" id="L65">        this.idB = idB;</span>
-<span class="nc" id="L66">    }</span>
+<span class="fc" id="L65">        this.idB = idB;</span>
+<span class="fc" id="L66">    }</span>
 
     private int idB;
 
@@ -80,12 +80,12 @@ public class SystemBean {
     private float spesaTB;
 
     public float getSpesaTB() {
-<span class="nc" id="L83">        return spesaTB;</span>
+<span class="fc" id="L83">        return spesaTB;</span>
     }
 
     public void setSpesaTB(float spesaTB) {
-<span class="nc" id="L87">        this.spesaTB = spesaTB;</span>
-<span class="nc" id="L88">    }</span>
+<span class="fc" id="L87">        this.spesaTB = spesaTB;</span>
+<span class="fc" id="L88">    }</span>
 
     private boolean negozioSelezionatoB;
 

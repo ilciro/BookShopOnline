@@ -46,51 +46,28 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
     private static final UserBean uB=UserBean.getInstance();
     private static final String BEANUB="beanUB";
 
-    public AcquistaServlet()
-    {
 
-        String type=SystemBean.getInstance().getTypeB();
-        switch (type) {
-            case LIBRO -> {
-
-                lB.setIdB(SystemBean.getInstance().getIdB());
-                l.setId(lB.getIdB());
-                aB.setTitoloB(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getTitolo());
-            }
-            case  GIORNALE-> {
-
-                    gB.setIdB(SystemBean.getInstance().getIdB());
-                    g.setId(gB.getIdB());
-                    aB.setTitoloB(gD.getGiornaleIdTitoloAutore(g).get(0).getTitolo());
-                }
-            case  RIVISTA-> {
-                rB.setIdB(SystemBean.getInstance().getIdB());
-                r.setId(rB.getIdB());
-                aB.setTitoloB(rD.getRivistaIdTitoloAutore(r).get(0).getTitolo());
-            }
-            default -> Logger.getLogger(" do post").log(Level.SEVERE," type is wrong ");
-
-
-        }
-
-    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String q = req.getParameter("quantita");
         String calcola = req.getParameter("totaleB");
         String metodo = req.getParameter("metodoP");
         String negozio = req.getParameter("negozioB");
-        SystemBean.getInstance().setMetodoPB(metodo);
+        sB.setMetodoPB(metodo);
         String download = req.getParameter("pdfB");
         float costo;
-        String type = sB.getTypeB();
+
         String pagamento = sB.getMetodoPB();
         try {
 
-
             if (calcola != null && calcola.equals("calcola")) {
-                switch (type) {
+                switch (sB.getTypeB()) {
                     case LIBRO -> {
+                        lB.setIdB(sB.getIdB());
+                        l.setId(lB.getIdB());
+                        aB.setTitoloB(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getTitolo());
+
+
 
                         costo = Integer.parseInt(q) * lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo();
                         aB.setPrezzoB(costo);
@@ -102,6 +79,10 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
 
                     }
                     case GIORNALE -> {
+                        gB.setIdB(sB.getIdB());
+                        g.setId(gB.getIdB());
+                        aB.setTitoloB(gD.getGiornaleIdTitoloAutore(g).get(0).getTitolo());
+
 
                         costo = Integer.parseInt(q) * gD.getGiornaleIdTitoloAutore(g).get(0).getPrezzo();
                         aB.setPrezzoB(costo);
@@ -112,6 +93,9 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
 
                     }
                     case RIVISTA -> {
+                        rB.setIdB(sB.getIdB());
+                        r.setId(rB.getIdB());
+                        aB.setTitoloB(rD.getRivistaIdTitoloAutore(r).get(0).getTitolo());
 
                         costo = Integer.parseInt(q) * rD.getRivistaIdTitoloAutore(r).get(0).getPrezzo();
                         aB.setPrezzoB(costo);
@@ -137,7 +121,7 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
             if (negozio != null && negozio.equals("ritiro in negozio")) {
 
 
-                SystemBean.getInstance().setNegozioSelezionatoB(true);
+                sB.setNegozioSelezionatoB(true);
                 switch (pagamento) {
                     case "cash"-> {
                         req.setAttribute(BEANS, sB);

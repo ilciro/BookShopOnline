@@ -43,13 +43,18 @@ public class ReportServlet extends HttpServlet {
         RequestDispatcher view;
         try {
             if (l != null && l.equals("libri")) {
-                rD.report(LIBRO);
+
+
+                rD.reportLGR(LIBRO);
                 rB.setElencoReportBRepo(rD.report(LIBRO));
+
+                System.out.println("elenco:"+ rB.getElencoReportBRepo());
                 req.setAttribute(BEANR, rB);
                 view = getServletContext().getRequestDispatcher(REPORT);
                 view.forward(req, resp);
             }
             if (g != null && g.equals("giornali")) {
+                rD.reportLGR(GIORNALE);
                 rD.report(GIORNALE);
                 rB.setElencoReportBRepo(rD.report(GIORNALE));
                 req.setAttribute(BEANR, rB);
@@ -57,6 +62,7 @@ public class ReportServlet extends HttpServlet {
                 view.forward(req, resp);
             }
             if (r != null && r.equals("riviste")) {
+                rD.reportLGR(RIVISTA);
                 rD.report(RIVISTA);
                 rB.setElencoReportBRepo(rD.report(RIVISTA));
                 req.setAttribute(BEANR, rB);

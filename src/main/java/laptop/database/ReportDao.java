@@ -42,7 +42,7 @@ public class ReportDao {
             preQ.executeUpdate();
         }catch (SQLException e)
         {
-            Logger.getLogger("crete view ").log(Level.SEVERE," could not create view reportL!!");
+            Logger.getLogger("crete view ").log(Level.SEVERE," could not create {0} view !!",type);
         }
     }
     public ObservableList<Report> report(String type)

@@ -24,7 +24,7 @@
 <th>spesaTotale</th>
 </tr>
 
-<c:forEach items="#{beanR.elencoReportB }" var="lista">
+<c:forEach items="#{beanR.elencoReportBRepo}" var="lista">
 
 
 <tr>
@@ -63,7 +63,7 @@
 
 
 <td>${ lista.getIdBNOS() }</td>
-<td>${ lista.getRuoloBNOS() }</td>
+<td>${ lista.getRuoloB() }</td>
 <td>${ lista.getNomeBNOS() }</td>
 <td>${ lista.getCognomeBNOS() }</td>
 <td>${ lista.getEmailBNOS() }</td>

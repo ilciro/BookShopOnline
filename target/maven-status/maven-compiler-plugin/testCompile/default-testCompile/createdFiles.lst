@@ -3,6 +3,7 @@ laptop/terzoUcAdmin/utenti/TestControllerModifUser.class
 laptop/secodoUCLoginRegistrazioneUtente/login/TestControllerLoginDB.class
 laptop/primoUCAcquistoOggetto/InitTest.class
 laptop/terzoUcAdmin/utenti/TestControllerInsertUser.class
+web/primoUC/InitTest.class
 laptop/terzoUcAdmin/tRicerca/TestControllerRicercaRivista.class
 laptop/terzoUcAdmin/rivista/TestControllerModifRivista.class
 laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoGiornale.class
@@ -17,8 +18,10 @@ laptop/terzoUcAdmin/tReport/TestControllerReport.class
 laptop/terzoUcAdmin/utenti/TestControllerRemoveUser.class
 laptop/terzoUcAdmin/rivista/TestControllerInsertRivista.class
 laptop/secodoUCLoginRegistrazioneUtente/registrazione/TestControllerRegistraUtenteAggiornaPass.class
+web/primoUC/TestVenditaGiornale.class
 laptop/secodoUCLoginRegistrazioneUtente/acquistaOggetto/TestAcquistaEditoreDb.class
 laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoRivista.class
+web/secondoUC/TestLogin.class
 laptop/terzoUcAdmin/libro/TestControllerModifLibro.class
 laptop/terzoUcAdmin/libro/TestControllerRimuoviLibro.class
 laptop/secodoUCLoginRegistrazioneUtente/acquistaOggetto/TestAcquistaEditoreFile.class

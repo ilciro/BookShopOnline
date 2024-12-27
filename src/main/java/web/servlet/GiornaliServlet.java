@@ -67,8 +67,8 @@ public class GiornaliServlet extends HttpServlet{
                     gB.setIdB(Integer.parseInt(id));
                     giornale.setId(gB.getIdB());
                     gB.setTitoloB(gD.getGiornaleIdTitoloAutore(giornale).get(0).getTitolo());
-                    SystemBean.getInstance().setIdB(gB.getIdB());
-                    SystemBean.getInstance().setTitoloB(gB.getTitoloB());
+                   sB.setIdB(gB.getIdB());
+                    sB.setTitoloB(gB.getTitoloB());
                     req.setAttribute(BEANG, gB);
                     req.setAttribute("beanS", sB);
 

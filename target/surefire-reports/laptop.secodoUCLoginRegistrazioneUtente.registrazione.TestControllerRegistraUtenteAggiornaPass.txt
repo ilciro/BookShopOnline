@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: laptop.secodoUCLoginRegistrazioneUtente.registrazione.TestControllerRegistraUtenteAggiornaPass
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.422 s - in laptop.secodoUCLoginRegistrazioneUtente.registrazione.TestControllerRegistraUtenteAggiornaPass
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.579 s - in laptop.secodoUCLoginRegistrazioneUtente.registrazione.TestControllerRegistraUtenteAggiornaPass

@@ -43,7 +43,7 @@ titolo del giornale da scaricare:
 <input type="submit" class="annulla" id="annullaB" name="annullaB" value="annulla">
 </div>
 </c:when>
-<c:when test="${ tipo=='rivista'}">
+<c:when test="${tipo=='rivista'}">
 <div>
 titolo della rivista da scaricare:
 <input type="text" id="titoloL" name="titoloL" value="${bean1.getTitoloB()}">
