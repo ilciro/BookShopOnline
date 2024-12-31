@@ -13,7 +13,7 @@
 
 <h2>Scegliere il metodo di pagamento</h2>
 
-
+<p> tipo oggetto : "${beanS.getTypeB()}"<p/>
 <form action="AcquistaServlet" method="post">
 <table>
 <caption></caption>

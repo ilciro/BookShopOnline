@@ -1,12 +1,12 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 BookShopOnline Maven Webapp,laptop.database,ContrassegnoDao,21,128,1,3,6,37,1,5,0,4
-BookShopOnline Maven Webapp,laptop.database,RivistaDao,378,384,7,7,84,80,11,8,6,6
+BookShopOnline Maven Webapp,laptop.database,RivistaDao,343,419,7,7,73,91,10,9,5,7
 BookShopOnline Maven Webapp,laptop.database,PagamentoDao,28,195,1,5,8,55,1,7,0,5
 BookShopOnline Maven Webapp,laptop.database,NegozioDao,150,47,8,2,47,11,8,3,4,2
-BookShopOnline Maven Webapp,laptop.database,GiornaleDao,378,376,7,7,84,86,11,8,6,6
+BookShopOnline Maven Webapp,laptop.database,GiornaleDao,343,411,7,7,73,97,10,9,5,7
 BookShopOnline Maven Webapp,laptop.database,UsersDao,184,462,7,11,51,128,7,14,2,10
 BookShopOnline Maven Webapp,laptop.database,ReportDao,10,122,2,8,2,32,2,9,0,4
-BookShopOnline Maven Webapp,laptop.database,LibroDao,31,576,3,7,8,108,3,9,0,7
+BookShopOnline Maven Webapp,laptop.database,LibroDao,38,611,3,7,10,119,3,10,0,8
 BookShopOnline Maven Webapp,laptop.database,CartaCreditoDao,101,103,4,2,30,26,3,4,1,3
 BookShopOnline Maven Webapp,laptop.database.csvreport,CsvReport,33,163,9,5,6,34,5,8,0,6
 BookShopOnline Maven Webapp,laptop.model,CartaDiCredito,67,73,0,0,29,20,13,10,13,10
@@ -28,10 +28,10 @@ BookShopOnline Maven Webapp,laptop.model.raccolta,Rivista,65,299,12,7,24,88,12,3
 BookShopOnline Maven Webapp,laptop.database.csvpagamento,FatturaPagamentoCCredito,165,946,28,50,30,197,24,37,1,21
 BookShopOnline Maven Webapp,web.bean,SystemBean,56,37,0,2,24,16,16,10,16,9
 BookShopOnline Maven Webapp,web.bean,TempUserBean,145,0,12,0,45,0,30,0,23,0
-BookShopOnline Maven Webapp,web.bean,RivistaBean,190,0,17,0,61,0,42,0,27,0
+BookShopOnline Maven Webapp,web.bean,RivistaBean,63,121,3,14,22,36,17,25,15,12
 BookShopOnline Maven Webapp,web.bean,UserBean,98,47,8,6,31,15,25,6,18,5
 BookShopOnline Maven Webapp,web.bean,DownloadBean,17,0,0,0,7,0,5,0,5,0
-BookShopOnline Maven Webapp,web.bean,LibroBean,280,0,32,0,82,0,63,0,33,0
+BookShopOnline Maven Webapp,web.bean,LibroBean,77,203,4,28,26,56,21,42,18,15
 BookShopOnline Maven Webapp,web.bean,AcquistaBean,17,7,0,0,7,3,5,2,5,2
 BookShopOnline Maven Webapp,web.bean,UserBean.Ruoli,27,0,0,0,5,0,1,0,1,0
 BookShopOnline Maven Webapp,web.bean,TextAreaBean,10,0,0,0,4,0,3,0,3,0
@@ -40,8 +40,8 @@ BookShopOnline Maven Webapp,web.bean,TempUserBean.Ruoli,27,0,0,0,5,0,1,0,1,0
 BookShopOnline Maven Webapp,web.bean,ReportBean,59,0,0,0,25,0,17,0,17,0
 BookShopOnline Maven Webapp,web.bean,GiornaleBean,78,13,1,1,32,5,21,3,20,3
 BookShopOnline Maven Webapp,web.bean,NegozioBean,31,0,0,0,13,0,9,0,9,0
-BookShopOnline Maven Webapp,web.bean,CartaCreditoBean,52,0,0,0,22,0,15,0,15,0
-BookShopOnline Maven Webapp,web.bean,PagamentoBean,80,0,0,0,29,0,20,0,20,0
+BookShopOnline Maven Webapp,web.bean,CartaCreditoBean,22,30,0,0,8,14,7,8,7,8
+BookShopOnline Maven Webapp,web.bean,PagamentoBean,50,30,0,0,15,14,12,8,12,8
 BookShopOnline Maven Webapp,web.bean,RicercaBean,59,0,0,0,25,0,17,0,17,0
 BookShopOnline Maven Webapp,web.bean,AnnullaBean,17,0,0,0,7,0,5,0,5,0
 BookShopOnline Maven Webapp,web.bean,ModificaOggettoBean,35,0,4,0,12,0,9,0,7,0
@@ -53,7 +53,7 @@ BookShopOnline Maven Webapp,laptop.exception,PersistenzaException,4,0,0,0,2,0,1,
 BookShopOnline Maven Webapp,laptop.controller,ControllerRegistraUtente,11,167,10,12,3,39,10,8,0,7
 BookShopOnline Maven Webapp,laptop.controller,ControllerReport,13,127,2,10,2,29,2,8,0,4
 BookShopOnline Maven Webapp,laptop.controller,ControllerAcquista,11,340,1,9,3,46,1,9,0,4
-BookShopOnline Maven Webapp,laptop.controller,ControllerDownload,5,87,1,3,1,20,1,4,0,2
+BookShopOnline Maven Webapp,laptop.controller,ControllerDownload,5,117,1,3,1,26,1,4,0,2
 BookShopOnline Maven Webapp,laptop.controller,ControllerGestione,127,504,8,18,17,90,8,16,3,6
 BookShopOnline Maven Webapp,laptop.controller,ControllerPagamentoCash,15,59,0,2,4,13,1,3,1,2
 BookShopOnline Maven Webapp,laptop.controller,ControllerVisualizzaProfilo,31,165,14,16,8,44,15,5,1,4

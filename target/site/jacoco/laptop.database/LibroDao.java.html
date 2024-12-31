@@ -218,7 +218,29 @@ public class LibroDao {
 <span class="pc bpc" id="L218" title="1 of 2 branches missed.">            return row==1;</span>
         }
 
-    }
+    public void aggiornaDisponibilita(Libro l) {
+<span class="fc" id="L222">        int d=vis.getQuantita();</span>
+<span class="fc" id="L223">        int i=l.getNrCopie();</span>
+<span class="fc" id="L224">        int rim=i-d;</span>
+
+
+
+
+
+<span class="fc" id="L230">        query=&quot;update LIBRO set copieRimanenti=? where  idLibro=?&quot;;</span>
+
+<span class="fc" id="L232">        try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L233">            PreparedStatement prepQ=conn.prepareStatement(query))</span>
+        {
+<span class="fc" id="L235">            prepQ.setInt(1, rim);</span>
+<span class="fc" id="L236">            prepQ.setInt(2, l.getId());</span>
+<span class="fc" id="L237">            prepQ.executeUpdate();</span>
+<span class="nc" id="L238">        }catch(SQLException e)</span>
+        {
+<span class="nc" id="L240">            java.util.logging.Logger.getLogger(&quot;aggiorna disp l&quot;).log(Level.INFO, ECCEZIONE, e);</span>
+<span class="fc" id="L241">        }</span>
+<span class="fc" id="L242">    }</span>
+}
 
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

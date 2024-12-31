@@ -67,15 +67,13 @@ public class AcquistaServlet extends HttpServlet implements Serializable {
                         l.setId(lB.getIdB());
                         aB.setTitoloB(lD.getLibroByIdTitoloAutoreLibro(l).get(0).getTitolo());
 
-
-
                         costo = Integer.parseInt(q) * lD.getLibroByIdTitoloAutoreLibro(l).get(0).getPrezzo();
+
                         aB.setPrezzoB(costo);
                         sB.setQuantitaB(Integer.parseInt(q));
                         sB.setSpesaTB(costo);
                         sB.setTitoloB(aB.getTitoloB());
                         sB.setSpesaTB(aB.getPrezzoB());
-
 
                     }
                     case GIORNALE -> {

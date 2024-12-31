@@ -2,6 +2,7 @@ laptop/terzoUcAdmin/libro/TestControllerInsertLibro.class
 laptop/terzoUcAdmin/utenti/TestControllerModifUser.class
 laptop/secodoUCLoginRegistrazioneUtente/login/TestControllerLoginDB.class
 laptop/primoUCAcquistoOggetto/InitTest.class
+web/ultimiTest/TestRivistaBean.class
 laptop/terzoUcAdmin/utenti/TestControllerInsertUser.class
 web/primoUC/InitTest.class
 laptop/terzoUcAdmin/tRicerca/TestControllerRicercaRivista.class
@@ -10,12 +11,15 @@ laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoGiornale.class
 laptop/terzoUcAdmin/tRicerca/TestControllerRicercaGiornale.class
 laptop/terzoUcAdmin/giornale/TestControllerModifGiornale.class
 laptop/terzoUcAdmin/rivista/TestControllerRemoveRivista.class
+web/ultimiTest/TestLibroBean.class
+web/ultimiTest/TestPagamentoBean.class
 laptop/terzoUcAdmin/giornale/TestControllerRemoveGiornale.class
 laptop/secodoUCLoginRegistrazioneUtente/pagamento/TestControllerAnnullaPagamento.class
 laptop/terzoUcAdmin/tRicerca/TestControllerRicercaLibro.class
 laptop/secodoUCLoginRegistrazioneUtente/visualizzazioneModifica/TestControllerVisualizzaProfilo.class
 laptop/terzoUcAdmin/tReport/TestControllerReport.class
 laptop/terzoUcAdmin/utenti/TestControllerRemoveUser.class
+web/ultimiTest/TestCartaCreditoBean.class
 laptop/terzoUcAdmin/rivista/TestControllerInsertRivista.class
 laptop/secodoUCLoginRegistrazioneUtente/registrazione/TestControllerRegistraUtenteAggiornaPass.class
 web/primoUC/TestVenditaGiornale.class

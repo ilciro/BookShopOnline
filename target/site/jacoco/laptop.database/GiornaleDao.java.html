@@ -172,24 +172,24 @@ public class GiornaleDao {
 
 	public void aggiornaDisponibilita(Giornale g) throws SQLException {
 		//vedere il segno che cambia
-<span class="nc" id="L175">		int d = vis.getQuantita();</span>
-<span class="nc" id="L176">		int i = g.getCopieRimanenti();</span>
-<span class="nc" id="L177">		int rim = i - d;</span>
+<span class="fc" id="L175">		int d = vis.getQuantita();</span>
+<span class="fc" id="L176">		int i = g.getCopieRimanenti();</span>
+<span class="fc" id="L177">		int rim = i - d;</span>
 
 
-<span class="nc" id="L180">		query = &quot;update GIORNALE set copieRimanenti=? where  idGiornale=?&quot;;</span>
+<span class="fc" id="L180">		query = &quot;update GIORNALE set copieRimanenti=? where  idGiornale=?&quot;;</span>
 
-<span class="nc" id="L182">		try (Connection conn = ConnToDb.connectionToDB();</span>
-<span class="nc" id="L183">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
-<span class="nc" id="L184">			prepQ.setInt(1, rim);</span>
-<span class="nc" id="L185">			prepQ.setInt(2, g.getId());</span>
-<span class="nc" id="L186">			prepQ.executeUpdate();</span>
+<span class="fc" id="L182">		try (Connection conn = ConnToDb.connectionToDB();</span>
+<span class="fc" id="L183">			 PreparedStatement prepQ = conn.prepareStatement(query)) {</span>
+<span class="fc" id="L184">			prepQ.setInt(1, rim);</span>
+<span class="fc" id="L185">			prepQ.setInt(2, g.getId());</span>
+<span class="fc" id="L186">			prepQ.executeUpdate();</span>
 <span class="nc" id="L187">		} catch (SQLException e) {</span>
 <span class="nc" id="L188">			Logger.getLogger(&quot;aggiorna disp l&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L189">		}</span>
+<span class="fc" id="L189">		}</span>
 
 
-<span class="nc" id="L192">	}</span>
+<span class="fc" id="L192">	}</span>
 
 	// Creo il Giornale nel terzo caso d'uso per l'aggiunta manuale
 	public boolean creaGiornale(Giornale g) {

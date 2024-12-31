@@ -3,6 +3,7 @@ package laptop.view;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,7 +27,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import laptop.controller.ControllerDownload;
 import laptop.controller.ControllerSystemState;
-import laptop.exception.IdException;
 
 public class BoundaryDownload implements Initializable {
 	@FXML
@@ -50,7 +50,7 @@ public class BoundaryDownload implements Initializable {
 	protected Scene scene;
 
 	@FXML
-	private void scarica() throws IOException, DocumentException, URISyntaxException {
+	private void scarica() throws IOException, DocumentException, URISyntaxException, SQLException {
 		
 		a = new Alert(Alert.AlertType.CONFIRMATION);
 		a.setTitle("Download effettuato");
@@ -92,30 +92,7 @@ public class BoundaryDownload implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 
-		/*
 
-		if( vis.getIsLogged()) 
-		{
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonA.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePageAfterLogin.fxml")));
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		}
-		else
-		{
-			Stage stage;
-			Parent root;
-			stage = (Stage) buttonA.getScene().getWindow();
-			root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homePage.fxml")));
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		}
-
-		 */
 	}
 
 	

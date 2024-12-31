@@ -161,30 +161,30 @@ public class RivistaDao {
 	public void aggiornaDisponibilita(Rivista r) throws SQLException
 	{
 		//vedere il segno che cambia
-<span class="nc" id="L164">		int d=vis.getQuantita();</span>
-<span class="nc" id="L165">		int i=r.getCopieRim();</span>
-<span class="nc" id="L166">		int rim=i-d;</span>
+<span class="fc" id="L164">		int d=vis.getQuantita();</span>
+<span class="fc" id="L165">		int i=r.getCopieRim();</span>
+<span class="fc" id="L166">		int rim=i-d;</span>
 
 
 
 
 
-<span class="nc" id="L172">		query=&quot;update RIVISTA set copieRimanenti=? where  idRivista=?&quot;;</span>
+<span class="fc" id="L172">		query=&quot;update RIVISTA set copieRimanenti=? where  idRivista=?&quot;;</span>
 
-<span class="nc" id="L174">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L175">			PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="fc" id="L174">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L175">			PreparedStatement prepQ=conn.prepareStatement(query))</span>
 		{
-<span class="nc" id="L177">			prepQ.setInt(1, rim);</span>
-<span class="nc" id="L178">			prepQ.setInt(2, r.getId());</span>
-<span class="nc" id="L179">			prepQ.executeUpdate();</span>
+<span class="fc" id="L177">			prepQ.setInt(1, rim);</span>
+<span class="fc" id="L178">			prepQ.setInt(2, r.getId());</span>
+<span class="fc" id="L179">			prepQ.executeUpdate();</span>
 <span class="nc" id="L180">		}catch(SQLException e)</span>
 		{
 <span class="nc" id="L182">			java.util.logging.Logger.getLogger(&quot;aggiorna disp l&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L183">		}</span>
+<span class="fc" id="L183">		}</span>
 
 
 
-<span class="nc" id="L187">	}</span>
+<span class="fc" id="L187">	}</span>
 	// Creo il Rivista nel terzo caso d'uso per l'aggiunta manuale
 	public  boolean creaRivista(Rivista r) throws SQLException  {
 		int row;

@@ -218,6 +218,28 @@ public class LibroDao {
             return row==1;
         }
 
+    public void aggiornaDisponibilita(Libro l) {
+        int d=vis.getQuantita();
+        int i=l.getNrCopie();
+        int rim=i-d;
+
+
+
+
+
+        query="update LIBRO set copieRimanenti=? where  idLibro=?";
+
+        try(Connection conn=ConnToDb.connectionToDB();
+            PreparedStatement prepQ=conn.prepareStatement(query))
+        {
+            prepQ.setInt(1, rim);
+            prepQ.setInt(2, l.getId());
+            prepQ.executeUpdate();
+        }catch(SQLException e)
+        {
+            java.util.logging.Logger.getLogger("aggiorna disp l").log(Level.INFO, ECCEZIONE, e);
+        }
     }
+}
 
 

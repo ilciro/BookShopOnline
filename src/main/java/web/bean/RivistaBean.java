@@ -120,21 +120,17 @@ public class RivistaBean {
         return idB;
     }
 
-    public void setIdB(int idB) {
-        try {
-            if (idB < 1) {
-                throw new IdException("id incorrect");
-
-            }
-        }catch (IdException e)
+    public void setIdB(int idB)  {
+        if(idB<1 )
         {
             this.idB=0;
-            java.util.logging.Logger.getLogger("Test set id").log(Level.INFO,"id <1!!");
+            setMexB( new IdException("id incorrect"));
 
         }
 
         this.idB = idB;
     }
+
 
     public String getTitoloB() {
         return titoloB;

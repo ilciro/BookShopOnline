@@ -29,3 +29,7 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/primoUC/InitTest.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/primoUC/TestVenditaGiornale.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/secondoUC/TestLogin.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestCartaCreditoBean.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestLibroBean.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestPagamentoBean.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestRivistaBean.java

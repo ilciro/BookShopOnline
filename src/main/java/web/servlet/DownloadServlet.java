@@ -84,6 +84,7 @@ public class DownloadServlet extends HttpServlet  {
 
 
                 req.setAttribute("bean",dB);
+
                 RequestDispatcher view = getServletContext().getRequestDispatcher(INDEX);
                 view.forward(req,resp);
             }
