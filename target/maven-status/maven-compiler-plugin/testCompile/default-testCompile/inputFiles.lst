@@ -2,6 +2,7 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoGiornale.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoLibro.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoRivista.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/primoUCAcquistoOggetto/TestControllerVisualizza.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/acquistaOggetto/TestAcquistaEditoreDb.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/acquistaOggetto/TestAcquistaEditoreFile.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/secodoUCLoginRegistrazioneUtente/login/TestControllerLoginDB.java
@@ -30,6 +31,8 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/primoUC/TestVenditaGiornale.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/secondoUC/TestLogin.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestCartaCreditoBean.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestGiornaleBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestLibroBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestPagamentoBean.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestRivistaBean.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/ultimiTest/TestUser.java

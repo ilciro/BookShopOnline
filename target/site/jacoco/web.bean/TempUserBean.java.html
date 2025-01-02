@@ -5,17 +5,17 @@ import javafx.collections.ObservableList;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
-<span class="nc" id="L8">public class TempUserBean {</span>
+<span class="fc" id="L8">public class TempUserBean {</span>
 
 
 
     public ObservableList&lt;TempUserBean&gt; getLista() {
-<span class="nc" id="L13">        return lista;</span>
+<span class="fc" id="L13">        return lista;</span>
     }
 
     public void setLista(ObservableList&lt;TempUserBean&gt; lista) {
-<span class="nc" id="L17">        this.lista = lista;</span>
-<span class="nc" id="L18">    }</span>
+<span class="fc" id="L17">        this.lista = lista;</span>
+<span class="fc" id="L18">    }</span>
 
 
 <span class="nc" id="L21">    enum Ruoli {</span>
@@ -26,37 +26,37 @@ import java.util.regex.Pattern;
     }
 
     public String getCognomeBNOS() {
-<span class="nc" id="L29">        return cognomeBNOS;</span>
+<span class="fc" id="L29">        return cognomeBNOS;</span>
     }
 
     public void setCognomeBNOS(String cognomeBNOS) {
-<span class="nc" id="L33">        this.cognomeBNOS = cognomeBNOS;</span>
-<span class="nc" id="L34">    }</span>
+<span class="fc" id="L33">        this.cognomeBNOS = cognomeBNOS;</span>
+<span class="fc" id="L34">    }</span>
 
     public LocalDate getDataDiNascitaBNOS() {
-<span class="nc" id="L37">        return dataDiNascitaBNOS;</span>
+<span class="fc" id="L37">        return dataDiNascitaBNOS;</span>
     }
 
     public void setDataDiNascitaBNOS(LocalDate dataDiNascitaBNOS) {
-<span class="nc" id="L41">        this.dataDiNascitaBNOS = dataDiNascitaBNOS;</span>
-<span class="nc" id="L42">    }</span>
+<span class="fc" id="L41">        this.dataDiNascitaBNOS = dataDiNascitaBNOS;</span>
+<span class="fc" id="L42">    }</span>
 
     public String getEmailBNOS() {
-<span class="nc" id="L45">        return emailBNOS;</span>
+<span class="fc" id="L45">        return emailBNOS;</span>
     }
 
     public void setEmailBNOS(String emailBNOS) {
         Pattern pattern;
 
         String emailRegex;
-<span class="nc" id="L52">        emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;;</span>
+<span class="fc" id="L52">        emailRegex= &quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$&quot;;</span>
 
-<span class="nc" id="L54">        pattern = Pattern.compile(emailRegex);</span>
-<span class="nc bnc" id="L55" title="All 6 branches missed.">        if (emailBNOS == null || emailBNOS.isEmpty() || !pattern.matcher(emailBNOS).matches())</span>
+<span class="fc" id="L54">        pattern = Pattern.compile(emailRegex);</span>
+<span class="pc bpc" id="L55" title="3 of 6 branches missed.">        if (emailBNOS == null || emailBNOS.isEmpty() || !pattern.matcher(emailBNOS).matches())</span>
 <span class="nc" id="L56">            this.emailBNOS=null;</span>
 
-<span class="nc" id="L58">        this.emailBNOS = emailBNOS;</span>
-<span class="nc" id="L59">    }</span>
+<span class="fc" id="L58">        this.emailBNOS = emailBNOS;</span>
+<span class="fc" id="L59">    }</span>
 
     public int getIdBNOS() {
 <span class="nc" id="L62">        return idBNOS;</span>
@@ -75,22 +75,22 @@ import java.util.regex.Pattern;
 <span class="nc" id="L75">    }</span>
 
     public String getNomeBNOS() {
-<span class="nc" id="L78">        return nomeBNOS;</span>
+<span class="fc" id="L78">        return nomeBNOS;</span>
     }
 
     public void setNomeBNOS(String nomeBNOS) {
-<span class="nc" id="L82">        this.nomeBNOS = nomeBNOS;</span>
-<span class="nc" id="L83">    }</span>
+<span class="fc" id="L82">        this.nomeBNOS = nomeBNOS;</span>
+<span class="fc" id="L83">    }</span>
 
     public String getPassBNOS() {
-<span class="nc" id="L86">        return passBNOS;</span>
+<span class="fc" id="L86">        return passBNOS;</span>
     }
 
     public void setPassBNOS(String passBNOS) {
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        if(passBNOS.length() &lt;= 8)</span>
-<span class="nc" id="L91">            this.passBNOS=null;</span>
-<span class="nc" id="L92">        this.passBNOS = passBNOS;</span>
-<span class="nc" id="L93">    }</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if(passBNOS.length() &lt;= 8)</span>
+<span class="fc" id="L91">            this.passBNOS=null;</span>
+<span class="fc" id="L92">        this.passBNOS = passBNOS;</span>
+<span class="fc" id="L93">    }</span>
 
     public String getRuoloB() {
 

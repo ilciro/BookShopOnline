@@ -25,68 +25,68 @@ public class ControllerVisualizza {
 	private final GiornaleDao gD;
 
 
-<span class="nc" id="L28">	private final ControllerSystemState vis = ControllerSystemState.getInstance();</span>
-<span class="nc" id="L29">	private final CsvOggettoDao csv = new CsvOggettoDao();</span>
+<span class="fc" id="L28">	private final ControllerSystemState vis = ControllerSystemState.getInstance();</span>
+<span class="fc" id="L29">	private final CsvOggettoDao csv = new CsvOggettoDao();</span>
 
-<span class="nc" id="L31">	public ControllerVisualizza() throws IOException {</span>
-<span class="nc" id="L32">		l = new Libro();</span>
-<span class="nc" id="L33">		g = new Giornale();</span>
-<span class="nc" id="L34">		r = new Rivista();</span>
-<span class="nc" id="L35">		lD = new LibroDao();</span>
-<span class="nc" id="L36">		gD = new GiornaleDao();</span>
-<span class="nc" id="L37">		rD = new RivistaDao();</span>
-<span class="nc" id="L38">	}</span>
+<span class="fc" id="L31">	public ControllerVisualizza() throws IOException {</span>
+<span class="fc" id="L32">		l = new Libro();</span>
+<span class="fc" id="L33">		g = new Giornale();</span>
+<span class="fc" id="L34">		r = new Rivista();</span>
+<span class="fc" id="L35">		lD = new LibroDao();</span>
+<span class="fc" id="L36">		gD = new GiornaleDao();</span>
+<span class="fc" id="L37">		rD = new RivistaDao();</span>
+<span class="fc" id="L38">	}</span>
 
 
 
 	public int getID()
 	{
-<span class="nc" id="L44">		java.util.logging.Logger.getLogger(&quot;Test getId&quot;).log(Level.INFO, &quot;id {0}&quot;,vis.getId());</span>
+<span class="fc" id="L44">		java.util.logging.Logger.getLogger(&quot;Test getId&quot;).log(Level.INFO, &quot;id {0}&quot;,vis.getId());</span>
 
-<span class="nc" id="L46">		return vis.getId();</span>
+<span class="fc" id="L46">		return vis.getId();</span>
 	}
 
 	public ObservableList&lt;Libro&gt; getListLibro() throws CsvValidationException, IOException, IdException {
 		ObservableList&lt;Libro&gt; list;
-<span class="nc" id="L51">		l.setId(getID());</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L51">		l.setId(getID());</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
 		{
-<span class="nc" id="L54">			list=lD.getLibroByIdTitoloAutoreLibro(l);</span>
+<span class="fc" id="L54">			list=lD.getLibroByIdTitoloAutoreLibro(l);</span>
 		}
 		else{
-<span class="nc" id="L57">			list=csv.getLibroByIdTitoloAutore(l);</span>
+<span class="fc" id="L57">			list=csv.getLibroByIdTitoloAutore(l);</span>
 		}
-<span class="nc" id="L59">		return list;</span>
+<span class="fc" id="L59">		return list;</span>
 	}
 
 	public ObservableList&lt;Giornale&gt; getListGiornale() throws CsvValidationException, IOException, IdException {
 		ObservableList&lt;Giornale&gt; list;
-<span class="nc" id="L64">		g.setId(getID());</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L64">		g.setId(getID());</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
 		{
 
-<span class="nc" id="L68">			list=gD.getGiornaleIdTitoloAutore(g);</span>
+<span class="fc" id="L68">			list=gD.getGiornaleIdTitoloAutore(g);</span>
 
 		}
 		else{
-<span class="nc" id="L72">			list=csv.getGiornaleByIdTitoloEditore(g);</span>
+<span class="fc" id="L72">			list=csv.getGiornaleByIdTitoloEditore(g);</span>
 		}
-<span class="nc" id="L74">		return list;</span>
+<span class="fc" id="L74">		return list;</span>
 	}
 
 	public ObservableList&lt;Rivista&gt; getListRivista() throws CsvValidationException, IOException, IdException {
 		ObservableList&lt;Rivista&gt; list;
-<span class="nc" id="L79">		r.setId(getID());</span>
-<span class="nc bnc" id="L80" title="All 2 branches missed.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
+<span class="fc" id="L79">		r.setId(getID());</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">		if(vis.getTypeOfDb().equalsIgnoreCase(&quot;db&quot;))</span>
 		{
 
-<span class="nc" id="L83">			list=rD.getRivistaIdTitoloAutore(r);</span>
+<span class="fc" id="L83">			list=rD.getRivistaIdTitoloAutore(r);</span>
 
 		}
 		else{
-<span class="nc" id="L87">			list=csv.getRivistaByIdTitoloEditore(r);</span>
+<span class="fc" id="L87">			list=csv.getRivistaByIdTitoloEditore(r);</span>
 		}
-<span class="nc" id="L89">		return list;</span>
+<span class="fc" id="L89">		return list;</span>
 
 	}
 
