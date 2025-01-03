@@ -17,6 +17,7 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/libro/TestControllerInsertLibro.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/libro/TestControllerModifLibro.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/libro/TestControllerRimuoviLibro.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/raccolta/TestControllerRaccolta.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/rivista/TestControllerInsertRivista.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/rivista/TestControllerModifRivista.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/rivista/TestControllerRemoveRivista.java

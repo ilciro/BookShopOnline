@@ -21,6 +21,7 @@ laptop/testFinali/TestCartaCredito.class
 laptop/terzoUcAdmin/tRicerca/TestControllerRicercaLibro.class
 laptop/secodoUCLoginRegistrazioneUtente/visualizzazioneModifica/TestControllerVisualizzaProfilo.class
 laptop/terzoUcAdmin/tReport/TestControllerReport.class
+laptop/terzoUcAdmin/raccolta/TestControllerRaccolta.class
 laptop/terzoUcAdmin/utenti/TestControllerRemoveUser.class
 web/ultimiTest/TestCartaCreditoBean.class
 laptop/terzoUcAdmin/rivista/TestControllerInsertRivista.class
