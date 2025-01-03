@@ -164,7 +164,7 @@ public class LibroDao {
     }
 
     public boolean modifLibro(Libro l) throws SQLException {
-        int row=0;
+        int row;
         query="update LIBRO set titolo=?,numeroPagine=?,codIsbn=?,editore=?," +
             "autore=?,lingua=?,categoria=?,dataPubblicazione=?," +
             "recensione=?,copieRimanenti=?,breveDescrizione=?,disp=?," +

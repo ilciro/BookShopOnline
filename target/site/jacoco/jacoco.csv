@@ -3,10 +3,10 @@ BookShopOnline Maven Webapp,laptop.database,ContrassegnoDao,21,128,1,3,6,37,1,5,
 BookShopOnline Maven Webapp,laptop.database,RivistaDao,343,419,7,7,73,91,10,9,5,7
 BookShopOnline Maven Webapp,laptop.database,PagamentoDao,28,195,1,5,8,55,1,7,0,5
 BookShopOnline Maven Webapp,laptop.database,NegozioDao,150,47,8,2,47,11,8,3,4,2
-BookShopOnline Maven Webapp,laptop.database,GiornaleDao,343,411,7,7,73,97,10,9,5,7
+BookShopOnline Maven Webapp,laptop.database,GiornaleDao,78,411,3,7,20,97,4,9,1,7
 BookShopOnline Maven Webapp,laptop.database,UsersDao,184,462,7,11,51,128,7,14,2,10
 BookShopOnline Maven Webapp,laptop.database,ReportDao,10,122,2,8,2,32,2,9,0,4
-BookShopOnline Maven Webapp,laptop.database,LibroDao,38,611,3,7,10,119,3,10,0,8
+BookShopOnline Maven Webapp,laptop.database,LibroDao,38,609,3,7,10,118,3,10,0,8
 BookShopOnline Maven Webapp,laptop.database,CartaCreditoDao,101,103,4,2,30,26,3,4,1,3
 BookShopOnline Maven Webapp,laptop.database.csvreport,CsvReport,33,163,9,5,6,34,5,8,0,6
 BookShopOnline Maven Webapp,laptop.model,CartaDiCredito,67,73,0,0,29,20,13,10,13,10

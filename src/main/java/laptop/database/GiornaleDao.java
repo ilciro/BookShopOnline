@@ -38,32 +38,6 @@ public class GiornaleDao {
 
 	}
 
-	public Giornale getData(Giornale g) {
-
-		query = "select * from GIORNALE where idGiornale=? or idGiornale=?";
-
-		try (Connection conn = ConnToDb.connectionToDB();
-			 PreparedStatement prepQ = conn.prepareStatement(query)) {
-
-			prepQ.setInt(1, g.getId());
-			prepQ.setInt(2, vis.getId());
-			ResultSet rs = prepQ.executeQuery();
-			while (rs.next()) {
-				f.createRaccoltaFinale1(GIORNALE, rs.getString(1), null, rs.getString(4), null, rs.getString(4), rs.getString(3));
-
-
-				f.createRaccoltaFinale2(GIORNALE, 0, rs.getInt(6), rs.getInt(7), rs.getFloat(8), rs.getInt(9));
-
-				g = (Giornale) f.createRaccoltaFinaleCompleta(GIORNALE, rs.getDate(5).toLocalDate(), rs.getString(6), null);
-
-
-			}
-		} catch (SQLException e) {
-			Logger.getLogger("get data").log(Level.INFO, ECCEZIONE, e);
-		}
-		return g;
-
-	}
 
 	public ObservableList<Raccolta> getGiornali(){
 		ObservableList<Raccolta> catalogo=FXCollections.observableArrayList();
@@ -90,40 +64,6 @@ public class GiornaleDao {
 
 	}
 
-
-
-	public ObservableList<Raccolta> getGiornaliIdTitoloAutore(Giornale g) {
-		ObservableList<Raccolta> catalogo = FXCollections.observableArrayList();
-
-
-
-
-			query = "select * from GIORNALE where idGiornale=? or idGiornale=? or titolo=? or editore=?";
-		try (Connection conn = ConnToDb.connectionToDB();
-			 PreparedStatement prepQ = conn.prepareStatement(query)) {
-
-
-			prepQ.setInt(1, g.getId());
-			prepQ.setInt(2, vis.getId());
-			prepQ.setString(3, g.getTitolo());
-			prepQ.setString(4, g.getEditore());
-
-			ResultSet rs = prepQ.executeQuery();
-			while (rs.next()) {
-				f.createRaccoltaFinale1(GIORNALE, rs.getString(1), null, rs.getString(4), null, rs.getString(4), rs.getString(3));
-
-
-				f.createRaccoltaFinale2(GIORNALE, 0, rs.getInt(6), rs.getInt(7), rs.getFloat(8), rs.getInt(9));
-
-				catalogo.add(f.createRaccoltaFinaleCompleta(GIORNALE, rs.getDate(5).toLocalDate(), rs.getString(6), null));
-
-
-			}
-		} catch (SQLException | NullPointerException e) {
-			Logger.getLogger("get giornale id").log(Level.INFO, ECCEZIONE, e);
-		}
-		return catalogo;
-	}
 
 
 
@@ -170,7 +110,7 @@ public class GiornaleDao {
 	}
 
 
-	public void aggiornaDisponibilita(Giornale g) throws SQLException {
+	public void aggiornaDisponibilita(Giornale g) {
 		//vedere il segno che cambia
 		int d = vis.getQuantita();
 		int i = g.getCopieRimanenti();
@@ -281,51 +221,6 @@ public class GiornaleDao {
 
 
 
-
-
-
-
-	public void incrementaDisponibilita(Giornale g)
-	{
-		int d=vis.getQuantita();
-		int i=g.getCopieRimanenti();
-
-		int rim=i+d;
-		query="update GIORNALE set copieRimanenti= ? where idGiornale=?";
-
-
-
-		try(Connection conn=ConnToDb.connectionToDB();
-			PreparedStatement prepQ=conn.prepareStatement(query))
-		{
-			prepQ.setInt(1, rim);
-			prepQ.setInt(2, g.getId());
-			prepQ.executeUpdate();
-		}catch(SQLException e)
-		{
-			Logger.getLogger("Test incrementa disp").log(Level.INFO, ECCEZIONE, e);
-		}
-
-
-
-	}
-
-	public void aggiornaData(Giornale g, Date sqlDate) throws SQLException {
-		int row;
-		query="update GIORNALE set dataPubblicazione=? where idGiornale=? or idGiornale=?";
-		try(Connection conn=ConnToDb.connectionToDB();
-			PreparedStatement prepQ=conn.prepareStatement(query))
-		{
-			prepQ.setDate(1, sqlDate);
-			prepQ.setInt(2, g.getId());
-			prepQ.setInt(3, vis.getId());
-			row=prepQ.executeUpdate();
-
-		}
-
-		Logger.getLogger("aggiorna data").log(Level.INFO, "libri aggiornati {0}.",row);
-
-	}
 
 
 
