@@ -4,6 +4,7 @@ import com.itextpdf.text.DocumentException;
 import com.opencsv.exceptions.CsvValidationException;
 import laptop.controller.*;
 import laptop.exception.IdException;
+import laptop.model.raccolta.Libro;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -189,6 +190,15 @@ class TestCompravenditaPagamentoLibro {
         assertNotEquals(0,vis.getId());
     }
 
+
+    @ParameterizedTest
+    @ValueSource(strings = {"ADOLESCENTI_RAGAZZI","ARTE","CINEMA_FOTOGRAFIA","BIOGRAFIE","DIARI_MEMORIE","CALENDARI_AGENDE","DIRITTO","DIZINARI_OPERE","ECONOMIA","FAMIGLIA","FANTASCIENZA_FANTASY","FUMETTI_MANGA","GIALLI_THRILLER","COMPUTER_GIOCHI","HUMOR","INFORMATICA","WEB_DIGITAL_MEDIA","LETTERATURA_NARRATIVA","LIBRI_BAMBINI","LIBRI_SCOLASTICI","LIBRI_UNIVERSITARI","RICETTARI_GENERALI","LINGUISTICA_SCRITTURA","POLITICA","RELIGIONE","ROMANZI_ROSA","SCIENZE","TECNOLOGIA_MEDICINA"})
+    void testSetCategorie(String strings)
+    {
+        Libro l=new Libro();
+        l.setCategoria(strings);
+        assertEquals(strings,l.getCategoria());
+    }
 
 
 

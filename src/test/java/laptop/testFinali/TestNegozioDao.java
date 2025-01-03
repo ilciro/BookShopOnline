@@ -16,6 +16,7 @@ class TestNegozioDao {
          Negozio n=nD.getNegozi().get(3);
          nD.setOpen(n,true);
          nD.setRitiro(n,true);
+         nD.checkRitiro(n);
          assertTrue(nD.checkOpen(n));
 
      }

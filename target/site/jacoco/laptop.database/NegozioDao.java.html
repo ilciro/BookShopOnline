@@ -116,20 +116,20 @@ import javafx.collections.ObservableList;
 	//controllo se il negozio fa PickUP
 	public boolean checkRitiro(Negozio shop) throws SQLException
 	{
-<span class="nc" id="L119">		query=&quot;select isValid from NEGOZIO where nome=?&quot;;</span>
-<span class="nc" id="L120">		boolean state=false;</span>
+<span class="fc" id="L119">		query=&quot;select isValid from NEGOZIO where nome=?&quot;;</span>
+<span class="fc" id="L120">		boolean state=false;</span>
 		int disp;
 		
-<span class="nc" id="L123">		try(Connection conn=ConnToDb.connectionToDB();</span>
-<span class="nc" id="L124">				PreparedStatement prepQ=conn.prepareStatement(query))</span>
+<span class="fc" id="L123">		try(Connection conn=ConnToDb.connectionToDB();</span>
+<span class="fc" id="L124">				PreparedStatement prepQ=conn.prepareStatement(query))</span>
 		{
-<span class="nc" id="L126">			prepQ.setString(1, shop.getNome());</span>
-<span class="nc" id="L127">			ResultSet rs=prepQ.executeQuery();</span>
-<span class="nc bnc" id="L128" title="All 2 branches missed.">			while ( rs.next() ) {</span>
+<span class="fc" id="L126">			prepQ.setString(1, shop.getNome());</span>
+<span class="fc" id="L127">			ResultSet rs=prepQ.executeQuery();</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">			while ( rs.next() ) {</span>
 
-<span class="nc" id="L130">					disp=rs.getInt(1);</span>
-<span class="nc bnc" id="L131" title="All 2 branches missed.">					if (disp==1)</span>
-<span class="nc" id="L132">						state=true;</span>
+<span class="fc" id="L130">					disp=rs.getInt(1);</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">					if (disp==1)</span>
+<span class="fc" id="L132">						state=true;</span>
 				
 						
 			}
@@ -137,9 +137,9 @@ import javafx.collections.ObservableList;
 <span class="nc" id="L137">		}catch(SQLException e)</span>
 		{
 <span class="nc" id="L139">			java.util.logging.Logger.getLogger(&quot;Test Eccezione&quot;).log(Level.INFO, ECCEZIONE, e);</span>
-<span class="nc" id="L140">		}</span>
+<span class="fc" id="L140">		}</span>
 			
-<span class="nc" id="L142">		return state;</span>
+<span class="fc" id="L142">		return state;</span>
 	}
 	
 }
