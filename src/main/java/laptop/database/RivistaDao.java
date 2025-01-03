@@ -42,33 +42,7 @@ public class RivistaDao {
 
 
 	}
-	public Rivista getData(Rivista r) {
 
-		 query ="select * from RIVISTA where idRivista=? or idRivista=?";
-
-		try (Connection conn = ConnToDb.connectionToDB();
-			 PreparedStatement prepQ= conn.prepareStatement(query))  {
-
-			prepQ.setInt(1,r.getId());
-			prepQ.setInt(2,vis.getId());
-			ResultSet rs=prepQ.executeQuery();
-			while (rs.next())
-			{
-				f.createRaccoltaFinale1(RIVISTA, rs.getString(1), null, rs.getString(5), rs.getString(3),rs.getString(4), rs.getString(2));
-
-
-				f.createRaccoltaFinale2(RIVISTA, 0, rs.getInt(10), rs.getInt(8),rs.getFloat(9),rs.getInt(11));
-
-				r= (Rivista) f.createRaccoltaFinaleCompleta(RIVISTA, rs.getDate(7).toLocalDate(),null, null);
-
-
-			}
-		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("get data").log(Level.INFO, ECCEZIONE, e);
-		}
-		return r;
-
-	}
 
 	public ObservableList<Raccolta> getRiviste() {
 		ObservableList<Raccolta> catalogo = FXCollections.observableArrayList();
@@ -96,35 +70,6 @@ public class RivistaDao {
 		return catalogo;
 	}
 
-	public ObservableList<Raccolta> getRivisteIdTitoloAutore(Rivista r) {
-		ObservableList<Raccolta> catalogo = FXCollections.observableArrayList();
-
-		query = "select * from RIVISTA where idRivista=? or idRivista=? or titolo=? or autore=?";
-		try (Connection conn = ConnToDb.connectionToDB();
-			 PreparedStatement prepQ= conn.prepareStatement(query))  {
-
-			prepQ.setInt(1,r.getId());
-			prepQ.setInt(2,vis.getId());
-			prepQ.setString(3,r.getTitolo());
-			prepQ.setString(4,r.getAutore());
-
-			ResultSet rs=prepQ.executeQuery();
-			while (rs.next())
-			{
-				f.createRaccoltaFinale1(RIVISTA, rs.getString(1), null, rs.getString(5), rs.getString(3),rs.getString(4), rs.getString(2));
-
-
-				f.createRaccoltaFinale2(RIVISTA, 0, rs.getInt(10), rs.getInt(8),rs.getFloat(9),rs.getInt(10));
-
-				catalogo.add(f.createRaccoltaFinaleCompleta(RIVISTA, rs.getDate(7).toLocalDate(),null, null));
-
-
-			}
-		} catch (SQLException e) {
-			java.util.logging.Logger.getLogger("get data riviste obs").log(Level.INFO, ECCEZIONE, e);
-		}
-		return catalogo;
-	}
 
 	public ObservableList<Rivista> getRivistaIdTitoloAutore(Rivista r) {
 		ObservableList<Rivista> catalogo = FXCollections.observableArrayList();
@@ -297,49 +242,6 @@ public class RivistaDao {
 	}
 
 
-
-
-	public void incrementaDisponibilita(Rivista r)
-	{
-		int d=vis.getQuantita();
-		int i=r.getCopieRim();
-
-		int rim=i+d;
-		query="update RIVISTA set copieRimanenti= ? where idRivista=?";
-
-
-
-		try(Connection conn=ConnToDb.connectionToDB();
-			PreparedStatement prepQ=conn.prepareStatement(query))
-		{
-			prepQ.setInt(1, rim);
-			prepQ.setInt(2, r.getId());
-			prepQ.executeUpdate();
-		}catch(SQLException e)
-		{
-			java.util.logging.Logger.getLogger("Test Eccezione incrementa disp").log(Level.INFO, ECCEZIONE, e);
-		}
-
-
-
-	}
-
-	public void aggiornaData(Rivista r, Date sqlDate) throws SQLException {
-		int row;
-		query="update RIVISTA set dataPubblicazione=? where idRivista=? or idRivista=?";
-		try(Connection conn=ConnToDb.connectionToDB();
-			PreparedStatement prepQ=conn.prepareStatement(query))
-		{
-			prepQ.setDate(1, sqlDate);
-			prepQ.setInt(2, r.getId());
-			prepQ.setInt(3, vis.getId());
-			row=prepQ.executeUpdate();
-
-		}
-
-		java.util.logging.Logger.getLogger("aggiorna data").log(Level.INFO, "libri aggiornati {0}.",row);
-
-	}
 
 
 

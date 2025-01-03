@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="47.461" tests="17" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="42.969" tests="17" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IT"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/daniele/IdeaProjects/BookShopOnline/target/surefire/surefirebooter1636179290458217972.jar /home/daniele/IdeaProjects/BookShopOnline/target/surefire 2025-01-03T11-39-53_579-jvmRun1 surefire15859444625751980997tmp surefire_011572515896291475686tmp"/>
+    <property name="sun.java.command" value="/home/daniele/IdeaProjects/BookShopOnline/target/surefire/surefirebooter10283508447901121641.jar /home/daniele/IdeaProjects/BookShopOnline/target/surefire 2025-01-03T12-33-19_895-jvmRun1 surefire7039189822871544654tmp surefire_05859742659063021644tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/daniele/IdeaProjects/BookShopOnline/target/test-classes:/home/daniele/IdeaProjects/BookShopOnline/target/classes:/home/daniele/.m2/repository/com/opencsv/opencsv/5.7.1/opencsv-5.7.1.jar:/home/daniele/.m2/repository/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar:/home/daniele/.m2/repository/org/apache/commons/commons-text/1.10.0/commons-text-1.10.0.jar:/home/daniele/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:/home/daniele/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/home/daniele/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/daniele/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/home/daniele/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/daniele/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/home/daniele/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:/home/daniele/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/home/daniele/.m2/repository/org/openjfx/javafx-controls/17/javafx-controls-17.jar:/home/daniele/.m2/repository/org/openjfx/javafx-controls/17/javafx-controls-17-linux.jar:/home/daniele/.m2/repository/org/openjfx/javafx-graphics/17/javafx-graphics-17.jar:/home/daniele/.m2/repository/org/openjfx/javafx-graphics/17/javafx-graphics-17-linux.jar:/home/daniele/.m2/repository/org/openjfx/javafx-base/17/javafx-base-17.jar:/home/daniele/.m2/repository/org/openjfx/javafx-base/17/javafx-base-17-linux.jar:/home/daniele/.m2/repository/org/openjfx/javafx-fxml/17/javafx-fxml-17.jar:/home/daniele/.m2/repository/org/openjfx/javafx-fxml/17/javafx-fxml-17-linux.jar:/home/daniele/.m2/repository/org/mybatis/mybatis/3.5.13/mybatis-3.5.13.jar:/home/daniele/.m2/repository/com/mysql/mysql-connector-j/8.2.0/mysql-connector-j-8.2.0.jar:/home/daniele/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar:/home/daniele/.m2/repository/com/itextpdf/itextpdf/5.5.13.3/itextpdf-5.5.13.3.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v131/4.27.0/selenium-devtools-v131-4.27.0.jar:/home/daniele/.m2/repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-api/4.27.0/selenium-api-4.27.0.jar:/home/daniele/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-json/4.27.0/selenium-json-4.27.0.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.27.0/selenium-remote-driver-4.27.0.jar:/home/daniele/.m2/repository/com/google/guava/guava/33.3.1-jre/guava-33.3.1-jre.jar:/home/daniele/.m2/repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/home/daniele/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/daniele/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/daniele/.m2/repository/org/checkerframework/checker-qual/3.43.0/checker-qual-3.43.0.jar:/home/daniele/.m2/repository/com/google/errorprone/error_prone_annotations/2.28.0/error_prone_annotations-2.28.0.jar:/home/daniele/.m2/repository/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/home/daniele/.m2/repository/io/opentelemetry/semconv/opentelemetry-semconv/1.25.0-alpha/opentelemetry-semconv-1.25.0-alpha.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-api/1.44.1/opentelemetry-api-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-context/1.44.1/opentelemetry-context-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-exporter-logging/1.44.1/opentelemetry-exporter-logging-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-sdk-common/1.44.1/opentelemetry-sdk-common-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure-spi/1.44.1/opentelemetry-sdk-extension-autoconfigure-spi-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure/1.44.1/opentelemetry-sdk-extension-autoconfigure-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-api-incubator/1.44.1-alpha/opentelemetry-api-incubator-1.44.1-alpha.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-sdk-trace/1.44.1/opentelemetry-sdk-trace-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-sdk/1.44.1/opentelemetry-sdk-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-sdk-metrics/1.44.1/opentelemetry-sdk-metrics-1.44.1.jar:/home/daniele/.m2/repository/io/opentelemetry/opentelemetry-sdk-logs/1.44.1/opentelemetry-sdk-logs-1.44.1.jar:/home/daniele/.m2/repository/net/bytebuddy/byte-buddy/1.15.10/byte-buddy-1.15.10.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-http/4.27.0/selenium-http-4.27.0.jar:/home/daniele/.m2/repository/dev/failsafe/failsafe/3.3.2/failsafe-3.3.2.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-os/4.27.0/selenium-os-4.27.0.jar:/home/daniele/.m2/repository/org/apache/commons/commons-exec/1.4.0/commons-exec-1.4.0.jar:/home/daniele/.m2/repository/org/glassfish/web/jakarta.servlet.jsp.jstl/3.0.1/jakarta.servlet.jsp.jstl-3.0.1.jar:/home/daniele/.m2/repository/jakarta/servlet/jsp/jstl/jakarta.servlet.jsp.jstl-api/3.0.0/jakarta.servlet.jsp.jstl-api-3.0.0.jar:/home/daniele/.m2/repository/jakarta/servlet/jakarta.servlet-api/6.0.0/jakarta.servlet-api-6.0.0.jar:/home/daniele/.m2/repository/jakarta/el/jakarta.el-api/5.0.0/jakarta.el-api-5.0.0.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/4.27.0/selenium-chrome-driver-4.27.0.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-chromium-driver/4.27.0/selenium-chromium-driver-4.27.0.jar:/home/daniele/.m2/repository/org/seleniumhq/selenium/selenium-manager/4.27.0/selenium-manager-4.27.0.jar:/home/daniele/.m2/repository/org/sonarsource/scanner/maven/sonar-maven-plugin/4.0.0.4121/sonar-maven-plugin-4.0.0.4121.jar:/home/daniele/.m2/repository/org/sonatype/plexus/plexus-sec-dispatcher/1.4/plexus-sec-dispatcher-1.4.jar:/home/daniele/.m2/repository/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar:/home/daniele/.m2/repository/org/sonarsource/scanner/api/sonar-scanner-api/2.16.3.1081/sonar-scanner-api-2.16.3.1081.jar:/home/daniele/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/home/daniele/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/home/daniele/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/home/daniele/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/home/daniele/.m2/repository/org/codehaus/mojo/build-helper-maven-plugin/3.4.0/build-helper-maven-plugin-3.4.0.jar:/home/daniele/.m2/repository/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar:/home/daniele/.m2/repository/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar:/home/daniele/.m2/repository/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.jar:/home/daniele/.m2/repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar:/home/daniele/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/home/daniele/.m2/repository/org/jetbrains/annotations/15.0/annotations-15.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/daniele/IdeaProjects/BookShopOnline/target/surefire/surefirebooter1636179290458217972.jar"/>
+    <property name="surefire.real.class.path" value="/home/daniele/IdeaProjects/BookShopOnline/target/surefire/surefirebooter10283508447901121641.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11-Ubuntu-2ubuntu124.04"/>
     <property name="user.name" value="daniele"/>
@@ -55,867 +55,867 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[1]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.573">
-    <system-err><![CDATA[gen 03, 2025 11:40:14 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[1]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.417">
+    <system-err><![CDATA[gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:14 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:14 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:14 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:14 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:14 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:45 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:15 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-]]></system-err>
-  </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[2]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="2.324">
-    <system-err><![CDATA[gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:16 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:17 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[3]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="2.891">
-    <system-err><![CDATA[gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[2]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.458">
+    <system-err><![CDATA[gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:18 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:19 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:46 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:20 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:47 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:20 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:47 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:20 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:47 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:20 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:47 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:47 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-]]></system-err>
-  </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[4]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="2.059">
-    <system-err><![CDATA[gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:21 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:22 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:22 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:22 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:22 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:47 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[5]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.456">
-    <system-err><![CDATA[gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[3]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.889">
+    <system-err><![CDATA[gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:23 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:24 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:24 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:24 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:24 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:48 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:24 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:49 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:24 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-]]></system-err>
-  </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[6]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.498">
-    <system-err><![CDATA[gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:25 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:49 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[7]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.537">
-    <system-err><![CDATA[gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[4]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.665">
+    <system-err><![CDATA[gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:26 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:27 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:27 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:27 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:27 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:50 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:27 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:27 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-]]></system-err>
-  </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[8]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="2.176">
-    <system-err><![CDATA[gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:28 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:29 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:29 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[9]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="4.757">
-    <system-err><![CDATA[gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[5]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="2.125">
+    <system-err><![CDATA[gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:30 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:51 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:31 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:52 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:31 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:52 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:31 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:52 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:31 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:52 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:34 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:34 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-]]></system-err>
-  </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[10]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="17.953">
-    <system-err><![CDATA[gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:35 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:36 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:36 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:36 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:36 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:36 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:52 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:52 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[11]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.565">
-    <system-err><![CDATA[gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[6]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="3.747">
+    <system-err><![CDATA[gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:53 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:53 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:54 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:55 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-]]></system-err>
-  </testcase>
-  <testcase name="testAcquistoLibroCashDownloadDB(int)[12]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.839">
-    <system-err><![CDATA[gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:54 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:55 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:55 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:55 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:55 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:40:56 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:56 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:33:55 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCreditoDB(String)[1]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="0.593">
-    <system-err><![CDATA[gen 03, 2025 11:40:56 AM laptop.controller.ControllerPagamentoCC pagamentoCC
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[7]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="4.691">
+    <system-err><![CDATA[gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:57 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:58 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:59 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:33:59 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:33:59 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:01 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:01 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[8]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="3.036">
+    <system-err><![CDATA[gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:02 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:03 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:03 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:03 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:03 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:04 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:04 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[9]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="3.283">
+    <system-err><![CDATA[gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:05 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:06 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:06 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:06 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:06 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:07 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:07 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[10]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="11.264">
+    <system-err><![CDATA[gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:08 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:09 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:09 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:09 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:09 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[11]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="2.027">
+    <system-err><![CDATA[gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:19 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:20 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAcquistoLibroCashDownloadDB(int)[12]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.693">
+    <system-err><![CDATA[gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:21 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:22 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:23 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAcquistoLibroCreditoDB(String)[1]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="0.756">
+    <system-err><![CDATA[gen 03, 2025 12:34:23 PM laptop.controller.ControllerPagamentoCC pagamentoCC
 INFORMAZIONI: Payment  done!!
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCreditoDB(String)[2]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="0.979">
-    <system-err><![CDATA[gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testAcquistoLibroCreditoDB(String)[2]" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="1.125">
+    <system-err><![CDATA[gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:24 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:57 AM laptop.controller.ControllerPagamentoCC pagamentoCC
+gen 03, 2025 12:34:25 PM laptop.controller.ControllerPagamentoCC pagamentoCC
 INFORMAZIONI: Payment  done!!
-gen 03, 2025 11:40:57 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testPagamentoLibroAnnullatoDb" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="3.042">
-    <system-err><![CDATA[gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testPagamentoLibroAnnullatoDb" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="2.172">
+    <system-err><![CDATA[gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:25 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:58 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:59 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:59 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:59 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:59 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:59 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:40:59 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:40:59 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:00 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:26 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:41:00 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:00 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:41:00 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:00 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-]]></system-err>
-  </testcase>
-  <testcase name="testPagamentoLibroAnnullatoFile" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="0.902">
-    <system-err><![CDATA[gen 03, 2025 11:41:01 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:01 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Connesso standard a ISPW........
-
-gen 03, 2025 11:41:01 AM laptop.utilities.ConnToDb connectionToDB
-INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:01 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>
   </testcase>
-  <testcase name="testAcquistoLibroCashNegozioFile" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="0.163">
-    <system-err><![CDATA[gen 03, 2025 11:41:02 AM laptop.utilities.ConnToDb connectionToDB
+  <testcase name="testPagamentoLibroAnnullatoFile" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="0.339">
+    <system-err><![CDATA[gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:02 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:41:02 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:02 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:27 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
-gen 03, 2025 11:41:02 AM laptop.utilities.ConnToDb connectionToDB
+]]></system-err>
+  </testcase>
+  <testcase name="testAcquistoLibroCashNegozioFile" classname="laptop.primoUCAcquistoOggetto.TestCompravenditaPagamentoLibro" time="0.192">
+    <system-err><![CDATA[gen 03, 2025 12:34:28 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Tentativo di conessione al server..........\\n
-gen 03, 2025 11:41:02 AM laptop.utilities.ConnToDb connectionToDB
+gen 03, 2025 12:34:28 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:28 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:28 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Connesso standard a ISPW........
+
+gen 03, 2025 12:34:28 PM laptop.utilities.ConnToDb connectionToDB
+INFORMAZIONI: Tentativo di conessione al server..........\\n
+gen 03, 2025 12:34:28 PM laptop.utilities.ConnToDb connectionToDB
 INFORMAZIONI: Connesso standard a ISPW........
 
 ]]></system-err>

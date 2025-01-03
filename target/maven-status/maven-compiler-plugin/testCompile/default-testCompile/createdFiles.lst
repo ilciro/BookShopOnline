@@ -17,6 +17,7 @@ web/ultimiTest/TestLibroBean.class
 web/ultimiTest/TestPagamentoBean.class
 laptop/terzoUcAdmin/giornale/TestControllerRemoveGiornale.class
 laptop/secodoUCLoginRegistrazioneUtente/pagamento/TestControllerAnnullaPagamento.class
+laptop/testFinali/TestCartaCredito.class
 laptop/terzoUcAdmin/tRicerca/TestControllerRicercaLibro.class
 laptop/secodoUCLoginRegistrazioneUtente/visualizzazioneModifica/TestControllerVisualizzaProfilo.class
 laptop/terzoUcAdmin/tReport/TestControllerReport.class
@@ -29,6 +30,7 @@ laptop/secodoUCLoginRegistrazioneUtente/acquistaOggetto/TestAcquistaEditoreDb.cl
 laptop/primoUCAcquistoOggetto/TestCompravenditaPagamentoRivista.class
 web/secondoUC/TestLogin.class
 web/ultimiTest/TestGiornaleBean.class
+laptop/testFinali/TestNegozioDao.class
 laptop/terzoUcAdmin/libro/TestControllerModifLibro.class
 laptop/terzoUcAdmin/libro/TestControllerRimuoviLibro.class
 laptop/secodoUCLoginRegistrazioneUtente/acquistaOggetto/TestAcquistaEditoreFile.class

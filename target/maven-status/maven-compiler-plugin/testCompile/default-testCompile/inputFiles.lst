@@ -27,6 +27,8 @@
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/utenti/TestControllerInsertUser.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/utenti/TestControllerModifUser.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/terzoUcAdmin/utenti/TestControllerRemoveUser.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/testFinali/TestCartaCredito.java
+/home/daniele/IdeaProjects/BookShopOnline/src/test/java/laptop/testFinali/TestNegozioDao.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/primoUC/InitTest.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/primoUC/TestVenditaGiornale.java
 /home/daniele/IdeaProjects/BookShopOnline/src/test/java/web/secondoUC/TestLogin.java

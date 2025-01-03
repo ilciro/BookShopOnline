@@ -21,18 +21,7 @@ public class CartaDiCredito {
 	public CartaDiCredito() {
 	}
 	
-	public CartaDiCredito(int tipo, String numeroCC, double limite, double ammontare, Date scadenza, String nomeUser,
-			float prezzoTransazine) {
-		super();
-		this.tipo = tipo;
-		this.numeroCC = numeroCC;
-		this.limite = limite;
-		this.ammontare = ammontare;
-		this.scadenza = scadenza;
-		this.nomeUser = nomeUser;
-		this.prezzoTransazine = prezzoTransazine;
-	}
-	
+
 
 	public CartaDiCredito(String n,String c,String cod,java.util.Date date,String civ,float prezzo)
 	{
